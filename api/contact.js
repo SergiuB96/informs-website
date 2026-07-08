@@ -1,3 +1,5 @@
+import nodemailer from 'nodemailer';
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ ok: false, error: 'Method not allowed' });
@@ -10,28 +12,26 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-        'content-type': 'application/json',
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT || 465),
+      secure: Number(process.env.SMTP_PORT || 465) === 465,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
-      body: JSON.stringify({
-        from: 'Website INFORMS <office@informs.ro>',
-        to: ['office@informs.ro'],
-        reply_to: email,
-        subject: `Mesaj nou — ${subiect || 'Contact INFORMS'}`,
-        text: `Nume: ${nume}\nEmail: ${email}\nTelefon: ${telefon || ''}\nSubiect: ${subiect || ''}\n\nMesaj:\n${mesaj}`,
-      }),
     });
 
-    if (response.ok) {
-      return res.status(200).json({ ok: true });
-    }
+    await transporter.sendMail({
+      from: `Website INFORMS <${process.env.SMTP_USER}>`,
+      to: 'office@informs.ro',
+      replyTo: email,
+      subject: `Mesaj nou — ${subiect || 'Contact INFORMS'}`,
+      text: `Nume: ${nume}\nEmail: ${email}\nTelefon: ${telefon || ''}\nSubiect: ${subiect || ''}\n\nMesaj:\n${mesaj}`,
+    });
 
-    const data = await response.json().catch(() => ({}));
-    return res.status(500).json({ ok: false, error: 'Resend error', detail: data });
+    return res.status(200).json({ ok: true });
   } catch (err) {
-    return res.status(500).json({ ok: false, error: 'Server error' });
+    return res.status(500).json({ ok: false, error: 'Server error', detail: err.message });
   }
 }

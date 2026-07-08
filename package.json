@@ -15,5 +15,8 @@
     "@babel/cli": "^7.29.7",
     "@babel/core": "^7.29.7",
     "@babel/preset-react": "^7.29.7"
+  },
+  "dependencies": {
+    "nodemailer": "^9.0.3"
   }
 }
