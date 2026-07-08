@@ -335,7 +335,7 @@ function ContactPage() {
     setError('');
     setLoading(true);
     try {
-      const res = await fetch('/mail.php', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
