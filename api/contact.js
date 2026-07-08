@@ -10,28 +10,27 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+    const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        accept: 'application/json',
+        authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         'content-type': 'application/json',
-        'api-key': process.env.BREVO_API_KEY,
       },
       body: JSON.stringify({
-        sender: { name: 'Website INFORMS', email: 'office@informs.ro' },
-        to: [{ email: 'office@informs.ro' }],
-        replyTo: { email },
+        from: 'Website INFORMS <office@informs.ro>',
+        to: ['office@informs.ro'],
+        reply_to: email,
         subject: `Mesaj nou — ${subiect || 'Contact INFORMS'}`,
-        textContent: `Nume: ${nume}\nEmail: ${email}\nTelefon: ${telefon || ''}\nSubiect: ${subiect || ''}\n\nMesaj:\n${mesaj}`,
+        text: `Nume: ${nume}\nEmail: ${email}\nTelefon: ${telefon || ''}\nSubiect: ${subiect || ''}\n\nMesaj:\n${mesaj}`,
       }),
     });
 
-    if (response.status === 201) {
+    if (response.ok) {
       return res.status(200).json({ ok: true });
     }
 
     const data = await response.json().catch(() => ({}));
-    return res.status(500).json({ ok: false, error: 'Brevo error', detail: data });
+    return res.status(500).json({ ok: false, error: 'Resend error', detail: data });
   } catch (err) {
     return res.status(500).json({ ok: false, error: 'Server error' });
   }
