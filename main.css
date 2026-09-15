@@ -687,6 +687,7 @@ a.f-legal-val:hover{color:#fff}
 .f-partners{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 .f-partners img{height:38px;width:auto;opacity:.65;filter:none;transition:opacity var(--dur)}
 .f-partners img:hover{opacity:1}
+.f-partners img.f-netopia{opacity:1;max-width:250px}
 .footer-bottom{
   border-top:1px solid rgba(255,255,255,.07);padding-top:22px;
   display:flex;justify-content:space-between;align-items:center;

@@ -475,8 +475,11 @@ function Footer({ onNav, page }) {
               <a href="https://www.e-licitatie.ro/pub" target="_blank" rel="noopener noreferrer">
                 <img src="uploads/seap-sicap-logo.webp" alt="SEAP / SICAP" />
               </a>
-              <a href="https://netopia-payments.com/" target="_blank" rel="noopener noreferrer">
-                <img src="uploads/netopia-payments.webp" alt="Netopia Payments" />
+              {/* Varianta albă, cea pe care o alege componenta oficială NETOPIA
+                  pentru un fundal închis ca #061830. Se afișează la opacitate
+                  întreagă: siglele Visa și Mastercard nu au voie alterate. */}
+              <a href="https://netopia-payments.com/" target="_blank" rel="noopener noreferrer" title="NETOPIA Payments">
+                <img className="f-netopia" src="uploads/netopia-payments-white.svg" alt="NETOPIA Payments, Visa, Mastercard" />
               </a>
               <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener noreferrer">
                 <img src="uploads/anpc-sal.png" alt="ANPC SAL" />

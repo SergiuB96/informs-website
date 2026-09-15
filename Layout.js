@@ -690,10 +690,12 @@ function Footer({
   })), /*#__PURE__*/React.createElement("a", {
     href: "https://netopia-payments.com/",
     target: "_blank",
-    rel: "noopener noreferrer"
+    rel: "noopener noreferrer",
+    title: "NETOPIA Payments"
   }, /*#__PURE__*/React.createElement("img", {
-    src: "uploads/netopia-payments.webp",
-    alt: "Netopia Payments"
+    className: "f-netopia",
+    src: "uploads/netopia-payments-white.svg",
+    alt: "NETOPIA Payments, Visa, Mastercard"
   })), /*#__PURE__*/React.createElement("a", {
     href: "https://anpc.ro/ce-este-sal/",
     target: "_blank",
