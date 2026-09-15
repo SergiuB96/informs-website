@@ -481,9 +481,7 @@ function Nav({
       });
       setDdProdOpen(false);
     }
-  }, label))))), /*#__PURE__*/React.createElement(SpeteSearch, {
-    variant: "bar"
-  }), /*#__PURE__*/React.createElement("div", {
+  }, label))))), /*#__PURE__*/React.createElement("div", {
     className: "nav-end"
   }, /*#__PURE__*/React.createElement("a", {
     className: `nav-link nav-cta${page === 'contact' ? ' active' : ''}`,
@@ -495,11 +493,7 @@ function Nav({
     "aria-label": "Meniu"
   }, /*#__PURE__*/React.createElement("span", null), /*#__PURE__*/React.createElement("span", null), /*#__PURE__*/React.createElement("span", null)))))), /*#__PURE__*/React.createElement("div", {
     className: `mobile-menu${open ? ' open' : ''}`
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "m-search-wrap"
-  }, /*#__PURE__*/React.createElement(SpeteSearch, {
-    variant: "mobile"
-  })), /*#__PURE__*/React.createElement("a", {
+  }, /*#__PURE__*/React.createElement("a", {
     className: "m-link",
     href: "/",
     onClick: e => go('home', e)

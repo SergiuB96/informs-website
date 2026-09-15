@@ -363,8 +363,6 @@ function Nav({ onNav, page }) {
               </div>
             </div>
 
-            <SpeteSearch variant="bar" />
-
             <div className="nav-end">
               <a className={`nav-link nav-cta${page === 'contact' ? ' active' : ''}`} href="/contact" onClick={(e) => go('contact', e)}>
                 Contact
@@ -378,7 +376,6 @@ function Nav({ onNav, page }) {
       </nav>
 
       <div className={`mobile-menu${open ? ' open' : ''}`}>
-        <div className="m-search-wrap"><SpeteSearch variant="mobile" /></div>
         <a className="m-link" href="/" onClick={(e) => go('home', e)}>Acasă</a>
         <a className="m-link" href="/despre-noi" onClick={(e) => go('despre-noi', e)}>Despre noi</a>
         <div className="m-section-title">Servicii</div>
