@@ -4,7 +4,7 @@ const {
   useEffect
 } = React;
 const SERVICE_PAGES = ['analiza-si-solutii', 'achizitii-publice', 'delegare-servicii', 'modele-excel', 'modele-word', 'modele-pdf'];
-const POLICY_PAGES = ['politica-confidentialitate', 'termeni-si-conditii'];
+const POLICY_PAGES = ['politica-confidentialitate', 'termeni-si-conditii', 'politica-gdpr', 'politica-cookies', 'politica-livrare', 'politica-anulare', 'dreptul-de-retragere'];
 const PAGE_META = {
   'home': {
     title: 'INFORMS - Formulare inteligente. Documentații complete.',
@@ -50,18 +50,66 @@ const PAGE_META = {
     title: 'Produse digitale | INFORMS',
     desc: 'Documente profesionale pentru achiziții publice și sectorul public: modele Word, Excel, PDF și pachete complete.'
   },
+  'comanda-finalizata': {
+    title: 'Stare comandă | INFORMS',
+    desc: 'Rezultatul plății și pașii următori pentru comanda ta INFORMS.'
+  },
   'politica-confidentialitate': {
     title: 'Politica de confidențialitate | INFORMS',
     desc: 'Informații privind modul în care INFORMS colectează, utilizează și protejează datele cu caracter personal.'
   },
   'termeni-si-conditii': {
     title: 'Termeni și condiții | INFORMS',
-    desc: 'Termenii și condițiile care guvernează utilizarea serviciilor INFORMS, parte a MILBAC MANAGEMENT S.R.L.'
+    desc: 'Termenii și condițiile care guvernează achiziția produselor digitale INFORMS, comercializate de MILBAC MANAGEMENT S.R.L.'
+  },
+  'politica-gdpr': {
+    title: 'Politica GDPR | INFORMS',
+    desc: 'Prelucrarea datelor cu caracter personal în contextul comenzilor, plăților și facturării.'
+  },
+  'politica-cookies': {
+    title: 'Politica de cookie-uri | INFORMS',
+    desc: 'Ce cookie-uri folosește INFORMS și cum îți poți controla preferințele.'
+  },
+  'politica-livrare': {
+    title: 'Politica de livrare | INFORMS',
+    desc: 'Cum și când sunt livrate documentele digitale comandate pe informs.ro.'
+  },
+  'politica-anulare': {
+    title: 'Politica de anulare și retur | INFORMS',
+    desc: 'Condițiile de anulare a comenzii, de rambursare și de soluționare a reclamațiilor.'
+  },
+  'dreptul-de-retragere': {
+    title: 'Dreptul de retragere | INFORMS',
+    desc: 'Formular online de retragere din contract, conform OUG 34/2014.'
   }
 };
+
+/* ─── Rutare ────────────────────────────────────────
+   URL-uri reale prin History API. Fiecare pagină are
+   o cale proprie, ca să poată fi trimisă prin link și
+   indexată. Rewrite-ul catch-all din vercel.json face
+   ca orice cale să servească index.html. */
+function pageFromPath(pathname) {
+  const slug = String(pathname || '/').replace(/^\/+|\/+$/g, '');
+  if (!slug) return 'home';
+  return PAGE_META[slug] ? slug : 'home';
+}
+function pathFromPage(page) {
+  return page === 'home' ? '/' : '/' + page;
+}
+function setCanonical(page) {
+  let tag = document.querySelector('link[rel="canonical"]');
+  if (!tag) {
+    tag = document.createElement('link');
+    tag.setAttribute('rel', 'canonical');
+    document.head.appendChild(tag);
+  }
+  tag.setAttribute('href', COMPANY.url + pathFromPage(page));
+}
 function App() {
-  const [page, setPage] = useState('home');
-  const [displayPage, setDisplayPage] = useState('home');
+  const initial = pageFromPath(window.location.pathname);
+  const [page, setPage] = useState(initial);
+  const [displayPage, setDisplayPage] = useState(initial);
   const [shopCategory, setShopCategory] = useState('all');
   useEffect(() => {
     const meta = PAGE_META[displayPage] || PAGE_META['home'];
@@ -69,9 +117,25 @@ function App() {
     document.querySelector('meta[name="description"]')?.setAttribute('content', meta.desc);
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', meta.title);
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', meta.desc);
+    setCanonical(displayPage);
   }, [displayPage]);
+  useEffect(() => {
+    const onPop = () => {
+      const p = pageFromPath(window.location.pathname);
+      setDisplayPage(p);
+      setPage(p);
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
   const navigate = (newPage, opts = {}) => {
     if (opts.category) setShopCategory(opts.category);else if (newPage !== 'magazin') setShopCategory('all');
+    const target = pathFromPage(newPage);
+    if (window.location.pathname !== target) {
+      window.history.pushState({
+        page: newPage
+      }, '', target);
+    }
     setDisplayPage(newPage);
     setPage(newPage);
   };
@@ -109,6 +173,10 @@ function App() {
         return /*#__PURE__*/React.createElement(ShopPage, {
           onNav: navigate,
           initialCategory: shopCategory
+        });
+      case 'comanda-finalizata':
+        return /*#__PURE__*/React.createElement(OrderStatusPage, {
+          onNav: navigate
         });
       default:
         return /*#__PURE__*/React.createElement(HomePage, {

@@ -14,11 +14,15 @@
        'autoritati' | 'companii' | 'liber-profesionisti' | 'uz-zilnic'
    cv: clasa CSS pentru culoarea header-ului cardului
        cv-word (albastru) | cv-excel (verde) | cv-pdf (roșu) | cv-atr (navy)
-   file: calea relativă către fișier (opțional)
+   file: calea relativă către fișier - DOAR pentru produse gratuite
          ex: 'assets/produse/gratuite/pdf/ghid-termeni.pdf'
-         - produse gratuite cu 'file' setat → buton descărcare directă
-         - produse cu preț cu 'file' setat  → livrat după plată (mailto)
-         - fără 'file'                      → flux mailto în ambele cazuri
+   sku:  cod unic de produs, obligatoriu pentru produsele cu preț.
+         Trebuie să existe și în api/_lib/products.js, de unde se ia
+         prețul la plată. Prețul de aici este doar pentru afișare;
+         serverul nu are încredere în el niciodată.
+
+   ⚠️ Produsele cu preț NU au câmp 'file'. Fișierele lor stau în
+   Vercel Blob privat și se livrează prin link semnat, după plată.
 ─────────────────────────────────────────────────── */
 const SHOP_PRODUCTS = [
   {
@@ -96,6 +100,79 @@ const SHOP_PRODUCTS = [
     ],
     stats: { files: 1, pages: 0 },
     file: 'assets/produse/gratuite/pdf/Proces-verbal_receptie%20terminare%20lucrari_v1.0.pdf',
+  },
+
+  /* ─────────────────────────────────────────────────
+     PRODUSE CU PREȚ
+     Titlurile, descrierile și prețurile de mai jos sunt
+     un punct de plecare - ajustează-le înainte de live.
+     Orice modificare de preț trebuie făcută ȘI în
+     api/_lib/products.js, altfel plata e respinsă.
+  ───────────────────────────────────────────────── */
+  {
+    id: 'caiet-sarcini-produse',
+    sku: 'INF-CS-PROD',
+    title: 'Caiet de sarcini - achiziție de produse',
+    shortDesc: 'Model complet de caiet de sarcini pentru proceduri de achiziție de produse, cu specificații tehnice și cerințe de calificare.',
+    longDesc: 'Model editabil de caiet de sarcini pentru achiziția de produse, structurat conform cerințelor Legii nr. 98/2016 și ale normelor de aplicare. Include secțiunile de specificații tehnice, condiții de livrare și recepție, cerințe privind garanția și modul de formulare a criteriilor de atribuire, cu note explicative pentru fiecare secțiune.',
+    category: 'achizitii',
+    mainCategories: ['autoritati', 'companii'],
+    format: 'word',
+    cv: 'cv-word',
+    price: 249,
+    featured: true,
+    isNew: true,
+    tags: ['Caiet de sarcini', 'Produse', 'Legea 98/2016'],
+    includes: [
+      'Caiet de sarcini - achiziție produse (Word editabil)',
+      'Note explicative pe fiecare secțiune',
+      'Model de specificații tehnice',
+      'Grilă de cerințe de calificare',
+    ],
+    stats: { files: 1, pages: 24 },
+  },
+  {
+    id: 'strategie-contractare',
+    sku: 'INF-STR-CTR',
+    title: 'Strategia de contractare - model complet',
+    shortDesc: 'Document de fundamentare a procedurii de atribuire, cu justificarea valorii estimate și a criteriilor de atribuire.',
+    longDesc: 'Model de strategie de contractare care acoperă toate elementele cerute de legislația achizițiilor publice: relația dintre obiectul contractului și necesitatea identificată, justificarea valorii estimate, alegerea procedurii, criteriile de calificare și de atribuire, aranjamentele contractuale și modul de gestionare a riscurilor.',
+    category: 'achizitii',
+    mainCategories: ['autoritati'],
+    format: 'word',
+    cv: 'cv-word',
+    price: 199,
+    featured: true,
+    isNew: true,
+    tags: ['Strategie de contractare', 'Atribuire', 'Fundamentare'],
+    includes: [
+      'Strategia de contractare (Word editabil)',
+      'Secțiune de justificare a valorii estimate',
+      'Matrice de riscuri contractuale',
+    ],
+    stats: { files: 1, pages: 18 },
+  },
+  {
+    id: 'pachet-documentatie-servicii',
+    sku: 'INF-PCK-SERV',
+    title: 'Pachet documentație de atribuire - servicii',
+    shortDesc: 'Setul complet de documente pentru o procedură de achiziție de servicii: caiet de sarcini, clauze contractuale, formulare.',
+    longDesc: 'Pachet complet pentru pregătirea unei proceduri de achiziție de servicii. Conține caietul de sarcini, modelul de contract cu clauzele obligatorii și facultative, setul de formulare pentru ofertanți și strategia de contractare, toate corelate între ele și gata de adaptat la obiectul concret al procedurii.',
+    category: 'achizitii',
+    mainCategories: ['autoritati', 'companii'],
+    format: 'pachet',
+    cv: 'cv-atr',
+    price: 499,
+    featured: true,
+    isNew: true,
+    tags: ['Pachet complet', 'Servicii', 'Documentație de atribuire'],
+    includes: [
+      'Caiet de sarcini - servicii (Word)',
+      'Model de contract cu clauze contractuale (Word)',
+      'Set complet de formulare pentru ofertanți (Word)',
+      'Strategia de contractare (Word)',
+    ],
+    stats: { files: 4, pages: 86 },
   },
 ];
 
@@ -207,7 +284,7 @@ function ProductCard({ product, onClick }) {
         <div className="shop-card-footer">
           {product.price === 0
             ? <div className="shop-card-price" style={{ color: '#16A34A' }}>Gratuit</div>
-            : <div className="shop-card-price">{product.price} <span>RON</span></div>
+            : <div className="shop-card-price">{product.price} <span>{COMMERCE.currency}</span></div>
           }
           <button
             className="btn btn-primary btn-sm"
@@ -222,6 +299,119 @@ function ProductCard({ product, onClick }) {
   );
 }
 
+/* ─── Formular de checkout (plată cu cardul) ─────
+   Datele de facturare cerute de procesator + cele două
+   acorduri obligatorii. Prețul NU se trimite de aici:
+   serverul îl ia din propriul catalog, după sku. */
+const CHECKOUT_FIELDS = [
+  { k: 'lastName',   label: 'Nume *',        ph: 'Popescu',        w: 1 },
+  { k: 'firstName',  label: 'Prenume *',     ph: 'Ion',            w: 1 },
+  { k: 'email',      label: 'Email *',       ph: 'ion@exemplu.ro', w: 2, type: 'email' },
+  { k: 'phone',      label: 'Telefon *',     ph: '+40 7xx xxx xxx', w: 2, type: 'tel' },
+  { k: 'address',    label: 'Adresă *',      ph: 'Str. Exemplu nr. 1',  w: 2 },
+  { k: 'city',       label: 'Localitate *',  ph: 'București',      w: 1 },
+  { k: 'state',      label: 'Județ *',       ph: 'București',      w: 1 },
+  { k: 'postalCode', label: 'Cod poștal *',  ph: '010101',         w: 1 },
+  { k: 'company',    label: 'Firmă',         ph: 'opțional',       w: 1 },
+  { k: 'cui',        label: 'CUI',           ph: 'opțional',       w: 2 },
+];
+
+const REQUIRED_FIELDS = ['lastName', 'firstName', 'email', 'phone', 'address', 'city', 'state', 'postalCode'];
+
+function CheckoutForm({ product, onNav }) {
+  const [form, setForm] = useState({ lastName: '', firstName: '', email: '', phone: '', address: '', city: '', state: '', postalCode: '', company: '', cui: '' });
+  const [terms, setTerms] = useState(false);
+  const [waiver, setWaiver] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+  const go = (p) => { onNav(p); window.scrollTo({ top: 0, behavior: 'instant' }); };
+
+  const complete = REQUIRED_FIELDS.every(k => form[k].trim()) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim());
+  const ready = complete && terms && waiver;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!ready) {
+      setError('Completează toate câmpurile marcate cu * și bifează ambele acorduri.');
+      return;
+    }
+    setError('');
+    setLoading(true);
+    try {
+      const res = await fetch('/api/netopia-start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sku: product.sku, ...form, acceptTerms: terms, acceptWaiver: waiver }),
+      });
+      const json = await res.json();
+      if (res.ok && json.paymentURL) {
+        window.location.assign(json.paymentURL);
+        return;
+      }
+      setError(json.error || 'Plata nu a putut fi inițiată. Încearcă din nou sau scrie-ne la ' + COMPANY.email + '.');
+    } catch {
+      setError('Eroare de rețea. Încearcă din nou sau scrie-ne la ' + COMPANY.email + '.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const input = { padding: '9px 12px', border: '1.5px solid var(--border)', borderRadius: '6px', fontSize: '14.5px', fontFamily: 'var(--font)', color: 'var(--text)', background: '#fff', outline: 'none', width: '100%' };
+  const lbl = { fontSize: '12.5px', fontWeight: 600, color: 'var(--text)', marginBottom: '4px', display: 'block' };
+  const check = { marginTop: '3px', flexShrink: 0, width: '15px', height: '15px', cursor: 'pointer', accentColor: '#1358B0' };
+  const checkTxt = { fontSize: '12.5px', color: 'var(--text-2)', lineHeight: '1.65' };
+  const linkSt = { color: 'var(--blue-a)', fontWeight: 600 };
+
+  return (
+    <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '14px', padding: '20px', background: '#F8FAFC', borderRadius: '12px', border: '1px solid var(--border)' }}>
+      <div className="shop-modal-lbl" style={{ marginBottom: '2px' }}>Date de facturare</div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        {CHECKOUT_FIELDS.map(f => (
+          <div key={f.k} style={f.w === 2 ? { gridColumn: '1 / -1' } : undefined}>
+            <label style={lbl}>{f.label}</label>
+            <input type={f.type || 'text'} style={input} value={form[f.k]} onChange={set(f.k)} placeholder={f.ph} />
+          </div>
+        ))}
+      </div>
+
+      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
+        <input type="checkbox" checked={terms} onChange={e => setTerms(e.target.checked)} style={check} />
+        <span style={checkTxt}>
+          Am citit și accept <a href="/termeni-si-conditii" style={linkSt} onClick={e => { e.preventDefault(); go('termeni-si-conditii'); }}>Termenii și condițiile</a> și <a href="/politica-confidentialitate" style={linkSt} onClick={e => { e.preventDefault(); go('politica-confidentialitate'); }}>Politica de confidențialitate</a>. *
+        </span>
+      </label>
+
+      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
+        <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} style={check} />
+        <span style={checkTxt}>
+          Solicit expres livrarea imediată a documentului digital și confirm că am luat cunoștință că, odată începută descărcarea,
+          îmi pierd <a href="/dreptul-de-retragere" style={linkSt} onClick={e => { e.preventDefault(); go('dreptul-de-retragere'); }}>dreptul de retragere</a> de {COMMERCE.withdrawalDays} zile. *
+        </span>
+      </label>
+
+      {error && (
+        <p style={{ color: '#c53030', fontSize: '13px', background: '#fff5f5', padding: '10px 14px', borderRadius: '8px', border: '1px solid #fed7d7', margin: 0 }}>
+          {error}
+        </p>
+      )}
+
+      <button type="submit" className="btn btn-primary" disabled={!ready || loading} style={{ justifyContent: 'center', background: ready ? '' : '#D1D5DB', borderColor: ready ? '' : '#D1D5DB', cursor: ready ? 'pointer' : 'not-allowed' }}>
+        {loading ? 'Se deschide pagina de plată...' : 'Plătește ' + fmtPrice(product.price)}
+      </button>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center' }}>
+        <img src="uploads/netopia-payments.webp" alt="NETOPIA Payments, Visa, Mastercard" style={{ height: '26px', width: 'auto' }} />
+      </div>
+      <p style={{ fontSize: '11.5px', color: 'var(--text-2)', textAlign: 'center', lineHeight: 1.6, margin: 0 }}>
+        Plata se face în pagina securizată NETOPIA Payments. {COMPANY.brand} nu vede și nu stochează datele cardului.
+      </p>
+    </form>
+  );
+}
+
 /* ─── Modal detalii produs ──────────────────────── */
 function ProductModal({ product, onClose, onNav }) {
   const fmt = FORMAT_META[product.format];
@@ -233,6 +423,7 @@ function ProductModal({ product, onClose, onNav }) {
   const [emailErr,    setEmailErr]    = useState('');
   const [downloading, setDownloading] = useState(false);
   const [downloaded,  setDownloaded]  = useState(false);
+  const [checkout,    setCheckout]    = useState(false);
 
   useEffect(() => {
     const handleKey = e => { if (e.key === 'Escape') onClose(); };
@@ -276,14 +467,13 @@ function ProductModal({ product, onClose, onNav }) {
     setDownloaded(true);
   };
 
-  const handleBuy = () => {
-    const subject = encodeURIComponent('Comandă: ' + product.title);
+  /* Produsele gratuite fără fișier atașat se solicită tot pe email. */
+  const handleRequestFree = () => {
+    const subject = encodeURIComponent('Solicitare: ' + product.title);
     const body = encodeURIComponent(
-      'Bună ziua,\n\nDoresc să achiziționez:\n' + product.title +
-      '\nPreț: ' + product.price + ' RON\n\n' +
-      'Vă rog să-mi trimiteți detaliile de plată.\n\nCu stimă,'
+      'Bună ziua,\n\nDoresc să primesc:\n' + product.title + '\n\nCu stimă,'
     );
-    window.open('mailto:office@informs.ro?subject=' + subject + '&body=' + body);
+    window.open('mailto:' + COMPANY.email + '?subject=' + subject + '&body=' + body);
   };
 
   const canDownload = validEmail(email) && gdpr;
@@ -413,29 +603,40 @@ function ProductModal({ product, onClose, onNav }) {
                       </div>
                     : <>
                         <div className="shop-modal-price">
-                          {product.price} <span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-2)' }}>RON</span>
+                          {product.price} <span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-2)' }}>{COMMERCE.currency}</span>
                         </div>
-                        <div className="shop-modal-price-note">Preț fără TVA · Livrare prin email în max. 24h</div>
+                        <div className="shop-modal-price-note">{COMMERCE.priceNote} · {COMMERCE.deliveryNote}</div>
                       </>
                   }
                 </div>
               </div>
-              <div className="shop-modal-actions">
-                {isFree
-                  ? <button className="btn btn-primary" style={{ background: '#16A34A', borderColor: '#16A34A', justifyContent: 'center' }} onClick={handleBuy}>
+
+              {isFree ? (
+                <>
+                  <div className="shop-modal-actions">
+                    <button className="btn btn-primary" style={{ background: '#16A34A', borderColor: '#16A34A', justifyContent: 'center' }} onClick={handleRequestFree}>
                       Solicită acces gratuit
                     </button>
-                  : <button className="btn btn-primary" style={{ justifyContent: 'center' }} onClick={handleBuy}>
-                      Comandă prin email
+                  </div>
+                  <p style={{ fontSize: '12px', color: 'var(--text-2)', marginTop: '14px', textAlign: 'center', lineHeight: '1.6' }}>
+                    Trimite-ne un email și îți livrăm documentul gratuit în cel mai scurt timp.
+                  </p>
+                </>
+              ) : checkout ? (
+                <CheckoutForm product={product} onNav={onNav} />
+              ) : (
+                <>
+                  <div className="shop-modal-actions">
+                    <button className="btn btn-primary" style={{ justifyContent: 'center' }} onClick={() => setCheckout(true)}>
+                      Cumpără cu cardul
                     </button>
-                }
-              </div>
-              <p style={{ fontSize: '12px', color: 'var(--text-2)', marginTop: '14px', textAlign: 'center', lineHeight: '1.6' }}>
-                {isFree
-                  ? 'Trimite-ne un email și îți livrăm documentul gratuit în cel mai scurt timp.'
-                  : 'Documentele sunt livrate în format editabil la adresa de email furnizată. Plata se poate efectua prin transfer bancar sau online (Netopia Payments).'
-                }
-              </p>
+                  </div>
+                  <p style={{ fontSize: '12px', color: 'var(--text-2)', marginTop: '14px', textAlign: 'center', lineHeight: '1.6' }}>
+                    Documentele se livrează prin email, în format editabil, imediat după confirmarea plății.
+                    Preferi transferul bancar? Scrie-ne la <a href={'mailto:' + COMPANY.email} style={{ color: 'var(--blue-a)' }}>{COMPANY.email}</a>.
+                  </p>
+                </>
+              )}
             </>
           )}
         </div>
@@ -645,4 +846,56 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
   );
 }
 
-Object.assign(window, { ShopPage });
+/* ─── Pagina de întoarcere din plată ─────────────
+   /api/netopia-return interoghează statusul comenzii la
+   procesator și redirecționează aici cu ?s=ok|pending|fail.
+   Pagina e strict informativă: livrarea o face webhook-ul. */
+const ORDER_STATES = {
+  ok: {
+    color: '#16A34A', bg: '#F0FDF4', border: '#86EFAC', icon: '✓',
+    title: 'Plata a fost confirmată',
+    body: 'Îți mulțumim. Ai primit pe email confirmarea comenzii și linkul de descărcare. Dacă mesajul nu apare în câteva minute, verifică folderul Spam sau Promoții.',
+  },
+  pending: {
+    color: '#B45309', bg: '#FFFBEB', border: '#FCD34D', icon: '⏳',
+    title: 'Plata este în curs de procesare',
+    body: 'Banca verifică tranzacția. Imediat ce plata este confirmată, primești documentul pe email, automat. Nu relua plata până nu primești un răspuns.',
+  },
+  fail: {
+    color: '#DC2626', bg: '#FEF2F2', border: '#FECACA', icon: '!',
+    title: 'Plata nu a fost finalizată',
+    body: 'Tranzacția a fost respinsă sau anulată și nu ți s-a reținut nicio sumă. Poți relua comanda din magazin sau ne poți scrie pentru plata prin transfer bancar.',
+  },
+};
+
+function OrderStatusPage({ onNav }) {
+  const key = new URLSearchParams(window.location.search).get('s');
+  const st = ORDER_STATES[key] || ORDER_STATES.pending;
+  const go = (p) => { onNav(p); window.scrollTo({ top: 0, behavior: 'instant' }); };
+
+  return (
+    <>
+      <div className="pg-hero">
+        <div className="container">
+          <h1>Stare comandă</h1>
+          <p>Rezultatul plății și pașii următori.</p>
+        </div>
+      </div>
+      <section className="sec">
+        <div className="container" style={{ maxWidth: '640px' }}>
+          <div style={{ textAlign: 'center', padding: '56px 40px', background: st.bg, border: '1px solid ' + st.border, borderRadius: '20px' }}>
+            <div style={{ fontSize: '2.4rem', marginBottom: '14px', color: st.color }}>{st.icon}</div>
+            <h3 style={{ marginBottom: '14px', fontSize: '1.4rem', color: st.color }}>{st.title}</h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.02rem', lineHeight: '1.75', marginBottom: '30px' }}>{st.body}</p>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <button className="btn btn-primary" onClick={() => go('magazin')}>Înapoi în magazin</button>
+              <button className="btn btn-outline" onClick={() => go('contact')}>Contactează-ne</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+Object.assign(window, { ShopPage, OrderStatusPage });

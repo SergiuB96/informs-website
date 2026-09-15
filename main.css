@@ -66,10 +66,9 @@ nav.main-nav.scrolled .nav-island{background:transparent;box-shadow:none}
 }
 .nav-logo{display:flex;align-items:center;cursor:pointer;user-select:none;flex-shrink:0;text-decoration:none}
 .nav-links{
-  position:absolute;left:50%;transform:translateX(-50%);
-  display:flex;align-items:center;gap:2px;
+  display:flex;align-items:center;gap:2px;flex-shrink:0;
 }
-.nav-end{margin-left:auto;display:flex;align-items:center;gap:8px}
+.nav-end{margin-left:auto;display:flex;align-items:center;gap:8px;flex-shrink:0}
 .nav-link{
   padding:7px 12px;border-radius:var(--r);
   font-size:15.5px;font-weight:500;color:var(--text-2);
@@ -680,6 +679,11 @@ footer a:hover{color:#fff}
 .f-logo{margin-bottom:14px}
 .f-logo em{color:#5aaee8}
 .f-desc{font-size:14.5px;line-height:1.8;margin-bottom:24px;color:rgba(255,255,255,.45)}
+.f-legal{margin-bottom:24px;font-size:12.5px;line-height:1.75}
+.f-legal>div{display:flex;gap:8px;align-items:baseline}
+.f-legal-lbl{color:rgba(255,255,255,.32);width:132px;flex:0 0 132px}
+.f-legal-val{color:rgba(255,255,255,.55);display:inline!important;margin:0!important;flex:1 1 auto;min-width:0}
+a.f-legal-val:hover{color:#fff}
 .f-partners{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 .f-partners img{height:38px;width:auto;opacity:.65;filter:none;transition:opacity var(--dur)}
 .f-partners img:hover{opacity:1}
@@ -1041,4 +1045,109 @@ textarea{resize:vertical;min-height:128px;line-height:1.6}
   .shop-modal-hd{padding:28px 20px 22px}
   .shop-modal-bd{padding:20px 20px 24px}
   .shop-modal-actions{flex-direction:column}
+}
+
+/* ══ Căutare Spețe în navbar (CNSC + ANAP), rezultate inline ══ */
+.spete-search{position:relative;display:flex;align-items:center;gap:8px}
+/* Bara din navbar: centrată între linkuri și Contact, ~2x mai lată */
+.spete-bar{width:500px;max-width:500px;min-width:150px;flex-shrink:1;margin-left:auto}
+.spete-search-field{
+  display:flex;align-items:center;gap:8px;height:38px;padding:0 8px 0 12px;
+  background:#F1F6FB;border:1px solid var(--border);border-radius:var(--r);
+  flex:1;min-width:0;transition:all var(--dur) var(--ease);
+}
+
+/* Buton „!" + popup disclaimer, lângă bară */
+.spete-info{position:relative;flex-shrink:0;display:flex;align-items:center}
+.spete-info-btn{
+  width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  border:1px solid var(--border);background:#fff;color:var(--blue-a);
+  font-weight:800;font-size:15px;line-height:1;font-family:Georgia,'Times New Roman',serif;
+  display:flex;align-items:center;justify-content:center;
+  transition:all var(--dur) var(--ease);
+}
+.spete-info-btn:hover,.spete-info-btn.on{border-color:var(--blue-a);background:var(--blue-lt);color:var(--blue)}
+.spete-info-pop{
+  position:absolute;top:calc(100% + 10px);right:0;width:min(380px,86vw);
+  background:#fff;border:1px solid var(--border);border-radius:12px;
+  box-shadow:var(--s-lg);padding:18px 20px;z-index:130;text-align:left;
+  animation:speteIn .16s var(--ease);
+}
+.spete-info-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:9px}
+.spete-info-pop p{font-size:12.5px;line-height:1.62;color:var(--text-2);margin:0}
+.spete-info-links{display:flex;flex-direction:column;gap:9px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+.spete-info-links-lbl{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-2)}
+.spete-info-links a{font-size:13.5px;font-weight:600;color:var(--blue);display:inline-flex;align-items:center;gap:6px;transition:color var(--dur)}
+.spete-info-links a:hover{color:var(--blue-d);text-decoration:underline}
+.spete-search-field:focus-within{border-color:var(--blue-a);background:#fff;box-shadow:0 0 0 3px rgba(59,128,202,.14)}
+.spete-search-field>svg{color:var(--text-2);flex-shrink:0}
+.spete-search-field input{
+  border:none;background:none;outline:none;font-family:var(--font);
+  font-size:14px;color:var(--text);width:100%;min-width:0;padding:0;
+}
+.spete-search-field input::placeholder{color:#8AA0B4}
+.spete-kbd{font-size:10px;font-weight:600;letter-spacing:.03em;color:var(--text-2);border:1px solid var(--border);border-radius:4px;padding:2px 6px;white-space:nowrap;text-transform:uppercase}
+.spete-clear{width:20px;height:20px;border-radius:5px;color:var(--text-2);font-size:17px;line-height:1;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.spete-clear:hover{background:rgba(6,24,48,.08);color:var(--text)}
+
+.spete-panel{
+  position:absolute;top:calc(100% + 9px);right:0;width:min(580px,90vw);
+  background:#fff;border:1px solid var(--border);border-radius:12px;
+  box-shadow:var(--s-lg);overflow:hidden;z-index:120;
+  animation:speteIn .16s var(--ease);
+}
+@keyframes speteIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.spete-panel-head{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid var(--border);background:#F7FAFD}
+.spete-tab{font-size:12.5px;font-weight:600;color:var(--text-2);padding:5px 11px;border-radius:20px;border:1px solid transparent;cursor:pointer;transition:all var(--dur) var(--ease)}
+.spete-tab:hover{color:var(--blue)}
+.spete-tab.on{background:var(--blue-lt);color:var(--blue)}
+.spete-count{margin-left:auto;font-size:11.5px;color:var(--text-2)}
+.spete-list{max-height:min(58vh,440px);overflow-y:auto}
+.spete-item{display:block;width:100%;text-align:left;padding:12px 14px;border-bottom:1px solid #EEF3F8;cursor:pointer;transition:background var(--dur)}
+.spete-item:last-child{border-bottom:none}
+.spete-item:hover{background:#F4F8FC}
+.spete-item-top{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.spete-badge{font-size:10px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0}
+.spete-badge.anap{background:#E8F3FC;color:#1358B0}
+.spete-badge.cnsc{background:#E4ECF6;color:#0D3870}
+.spete-cat{font-size:11px;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.spete-item-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:4px}
+.spete-item-snip{font-size:12.5px;color:var(--text-2);line-height:1.5}
+.spete-item mark,.spete-modal-body mark{background:#FFEFA3;color:inherit;padding:0 1px;border-radius:2px}
+.spete-empty{padding:26px 16px;text-align:center;color:var(--text-2);font-size:13.5px}
+.spete-spin{display:inline-block;width:13px;height:13px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;vertical-align:-2px;margin-right:6px;animation:speteSpin .7s linear infinite}
+@keyframes speteSpin{to{transform:rotate(360deg)}}
+
+/* Modal de citire inline */
+.spete-modal-ov{position:fixed;inset:0;background:rgba(6,24,48,.55);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding:44px 16px;overflow-y:auto;animation:speteIn .18s var(--ease)}
+.spete-modal{background:#fff;border-radius:14px;max-width:760px;width:100%;box-shadow:var(--s-lg);overflow:hidden;margin:auto 0}
+.spete-modal-head{padding:24px 28px 20px;border-bottom:1px solid var(--border);position:relative}
+.spete-modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:8px;font-size:22px;line-height:1;color:var(--text-2);display:flex;align-items:center;justify-content:center;transition:all var(--dur)}
+.spete-modal-close:hover{background:rgba(6,24,48,.08);color:var(--text)}
+.spete-meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:12.5px;color:var(--text-2)}
+.spete-meta b{color:var(--text);font-weight:600}
+.spete-solutie{margin-top:12px;font-size:13.5px;color:var(--text);background:var(--blue-lt);border-radius:8px;padding:10px 14px;line-height:1.55}
+.spete-modal-body{padding:22px 28px 26px;max-height:56vh;overflow-y:auto}
+.spete-modal-body>p{white-space:pre-wrap;font-size:14.5px;line-height:1.72;color:var(--text)}
+.spete-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px;padding-top:18px;border-top:1px solid var(--border)}
+.spete-tag{font-size:11.5px;color:var(--text-2);background:#F1F6FB;border:1px solid var(--border);border-radius:20px;padding:3px 11px}
+
+/* Varianta din meniul mobil: panou inline, lățime completă */
+.m-search-wrap{padding:4px 2px 10px;margin-bottom:6px;border-bottom:1px solid rgba(255,255,255,.1)}
+.spete-mobile{display:flex;width:100%}
+.spete-mobile .spete-search-field{background:rgba(255,255,255,.08);border-color:rgba(59,128,202,.25)}
+.spete-mobile .spete-search-field input{color:#fff}
+.spete-mobile .spete-search-field input::placeholder{color:rgba(255,255,255,.5)}
+.spete-mobile .spete-search-field>svg,.spete-mobile .spete-clear,.spete-mobile .spete-kbd{color:rgba(255,255,255,.6)}
+.spete-mobile .spete-info-btn{background:rgba(255,255,255,.08);border-color:rgba(59,128,202,.25);color:#fff}
+.spete-mobile .spete-info-btn:hover,.spete-mobile .spete-info-btn.on{background:rgba(59,128,202,.3);color:#fff}
+.spete-mobile .spete-panel{position:static;width:100%;box-shadow:none;margin-top:8px;max-height:none}
+.spete-mobile .spete-list{max-height:46vh}
+
+/* Bara din navbar dispare sub 768px (rămâne varianta din meniul mobil) */
+@media(max-width:768px){.spete-bar{display:none}}
+@media(max-width:1040px){.spete-bar{max-width:440px}}
+@media(max-width:560px){
+  .spete-modal-head{padding:22px 20px 18px}
+  .spete-modal-body{padding:20px 20px 24px}
 }

@@ -10,3 +10,16 @@ design-preview-mobile.png
 assets/old/
 
 .vercel
+
+.env
+.env.*
+!.env.example
+
+# Duplicate la rădăcină ale datelor din spete/ (sursa urmărită e spete/*).
+# Sunt și excluse din deploy prin .vercelignore.
+/embeddings.bin
+/sem_meta.json
+/spete_anap.json
+
+# Conține cheia Groq în clar. Nu urca niciodată fișierul ăsta.
+spete/chat.php

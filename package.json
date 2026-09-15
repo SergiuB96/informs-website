@@ -1,11 +1,12 @@
 {
-  "name": "agent-a87706cc73a6fb1a2",
+  "name": "informs-website",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx babel Layout.jsx -o Layout.js && npx babel Icons.jsx -o Icons.js && npx babel Home.jsx -o Home.js && npx babel Pages.jsx -o Pages.js && npx babel Shop.jsx -o Shop.js && npx babel App.jsx -o App.js && node build-wrap.js"
+    "build": "npx babel Config.jsx -o Config.js && npx babel Layout.jsx -o Layout.js && npx babel Icons.jsx -o Icons.js && npx babel Home.jsx -o Home.js && npx babel Pages.jsx -o Pages.js && npx babel Legal.jsx -o Legal.js && npx babel Shop.jsx -o Shop.js && npx babel App.jsx -o App.js && node build-wrap.js",
+    "build:search": "node build-search-index.js"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,7 @@
     "@babel/preset-react": "^7.29.7"
   },
   "dependencies": {
+    "@vercel/blob": "^2.0.0",
     "nodemailer": "^9.0.3"
   }
 }

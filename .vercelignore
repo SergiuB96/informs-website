@@ -8,3 +8,4 @@ assets/old/
 spete/chat.php
 node_modules/
 .claude/
+.gstack/
