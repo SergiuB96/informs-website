@@ -67,6 +67,7 @@ nav.main-nav.scrolled .nav-island{background:transparent;box-shadow:none}
 .nav-logo{display:flex;align-items:center;cursor:pointer;user-select:none;flex-shrink:0;text-decoration:none}
 .nav-links{
   display:flex;align-items:center;gap:2px;flex-shrink:0;
+  position:absolute;left:50%;top:0;height:100%;transform:translateX(-50%);
 }
 .nav-end{margin-left:auto;display:flex;align-items:center;gap:8px;flex-shrink:0}
 .nav-link{
