@@ -1,7 +1,151 @@
-/* ═════════════════════════════════════════════════════════
-   informs — Chrome comun: bara de anunt, header, meniuri, drawer,
-   footer, banner cookie. Identic pe toate paginile.
-   ═════════════════════════════════════════════════════════ */
+/* GENERAT de build.mjs din base.css + chrome.css. Nu edita aici. */
+
+.announce, .hdr, .drawer, .ftr, .cookie, .skip-link {
+
+  /* culori */
+  --navy-900: #0C0032;
+  --navy-800: #150046;
+  --navy-700: #1C0A55;
+  --navy-600: #251072;
+  --purple:   #5D16B3;
+  --purple-lt:#7B32D6;
+  --blue:     #065AF7;
+  --blue-alt: #015CFF;
+  --blue-deep:#043799;
+  --pink:     #FF0074;
+  --yellow:   #FFD400;
+
+  --ink:      #212121;
+  --white:    #FFFFFF;
+  --muted:    #D2CCE6;
+  --muted-2:  #BEB6D9;
+  --muted-3:  rgba(210, 204, 230, .5);
+  --line:     rgba(210, 204, 230, .18);
+  --line-str: rgba(210, 204, 230, .32);
+
+  /* tipografie */
+  --f-head: "Poppins", system-ui, sans-serif;
+  --f-body: "DM Sans", system-ui, sans-serif;
+
+  --fs-h1: 64px;   --lh-h1: 70px;  --ls-h1: -1.28px;
+  --fs-h2: 64px;   --lh-h2: 72px;  --ls-h2: -1.92px;
+  --fs-h3: 20px;   --lh-h3: 24px;
+  --fs-body: 16px; --lh-body: 1.333;
+  --fs-lead: 18px; --lh-lead: 27px;
+
+  /* layout */
+  --container: 1400px;
+  --gutter: 40px;
+  --sect-lg: 96px;
+  --sect-md: 70px;
+  --sect-sm: 40px;
+
+  /* componente */
+  --btn-h: 56px;
+  --btn-r: 28px;
+  --card-r: 20px;
+
+  --hdr-h: 84px;
+  --announce-h: 44px;
+
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+
+}
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 999;
+  background: var(--white); color: var(--ink);
+  padding: 12px 20px; border-radius: 0 0 12px 0; font-weight: 600;
+}
+
+.skip-link:focus { left: 0; }
+
+.ico-arrow { width: 16px; height: 16px; flex: none; transition: transform .25s var(--ease); }
+
+.ico-caret { width: 10px; height: 6px; flex: none; transition: transform .25s var(--ease); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: var(--btn-h);
+  padding-inline: 24px;
+  border-radius: var(--btn-r);
+  font-family: var(--f-body);
+  font-size: var(--fs-lead);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition: background-color .22s var(--ease), color .22s var(--ease),
+              border-color .22s var(--ease), transform .22s var(--ease);
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.btn:active { transform: translateY(0); }
+
+.btn--primary { background: var(--blue); color: var(--white); border-color: var(--blue); }
+
+.btn--primary:hover { background: var(--blue-alt); border-color: var(--blue-alt); }
+
+.btn--blue { background: var(--blue); color: var(--white); border-color: var(--blue); }
+
+.btn--blue:hover { background: #0A4FD6; border-color: #0A4FD6; }
+
+.btn--light { background: var(--white); color: #000; }
+
+.btn--light:hover { background: var(--muted); }
+
+.btn--ghost { background: transparent; color: var(--white); border-color: var(--white); }
+
+.btn--ghost:hover { background: var(--white); color: #000; }
+
+.btn--outline { background: transparent; color: var(--white); border-color: var(--line-str); }
+
+.btn--outline:hover { border-color: var(--white); background: rgba(255,255,255,.06); }
+
+.btn--outline-dark { background: transparent; color: var(--ink); border-color: #C9C9C9; }
+
+.btn--outline-dark:hover { border-color: var(--ink); }
+
+.btn--sm { height: 40px; font-size: 15px; padding-inline: 20px; border-radius: 20px; }
+
+.btn--tiny { height: 34px; font-size: 13px; padding-inline: 16px; border-radius: 17px; }
+
+.lnk {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--white);
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: border-color .22s var(--ease), color .22s var(--ease);
+}
+
+.lnk:hover { border-color: currentColor; }
+
+.lnk:hover .ico-arrow { transform: translateX(4px); }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* doar subsolul foloseste .container din sistemul nou */
+.ftr .container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+
 
 .announce {
   background: var(--blue-deep);

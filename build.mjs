@@ -26,6 +26,69 @@ const HOST = 'https://www.informs.ro';
 
 const read = (...p) => readFileSync(join(...p), 'utf8');
 
+/* ── CSS pentru aplicatia React ───────────────────────────────
+   app.html incarca in continuare main.css, care isi are proprii
+   tokeni. Trei dintre ei se numesc la fel ca ai nostri dar au alte
+   valori (--blue, --ease), deci un :root global ar schimba culorile
+   si animatiile magazinului.
+
+   Generam spa-chrome.css din aceleasi surse ca site-ul static, cu
+   tokenii limitati la radacinile de chrome. Fiind generat, nu poate
+   ramane in urma fata de base.css si chrome.css.
+   ───────────────────────────────────────────────────────────── */
+const CHROME_ROOTS = '.announce, .hdr, .drawer, .ftr, .cookie, .skip-link';
+
+// primitivele de care are nevoie markup-ul de chrome
+const NEEDED = ['.skip-link', '.btn', '.lnk', '.ico-arrow', '.ico-caret', '.visually-hidden'];
+
+function cssRules(src) {
+  const out = [];
+  let i = 0;
+  while (i < src.length) {
+    const ws = /^\s+/.exec(src.slice(i));
+    if (ws) { i += ws[0].length; continue; }
+    if (src.startsWith('/*', i)) { const j = src.indexOf('*/', i + 2); i = j === -1 ? src.length : j + 2; continue; }
+    let j = i, depth = 0, started = false;
+    while (j < src.length) {
+      const c = src[j];
+      if (c === '{') { depth++; started = true; }
+      else if (c === '}') { depth--; if (depth === 0) { j++; break; } }
+      else if (c === ';' && !started) { j++; break; }
+      j++;
+    }
+    const block = src.slice(i, j).trim();
+    if (block) out.push({ sel: block.split('{')[0].trim(), block });
+    i = j;
+  }
+  return out;
+}
+
+function buildSpaChrome() {
+  const base = read(ROOT, 'css', 'base.css');
+  const chrome = read(ROOT, 'css', 'chrome.css');
+  const rules = cssRules(base);
+
+  const root = rules.find((r) => r.sel === ':root');
+  const tokens = root.block.slice(root.block.indexOf('{') + 1, root.block.lastIndexOf('}'));
+
+  const prims = rules
+    .filter((r) => !r.sel.startsWith('@') && !r.sel.startsWith(':root'))
+    .filter((r) => NEEDED.some((n) => r.sel.split(',').some((s) => s.trim().startsWith(n))))
+    .map((r) => r.block);
+
+  const css =
+    '/* GENERAT de build.mjs din base.css + chrome.css. Nu edita aici. */\n\n' +
+    `${CHROME_ROOTS} {\n${tokens}\n}\n\n` +
+    prims.join('\n\n') + '\n\n' +
+    '/* doar subsolul foloseste .container din sistemul nou */\n' +
+    '.ftr .container {\n  width: 100%;\n  max-width: var(--container);\n' +
+    '  margin-inline: auto;\n  padding-inline: var(--gutter);\n}\n\n' +
+    chrome.replace(/^\/\*[\s\S]*?\*\/\n*/, '');
+
+  writeFileSync(join(ROOT, 'css', 'spa-chrome.css'), css, 'utf8');
+  console.log(`spa-chrome.css: ${prims.length} primitive + chrome, tokeni limitati la chrome.`);
+}
+
 /* ── partiale ─────────────────────────────────────────────── */
 const partials = {};
 for (const file of readdirSync(join(SRC, 'partials'))) {
@@ -121,6 +184,8 @@ for (const page of pages) {
 }
 
 console.log(`\n${built} pagini construite din ${Object.keys(partials).length} partiale.`);
+
+buildSpaChrome();
 
 /* ── sitemap.xml + robots.txt ─────────────────────────────────
    Site-ul nu avea niciunul. Le generăm din aceeași sursă ca
