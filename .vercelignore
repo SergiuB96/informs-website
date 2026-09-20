@@ -16,4 +16,3 @@ spete/
 
 # Sursele build-ului static. Ancorat cu "/" ca sa nu prinda
 # eventuale foldere src/ imbricate.
-/src/

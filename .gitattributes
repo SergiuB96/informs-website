@@ -1,0 +1,18 @@
+# build.mjs citeste din src/ si scrie in radacina, totul cu LF.
+# Cu core.autocrlf=true, sursele ieseau din git cu CRLF, iar iesirea
+# ajungea cu terminatori amestecati: dupa orice build git vedea
+# fisierele ca modificate desi continutul era identic, iar schimbarea
+# de ramura esua. Fixam LF pe tot lantul noului site.
+src/**           text eol=lf
+css/*.css        text eol=lf
+js/*.js          text eol=lf
+build.mjs        text eol=lf
+.htaccess        text eol=lf
+
+/index.html      text eol=lf
+/servicii.html   text eol=lf
+/despre-noi.html text eol=lf
+/contact.html    text eol=lf
+/404.html        text eol=lf
+/sitemap.xml     text eol=lf
+/robots.txt      text eol=lf
