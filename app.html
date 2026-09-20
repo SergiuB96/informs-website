@@ -16,7 +16,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
   <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
 
   <!-- Google Fonts — blocking pentru consistenta font la prima vizita -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -30,8 +29,6 @@
 
 
   <!-- Cookie Consent CSS — async -->
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3.0.1/dist/cookieconsent.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3.0.1/dist/cookieconsent.css" /></noscript>
 
   <!-- React self-hosted — defer elimină render blocking -->
   <script defer src="vendor/react.production.min.js"></script>
@@ -49,11 +46,10 @@
 
 
   <!-- Stil cookie bar aliniat cu tema site-ului -->
-  <link rel="stylesheet" href="css/consent.css" />
 </head>
 <body>
   <div id="root"></div>
 
-  <script type="module" src="js/consent.js"></script>
+  <script src="js/analytics.js"></script>
 </body>
 </html>
