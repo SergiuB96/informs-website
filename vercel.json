@@ -8,13 +8,15 @@
     "api/download.js": { "memory": 512, "maxDuration": 60 }
   },
   "redirects": [
-    { "source": "/api/_:path*", "destination": "/", "permanent": false }
+    { "source": "/api/_:path*", "destination": "/", "permanent": false },
+    { "source": "/app.html", "destination": "/", "permanent": false }
   ],
   "rewrites": [
     { "source": "/api/chat", "destination": "/api/chat" },
+    { "source": "/", "destination": "/app.html" },
     {
       "source": "/((?!api/|assets/|logo/|uploads/|vendor/|spete/|.*\\.).*)",
-      "destination": "/index.html"
+      "destination": "/app.html"
     }
   ],
   "headers": [

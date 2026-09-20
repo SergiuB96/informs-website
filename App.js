@@ -88,7 +88,7 @@ const PAGE_META = {
    URL-uri reale prin History API. Fiecare pagină are
    o cale proprie, ca să poată fi trimisă prin link și
    indexată. Rewrite-ul catch-all din vercel.json face
-   ca orice cale să servească index.html. */
+   ca orice cale să servească app.html (shell-ul SPA). */
 function pageFromPath(pathname) {
   const slug = String(pathname || '/').replace(/^\/+|\/+$/g, '');
   if (!slug) return 'home';
