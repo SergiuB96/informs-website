@@ -71,14 +71,55 @@ function buildSpaChrome() {
   const root = rules.find((r) => r.sel === ':root');
   const tokens = root.block.slice(root.block.indexOf('{') + 1, root.block.lastIndexOf('}'));
 
+  const roots = CHROME_ROOTS.split(',').map((s) => s.trim());
+
   const prims = rules
     .filter((r) => !r.sel.startsWith('@') && !r.sel.startsWith(':root'))
     .filter((r) => NEEDED.some((n) => r.sel.split(',').some((s) => s.trim().startsWith(n))))
-    .map((r) => r.block);
+    .map((r) => {
+      /* Si primitivele trebuie limitate. `.btn` la nivel global schimba
+         butoanele din magazin, care folosesc aceeasi clasa: masurat,
+         18px in loc de 13.5px si colturi drepte in loc de 6px. */
+      const body = r.block.slice(r.block.indexOf('{'));
+      const sel = r.sel
+        .split(',')
+        .map((s) => s.trim())
+        .flatMap((p) =>
+          roots.some((rt) => p === rt || p.startsWith(rt + ':') || p.startsWith(rt + '.'))
+            ? [p]
+            : roots.map((rt) => `${rt} ${p}`)
+        )
+        .join(',\n');
+      return `${sel} ${body}`;
+    });
+
+  /* Reset-ul global din base.css nu se incarca in aplicatie, iar fara el
+     listele din subsol apar cu buline si marginile implicite revin. Il
+     reproducem limitat la chrome, ca sa nu atinga continutul magazinului. */
+
+  /* Fiecare parte din lista primeste prefixul. Altfel `${root} ul, ol`
+     s-ar citi ca `.hdr ul` plus un `ol` global, iar reset-ul ar scapa
+     peste tot: exact asa ajunsesera h2..h5 si svg resetate in magazin. */
+  const scoped = (sel, decl) => {
+    const parts = sel.split(',').map((s) => s.trim());
+    const all = [];
+    for (const r of roots) for (const p of parts) all.push(`${r} ${p}`);
+    return all.join(',\n') + ` {\n  ${decl}\n}`;
+  };
+
+  const reset = [
+    scoped('ul, ol', 'margin: 0; padding: 0; list-style: none;'),
+    scoped('p', 'margin: 0;'),
+    scoped('h1, h2, h3, h4, h5', 'margin: 0; font-weight: 400;'),
+    scoped('a', 'color: inherit; text-decoration: none;'),
+    scoped('img, svg', 'display: block; max-width: 100%;'),
+    scoped('button', 'font: inherit; color: inherit; background: none; border: 0; cursor: pointer;')
+  ].join('\n\n');
 
   const css =
     '/* GENERAT de build.mjs din base.css + chrome.css. Nu edita aici. */\n\n' +
     `${CHROME_ROOTS} {\n${tokens}\n}\n\n` +
+    '/* reset limitat la chrome */\n' + reset + '\n\n' +
     prims.join('\n\n') + '\n\n' +
     '/* doar subsolul foloseste .container din sistemul nou */\n' +
     '.ftr .container {\n  width: 100%;\n  max-width: var(--container);\n' +

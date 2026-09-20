@@ -8,272 +8,319 @@ function FadeUp({ children, delay = 0, style = {}, className = '' }) {
   );
 }
 
+/* Sageata folosita in linkurile de tip „vezi mai mult”. */
+function Arrow() {
+  return (
+    <svg className="ico-arrow" viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.6"
+            strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function Caret() {
+  return (
+    <svg className="ico-caret" viewBox="0 0 10 6" aria-hidden="true">
+      <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/* ─── Chrome ─────────────────────────────────────────────────
+   Acelasi markup si aceleasi clase ca paginile statice, ca sa nu
+   existe o cusatura vizibila cand treci din /servicii in /magazin.
+   Stilurile vin din css/spa-chrome.css, generat la build din aceleasi
+   surse ca site-ul static.
+
+   Paginile de marketing sunt servite static, deci linkurile catre ele
+   sunt navigari reale, nu rutare pe client. Doar Produse ramane
+   intern, pentru ca trimite si categoria selectata.
+   ──────────────────────────────────────────────────────────── */
+
+const PROD_CATS = [
+  { cat: 'all',          label: 'Toate produsele' },
+  { cat: 'achizitii',    label: 'Achiziții publice' },
+  { cat: 'delegare',     label: 'Delegare servicii' },
+  { cat: 'management',   label: 'Management proiect' },
+  { cat: 'digitalizare', label: 'Digitalizare' },
+  { cat: 'gratuite',     label: 'Gratuite' },
+];
+
+const SVC_LINKS = [
+  ['/servicii#analiza',  'Analiză și soluții personalizate'],
+  ['/servicii#achizitii', 'Achiziții publice'],
+  ['/servicii#delegare',  'Delegare servicii de utilități publice'],
+  ['/servicii#excel',     'Modele de lucru EXCEL'],
+  ['/servicii#word',      'Modele de lucru WORD'],
+  ['/servicii#pdf',       'Modele de lucru PDF inteligent'],
+];
+
 function Nav({ onNav, page }) {
   const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
-  const [ddOpen, setDdOpen] = useState(false);
-  const ddTimer = useRef(null);
-  const [ddProdOpen, setDdProdOpen] = useState(false);
-  const ddProdTimer = useRef(null);
-  const lastScrollY = useRef(0);
+  const [menu, setMenu] = useState(null);       // 'servicii' | 'produse' | null
+  const [announce, setAnnounce] = useState(true);
+  const closeTimer = useRef(null);
 
   useEffect(() => {
-    const h = () => {
-      const y = window.scrollY;
-      setScrolled(y > 10);
-      if (y > 80) {
-        setHidden(y > lastScrollY.current);
-      } else {
-        setHidden(false);
-      }
-      lastScrollY.current = y;
-    };
+    const h = () => setScrolled(window.scrollY > 12);
     window.addEventListener('scroll', h, { passive: true });
+    h();
     return () => window.removeEventListener('scroll', h);
   }, []);
 
-  const go = (p, e) => { if (e) e.preventDefault(); onNav(p); setOpen(false); window.scrollTo({ top: 0, behavior: 'instant' }); };
+  useEffect(() => {
+    const esc = (e) => { if (e.key === 'Escape') { setMenu(null); setOpen(false); } };
+    document.addEventListener('keydown', esc);
+    return () => document.removeEventListener('keydown', esc);
+  }, []);
 
-  const openDd  = () => { clearTimeout(ddTimer.current); setDdOpen(true); };
-  const closeDd = () => { ddTimer.current = setTimeout(() => setDdOpen(false), 220); };
+  /* Aceeasi intarziere la inchidere ca pe paginile statice, ca sa poti
+     trece cu mouse-ul de pe buton pe panou fara sa se inchida. */
+  const enter = (id) => { clearTimeout(closeTimer.current); setMenu(id); };
+  const leave = () => { closeTimer.current = setTimeout(() => setMenu(null), 140); };
 
-  const openDdProd  = () => { clearTimeout(ddProdTimer.current); setDdProdOpen(true); };
-  const closeDdProd = () => { ddProdTimer.current = setTimeout(() => setDdProdOpen(false), 220); };
+  const goShop = (cat, e) => {
+    e.preventDefault();
+    onNav('magazin', { category: cat });
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    setMenu(null);
+    setOpen(false);
+  };
 
-  const svcs = [
-    ['analiza-si-solutii', 'Analiză și soluții personalizate'],
-    ['achizitii-publice', 'Achiziții publice'],
-    ['delegare-servicii', 'Delegare servicii de utilități publice'],
-    ['modele-excel', 'Modele de lucru EXCEL'],
-    ['modele-word', 'Modele de lucru WORD'],
-    ['modele-pdf', 'Modele de lucru PDF'],
-  ];
-  const svcPages = svcs.map(s => s[0]);
-
-  const prodCats = [
-    { cat: 'all',          label: 'Toate produsele' },
-    { cat: 'achizitii',    label: 'Achiziții publice' },
-    { cat: 'delegare',     label: 'Delegare servicii' },
-    { cat: 'management',   label: 'Management proiect' },
-    { cat: 'digitalizare', label: 'Digitalizare' },
-    { cat: 'gratuite',     label: 'Gratuite', green: true },
-  ];
+  const item = (id, extra = '') =>
+    `nav__item${extra}${menu === id ? ' is-open' : ''}`;
 
   return (
     <>
-      <nav className={`main-nav${scrolled ? ' scrolled' : ''}${hidden ? ' nav-hidden' : ''}`}>
-        <div className="nav-island">
-          <div className="nav-inner">
-            <a className="nav-logo" href="/" onClick={(e) => go('home', e)}>
-              <img
-                src="logo/png/logo-no-background.png"
-                alt="INFORMS"
-                style={{ height: '28px', width: 'auto', display: 'block' }}
-              />
+      {announce && (
+        <div className="announce">
+          <div className="announce__inner">
+            <a href="/servicii" className="announce__link">
+              <span>Praguri valorice și eForms, actualizate pentru 2026. Vezi ce se schimbă</span>
+              <Arrow />
             </a>
-
-            <div className="nav-links">
-              <a className={`nav-link${page === 'home' ? ' active' : ''}`} href="/" onClick={(e) => go('home', e)}>Acasă</a>
-              <a className={`nav-link${page === 'despre-noi' ? ' active' : ''}`} href="/despre-noi" onClick={(e) => go('despre-noi', e)}>Despre noi</a>
-
-              <div
-                className={`nav-dd${ddOpen ? ' dd-open' : ''}`}
-                onMouseEnter={openDd}
-                onMouseLeave={closeDd}
-              >
-                <a className={`nav-link nav-dd-toggle${svcPages.includes(page) || page === 'servicii' ? ' active' : ''}`} href="/servicii" onClick={(e) => { e.preventDefault(); go('servicii'); }}>
-                  Servicii
-                </a>
-                <div className="nav-dd-menu" onMouseEnter={openDd} onMouseLeave={closeDd}>
-                  {svcs.map(([p, l]) => (
-                    <a key={p} className="nav-dd-item" href={`/${p}`} onClick={(e) => go(p, e)}>{l}</a>
-                  ))}
-                </div>
-              </div>
-
-              <div
-                className={`nav-dd${ddProdOpen ? ' dd-open' : ''}`}
-                onMouseEnter={openDdProd}
-                onMouseLeave={closeDdProd}
-              >
-                <a className={`nav-link nav-dd-toggle${page === 'magazin' ? ' active' : ''}`} href="/magazin" onClick={(e) => { e.preventDefault(); go('magazin'); }}>
-                  Produse
-                </a>
-                <div className="nav-dd-menu" onMouseEnter={openDdProd} onMouseLeave={closeDdProd}>
-                  {prodCats.map(({ cat, label, green }) => (
-                    <a key={cat} className="nav-dd-item" href={`/magazin`} style={green ? { color: '#16A34A' } : {}} onClick={(e) => {
-                      e.preventDefault();
-                      onNav('magazin', { category: cat });
-                      window.scrollTo({ top: 0, behavior: 'instant' });
-                      setDdProdOpen(false);
-                    }}>{label}</a>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="nav-end">
-              <a className={`nav-link nav-cta${page === 'contact' ? ' active' : ''}`} href="/contact" onClick={(e) => go('contact', e)}>
-                Contact
-              </a>
-              <button className={`hamburger${open ? ' open' : ''}`} onClick={() => setOpen(!open)} aria-label="Meniu">
-                <span></span><span></span><span></span>
-              </button>
-            </div>
+            <button className="announce__close" type="button" aria-label="Închide anunțul"
+                    onClick={() => setAnnounce(false)}>
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              </svg>
+            </button>
           </div>
         </div>
-      </nav>
+      )}
 
-      <div className={`mobile-menu${open ? ' open' : ''}`}>
-        <a className="m-link" href="/" onClick={(e) => go('home', e)}>Acasă</a>
-        <a className="m-link" href="/despre-noi" onClick={(e) => go('despre-noi', e)}>Despre noi</a>
-        <div className="m-section-title">Servicii</div>
-        {svcs.map(([p, l]) => (
-          <a key={p} className="m-link" href={`/${p}`} style={{ paddingLeft: '26px', fontSize: '14px' }} onClick={(e) => go(p, e)}>{l}</a>
-        ))}
-        <div className="m-section-title">Produse</div>
-        {prodCats.map(({ cat, label, green }) => (
-          <a key={cat} className="m-link" href="/magazin"
-            style={{ paddingLeft: cat === 'all' ? '14px' : '26px', fontSize: cat === 'all' ? '15px' : '14px', ...(green ? { color: '#16A34A' } : {}) }}
-            onClick={(e) => {
-              e.preventDefault();
-              onNav('magazin', { category: cat });
-              window.scrollTo({ top: 0, behavior: 'instant' });
-              setOpen(false);
-            }}>{label}</a>
-        ))}
-        <div style={{ marginTop: '12px', padding: '0 2px' }}>
-          <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => go('contact')}>
-            Contact
+      <header className={`hdr${scrolled ? ' is-stuck' : ''}`}>
+        <div className="hdr__inner">
+
+          <a className="logo" href="/" aria-label="INFORMS — acasă">
+            <img className="logo__img" src="assets/brand/logo-white.svg" alt="INFORMS" width="1000" height="166" />
+          </a>
+
+          <nav className="nav" aria-label="Navigare principală">
+            <ul className="nav__list">
+              <li className="nav__item"><a className="nav__link" href="/">Acasă</a></li>
+              <li className="nav__item"><a className="nav__link" href="/despre-noi">Despre noi</a></li>
+
+              <li className={item('servicii', ' has-menu')}
+                  onMouseEnter={() => enter('servicii')} onMouseLeave={leave}>
+                <button className="nav__link" aria-expanded={menu === 'servicii'}
+                        onClick={() => setMenu(menu === 'servicii' ? null : 'servicii')}>
+                  Servicii <Caret />
+                </button>
+                <div className="mega">
+                  <div className="mega__inner mega__inner--2">
+                    <div className="mega__col">
+                      <p className="mega__label">Consultanță și documentații</p>
+                      <ul className="mega__links">
+                        {SVC_LINKS.slice(0, 3).map(([h, l]) => (
+                          <li key={h}><a href={h}>{l}</a></li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="mega__col">
+                      <p className="mega__label">Instrumente de lucru</p>
+                      <ul className="mega__links">
+                        {SVC_LINKS.slice(3).map(([h, l]) => (
+                          <li key={h}><a href={h}>{l}</a></li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="mega__promo">
+                      <div className="mega__promo-art art" data-art="grid" data-tint="deep" />
+                      <p className="mega__promo-kicker">Actualizare 2026</p>
+                      <h4 className="mega__promo-title">Ce se schimbă odată cu eForms și noile praguri</h4>
+                      <a className="lnk" href="/servicii">Vezi serviciile <Arrow /></a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li className={item('produse', ' has-menu')}
+                  onMouseEnter={() => enter('produse')} onMouseLeave={leave}>
+                <button className="nav__link" aria-expanded={menu === 'produse'}
+                        onClick={() => setMenu(menu === 'produse' ? null : 'produse')}>
+                  Produse <Caret />
+                </button>
+                <div className="mega">
+                  <div className="mega__inner mega__inner--1">
+                    <div className="mega__col">
+                      <p className="mega__label">Catalog</p>
+                      <ul className="mega__links">
+                        {PROD_CATS.map(({ cat, label }) => (
+                          <li key={cat}>
+                            <a className={page === 'magazin' && cat === 'all' ? 'is-active' : undefined}
+                               href="/magazin" onClick={(e) => goShop(cat, e)}>{label}</a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="mega__promo">
+                      <div className="mega__promo-art art" data-art="bars" data-tint="blue" />
+                      <p className="mega__promo-kicker">Fără cost</p>
+                      <h4 className="mega__promo-title">Modele gratuite, descărcabile imediat</h4>
+                      <a className="lnk" href="/magazin" onClick={(e) => goShop('gratuite', e)}>Vezi modelele <Arrow /></a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li className="nav__item"><a className="nav__link" href="/contact">Contact</a></li>
+            </ul>
+          </nav>
+
+          <div className="hdr__actions">
+            <a className="btn btn--primary btn--sm" href="/contact">Solicită o consultare</a>
+          </div>
+
+          <button className="burger" type="button" aria-expanded={open}
+                  aria-label={open ? 'Închide meniul' : 'Deschide meniul'}
+                  onClick={() => setOpen(!open)}>
+            <span></span><span></span><span></span>
           </button>
         </div>
-      </div>
+      </header>
+
+      {open && (
+        <div className="drawer">
+          <nav className="drawer__nav" aria-label="Navigare mobilă">
+            <a className="drawer__solo" href="/">Acasă</a>
+            <a className="drawer__solo" href="/despre-noi">Despre noi</a>
+
+            <details className="drawer__group">
+              <summary>Servicii</summary>
+              {SVC_LINKS.map(([h, l]) => <a key={h} href={h}>{l}</a>)}
+            </details>
+
+            <details className="drawer__group" open={page === 'magazin'}>
+              <summary>Produse</summary>
+              {PROD_CATS.map(({ cat, label }) => (
+                <a key={cat} href="/magazin" onClick={(e) => goShop(cat, e)}>{label}</a>
+              ))}
+            </details>
+
+            <a className="drawer__solo" href="/contact">Contact</a>
+            <a className="btn btn--primary drawer__cta" href="/contact">Solicită o consultare</a>
+          </nav>
+        </div>
+      )}
     </>
   );
 }
 
-/* Link de footer cu href real, ca să poată fi copiat sau deschis în tab nou. */
-function FLink({ to, go, children }) {
-  const href = to === 'home' ? '/' : '/' + to;
-  return (
-    <a href={href} onClick={(e) => { e.preventDefault(); go(to); }}>{children}</a>
-  );
-}
+function Footer() {
+  const rows = companyRows();
+  const byLabel = (l) => rows.find(r => r.label === l);
 
-function Footer({ onNav, page }) {
-  const go = (p) => { onNav(p); window.scrollTo({ top: 0, behavior: 'instant' }); };
-  const videoRef = useRef(null);
-  const isHome = page === 'home' || page === undefined;
-
-  useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
-    if (!isHome) { el.pause(); return; }
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) el.play().catch(() => {}); },
-      { threshold: 0.05 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+  const link = (r) => r.href
+    ? <a href={r.href}>{r.val}</a>
+    : <span>{r.val}</span>;
 
   return (
-    <footer>
-      <video ref={videoRef} className="footer-vid" muted playsInline preload="none" style={{ display: isHome ? '' : 'none' }}>
-        <source src="assets/videos_library/footer.mp4" type="video/mp4" />
-        <track kind="captions" src="" label="Română" srclang="ro" default />
-      </video>
-      <div className="footer-content">
-      <div className="footer-gradient-line"></div>
+    <footer className="ftr">
       <div className="container">
-        <div className="footer-grid">
-          <div>
-            <div className="f-logo">
-              <img
-                src="logo/png/logo-no-background.png"
-                alt="INFORMS"
-                style={{ height: '28px', width: 'auto', display: 'block', marginBottom: '14px', filter: 'brightness(0) invert(1)' }}
-              />
-            </div>
-            <p className="f-desc">
-              Documentații complete, formulare și instrumente de lucru inteligente,
-              într-un format intuitiv, standard și ușor de utilizat.
+        <div className="ftr__top">
+          <div className="ftr__brand">
+            <a className="logo" href="/" aria-label="INFORMS — acasă">
+              <img className="logo__img" src="assets/brand/logo-white.svg" alt="INFORMS" width="1000" height="166" />
+            </a>
+            <p className="ftr__tag">
+              Documentații complete, formulare și instrumente de lucru pentru achiziții publice,
+              într-un format standard și ușor de aplicat.
             </p>
-            <div className="f-legal">
-              {companyRows().map((r, i) => (
-                <div key={i}>
-                  <span className="f-legal-lbl">{r.label}</span>
-                  {r.href
-                    ? <a className="f-legal-val" href={r.href}>{r.val}</a>
-                    : <span className="f-legal-val">{r.val}</span>}
-                </div>
-              ))}
-            </div>
-            <div style={{ marginBottom: '20px' }}>
-              <p style={{ fontSize: '12px', color: 'rgba(255,255,255,.38)', marginBottom: '6px', lineHeight: '1.5' }}>
-                Digitalizează achizițiile publice cu aplicația
-              </p>
-              <a href="https://agathaplus.ro/" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'rgba(255,255,255,.75)', fontSize: '14.5px', fontWeight: 600 }}>
-                Agatha Plus ↗
-              </a>
-            </div>
-            <div className="f-partners">
-              <a href="https://www.e-licitatie.ro/pub" target="_blank" rel="noopener noreferrer">
-                <img src="uploads/seap-sicap-logo.webp" alt="SEAP / SICAP" />
-              </a>
-              {/* Varianta albă, cea pe care o alege componenta oficială NETOPIA
-                  pentru un fundal închis ca #061830. Se afișează la opacitate
-                  întreagă: siglele Visa și Mastercard nu au voie alterate. */}
-              <a href="https://netopia-payments.com/" target="_blank" rel="noopener noreferrer" title="NETOPIA Payments">
-                <img className="f-netopia" src="uploads/netopia-payments-white.svg" alt="NETOPIA Payments, Visa, Mastercard" />
-              </a>
-              <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener noreferrer">
-                <img src="uploads/anpc-sal.png" alt="ANPC SAL" />
-              </a>
-              <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">
-                <img src="uploads/anpc-sol.png" alt="ANPC SOL" />
-              </a>
-            </div>
+            <a className="ftr__cross" href="https://agathaplus.ro/" target="_blank" rel="noopener noreferrer">
+              <span>Gestionezi tot programul de achiziții? Vezi aplicația <strong>Agatha Plus</strong></span>
+              <Arrow />
+            </a>
           </div>
 
-          <div>
-            <h5>Link-uri rapide</h5>
-            <FLink to="home" go={go}>Pagina principală</FLink>
-            <FLink to="despre-noi" go={go}>Despre noi</FLink>
-            <FLink to="magazin" go={go}>Produse</FLink>
-            <FLink to="contact" go={go}>Contact</FLink>
-          </div>
+          <nav className="ftr__cols" aria-label="Navigare subsol">
+            <div className="ftr__col">
+              <h4>Date firmă</h4>
+              <ul>
+                {rows.map((r, i) => <li key={i}>{link(r)}</li>)}
+              </ul>
+            </div>
+            <div className="ftr__col">
+              <h4>Navigare</h4>
+              <ul>
+                <li><a href="/">Pagina principală</a></li>
+                <li><a href="/despre-noi">Despre noi</a></li>
+                <li><a href="/servicii">Servicii</a></li>
+                <li><a href="/magazin">Produse</a></li>
+                <li><a href="/contact">Contact</a></li>
+              </ul>
+            </div>
+            <div className="ftr__col">
+              <h4>Servicii</h4>
+              <ul>
+                {SVC_LINKS.map(([h, l]) => (
+                  <li key={h}><a href={h}>{l.replace('Modele de lucru ', 'Modele ').replace(' personalizate', '')}</a></li>
+                ))}
+              </ul>
+            </div>
+            <div className="ftr__col">
+              <h4>Politici</h4>
+              <ul>
+                <li><a href="/termeni-si-conditii">Termeni și condiții</a></li>
+                <li><a href="/politica-confidentialitate">Politica de confidențialitate</a></li>
+                <li><a href="/politica-gdpr">Politica GDPR</a></li>
+                <li><a href="/politica-cookies">Politica de cookie-uri</a></li>
+                <li><a href="/politica-livrare">Politica de livrare</a></li>
+                <li><a href="/politica-anulare">Anulare și retur</a></li>
+                <li><a href="/dreptul-de-retragere">Dreptul de retragere</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
 
-          <div>
-            <h5>Servicii</h5>
-            <FLink to="analiza-si-solutii" go={go}>Analiză și soluții</FLink>
-            <FLink to="achizitii-publice" go={go}>Achiziții publice</FLink>
-            <FLink to="delegare-servicii" go={go}>Delegare servicii</FLink>
-            <FLink to="modele-excel" go={go}>Modele EXCEL</FLink>
-            <FLink to="modele-word" go={go}>Modele WORD</FLink>
-            <FLink to="modele-pdf" go={go}>Modele PDF</FLink>
+        {/* Siglele Visa si Mastercard, ca si badge-urile ANPC, se afiseaza
+            nealterate: fara opacitate si fara filtre. */}
+        <div className="ftr__badges">
+          <div className="ftr__badge-row">
+            <a className="ftr__badge" href="https://www.e-licitatie.ro/pub" target="_blank" rel="noopener noreferrer">
+              <img src="uploads/seap-sicap-logo.webp" alt="SEAP / SICAP" height="34" loading="lazy" />
+            </a>
+            <a className="ftr__badge" href="https://netopia-payments.com/" target="_blank" rel="noopener noreferrer" title="NETOPIA Payments">
+              <img className="ftr__badge-img--pay" src="uploads/netopia-payments-white.svg"
+                   alt="NETOPIA Payments, Visa, Mastercard" height="26" loading="lazy" />
+            </a>
           </div>
-
-          <div>
-            <h5>Politici</h5>
-            <FLink to="termeni-si-conditii" go={go}>Termeni și condiții</FLink>
-            <FLink to="politica-confidentialitate" go={go}>Politica de confidențialitate</FLink>
-            <FLink to="politica-gdpr" go={go}>Politica GDPR</FLink>
-            <FLink to="politica-cookies" go={go}>Politica de cookie-uri</FLink>
-            <FLink to="politica-livrare" go={go}>Politica de livrare</FLink>
-            <FLink to="politica-anulare" go={go}>Politica de anulare și retur</FLink>
-            <FLink to="dreptul-de-retragere" go={go}>Dreptul de retragere</FLink>
+          <div className="ftr__badge-row">
+            <a className="ftr__badge" href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener noreferrer">
+              <img src="uploads/anpc-sal.png" alt="ANPC SAL" width="530" height="136" loading="lazy" />
+            </a>
+            <a className="ftr__badge" href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">
+              <img src="uploads/anpc-sol.png" alt="ANPC SOL" width="516" height="144" loading="lazy" />
+            </a>
           </div>
         </div>
 
-        <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} {COMPANY.brand} - Toate drepturile rezervate. Parte a companiei {COMPANY.name}.</span>
-          <span style={{ fontStyle: 'italic', opacity: .7 }}>
-            „Există un singur tip de succes - acela de a-ți putea petrece timpul așa cum îți dorești." - Chr. Morley
-          </span>
+        <div className="ftr__legal">
+          <p className="ftr__copy">
+            © {new Date().getFullYear()} {COMPANY.brand}. Parte a companiei {COMPANY.name}. Toate drepturile rezervate.
+          </p>
         </div>
-      </div>
       </div>
     </footer>
   );
