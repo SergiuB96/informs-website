@@ -46,5 +46,17 @@
     ],
     "nav": "contact",
     "navlink": null
+  },
+  {
+    "out": "404.html",
+    "src": "404.html",
+    "title": "Pagina nu a fost gasita — INFORMS",
+    "desc": "Adresa cautata nu exista. Vezi serviciile, catalogul de produse sau scrie-ne.",
+    "css": [
+      "art"
+    ],
+    "nav": null,
+    "navlink": null,
+    "noindex": true
   }
 ]

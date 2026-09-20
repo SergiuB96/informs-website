@@ -89,10 +89,16 @@ for (const page of pages) {
 
   const path = page.out === 'index.html' ? '/' : '/' + page.out.replace(/\.html$/, '');
 
+  // pagina de eroare nu are ce cauta in index
+  const robots = page.noindex
+    ? '\n<meta name="robots" content="noindex, follow">'
+    : '';
+
   let html = layout
     .replace('{{title}}', page.title)
     .replace('{{desc}}', page.desc)
     .replace('{{canonical}}', HOST + path)
+    .replace('{{robots}}', robots)
     .replace('{{css}}', cssTags)
     .replace('{{body}}', body);
 
@@ -137,11 +143,13 @@ const SPA_ROUTES = [
 
 const today = new Date().toISOString().slice(0, 10);
 
-const staticUrls = pages.map((p) => ({
-  path: p.out === 'index.html' ? '/' : '/' + p.out.replace(/\.html$/, ''),
-  priority: p.out === 'index.html' ? '1.0' : '0.8',
-  freq: 'monthly'
-}));
+const staticUrls = pages
+  .filter((p) => !p.noindex)
+  .map((p) => ({
+    path: p.out === 'index.html' ? '/' : '/' + p.out.replace(/\.html$/, ''),
+    priority: p.out === 'index.html' ? '1.0' : '0.8',
+    freq: 'monthly'
+  }));
 
 const urls = [...staticUrls, ...SPA_ROUTES];
 

@@ -26,10 +26,15 @@
     { "source": "/despre-noi", "destination": "/despre-noi.html" },
     { "source": "/contact", "destination": "/contact.html" },
 
-    {
-      "source": "/((?!api/|assets/|logo/|uploads/|vendor/|spete/|.*\\.).*)",
-      "destination": "/app.html"
-    }
+    { "source": "/magazin", "destination": "/app.html" },
+    { "source": "/comanda-finalizata", "destination": "/app.html" },
+    { "source": "/politica-confidentialitate", "destination": "/app.html" },
+    { "source": "/termeni-si-conditii", "destination": "/app.html" },
+    { "source": "/politica-gdpr", "destination": "/app.html" },
+    { "source": "/politica-cookies", "destination": "/app.html" },
+    { "source": "/politica-livrare", "destination": "/app.html" },
+    { "source": "/politica-anulare", "destination": "/app.html" },
+    { "source": "/dreptul-de-retragere", "destination": "/app.html" }
   ],
   "headers": [
     {

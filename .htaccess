@@ -1,19 +1,34 @@
 # Doar pentru dezvoltare locala pe XAMPP. Vercel foloseste vercel.json
-# si ignora acest fisier. Reproduce adresele curate din productie.
+# si ignora acest fisier. Reproduce rutarea din productie, inclusiv
+# faptul ca o cale necunoscuta da 404, nu prima pagina.
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # fisierele reale se servesc direct
+  # fisierele si folderele reale se servesc direct
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
+
+  # shell-ul SPA nu se acceseaza direct
+  RewriteRule ^app\.html$ / [R=302,L]
+
+  # sub-paginile de servicii, consolidate in /servicii
+  RewriteRule ^analiza-si-solutii/?$ /servicii#analiza    [R=301,L]
+  RewriteRule ^achizitii-publice/?$  /servicii#achizitii  [R=301,L]
+  RewriteRule ^delegare-servicii/?$  /servicii#delegare   [R=301,L]
+  RewriteRule ^modele-excel/?$       /servicii#excel      [R=301,L]
+  RewriteRule ^modele-word/?$        /servicii#word       [R=301,L]
+  RewriteRule ^modele-pdf/?$         /servicii#pdf        [R=301,L]
 
   # paginile statice
   RewriteRule ^servicii/?$    servicii.html    [L]
   RewriteRule ^despre-noi/?$  despre-noi.html  [L]
   RewriteRule ^contact/?$     contact.html     [L]
 
-  # restul merge la shell-ul SPA
-  RewriteRule ^(?!api/) app.html [L]
+  # rutele ramase in aplicatia React
+  RewriteRule ^(magazin|comanda-finalizata|politica-confidentialitate|termeni-si-conditii|politica-gdpr|politica-cookies|politica-livrare|politica-anulare|dreptul-de-retragere)/?$ app.html [L]
 </IfModule>
+
+# orice altceva ajunge aici, ca in productie
+ErrorDocument 404 /404.html
