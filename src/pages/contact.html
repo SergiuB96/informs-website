@@ -1,0 +1,135 @@
+<main id="main">
+
+  <!-- ══ 1. Hero ══ -->
+  <section class="phero phero--compact">
+    <div class="phero__bg" aria-hidden="true"><span class="phero__orb"></span></div>
+    <div class="container phero__inner">
+
+      <nav class="crumbs" aria-label="Firimituri">
+        <ol>
+          <li><a href="index.html">Acasă</a></li>
+          <li aria-current="page">Contact</li>
+        </ol>
+      </nav>
+
+      <div class="phero__grid">
+        <div class="phero__main">
+          <p class="kicker">Scrie-ne</p>
+          <h1 class="phero__title">Spune-ne ce ai de pregătit</h1>
+          <p class="phero__lead">Cu cât descrii mai concret procedura, cu atât răspundem mai util. Termen, tip de contract, ce documente ai deja.</p>
+        </div>
+
+        <aside class="phero__facts">
+          <div class="fact"><span class="fact__num">24<span class="fact__unit">h</span></span><span class="fact__lbl">timp de răspuns în zile lucrătoare</span></div>
+          <div class="fact"><span class="fact__num">0</span><span class="fact__lbl">cost pentru prima discuție</span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 2. Formular ══ -->
+  <section class="sect">
+    <div class="container">
+      <div class="cwrap">
+
+        <div class="cform" data-reveal>
+          <h2 class="cform__title">Trimite-ne un mesaj</h2>
+          <p class="cform__lead">Câmpurile marcate sunt obligatorii. Nu trimitem newsletter fără acordul tău.</p>
+
+          <form id="cform" novalidate>
+            <div class="fgrid">
+
+              <div class="field" data-field="nume">
+                <label class="field__label" for="f-nume">Nume și prenume <span class="req">*</span></label>
+                <input type="text" id="f-nume" name="nume" autocomplete="name" required>
+                <span class="field__err">Scrie-ne cum te cheamă.</span>
+              </div>
+
+              <div class="field" data-field="organizatie">
+                <label class="field__label" for="f-org">Instituție sau firmă</label>
+                <input type="text" id="f-org" name="organizatie" autocomplete="organization">
+              </div>
+
+              <div class="field" data-field="email">
+                <label class="field__label" for="f-email">Email <span class="req">*</span></label>
+                <input type="email" id="f-email" name="email" autocomplete="email" required>
+                <span class="field__err">Adresa nu pare validă.</span>
+              </div>
+
+              <div class="field" data-field="telefon">
+                <label class="field__label" for="f-tel">Telefon</label>
+                <input type="tel" id="f-tel" name="telefon" autocomplete="tel">
+                <span class="field__err">Numărul nu pare valid.</span>
+              </div>
+
+              <div class="field field--select fgrid__full" data-field="subiect">
+                <label class="field__label" for="f-sub">Despre ce este vorba <span class="req">*</span></label>
+                <select id="f-sub" name="subiect" required>
+                  <option value="">Alege un subiect</option>
+                  <option>Documentație de atribuire</option>
+                  <option>Delegare servicii de utilități publice</option>
+                  <option>Pregătirea unei oferte</option>
+                  <option>Contestație</option>
+                  <option>Instrumente de lucru Excel, Word sau PDF</option>
+                  <option>Instruirea personalului</option>
+                  <option>Altceva</option>
+                </select>
+                <span class="field__err">Alege un subiect din listă.</span>
+              </div>
+
+              <div class="field fgrid__full" data-field="mesaj">
+                <label class="field__label" for="f-msg">Mesaj <span class="req">*</span></label>
+                <textarea id="f-msg" name="mesaj" required placeholder="Ce procedură pregătești, ce termen ai și ce documente există deja."></textarea>
+                <span class="field__hint">Minimum 20 de caractere.</span>
+                <span class="field__err">Scrie-ne câteva rânduri despre situație.</span>
+              </div>
+
+              <div class="field fgrid__full" data-field="acord">
+                <label class="check">
+                  <input type="checkbox" id="f-acord" name="acord" required>
+                  <span>Sunt de acord cu prelucrarea datelor pentru a primi un răspuns, conform <a href="/politica-confidentialitate">politicii de confidențialitate</a>.<span class="req">&nbsp;*</span></span>
+                </label>
+                <span class="field__err">Avem nevoie de acordul tău ca să îți putem răspunde.</span>
+              </div>
+
+            </div>
+
+            <button class="btn btn--blue" type="submit" id="csubmit">Trimite mesajul</button>
+            <p class="fnote" id="cnote" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <aside class="cside" data-reveal>
+          <div class="cbox">
+            <h3>Scrie direct</h3>
+            <div class="cbox__row"><a href="mailto:office@informs.ro">office@informs.ro</a></div>
+            <div class="cbox__row"><p>Luni până vineri, între <strong>09:00 și 17:00</strong></p></div>
+          </div>
+
+          <div class="cbox">
+            <h3>Sediul</h3>
+            <p><strong>MILBAC MANAGEMENT S.R.L.</strong><br>
+            Bld. Pandurilor nr. 86, et. 3, ap. 11<br>
+            Târgu Mureș, jud. Mureș, 540487</p>
+            <div class="cbox__row"><p>CUI 44991231<br>J26/1603/2021</p></div>
+          </div>
+
+          <div class="cbox">
+            <h3>Cauți un model anume</h3>
+            <p>O parte din instrumente se descarcă direct din catalog, fără să ne scrii.</p>
+            <div class="cbox__row"><a href="/magazin">Vezi catalogul de produse</a></div>
+            <div class="cbox__row"><a href="/magazin#gratuite">Modele gratuite</a></div>
+          </div>
+
+          <div class="cbox">
+            <h3>Gestionezi tot programul</h3>
+            <p>Pentru programul anual de achiziții și fluxurile de avizare, aplicația soră acoperă partea de platformă.</p>
+            <div class="cbox__row"><a href="https://www.agathaplus.ro/" target="_blank" rel="noopener">Agatha Plus</a></div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+</main>

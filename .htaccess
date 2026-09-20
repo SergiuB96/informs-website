@@ -1,0 +1,19 @@
+# Doar pentru dezvoltare locala pe XAMPP. Vercel foloseste vercel.json
+# si ignora acest fisier. Reproduce adresele curate din productie.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # fisierele reale se servesc direct
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # paginile statice
+  RewriteRule ^servicii/?$    servicii.html    [L]
+  RewriteRule ^despre-noi/?$  despre-noi.html  [L]
+  RewriteRule ^contact/?$     contact.html     [L]
+
+  # restul merge la shell-ul SPA
+  RewriteRule ^(?!api/) app.html [L]
+</IfModule>

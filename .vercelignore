@@ -13,3 +13,7 @@ node_modules/
 # Sub-site-ul Spete, dezactivat. Ramane in git, se poate repune
 # stergand linia de mai jos.
 spete/
+
+# Sursele build-ului static. Ancorat cu "/" ca sa nu prinda
+# eventuale foldere src/ imbricate.
+/src/

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx babel Config.jsx -o Config.js && npx babel Layout.jsx -o Layout.js && npx babel Icons.jsx -o Icons.js && npx babel Home.jsx -o Home.js && npx babel Pages.jsx -o Pages.js && npx babel Legal.jsx -o Legal.js && npx babel Shop.jsx -o Shop.js && npx babel App.jsx -o App.js && node build-wrap.js"
+    "build": "npx babel Config.jsx -o Config.js && npx babel Layout.jsx -o Layout.js && npx babel Icons.jsx -o Icons.js && npx babel Home.jsx -o Home.js && npx babel Pages.jsx -o Pages.js && npx babel Legal.jsx -o Legal.js && npx babel Shop.jsx -o Shop.js && npx babel App.jsx -o App.js && node build-wrap.js && node build.mjs"
   },
   "keywords": [],
   "author": "",

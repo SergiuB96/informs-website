@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /comanda-finalizata
+Disallow: /app.html
+Disallow: /api/
+
+Sitemap: https://www.informs.ro/sitemap.xml

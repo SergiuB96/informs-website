@@ -9,11 +9,23 @@
   },
   "redirects": [
     { "source": "/api/_:path*", "destination": "/", "permanent": false },
-    { "source": "/app.html", "destination": "/", "permanent": false }
+    { "source": "/app.html", "destination": "/", "permanent": false },
+
+    { "source": "/analiza-si-solutii", "destination": "/servicii#analiza", "permanent": true },
+    { "source": "/achizitii-publice", "destination": "/servicii#achizitii", "permanent": true },
+    { "source": "/delegare-servicii", "destination": "/servicii#delegare", "permanent": true },
+    { "source": "/modele-excel", "destination": "/servicii#excel", "permanent": true },
+    { "source": "/modele-word", "destination": "/servicii#word", "permanent": true },
+    { "source": "/modele-pdf", "destination": "/servicii#pdf", "permanent": true }
   ],
   "rewrites": [
     { "source": "/api/chat", "destination": "/api/chat" },
-    { "source": "/", "destination": "/app.html" },
+
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/servicii", "destination": "/servicii.html" },
+    { "source": "/despre-noi", "destination": "/despre-noi.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+
     {
       "source": "/((?!api/|assets/|logo/|uploads/|vendor/|spete/|.*\\.).*)",
       "destination": "/app.html"

@@ -1,0 +1,178 @@
+/* ═══════════════════════════════════════════════════════════
+   INFORMS — câmpuri de formular
+   Scris ca să fie refolosit și de checkout-ul din magazin.
+   ═══════════════════════════════════════════════════════════ */
+
+.fgrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.fgrid__full { grid-column: 1 / -1; }
+
+.field { display: flex; flex-direction: column; gap: 8px; }
+
+.field__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+}
+.field__label .req { color: #FF7AA8; margin-left: 2px; }
+
+.field__hint { font-size: 13px; color: var(--muted-3); }
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid var(--line-str);
+  background: rgba(255,255,255,.05);
+  color: var(--white);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 24px;
+  transition: border-color .2s var(--ease), background-color .2s var(--ease);
+}
+.field textarea { min-height: 150px; resize: vertical; }
+
+.field input::placeholder,
+.field textarea::placeholder { color: var(--muted-3); }
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  background: rgba(255,255,255,.08);
+}
+
+.field select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 44px;
+}
+.field select option { background: var(--navy-700); color: var(--white); }
+
+/* săgeata pentru select, desenată din borduri */
+.field--select { position: relative; }
+.field--select::after {
+  content: "";
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  margin-top: 6px;
+  width: 8px; height: 8px;
+  border-right: 1.6px solid var(--muted-2);
+  border-bottom: 1.6px solid var(--muted-2);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+/* stare de eroare, pusă din JS după validare */
+.field.is-bad input,
+.field.is-bad select,
+.field.is-bad textarea { border-color: #FF7AA8; }
+
+.field__err {
+  display: none;
+  font-size: 13px;
+  color: #FF7AA8;
+}
+.field.is-bad .field__err { display: block; }
+
+/* consimțământ */
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--muted);
+}
+.check input {
+  flex: none;
+  width: 20px; height: 20px;
+  margin-top: 1px;
+  accent-color: var(--blue);
+}
+.check a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+
+/* mesajul de după trimitere */
+.fnote {
+  display: none;
+  margin-top: 20px;
+  padding: 16px 20px;
+  border-radius: 14px;
+  font-size: 15px;
+  line-height: 23px;
+}
+.fnote.is-on { display: block; }
+.fnote.is-ok {
+  background: rgba(74, 222, 128, .12);
+  border: 1px solid rgba(74, 222, 128, .4);
+  color: #B9F2CE;
+}
+.fnote.is-err {
+  background: rgba(255, 122, 168, .12);
+  border: 1px solid rgba(255, 122, 168, .4);
+  color: #FFC2D8;
+}
+
+/* ── Aranjarea paginii de contact ─────────────────────────── */
+.cwrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 64px;
+  align-items: start;
+}
+
+.cform {
+  padding: 40px;
+  border-radius: var(--card-r);
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--line);
+}
+.cform__title { font-size: 26px; line-height: 34px; font-weight: 500; margin-bottom: 8px; }
+.cform__lead { color: var(--muted); margin-bottom: 30px; }
+.cform .btn { margin-top: 4px; }
+
+.cside { display: flex; flex-direction: column; gap: 14px; }
+
+.cbox {
+  padding: 26px;
+  border-radius: var(--card-r);
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.03);
+}
+.cbox h3 {
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted-3);
+  margin-bottom: 14px;
+}
+.cbox p, .cbox a { font-size: 15px; line-height: 24px; color: var(--muted); }
+.cbox a { color: var(--white); }
+.cbox a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.cbox strong { color: var(--white); font-weight: 600; }
+.cbox__row + .cbox__row { margin-top: 12px; }
+
+/* ══════════ Breakpoints ══════════ */
+
+@media (max-width: 1023px) {
+  .cwrap { grid-template-columns: 1fr; gap: 32px; }
+  .cform { padding: 30px 26px; }
+}
+
+@media (max-width: 640px) {
+  .fgrid { grid-template-columns: 1fr; gap: 16px; }
+  .cform { padding: 24px 20px; }
+  .cform__title { font-size: 22px; line-height: 30px; }
+  .cform .btn { width: 100%; }
+}

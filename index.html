@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<!--
+  FIȘIER GENERAT — nu edita aici, modificările se pierd la următorul build.
+  Conținutul paginii: src/pages/   Chrome comun: src/partials/
+  Regenerezi cu: node build.mjs
+-->
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INFORMS — Formulare inteligente. Documentații complete.</title>
+<meta name="description" content="Documentații de atribuire, formulare și instrumente de lucru pentru achiziții publice. Verificate juridic, actualizate la fiecare modificare legislativă.">
+<link rel="canonical" href="https://www.informs.ro/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/chrome.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/art.css">
+<link rel="icon" href="assets/brand/logo-navy.svg">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Sari la conținut</a>
+
+<!-- ══ Announcement bar ══ -->
+<div class="announce" id="announce">
+  <div class="announce__inner">
+    <a href="/servicii" class="announce__link">
+      <span>Praguri valorice și eForms, actualizate pentru 2026. Vezi ce se schimbă</span>
+      <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <button class="announce__close" type="button" aria-label="Închide anunțul">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ══ Header ══ -->
+<header class="hdr" id="hdr">
+  <div class="hdr__inner">
+
+    <a class="logo" href="/" aria-label="INFORMS — acasă">
+      <img class="logo__img" src="assets/brand/logo-white.svg" alt="INFORMS" width="1000" height="166">
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Navigare principală">
+      <ul class="nav__list">
+
+        <li class="nav__item is-current" data-nav="acasa"><a class="nav__link" href="/">Acasă</a></li>
+
+        <li class="nav__item" data-nav="despre"><a class="nav__link" href="/despre-noi">Despre noi</a></li>
+
+        <li class="nav__item has-menu" data-nav="servicii">
+          <button class="nav__link" aria-expanded="false">Servicii <svg class="ico-caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <div class="mega">
+            <div class="mega__inner mega__inner--2">
+              <div class="mega__col">
+                <p class="mega__label">Consultanță și documentații</p>
+                <ul class="mega__links">
+                  <li><a data-navlink="analiza" href="/servicii#analiza">Analiză și soluții personalizate</a></li>
+                  <li><a data-navlink="achizitii" href="/servicii#achizitii">Achiziții publice</a></li>
+                  <li><a data-navlink="delegare" href="/servicii#delegare">Delegare servicii de utilități publice</a></li>
+                </ul>
+              </div>
+              <div class="mega__col">
+                <p class="mega__label">Instrumente de lucru</p>
+                <ul class="mega__links">
+                  <li><a data-navlink="excel" href="/servicii#excel">Modele de lucru EXCEL</a></li>
+                  <li><a data-navlink="word" href="/servicii#word">Modele de lucru WORD</a></li>
+                  <li><a data-navlink="pdf" href="/servicii#pdf">Modele de lucru PDF inteligent</a></li>
+                </ul>
+              </div>
+              <div class="mega__promo">
+                <div class="mega__promo-art art" data-art="grid" data-tint="deep"></div>
+                <p class="mega__promo-kicker">Actualizare 2026</p>
+                <h4 class="mega__promo-title">Ce se schimbă odată cu eForms și noile praguri</h4>
+                <a class="lnk" href="/servicii">Vezi serviciile <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav__item has-menu" data-nav="produse">
+          <button class="nav__link" aria-expanded="false">Produse <svg class="ico-caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <div class="mega">
+            <div class="mega__inner mega__inner--1">
+              <div class="mega__col">
+                <p class="mega__label">Catalog</p>
+                <ul class="mega__links">
+                  <li><a href="/magazin">Toate produsele</a></li>
+                  <li><a href="/magazin#achizitii">Achiziții publice</a></li>
+                  <li><a href="/magazin#delegare">Delegare servicii</a></li>
+                  <li><a href="/magazin#management">Management proiect</a></li>
+                  <li><a href="/magazin#digitalizare">Digitalizare</a></li>
+                  <li><a href="/magazin#gratuite">Gratuite</a></li>
+                </ul>
+              </div>
+              <div class="mega__promo">
+                <div class="mega__promo-art art" data-art="bars" data-tint="blue"></div>
+                <p class="mega__promo-kicker">Fără cost</p>
+                <h4 class="mega__promo-title">Modele gratuite, descărcabile imediat</h4>
+                <a class="lnk" href="/magazin#gratuite">Vezi modelele <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav__item" data-nav="contact"><a class="nav__link" href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="hdr__actions">
+      <a class="btn btn--primary btn--sm" href="/contact">Solicită o consultare</a>
+    </div>
+
+    <button class="burger" id="burger" type="button" aria-label="Deschide meniul" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ══ Mobile drawer ══ -->
+<div class="drawer" id="drawer" hidden>
+  <nav class="drawer__nav" aria-label="Navigare mobilă">
+    <a class="drawer__solo" href="/">Acasă</a>
+    <a class="drawer__solo" href="/despre-noi">Despre noi</a>
+
+    <details class="drawer__group" data-nav="servicii"><summary>Servicii</summary>
+      <a href="/servicii#analiza">Analiză și soluții personalizate</a>
+      <a href="/servicii#achizitii">Achiziții publice</a>
+      <a href="/servicii#delegare">Delegare servicii de utilități publice</a>
+      <a href="/servicii#excel">Modele de lucru EXCEL</a>
+      <a href="/servicii#word">Modele de lucru WORD</a>
+      <a href="/servicii#pdf">Modele de lucru PDF inteligent</a>
+    </details>
+
+    <details class="drawer__group" data-nav="produse"><summary>Produse</summary>
+      <a href="/magazin">Toate produsele</a>
+      <a href="/magazin#achizitii">Achiziții publice</a>
+      <a href="/magazin#delegare">Delegare servicii</a>
+      <a href="/magazin#management">Management proiect</a>
+      <a href="/magazin#digitalizare">Digitalizare</a>
+      <a href="/magazin#gratuite">Gratuite</a>
+    </details>
+
+    <a class="drawer__solo" href="/contact">Contact</a>
+    <a class="btn btn--primary drawer__cta" href="/contact">Solicită o consultare</a>
+  </nav>
+</div>
+
+<main id="main">
+
+  <!-- ══ 1. Hero ══ -->
+  <section class="hero" aria-roledescription="carousel" aria-label="Ce facem">
+    <div class="hero__track" id="heroTrack">
+
+      <article class="hero__slide is-active" data-bg="1">
+        <div class="hero__media" aria-hidden="true"><span class="hero__orb"></span></div>
+        <div class="hero__scrim"></div>
+        <div class="container hero__body">
+          <p class="hero__kicker">Autoritate contractantă</p>
+          <h1 class="hero__title">Documentația de atribuire,<br>gata de publicat</h1>
+          <p class="hero__lead">Modele verificate juridic pentru servicii, produse și lucrări, actualizate la fiecare modificare legislativă. Publici procedura fără să te întrebi ce ai omis.</p>
+          <div class="hero__cta">
+            <a class="btn btn--light" href="/contact">Solicită o consultare</a>
+            <a class="btn btn--ghost" href="/servicii">Vezi serviciile</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="hero__slide" data-bg="2">
+        <div class="hero__media" aria-hidden="true"><span class="hero__orb"></span></div>
+        <div class="hero__scrim"></div>
+        <div class="container hero__body">
+          <p class="hero__kicker">Ofertant</p>
+          <h1 class="hero__title">Oferta care trece<br>de calificare</h1>
+          <p class="hero__lead">Instrumente pentru oferta tehnică și financiară, documentele de calificare complete și, când e cazul, contestația la CNSC sau în instanță.</p>
+          <div class="hero__cta">
+            <a class="btn btn--light" href="/contact">Solicită o ofertă</a>
+            <a class="btn btn--ghost" href="/servicii">Vezi serviciile</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="hero__slide" data-bg="3">
+        <div class="hero__media" aria-hidden="true"><span class="hero__orb"></span></div>
+        <div class="hero__scrim"></div>
+        <div class="container hero__body">
+          <p class="hero__kicker">Digitalizare</p>
+          <h1 class="hero__title">Formulare care se<br>completează singure</h1>
+          <p class="hero__lead">Modele Excel cu calcul automat, formulare PDF interactive și documente Word tipizate. Aceleași date, introduse o singură dată.</p>
+          <div class="hero__cta">
+            <a class="btn btn--light" href="/magazin">Vezi produsele</a>
+            <a class="btn btn--ghost" href="/servicii">Cum funcționează</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <button class="hero__arrow hero__arrow--prev" id="heroPrev" type="button" aria-label="Slide anterior">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="hero__arrow hero__arrow--next" id="heroNext" type="button" aria-label="Slide următor">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div class="hero__dots" id="heroDots" role="tablist" aria-label="Alege slide"></div>
+  </section>
+
+  <!-- ══ 2. Ce facem ══ -->
+  <section class="sect sect--intro">
+    <div class="container">
+      <div class="intro">
+        <div class="intro__left" data-reveal>
+          <h2 class="intro__title">
+            Lucrăm de cincisprezece ani pe documentații de achiziție publică. Ce livrăm nu sunt șabloane generice, ci instrumente construite în jurul a ceea ce se contestă efectiv și a ceea ce se schimbă în legislație de la un trimestru la altul.
+          </h2>
+          <div class="intro__cta">
+            <a class="btn btn--blue" href="/servicii">Serviciile noastre</a>
+            <a class="btn btn--outline" href="/magazin">Catalogul de produse</a>
+          </div>
+        </div>
+
+        <div class="intro__right" data-reveal>
+          <figure class="pcard">
+            <div class="pcard__art mono" data-tint="purple" aria-hidden="true"><span class="mono__ini">XLS</span></div>
+            <figcaption><strong>Excel</strong><span>calcul automat</span></figcaption>
+          </figure>
+          <figure class="pcard">
+            <div class="pcard__art mono" data-tint="blue" aria-hidden="true"><span class="mono__ini">DOC</span></div>
+            <figcaption><strong>Word</strong><span>formulare tipizate</span></figcaption>
+          </figure>
+          <figure class="pcard">
+            <div class="pcard__art mono" data-tint="pink" aria-hidden="true"><span class="mono__ini">PDF</span></div>
+            <figcaption><strong>PDF</strong><span>câmpuri interactive</span></figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="pillars">
+        <article class="pillar" data-reveal>
+          <span class="pillar__ico" aria-hidden="true">
+            <svg viewBox="0 0 28 28"><path d="M14 3l9 4v7c0 6-4 9-9 11-5-2-9-5-9-11V7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 14l3 3 5-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <h3>Verificat juridic, nu doar formatat</h3>
+          <p>Fiecare model respectă legislația în vigoare și normele de aplicare. Când apare o modificare, o transpunem în documente înainte să ajungi tu să o cauți.</p>
+          <a class="lnk" href="/servicii#achizitii">Cum verificăm <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </article>
+        <article class="pillar" data-reveal>
+          <span class="pillar__ico" aria-hidden="true">
+            <svg viewBox="0 0 28 28"><rect x="4" y="4" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 11h10M9 15h10M9 19h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </span>
+          <h3>Standardizat, deci repetabil</h3>
+          <p>Documentele structurate scot variabilitatea din proces. Aceeași procedură, pregătită de doi oameni diferiți, iese la fel.</p>
+          <a class="lnk" href="/servicii#excel">Vezi instrumentele <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </article>
+        <article class="pillar" data-reveal>
+          <span class="pillar__ico" aria-hidden="true">
+            <svg viewBox="0 0 28 28"><circle cx="11" cy="10" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 23c0-4 3-6 7-6s7 2 7 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M19 8a4 4 0 010 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </span>
+          <h3>Asistență, nu doar fișiere</h3>
+          <p>Peste cinci sute de ore de consultanță pe an, unu la unu. Îți explicăm de ce e construit documentul așa, nu doar unde se completează.</p>
+          <a class="lnk" href="/servicii#analiza">Cum lucrăm <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 3. Provocări ══ -->
+  <section class="sect sect--caps">
+    <div class="container">
+      <div class="caps__head" data-reveal>
+        <div>
+          <p class="kicker">Context operațional</p>
+          <h2 class="h2">Unde se pierd procedurile</h2>
+        </div>
+        <p class="lead caps__intro">Nu la lipsa de bunăvoință, ci la detalii procedurale care se repetă de la o instituție la alta. Sunt cele mai frecvente motive pentru care o procedură ajunge contestată.</p>
+      </div>
+
+      <div class="caps caps--pair">
+        <article class="cap" data-reveal>
+          <span class="cap__idx">01</span>
+          <h3 class="cap__title">Motivarea insuficientă a deciziilor</h3>
+          <p class="cap__text">Comunicările care nu explică limpede de ce a fost respinsă o ofertă sunt printre cele mai atacate. Un model bine construit te obligă să completezi motivarea, nu îți permite să o sari.</p>
+        </article>
+
+        <article class="cap" data-reveal>
+          <span class="cap__idx">02</span>
+          <h3 class="cap__title">Prețul neobișnuit de scăzut</h3>
+          <p class="cap__text">Solicitarea de justificare și evaluarea răspunsului cer o procedură scrisă. Fără ea, decizia rămâne discutabilă indiferent în ce sens o iei.</p>
+        </article>
+
+        <article class="cap" data-reveal>
+          <span class="cap__idx">03</span>
+          <h3 class="cap__title">Cerințele de calificare</h3>
+          <p class="cap__text">Cerințele disproporționate restrâng concurența și se contestă. Cele prea permisive lasă să treacă oferte pe care nu le mai poți susține la execuție.</p>
+        </article>
+
+        <article class="cap" data-reveal>
+          <span class="cap__idx">04</span>
+          <h3 class="cap__title">Dosarul achiziției, strâns în ultima zi</h3>
+          <p class="cap__text">Într-o treime din contestațiile ajunse la Consiliu, dosarul a fost transmis cu întârziere. Un dosar ținut ordonat pe parcurs nu se adună peste noapte.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 4. Cadrul legal ══ -->
+  <section class="band">
+    <div class="container band__head" data-reveal>
+      <h2 class="h2 band__title">Documente care stau pe lege, nu pe obicei</h2>
+      <p class="band__lead">Fiecare instrument trimite explicit la temeiul pe care e construit. Când temeiul se schimbă, primești versiunea actualizată.</p>
+    </div>
+
+    <div class="marquee" aria-label="Cadrul legislativ de referință">
+      <div class="marquee__row" id="marqueeRow">
+        <span class="chip">Legea 98/2016</span><span class="chip">Legea 99/2016</span><span class="chip">Legea 100/2016</span>
+        <span class="chip">Legea 101/2016</span><span class="chip">HG 395/2016</span><span class="chip">HG 394/2016</span>
+        <span class="chip">OUG 98/2017</span><span class="chip">Instrucțiuni ANAP</span><span class="chip">eForms SEAP</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 5. Cifre ══ -->
+  <section class="sect sect--stats">
+    <div class="container">
+      <h2 class="h2 stats__title" data-reveal>Cincisprezece ani, strânși în documente</h2>
+      <div class="stats" data-reveal>
+        <div class="stat"><span class="stat__num" data-count="15" data-suffix="+">0</span><span class="stat__label">ani în achiziții publice</span></div>
+        <div class="stat"><span class="stat__num" data-count="500" data-suffix="+">0</span><span class="stat__label">ore de consultanță pe an</span></div>
+        <div class="stat"><span class="stat__num" data-count="90" data-suffix="%">0</span><span class="stat__label">mai puține erori de redactare</span></div>
+        <div class="stat"><span class="stat__num" data-count="3" data-suffix="">0</span><span class="stat__label">formate de lucru</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 6. Instrumente ══ -->
+  <section class="sect sect--work">
+    <div class="container">
+      <div class="work__head" data-reveal>
+        <div>
+          <p class="kicker">Instrumente de lucru</p>
+          <h2 class="h2">Ce primești, concret</h2>
+        </div>
+        <a class="btn btn--outline" href="/magazin">Catalogul complet</a>
+      </div>
+
+      <div class="work__grid">
+        <article class="wcard wcard--wide" data-reveal>
+          <div class="wcard__art art" data-art="grid" data-tint="deep" aria-hidden="true"></div>
+          <div class="wcard__body">
+            <p class="wcard__tag">Documentații</p>
+            <h3 class="wcard__title">Documentații de atribuire pentru servicii, produse și lucrări</h3>
+            <a class="lnk" href="/servicii#achizitii">Vezi ce include <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </article>
+
+        <article class="wcard" data-reveal>
+          <div class="wcard__art art" data-art="bars" data-tint="teal" aria-hidden="true"></div>
+          <div class="wcard__body">
+            <p class="wcard__tag">Excel</p>
+            <h3 class="wcard__title">Instrumente de calcul și monitorizare</h3>
+            <a class="lnk" href="/servicii#excel">Detalii <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </article>
+
+        <article class="wcard" data-reveal>
+          <div class="wcard__art art" data-art="arcs" data-tint="pink" aria-hidden="true"></div>
+          <div class="wcard__body">
+            <p class="wcard__tag">Word</p>
+            <h3 class="wcard__title">Formulare tipizate și documente editabile</h3>
+            <a class="lnk" href="/servicii#word">Detalii <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </article>
+
+        <article class="wcard" data-reveal>
+          <div class="wcard__art art" data-art="flow" data-tint="amber" aria-hidden="true"></div>
+          <div class="wcard__body">
+            <p class="wcard__tag">PDF inteligent</p>
+            <h3 class="wcard__title">Formulare interactive, completate pe ecran</h3>
+            <a class="lnk" href="/servicii#pdf">Detalii <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </article>
+
+        <article class="wcard" data-reveal>
+          <div class="wcard__art art" data-art="pulse" data-tint="purple" aria-hidden="true"></div>
+          <div class="wcard__body">
+            <p class="wcard__tag">Rapoarte</p>
+            <h3 class="wcard__title">Procese verbale pentru situații complexe</h3>
+            <a class="lnk" href="/magazin#achizitii">Detalii <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </article>
+
+        <article class="wcard wcard--wide" data-reveal>
+          <div class="wcard__art art" data-art="orbit" data-tint="blue" aria-hidden="true"></div>
+          <div class="wcard__body">
+            <p class="wcard__tag">Utilități publice</p>
+            <h3 class="wcard__title">Delegarea serviciilor de salubrizare, transport și iluminat</h3>
+            <a class="lnk" href="/servicii#delegare">Vezi ce include <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 7. Proces ══ -->
+  <section class="sect sect--proc">
+    <div class="container">
+      <div class="proc__head" data-reveal>
+        <p class="kicker">Cum lucrăm</p>
+        <h2 class="h2">Patru pași, fără surprize la final</h2>
+        <p class="lead proc__lead">Lucrăm la fel cu o primărie de comună și cu o companie care depune oferte săptămânal. Se schimbă conținutul, nu metoda.</p>
+      </div>
+
+      <ol class="proc">
+        <li class="proc__step" data-reveal>
+          <span class="proc__num">01</span>
+          <div class="proc__body">
+            <h3>Analizăm</h3>
+            <p>Ne uităm la procedura pe care o pregătești, la ce ai deja și la unde s-a blocat ultima dată. Ieșim cu o listă de documente și cu ce lipsește din ele.</p>
+          </div>
+        </li>
+        <li class="proc__step" data-reveal>
+          <span class="proc__num">02</span>
+          <div class="proc__body">
+            <h3>Elaborăm</h3>
+            <p>Construim sau adaptăm documentația pe specificul tău. Nu primești un șablon gol, ci unul completat până unde putem completa noi.</p>
+          </div>
+        </li>
+        <li class="proc__step" data-reveal>
+          <span class="proc__num">03</span>
+          <div class="proc__body">
+            <h3>Implementăm</h3>
+            <p>Trecem prin documente împreună cu oamenii care le vor folosi. Dacă e nevoie, rămânem pe fir până la publicarea procedurii.</p>
+          </div>
+        </li>
+        <li class="proc__step" data-reveal>
+          <span class="proc__num">04</span>
+          <div class="proc__body">
+            <h3>Actualizăm</h3>
+            <p>La fiecare modificare legislativă relevantă primești versiunea nouă, cu ce s-a schimbat marcat explicit.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ══ 8. CTA ══ -->
+  <section class="sect sect--cta" id="contact">
+    <div class="container">
+      <div class="cta" data-reveal>
+        <h2 class="cta__title">Spune-ne ce procedură pregătești</h2>
+        <p class="cta__lead">Descrie-ne pe scurt situația și îți răspundem cu ce documente îți trebuie și cât durează. Prima discuție nu costă nimic.</p>
+        <div class="cta__row">
+          <a class="btn btn--blue" href="/contact">Solicită o consultare</a>
+          <a class="btn btn--outline" href="/magazin#gratuite">Vezi modelele gratuite</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══ Footer ══ -->
+<footer class="ftr">
+  <div class="container">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <a class="logo" href="/" aria-label="INFORMS — acasă">
+          <img class="logo__img" src="assets/brand/logo-white.svg" alt="INFORMS" width="1000" height="166">
+        </a>
+        <p class="ftr__tag">Documentații complete, formulare și instrumente de lucru pentru achiziții publice, într-un format standard și ușor de aplicat.</p>
+        <a class="ftr__cross" href="https://www.agathaplus.ro/" target="_blank" rel="noopener">
+          <span>Gestionezi tot programul de achiziții? Vezi aplicația <strong>Agatha Plus</strong></span>
+          <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <nav class="ftr__cols" aria-label="Navigare subsol">
+        <div class="ftr__col">
+          <h4>Date firmă</h4>
+          <ul>
+            <li><span>MILBAC MANAGEMENT S.R.L.</span></li>
+            <li><span>CUI 44991231</span></li>
+            <li><span>J26/1603/2021</span></li>
+            <li><span>Bld. Pandurilor 86, et. 3, ap. 11<br>Târgu Mureș, jud. Mureș, 540487</span></li>
+            <li><a href="mailto:office@informs.ro">office@informs.ro</a></li>
+            <li><span>Luni – Vineri, 09:00 – 17:00</span></li>
+          </ul>
+        </div>
+        <div class="ftr__col">
+          <h4>Navigare</h4>
+          <ul>
+            <li><a href="/">Pagina principală</a></li>
+            <li><a href="/despre-noi">Despre noi</a></li>
+            <li><a href="/servicii">Servicii</a></li>
+            <li><a href="/magazin">Produse</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="ftr__col">
+          <h4>Servicii</h4>
+          <ul>
+            <li><a href="/servicii#analiza">Analiză și soluții</a></li>
+            <li><a href="/servicii#achizitii">Achiziții publice</a></li>
+            <li><a href="/servicii#delegare">Delegare servicii</a></li>
+            <li><a href="/servicii#excel">Modele EXCEL</a></li>
+            <li><a href="/servicii#word">Modele WORD</a></li>
+            <li><a href="/servicii#pdf">Modele PDF</a></li>
+          </ul>
+        </div>
+        <div class="ftr__col">
+          <h4>Politici</h4>
+          <ul>
+            <li><a href="/termeni-si-conditii">Termeni și condiții</a></li>
+            <li><a href="/politica-confidentialitate">Politica de confidențialitate</a></li>
+            <li><a href="/politica-gdpr">Politica GDPR</a></li>
+            <li><a href="/politica-cookies">Politica de cookie-uri</a></li>
+            <li><a href="/politica-livrare">Politica de livrare</a></li>
+            <li><a href="/politica-anulare">Anulare și retur</a></li>
+            <li><a href="/dreptul-de-retragere">Dreptul de retragere</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="ftr__legal">
+      <p class="ftr__copy">© 2026 INFORMS. Parte a companiei MILBAC MANAGEMENT S.R.L. Toate drepturile rezervate.</p>
+      <p class="ftr__anpc">
+        <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener">ANPC SAL</a>
+        <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">SOL</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ Cookie banner ══ -->
+<div class="cookie" id="cookie">
+  <div class="cookie__inner">
+    <div class="cookie__text">
+      <h4>Confidențialitatea ta contează</h4>
+      <p>Folosim cookie-uri pentru a personaliza conținutul și a analiza traficul. Poți alege ce accepți.</p>
+    </div>
+    <div class="cookie__btns">
+      <button class="btn btn--tiny btn--outline-dark" type="button" data-cookie="custom">Personalizează</button>
+      <button class="btn btn--tiny btn--blue" type="button" data-cookie="reject">Respinge</button>
+      <button class="btn btn--tiny btn--blue" type="button" data-cookie="accept">Acceptă</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
