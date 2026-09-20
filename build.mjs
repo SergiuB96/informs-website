@@ -89,6 +89,41 @@ function buildSpaChrome() {
   console.log(`spa-chrome.css: ${prims.length} primitive + chrome, tokeni limitati la chrome.`);
 }
 
+/* ── Datele firmei, citite din Config.jsx ─────────────────────
+   Sunt date legale afisate pe un site care incaseaza: nu au voie sa
+   difere intre paginile statice si cele servite de aplicatie. In loc
+   sa le copiem, le citim din aceeasi sursa pe care o foloseste
+   companyRows(). Campurile marcate TODO sunt sarite, ca acolo.
+   ───────────────────────────────────────────────────────────── */
+function companyRowsHtml() {
+  const cfg = read(ROOT, 'Config.jsx');
+  const block = cfg.slice(cfg.indexOf('const COMPANY = {'));
+  const field = (k) => {
+    const m = new RegExp(`\\b${k}:\\s*'([^']*)'`).exec(block.slice(0, block.indexOf('};')));
+    return m ? m[1] : null;
+  };
+
+  const rows = [
+    ['name', (v) => `<span>${v}</span>`],
+    ['cui', (v) => `<span>CUI ${v}</span>`],
+    ['regCom', (v) => `<span>${v}</span>`],
+    ['address', (v) => `<span>${v.replace(', Târgu', '<br>Târgu')}</span>`],
+    ['phone', (v) => `<a href="tel:${v.replace(/\s/g, '')}">${v}</a>`],
+    ['email', (v) => `<a href="mailto:${v}">${v}</a>`],
+    ['schedule', (v) => `<span>${v}</span>`]
+  ];
+
+  const out = rows
+    .map(([k, fmt]) => {
+      const v = field(k);
+      return v ? `            <li>${fmt(v)}</li>` : null;
+    })
+    .filter(Boolean);
+
+  if (!out.length) throw new Error('Config.jsx: nu am putut citi datele firmei');
+  return out.join('\n');
+}
+
 /* ── partiale ─────────────────────────────────────────────── */
 const partials = {};
 for (const file of readdirSync(join(SRC, 'partials'))) {
@@ -171,6 +206,9 @@ for (const page of pages) {
     if (!(name in partials)) throw new Error(`Partial lipsă: ${name}`);
     return partials[name];
   });
+
+  // dupa injectarea partialelor, ca {{company}} din footer sa fie prins
+  html = html.replace('{{company}}', companyRowsHtml());
 
   html = applyActive(html, page);
   html = cleanUrls(html);

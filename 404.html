@@ -19,6 +19,9 @@
 <link rel="stylesheet" href="css/chrome.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/art.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3.0.1/dist/cookieconsent.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3.0.1/dist/cookieconsent.css"></noscript>
+<link rel="stylesheet" href="css/consent.css">
 <link rel="icon" href="assets/brand/logo-navy.svg">
 </head>
 <body>
@@ -224,7 +227,7 @@
             <li><span>MILBAC MANAGEMENT S.R.L.</span></li>
             <li><span>CUI 44991231</span></li>
             <li><span>J26/1603/2021</span></li>
-            <li><span>Bld. Pandurilor 86, et. 3, ap. 11<br>Târgu Mureș, jud. Mureș, 540487</span></li>
+            <li><span>Bld. Pandurilor nr. 86, et. 3, ap. 11<br>Târgu Mureș, jud. Mureș, 540487</span></li>
             <li><a href="mailto:office@informs.ro">office@informs.ro</a></li>
             <li><span>Luni – Vineri, 09:00 – 17:00</span></li>
           </ul>
@@ -294,21 +297,7 @@
   </div>
 </footer>
 
-<!-- ══ Cookie banner ══ -->
-<div class="cookie" id="cookie">
-  <div class="cookie__inner">
-    <div class="cookie__text">
-      <h4>Confidențialitatea ta contează</h4>
-      <p>Folosim cookie-uri pentru a personaliza conținutul și a analiza traficul. Poți alege ce accepți.</p>
-    </div>
-    <div class="cookie__btns">
-      <button class="btn btn--tiny btn--outline-dark" type="button" data-cookie="custom">Personalizează</button>
-      <button class="btn btn--tiny btn--blue" type="button" data-cookie="reject">Respinge</button>
-      <button class="btn btn--tiny btn--blue" type="button" data-cookie="accept">Acceptă</button>
-    </div>
-  </div>
-</div>
-
 <script src="js/main.js"></script>
+<script type="module" src="js/consent.js"></script>
 </body>
 </html>

@@ -546,38 +546,11 @@
 
 .ftr__copy { font-size: 13px; color: var(--muted-3); }
 
-.cookie {
-  position: fixed;
-  left: 0; right: 0; bottom: 0;
-  z-index: 70;
-  background: var(--white);
-  color: var(--ink);
-  box-shadow: 0 -8px 40px rgba(0,0,0,.35);
-  transform: translateY(0);
-  transition: transform .4s var(--ease-out);
-}
 
-.cookie.is-hidden { transform: translateY(110%); }
 
-.cookie__inner {
-  max-width: var(--container);
-  margin-inline: auto;
-  padding: 20px var(--gutter);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 32px;
-}
 
-.cookie__text h4 {
-  font-family: var(--f-body);
-  font-size: 16px; font-weight: 700; color: var(--ink);
-  margin-bottom: 6px;
-}
 
-.cookie__text p { font-size: 14px; color: #555; max-width: 70ch; }
 
-.cookie__btns { display: flex; gap: 10px; flex: none; }
 
 @media (max-width: 1200px) {
   .hdr__inner { gap: 20px; }
@@ -590,8 +563,6 @@
   .burger { display: flex; }
   .ftr__top { grid-template-columns: 1fr; }
   .ftr__cols { grid-template-columns: repeat(2, 1fr); gap: 28px; }
-  .cookie__inner { flex-direction: column; align-items: stretch; gap: 16px; }
-  .cookie__btns { justify-content: flex-end; flex-wrap: wrap; }
 }
 
 @media (max-width: 640px) {
@@ -601,7 +572,6 @@
   .ftr__cols { grid-template-columns: 1fr; }
   .ftr__legal { flex-direction: column; align-items: flex-start; }
   .ftr__legal ul { gap: 14px 20px; }
-  .cookie__btns .btn { flex: 1; }
 }
 
 /* ── Pagini interioare (mutat din service.css) ── */

@@ -43,111 +43,13 @@
   <script defer src="Shop.js"></script>
   <script defer src="App.js"></script>
 
-  <!-- Google Analytics — încărcat după load, nu blochează LCP -->
-  <script>
-    window.addEventListener('load', function() {
-      var s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-G2RJ4GKPJ1';
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      window.gtag = gtag;
-      gtag('js', new Date());
-      gtag('config', 'G-G2RJ4GKPJ1');
-    });
-  </script>
 
   <!-- Stil cookie bar aliniat cu tema site-ului -->
-  <style>
-    :root {
-      --cc-bg: #061830;
-      --cc-primary-color: #fff;
-      --cc-secondary-color: rgba(255,255,255,.65);
-      --cc-btn-primary-bg: #3B80CA;
-      --cc-btn-primary-color: #fff;
-      --cc-btn-primary-hover-bg: #5294D4;
-      --cc-btn-secondary-bg: transparent;
-      --cc-btn-secondary-color: rgba(255,255,255,.75);
-      --cc-btn-secondary-border-color: rgba(255,255,255,.3);
-      --cc-btn-secondary-hover-bg: rgba(255,255,255,.08);
-      --cc-btn-secondary-hover-color: #fff;
-      --cc-separator-border-color: rgba(255,255,255,.1);
-      --cc-toggle-on-bg: #3B80CA;
-      --cc-toggle-off-bg: rgba(255,255,255,.25);
-      --cc-toggle-readonly-bg: rgba(255,255,255,.15);
-      --cc-cookie-category-block-bg: rgba(255,255,255,.04);
-      --cc-cookie-category-block-border: rgba(255,255,255,.08);
-      --cc-modal-border-radius: 12px;
-      --cc-btn-border-radius: 6px;
-      --cc-font-family: 'Inter', system-ui, sans-serif;
-    }
-    #cc-main .cm {
-      box-shadow: 0 -4px 32px rgba(0,0,0,.25);
-    }
-  </style>
+  <link rel="stylesheet" href="css/consent.css" />
 </head>
 <body>
   <div id="root"></div>
 
-  <!-- Cookie Consent init — dynamic import dupa load, complet in afara critical path -->
-  <script type="module">
-    window.addEventListener('load', async function() {
-    await import('https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3.0.1/dist/cookieconsent.esm.js');
-
-    CookieConsent.run({
-      guiOptions: {
-        consentModal: {
-          layout: 'bar',
-          position: 'bottom',
-          equalWeightButtons: false,
-          flipButtons: false,
-        },
-        preferencesModal: {
-          layout: 'box',
-          equalWeightButtons: true,
-        },
-      },
-      categories: {
-        necessary: { enabled: true, readOnly: true },
-        analytics: { enabled: false },
-      },
-      language: {
-        default: 'ro',
-        translations: {
-          ro: {
-            consentModal: {
-              title: 'Folosim cookie-uri',
-              description: 'Utilizăm cookie-uri necesare pentru funcționarea site-ului și, opțional, cookie-uri de analiză (Google Analytics) pentru a înțelege cum este utilizat site-ul. Datele de analiză sunt anonimizate.',
-              acceptAllBtn: 'Acceptă toate',
-              acceptNecessaryBtn: 'Doar necesare',
-              showPreferencesBtn: 'Setări',
-              footer: '<a href="/politica-confidentialitate">Politica de confidențialitate</a> · <a href="/termeni-si-conditii">Termeni și condiții</a> · <a href="/politica-cookies">Politica de cookie-uri</a>',
-            },
-            preferencesModal: {
-              title: 'Preferințe cookie-uri',
-              acceptAllBtn: 'Acceptă toate',
-              acceptNecessaryBtn: 'Doar necesare',
-              savePreferencesBtn: 'Salvează preferințele',
-              closeIconLabel: 'Închide',
-              sections: [
-                {
-                  title: 'Cookie-uri necesare',
-                  description: 'Aceste cookie-uri sunt esențiale pentru funcționarea corectă a site-ului și nu pot fi dezactivate.',
-                  linkedCategory: 'necessary',
-                },
-                {
-                  title: 'Cookie-uri de analiză',
-                  description: 'Utilizăm Google Analytics pentru a înțelege cum este utilizat site-ul (pagini vizitate, durata sesiunii, dispozitiv). Datele sunt anonimizate și nu sunt partajate cu terți în scop comercial.',
-                  linkedCategory: 'analytics',
-                },
-              ],
-            },
-          },
-        },
-      },
-    });
-    }); // end load listener
-  </script>
+  <script type="module" src="js/consent.js"></script>
 </body>
 </html>

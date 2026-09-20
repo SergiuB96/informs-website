@@ -664,28 +664,6 @@
     });
   }
 
-  /* ── Cookie banner ────────────────────────────────────── */
-  function initCookie() {
-    var bar = document.getElementById('cookie');
-    if (!bar) return;
-
-    var KEY = 'informs:cookie-choice';
-    var stored = null;
-    try { stored = window.localStorage.getItem(KEY); } catch (err) { stored = null; }
-
-    if (stored) {
-      bar.classList.add('is-hidden');
-      return;
-    }
-
-    bar.querySelectorAll('[data-cookie]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        try { window.localStorage.setItem(KEY, btn.getAttribute('data-cookie')); } catch (err) { /* modul privat */ }
-        bar.classList.add('is-hidden');
-      });
-    });
-  }
-
   /* ── Boot ─────────────────────────────────────────────── */
   function boot() {
     initAnnounce();
@@ -702,7 +680,6 @@
     initListing();
     initNewsletter();
     initContactForm();
-    initCookie();
   }
 
   if (document.readyState === 'loading') {
