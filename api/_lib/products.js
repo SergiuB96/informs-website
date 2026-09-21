@@ -32,13 +32,12 @@ const PRODUCTS = {
     fileName: 'INFORMS - Pachet documentatie atribuire servicii.zip',
   },
   /* Produs de test pentru fluxul de plată, ascuns în magazin (vezi
-     `hidden` în Shop.jsx). Refolosește fișierul strategiei. De scos
-     după ce testul NETOPIA + Oblio trece. */
+     `hidden` în Shop.jsx). De scos după ce testul NETOPIA + Oblio trece. */
   'INF-TEST-10': {
     idx: 'd',
     title: 'Test plata INFORMS',
     price: 10,
-    blobPath: 'produse/strategie-contractare.docx',
+    blobPath: 'produse/studiu oportunitate Tarnaveni_old.docx',
     fileName: 'INFORMS - Test plata.docx',
   },
 };
