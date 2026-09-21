@@ -36,7 +36,7 @@ const read = (...p) => readFileSync(join(...p), 'utf8');
    tokenii limitati la radacinile de chrome. Fiind generat, nu poate
    ramane in urma fata de base.css si chrome.css.
    ───────────────────────────────────────────────────────────── */
-const CHROME_ROOTS = '.announce, .hdr, .drawer, .ftr, .cookie, .skip-link';
+const CHROME_ROOTS = '.hdr, .drawer, .ftr, .cookie, .skip-link';
 
 // primitivele de care are nevoie markup-ul de chrome
 const NEEDED = ['.skip-link', '.btn', '.lnk', '.ico-arrow', '.ico-caret', '.visually-hidden'];

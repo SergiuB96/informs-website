@@ -1,47 +1,7 @@
 /* ═════════════════════════════════════════════════════════
-   informs - Chrome comun: bara de anunt, header, meniuri, drawer,
-   footer, banner cookie. Identic pe toate paginile.
+   informs - Chrome comun: header, meniuri, drawer, footer, banner
+   cookie. Identic pe toate paginile.
    ═════════════════════════════════════════════════════════ */
-
-.announce {
-  background: var(--blue-deep);
-  color: var(--white);
-  font-size: 15px;
-  font-weight: 600;
-  position: relative;
-  z-index: 60;
-}
-
-.announce.is-closed { display: none; }
-
-.announce__inner {
-  max-width: var(--container);
-  margin-inline: auto;
-  padding: 0 var(--gutter);
-  height: var(--announce-h);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.announce__link { display: inline-flex; align-items: center; gap: 10px; }
-
-.announce__link:hover .ico-arrow { transform: translateX(4px); }
-
-.announce__close {
-  position: absolute;
-  right: var(--gutter);
-  width: 28px; height: 28px;
-  display: grid; place-items: center;
-  border-radius: 50%;
-  opacity: .7;
-  transition: opacity .2s, background-color .2s;
-}
-
-.announce__close:hover { opacity: 1; background: rgba(255,255,255,.14); }
-
-.announce__close svg { width: 14px; height: 14px; }
 
 .hdr {
   position: sticky;
@@ -422,9 +382,6 @@
 }
 
 @media (max-width: 640px) {
-  .announce { font-size: 13px; }
-  .announce__inner { justify-content: flex-start; padding-right: 56px; }
-  .announce__link span { display: block; }
   .ftr__cols { grid-template-columns: 1fr; }
   .ftr__legal { flex-direction: column; align-items: flex-start; }
   .ftr__legal ul { gap: 14px 20px; }

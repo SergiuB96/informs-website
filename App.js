@@ -4,6 +4,8 @@ const {
   useEffect
 } = React;
 const SERVICE_PAGES = ['analiza-si-solutii', 'achizitii-publice', 'delegare-servicii', 'modele-excel', 'modele-word', 'modele-pdf'];
+/* Servite ca HTML static (vercel.json), nu de app.html. */
+const STATIC_PAGES = ['home', 'servicii', 'despre-noi', 'contact'];
 const POLICY_PAGES = ['politica-confidentialitate', 'termeni-si-conditii', 'politica-gdpr', 'politica-cookies', 'politica-livrare', 'politica-anulare', 'dreptul-de-retragere'];
 const PAGE_META = {
   'home': {
@@ -129,8 +131,16 @@ function App() {
     return () => window.removeEventListener('popstate', onPop);
   }, []);
   const navigate = (newPage, opts = {}) => {
-    if (opts.category) setShopCategory(opts.category);else if (newPage !== 'magazin') setShopCategory('all');
     const target = pathFromPage(newPage);
+
+    /* Paginile statice au o singură versiune, cea generată din src/.
+       Le deschidem cu încărcare completă, ca aplicația să nu randeze
+       copiile React vechi. */
+    if (STATIC_PAGES.includes(newPage)) {
+      window.location.assign(target);
+      return;
+    }
+    if (opts.category) setShopCategory(opts.category);else if (newPage !== 'magazin') setShopCategory('all');
     if (window.location.pathname !== target) {
       window.history.pushState({
         page: newPage
@@ -159,10 +169,6 @@ function App() {
         });
       case 'despre-noi':
         return /*#__PURE__*/React.createElement(AboutPage, {
-          onNav: navigate
-        });
-      case 'contact':
-        return /*#__PURE__*/React.createElement(ContactPage, {
           onNav: navigate
         });
       case 'servicii':

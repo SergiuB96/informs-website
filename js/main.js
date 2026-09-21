@@ -11,17 +11,6 @@
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ── Announcement bar ─────────────────────────────────── */
-  function initAnnounce() {
-    var bar = document.getElementById('announce');
-    if (!bar) return;
-    var close = bar.querySelector('.announce__close');
-    if (!close) return;
-    close.addEventListener('click', function () {
-      bar.classList.add('is-closed');
-    });
-  }
-
   /* ── Header sticky state ──────────────────────────────── */
   function initStickyHeader() {
     var hdr = document.getElementById('hdr');
@@ -666,7 +655,6 @@
 
   /* ── Boot ─────────────────────────────────────────────── */
   function boot() {
-    initAnnounce();
     initStickyHeader();
     initMegaMenu();
     initLangMenu();

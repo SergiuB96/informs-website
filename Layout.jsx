@@ -59,7 +59,6 @@ function Nav({ onNav, page }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState(null);       // 'servicii' | 'produse' | null
-  const [announce, setAnnounce] = useState(true);
   const closeTimer = useRef(null);
 
   useEffect(() => {
@@ -93,23 +92,6 @@ function Nav({ onNav, page }) {
 
   return (
     <>
-      {announce && (
-        <div className="announce">
-          <div className="announce__inner">
-            <a href="/servicii" className="announce__link">
-              <span>Praguri valorice și eForms, actualizate pentru 2026. Vezi ce se schimbă</span>
-              <Arrow />
-            </a>
-            <button className="announce__close" type="button" aria-label="Închide anunțul"
-                    onClick={() => setAnnounce(false)}>
-              <svg viewBox="0 0 16 16" aria-hidden="true">
-                <path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      )}
-
       <header className={`hdr${scrolled ? ' is-stuck' : ''}`}>
         <div className="hdr__inner">
 

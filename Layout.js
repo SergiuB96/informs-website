@@ -86,7 +86,6 @@ function Nav({
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState(null); // 'servicii' | 'produse' | null
-  const [announce, setAnnounce] = useState(true);
   const closeTimer = useRef(null);
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 12);
@@ -129,28 +128,7 @@ function Nav({
     setOpen(false);
   };
   const item = (id, extra = '') => `nav__item${extra}${menu === id ? ' is-open' : ''}`;
-  return /*#__PURE__*/React.createElement(React.Fragment, null, announce && /*#__PURE__*/React.createElement("div", {
-    className: "announce"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "announce__inner"
-  }, /*#__PURE__*/React.createElement("a", {
-    href: "/servicii",
-    className: "announce__link"
-  }, /*#__PURE__*/React.createElement("span", null, "Praguri valorice \u0219i eForms, actualizate pentru 2026. Vezi ce se schimb\u0103"), /*#__PURE__*/React.createElement(Arrow, null)), /*#__PURE__*/React.createElement("button", {
-    className: "announce__close",
-    type: "button",
-    "aria-label": "\xCEnchide anun\u021Bul",
-    onClick: () => setAnnounce(false)
-  }, /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 16 16",
-    "aria-hidden": "true"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M3 3l10 10M13 3L3 13",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "1.6",
-    strokeLinecap: "round"
-  }))))), /*#__PURE__*/React.createElement("header", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("header", {
     className: `hdr${scrolled ? ' is-stuck' : ''}`
   }, /*#__PURE__*/React.createElement("div", {
     className: "hdr__inner"
