@@ -9,9 +9,10 @@
    indexează corect și funcționează cu JavaScript dezactivat.
    ═══════════════════════════════════════════════════════════ */
 
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const SRC = join(ROOT, 'src');
@@ -25,6 +26,26 @@ const BASE_CSS = ['base', 'chrome', 'components'];
 const HOST = 'https://www.informs.ro';
 
 const read = (...p) => readFileSync(join(...p), 'utf8');
+
+/* ── Versiuni pe fișierele proprii ────────────────────────────
+   vercel.json dă .js-urilor `stale-while-revalidate` de 7 zile, deci
+   un browser poate folosi o copie veche la prima vizită după un
+   deploy: CSS nou peste JS vechi. Adăugăm ?v=<hash de conținut> la
+   CSS/JS-urile locale; adresa se schimbă doar când se schimbă
+   fișierul. vendor/ are deja cache imutabil și nu se atinge.
+   Hash-ul ignoră sfârșitul de rând, ca să iasă la fel pe Windows
+   (autocrlf) și pe Vercel. */
+const ASSET_REF = /(src|href)="((?:css\/|js\/)?[A-Za-z0-9_.-]+\.(?:css|js))(?:\?v=[0-9a-f]+)?"/g;
+
+function stampAssets(html) {
+  return html.replace(ASSET_REF, (m, attr, file) => {
+    const path = join(ROOT, file);
+    if (!existsSync(path)) return m;
+    const body = readFileSync(path, 'utf8').replace(/\r\n/g, '\n');
+    const v = createHash('sha1').update(body).digest('hex').slice(0, 8);
+    return `${attr}="${file}?v=${v}"`;
+  });
+}
 
 /* ── CSS pentru aplicatia React ───────────────────────────────
    app.html incarca in continuare main.css, care isi are proprii
@@ -264,6 +285,7 @@ for (const page of pages) {
 
   html = applyActive(html, page);
   html = cleanUrls(html);
+  html = stampAssets(html);
 
   const left = html.match(/\{\{[^}]+\}\}/g);
   if (left) throw new Error(`${page.out}: substituții nerezolvate ${left.join(', ')}`);
@@ -276,6 +298,17 @@ for (const page of pages) {
 console.log(`\n${built} pagini construite din ${Object.keys(partials).length} partiale.`);
 
 buildSpaChrome();
+
+/* app.html nu e generat, dar își ia versiunile tot de aici. Rulează
+   după buildSpaChrome() și după babel (npm run build), ca hash-urile
+   să fie ale fișierelor finale. Idempotent: rescrie doar ?v=. */
+{
+  const appPath = join(ROOT, 'app.html');
+  const before = readFileSync(appPath, 'utf8');
+  const after = stampAssets(before);
+  if (after !== before) writeFileSync(appPath, after, 'utf8');
+  console.log(`app.html: versiuni ${after !== before ? 'actualizate' : 'neschimbate'}.`);
+}
 
 /* ── sitemap.xml + robots.txt ─────────────────────────────────
    Site-ul nu avea niciunul. Le generăm din aceeași sursă ca
