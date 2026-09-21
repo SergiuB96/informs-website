@@ -26,13 +26,19 @@ export default async function handler(req, res) {
   let state = 'pending';
 
   if (req.query && req.query.c === '1') {
+    console.warn('netopia-return pe cancelUrl', { orderID, query: req.query });
     state = 'fail';
   } else {
     try {
       const parsed = parseOrderID(String(orderID));
       if (parsed) {
-        const { json } = await getStatus({ orderID: parsed.orderID });
+        const { status: http, json } = await getStatus({ orderID: parsed.orderID });
         state = outcome(json?.payment?.status);
+        if (state !== 'ok') {
+          console.warn('netopia-return fără plată confirmată', {
+            orderID: parsed.orderID, http, paymentStatus: json?.payment?.status, error: json?.error,
+          });
+        }
       }
     } catch (err) {
       console.error('netopia-return error', err);

@@ -152,6 +152,13 @@ export default async function handler(req, res) {
     const email  = json?.order?.billing?.email;
 
     if (!isPaid(status)) {
+      console.warn('IPN fără plată confirmată', {
+        orderID,
+        status,
+        statusFromQuery: json?.payment?.status,
+        statusFromIpn: payload?.payment?.status,
+        queryError: json?.error,
+      });
       if (status === STATUS.FRAUD) {
         await notifyStaff('Comandă marcată ca fraudă: ' + orderID,
           'Comanda ' + orderID + ' a fost marcată pentru verificare antifraudă. Nu a fost livrată.');
