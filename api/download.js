@@ -28,7 +28,7 @@ export default async function handler(req, res) {
 
   try {
     /* Store-ul e privat: un fetch() simplu pe URL-ul blob-ului e respins,
-       get() trimite tokenul BLOB_READ_WRITE_TOKEN. */
+       get() se autentifică prin OIDC (BLOB_STORE_ID) sau BLOB_READ_WRITE_TOKEN. */
     const result = await get(product.blobPath, { access: 'private', useCache: false });
     if (!result || result.statusCode !== 200) throw new Error('Blob not found: ' + product.blobPath);
     const blob = result.blob;
