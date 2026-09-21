@@ -150,6 +150,13 @@
   align-items: start;
 }
 
+/* Coloana e îngustă: la 64px titlul se rupea pe patru rânduri. */
+.faq__side .h2 {
+  font-size: min(var(--fs-h2), 44px);
+  line-height: min(var(--lh-h2), 52px);
+  letter-spacing: -1px;
+}
+
 .faq__lead { margin-top: 18px; max-width: 34ch; }
 
 .faq__side .btn { margin-top: 28px; }
