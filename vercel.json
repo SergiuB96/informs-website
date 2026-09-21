@@ -2,7 +2,6 @@
   "outputDirectory": ".",
   "regions": ["fra1"],
   "functions": {
-    "api/chat.js": { "memory": 128, "maxDuration": 30 },
     "api/netopia-start.js": { "memory": 256, "maxDuration": 30 },
     "api/netopia-ipn.js": { "memory": 256, "maxDuration": 30 },
     "api/netopia-return.js": { "memory": 256, "maxDuration": 15 },
@@ -20,7 +19,6 @@
     { "source": "/modele-pdf", "destination": "/servicii#pdf", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/api/chat", "destination": "/api/chat" },
 
     { "source": "/", "destination": "/index.html" },
     { "source": "/servicii", "destination": "/servicii.html" },
