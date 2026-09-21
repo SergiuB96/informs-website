@@ -12,7 +12,7 @@
 const PRODUCTS = {
   'INF-CS-PROD': {
     idx: 'a',
-    title: 'Caiet de sarcini - achizitie de produse',
+    title: 'Caiet de sarcini - achiziție de produse',
     price: 249,
     blobPath: 'produse/caiet-sarcini-produse.docx',
     fileName: 'INFORMS - Caiet de sarcini - achizitie produse.docx',
@@ -26,7 +26,7 @@ const PRODUCTS = {
   },
   'INF-PCK-SERV': {
     idx: 'c',
-    title: 'Pachet documentatie de atribuire - servicii',
+    title: 'Pachet documentație de atribuire - servicii',
     price: 499,
     blobPath: 'produse/pachet-documentatie-servicii.zip',
     fileName: 'INFORMS - Pachet documentatie atribuire servicii.zip',
@@ -35,7 +35,7 @@ const PRODUCTS = {
      `hidden` în Shop.jsx). De scos după ce testul NETOPIA + Oblio trece. */
   'INF-TEST-10': {
     idx: 'd',
-    title: 'Test plata INFORMS',
+    title: 'Test plată INFORMS',
     price: 10,
     blobPath: 'produse/studiu oportunitate Tarnaveni_old.docx',
     fileName: 'INFORMS - Test plata.docx',

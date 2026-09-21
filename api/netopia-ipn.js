@@ -5,6 +5,9 @@ import {
   signDownloadToken, siteUrl, isPaid, STATUS,
 } from './_lib/netopia.js';
 import { isConfigured as oblioConfigured, issueInvoice, sendToSpv } from './_lib/oblio.js';
+import { buildDeliveryEmail } from './_lib/delivery-email.js';
+
+const DOWNLOAD_TTL_HOURS = 72;
 
 /* NETOPIA semnează un hash SHA-512 peste octeții BRUȚI ai cererii.
    Parsarea automată a corpului de către Vercel ar schimba acei octeți
@@ -39,34 +42,30 @@ async function markDelivered(orderID, info) {
   });
 }
 
-async function sendDelivery({ email, product, orderID }) {
-  const link = siteUrl() + '/api/download?t=' + encodeURIComponent(signDownloadToken(product.sku, orderID));
-  const text = [
-    'Bună ziua,',
-    '',
-    'Îți confirmăm plata pentru comanda ' + orderID + '.',
-    '',
-    'Produs: ' + product.title,
-    'Preț: ' + product.price + ' RON',
-    '',
-    'Descarcă documentul de aici:',
+async function sendDelivery({ email, product, orderID, billing }) {
+  const paidAt = new Date();
+  const expiresAt = new Date(paidAt.getTime() + DOWNLOAD_TTL_HOURS * 3600 * 1000);
+  const link = siteUrl() + '/api/download?t=' +
+    encodeURIComponent(signDownloadToken(product.sku, orderID, DOWNLOAD_TTL_HOURS));
+
+  const { subject, text, html } = buildDeliveryEmail({
+    product,
+    orderID,
     link,
-    '',
-    'Linkul este personal și expiră în 72 de ore. Descarcă și salvează fișierul cât mai curând.',
-    'Dacă linkul a expirat, scrie-ne și îți trimitem unul nou, fără costuri.',
-    '',
-    'Factura sosește separat, în cel mult 24 de ore.',
-    '',
-    'Mulțumim,',
-    'Echipa INFORMS',
-  ].join('\n');
+    firstName: billing?.firstName,
+    lastName: billing?.lastName,
+    paidAt,
+    expiresAt,
+    siteUrl: siteUrl(),
+  });
 
   await transporter().sendMail({
     from: 'INFORMS <' + process.env.SMTP_USER + '>',
     to: email,
     bcc: 'office@informs.ro',
-    subject: 'Comanda ' + orderID + ' - documentul tău INFORMS',
+    subject,
     text,
+    html,
   });
 }
 
@@ -195,7 +194,7 @@ export default async function handler(req, res) {
        rămâne nemarcată și a doua notificare (PAID, apoi CONFIRMED) mai
        încearcă o dată. Riscul invers, un email dublu, e mult mai puțin
        grav decât un client care a plătit și nu primește nimic. */
-    await sendDelivery({ email, product: parsed.product, orderID });
+    await sendDelivery({ email, product: parsed.product, orderID, billing: json?.order?.billing });
     await markDelivered(orderID, { email, sku: parsed.sku, at: new Date().toISOString() });
 
     /* Facturarea vine după livrare și nu o poate bloca: clientul a plătit,
