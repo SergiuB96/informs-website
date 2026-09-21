@@ -121,6 +121,13 @@ function App() {
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', meta.desc);
     setCanonical(displayPage);
   }, [displayPage]);
+
+  /* Aplicația nu mai are versiuni proprii ale paginilor statice. Dacă
+     ajunge pe una (cale necunoscută = 'home', istoric vechi), o predă
+     versiunii statice. */
+  useEffect(() => {
+    if (STATIC_PAGES.includes(displayPage)) window.location.replace(pathFromPage(displayPage));
+  }, [displayPage]);
   useEffect(() => {
     const onPop = () => {
       const p = pageFromPath(window.location.pathname);
@@ -163,18 +170,6 @@ function App() {
       });
     }
     switch (displayPage) {
-      case 'home':
-        return /*#__PURE__*/React.createElement(HomePage, {
-          onNav: navigate
-        });
-      case 'despre-noi':
-        return /*#__PURE__*/React.createElement(AboutPage, {
-          onNav: navigate
-        });
-      case 'servicii':
-        return /*#__PURE__*/React.createElement(ServicesPage, {
-          onNav: navigate
-        });
       case 'magazin':
         return /*#__PURE__*/React.createElement(ShopPage, {
           onNav: navigate,
@@ -185,9 +180,8 @@ function App() {
           onNav: navigate
         });
       default:
-        return /*#__PURE__*/React.createElement(HomePage, {
-          onNav: navigate
-        });
+        return null;
+      // pagină statică: redirecționată mai sus
     }
   };
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Nav, {

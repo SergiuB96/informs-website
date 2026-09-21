@@ -75,6 +75,13 @@ function App() {
     setCanonical(displayPage);
   }, [displayPage]);
 
+  /* Aplicația nu mai are versiuni proprii ale paginilor statice. Dacă
+     ajunge pe una (cale necunoscută = 'home', istoric vechi), o predă
+     versiunii statice. */
+  useEffect(() => {
+    if (STATIC_PAGES.includes(displayPage)) window.location.replace(pathFromPage(displayPage));
+  }, [displayPage]);
+
   useEffect(() => {
     const onPop = () => {
       const p = pageFromPath(window.location.pathname);
@@ -114,12 +121,9 @@ function App() {
       return <PolicyPage onNav={navigate} type={displayPage} />;
     }
     switch (displayPage) {
-      case 'home':               return <HomePage onNav={navigate} />;
-      case 'despre-noi':         return <AboutPage onNav={navigate} />;
-      case 'servicii':           return <ServicesPage onNav={navigate} />;
       case 'magazin':            return <ShopPage onNav={navigate} initialCategory={shopCategory} />;
       case 'comanda-finalizata': return <OrderStatusPage onNav={navigate} />;
-      default:                   return <HomePage onNav={navigate} />;
+      default:                   return null; // pagină statică: redirecționată mai sus
     }
   };
 
