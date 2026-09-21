@@ -74,7 +74,7 @@ function fmtPrice(value) {
 
 /* ─── Stiluri comune paginilor legale ───────────── */
 const LEGAL_STYLES = {
-  h2:      { fontSize: '1.15rem', fontWeight: 700, color: 'var(--navy)', marginTop: '36px', marginBottom: '10px' },
+  h2:      { fontFamily: 'var(--f-display)', fontSize: '1.45rem', fontWeight: 400, letterSpacing: '-.01em', color: 'var(--navy)', marginTop: '36px', marginBottom: '10px' },
   p:       { color: 'var(--text-2)', fontSize: '0.97rem', lineHeight: '1.82', marginBottom: '14px' },
   ul:      { color: 'var(--text-2)', fontSize: '0.97rem', lineHeight: '1.82', paddingLeft: '22px', marginBottom: '14px' },
   divider: { borderTop: '1px solid var(--border)', margin: '32px 0' },

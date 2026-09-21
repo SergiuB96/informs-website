@@ -12,8 +12,9 @@
    category: 'achizitii' | 'delegare' | 'management' | 'digitalizare' | 'gratuite'
    mainCategories: array cu unul sau mai multe dintre:
        'autoritati' | 'companii' | 'liber-profesionisti' | 'uz-zilnic'
-   cv: clasa CSS pentru culoarea header-ului cardului
-       cv-word (albastru) | cv-excel (verde) | cv-pdf (roșu) | cv-atr (navy)
+   cv: clasă CSS pe antetul cardului (cv-word | cv-excel | cv-pdf | cv-atr).
+       În css/shop.css toate au același antet navy; formatul se citește
+       din eticheta DOC/XLS/PDF, nu din culoare.
    file: calea relativă către fișier - DOAR pentru produse gratuite
          ex: 'assets/produse/gratuite/pdf/ghid-termeni.pdf'
    sku:  cod unic de produs, obligatoriu pentru produsele cu preț.
@@ -134,7 +135,7 @@ const SHOP_CATEGORIES = [
   { id: 'delegare',    label: 'Delegare servicii' },
   { id: 'management',  label: 'Management proiect' },
   { id: 'digitalizare',label: 'Digitalizare' },
-  { id: 'gratuite',    label: 'Gratuite', green: true },
+  { id: 'gratuite',    label: 'Gratuite' },
 ];
 
 const SHOP_FORMATS = [
@@ -154,10 +155,10 @@ const MAIN_CATEGORIES = [
 ];
 
 const FORMAT_META = {
-  word:   { abbr: 'DOC',  label: 'WORD',   bg: 'linear-gradient(135deg,#0D2D6A 0%,#1358B0 100%)' },
-  excel:  { abbr: 'XLS',  label: 'EXCEL',  bg: 'linear-gradient(135deg,#083020 0%,#177245 100%)' },
-  pdf:    { abbr: 'PDF',  label: 'PDF',    bg: 'linear-gradient(135deg,#6B1208 0%,#C23B22 100%)' },
-  pachet: { abbr: 'PKG',  label: 'PACHET', bg: 'linear-gradient(135deg,#061830 0%,#0D3870 100%)' },
+  word:   { abbr: 'DOC',  label: 'WORD' },
+  excel:  { abbr: 'XLS',  label: 'EXCEL' },
+  pdf:    { abbr: 'PDF',  label: 'PDF' },
+  pachet: { abbr: 'PKG',  label: 'PACHET' },
 };
 
 /* ─── Icoane inline (folosite doar în Shop) ─────── */
@@ -234,12 +235,11 @@ function ProductCard({ product, onClick }) {
 
         <div className="shop-card-footer">
           {product.price === 0
-            ? <div className="shop-card-price" style={{ color: '#16A34A' }}>Gratuit</div>
+            ? <div className="shop-card-price">Gratuit</div>
             : <div className="shop-card-price">{product.price} <span>{COMMERCE.currency}</span></div>
           }
           <button
             className="btn btn-primary btn-sm"
-            style={product.price === 0 ? { background: '#16A34A', borderColor: '#16A34A' } : {}}
             onClick={e => { e.stopPropagation(); onClick(product); }}
           >
             {product.price === 0 ? 'Descarcă →' : 'Detalii →'}
@@ -406,17 +406,13 @@ function CheckoutForm({ product, onNav }) {
     }
   };
 
-  const input = { padding: '9px 12px', border: '1.5px solid var(--border)', borderRadius: '6px', fontSize: '14.5px', fontFamily: 'var(--font)', color: 'var(--text)', background: '#fff', outline: 'none', width: '100%' };
-  const lbl = { fontSize: '12.5px', fontWeight: 600, color: 'var(--text)', marginBottom: '4px', display: 'block' };
-  const check = { marginTop: '3px', flexShrink: 0, width: '15px', height: '15px', cursor: 'pointer', accentColor: '#1358B0' };
-  const checkTxt = { fontSize: '12.5px', color: 'var(--text-2)', lineHeight: '1.65' };
-  const linkSt = { color: 'var(--blue-a)', fontWeight: 600 };
-
+  /* Aspectul vine din css/shop.css (sp-form, sp-input, ...). Aici
+     rămâne doar logica formularului. */
   return (
-    <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '14px', padding: '20px', background: '#F8FAFC', borderRadius: '12px', border: '1px solid var(--border)' }}>
-      <div className="shop-modal-lbl" style={{ marginBottom: '2px' }}>Date de facturare</div>
+    <form onSubmit={handleSubmit} noValidate className="sp-form">
+      <div className="shop-modal-lbl">Date de facturare</div>
 
-      <div style={{ display: 'flex', gap: '8px' }} role="radiogroup" aria-label="Tip de client">
+      <div className="sp-seg" role="radiogroup" aria-label="Tip de client">
         {[['pf', 'Persoană fizică'], ['pj', 'Persoană juridică']].map(([t, eticheta]) => (
           <button
             key={t}
@@ -424,35 +420,24 @@ function CheckoutForm({ product, onNav }) {
             role="radio"
             aria-checked={entity === t}
             onClick={() => schimbaTip(t)}
-            style={{
-              flex: 1,
-              padding: '9px 12px',
-              borderRadius: '6px',
-              fontSize: '13.5px',
-              fontWeight: 600,
-              fontFamily: 'var(--font)',
-              cursor: 'pointer',
-              border: '1.5px solid ' + (entity === t ? '#1358B0' : 'var(--border)'),
-              background: entity === t ? '#1358B0' : '#fff',
-              color: entity === t ? '#fff' : 'var(--text)',
-            }}
+            className={'sp-seg__opt' + (entity === t ? ' is-on' : '')}
           >{eticheta}</button>
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+      <div className="sp-fields">
         {(entity === 'pj' ? COMPANY_FIELDS.concat(CHECKOUT_FIELDS) : CHECKOUT_FIELDS).map(f => (
-          <div key={f.k} style={f.w === 2 ? { gridColumn: '1 / -1' } : undefined}>
-            <label style={lbl}>{f.label}</label>
+          <div key={f.k} className={f.w === 2 ? 'sp-field sp-field--full' : 'sp-field'}>
+            <label className="sp-label">{f.label}</label>
 
             {f.kind === 'judet' ? (
-              <select style={input} value={form.state} onChange={setJudet}>
+              <select className="sp-input" value={form.state} onChange={setJudet}>
                 <option value="">Alege județul</option>
                 {JUDETE.map(j => <option key={j.c} value={j.n}>{j.n}</option>)}
               </select>
             ) : f.kind === 'localitate' ? (
               <select
-                style={{ ...input, color: form.state ? 'var(--text)' : 'var(--text-2)' }}
+                className={'sp-input' + (form.state ? '' : ' is-empty')}
                 value={form.city}
                 onChange={set('city')}
                 disabled={!form.state || !localitati}
@@ -466,47 +451,43 @@ function CheckoutForm({ product, onNav }) {
                 {locJudet.map(l => <option key={l} value={l}>{l}</option>)}
               </select>
             ) : (
-              <input type={f.type || 'text'} style={input} value={form[f.k]} onChange={set(f.k)} placeholder={f.ph} />
+              <input type={f.type || 'text'} className="sp-input" value={form[f.k]} onChange={set(f.k)} placeholder={f.ph} />
             )}
           </div>
         ))}
       </div>
 
       {locEroare && (
-        <p style={{ fontSize: '12.5px', color: '#c53030', margin: 0 }}>
+        <p className="sp-err-inline">
           Lista localităților nu s-a putut încărca. Reîncarcă pagina sau scrie-ne la {COMPANY.email}.
         </p>
       )}
 
-      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
-        <input type="checkbox" checked={terms} onChange={e => setTerms(e.target.checked)} style={check} />
-        <span style={checkTxt}>
-          Am citit și accept <a href="/termeni-si-conditii" style={linkSt} onClick={e => { e.preventDefault(); go('termeni-si-conditii'); }}>Termenii și condițiile</a> și <a href="/politica-confidentialitate" style={linkSt} onClick={e => { e.preventDefault(); go('politica-confidentialitate'); }}>Politica de confidențialitate</a>. *
+      <label className="sp-check">
+        <input type="checkbox" checked={terms} onChange={e => setTerms(e.target.checked)} />
+        <span>
+          Am citit și accept <a href="/termeni-si-conditii" onClick={e => { e.preventDefault(); go('termeni-si-conditii'); }}>Termenii și condițiile</a> și <a href="/politica-confidentialitate" onClick={e => { e.preventDefault(); go('politica-confidentialitate'); }}>Politica de confidențialitate</a>. *
         </span>
       </label>
 
-      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
-        <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} style={check} />
-        <span style={checkTxt}>
+      <label className="sp-check">
+        <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} />
+        <span>
           Solicit expres livrarea imediată a documentului digital și confirm că am luat cunoștință că, odată începută descărcarea,
-          îmi pierd <a href="/dreptul-de-retragere" style={linkSt} onClick={e => { e.preventDefault(); go('dreptul-de-retragere'); }}>dreptul de retragere</a> de {COMMERCE.withdrawalDays} zile. *
+          îmi pierd <a href="/dreptul-de-retragere" onClick={e => { e.preventDefault(); go('dreptul-de-retragere'); }}>dreptul de retragere</a> de {COMMERCE.withdrawalDays} zile. *
         </span>
       </label>
 
-      {error && (
-        <p style={{ color: '#c53030', fontSize: '13px', background: '#fff5f5', padding: '10px 14px', borderRadius: '8px', border: '1px solid #fed7d7', margin: 0 }}>
-          {error}
-        </p>
-      )}
+      {error && <p className="sp-err">{error}</p>}
 
-      <button type="submit" className="btn btn-primary" disabled={!ready || loading} style={{ justifyContent: 'center', background: ready ? '' : '#D1D5DB', borderColor: ready ? '' : '#D1D5DB', cursor: ready ? 'pointer' : 'not-allowed' }}>
+      <button type="submit" className="btn btn-primary sp-btn-block" disabled={!ready || loading}>
         {loading ? 'Se deschide pagina de plată...' : 'Plătește ' + fmtPrice(product.price)}
       </button>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center' }}>
-        <img src="uploads/netopia-payments.webp" alt="NETOPIA Payments, Visa, Mastercard" style={{ height: '26px', width: 'auto' }} />
+      <div className="sp-pay-logo">
+        <img src="uploads/netopia-payments.webp" alt="NETOPIA Payments, Visa, Mastercard" />
       </div>
-      <p style={{ fontSize: '11.5px', color: 'var(--text-2)', textAlign: 'center', lineHeight: 1.6, margin: 0 }}>
+      <p className="sp-fine">
         Plata se face în pagina securizată NETOPIA Payments. {COMPANY.brand} nu vede și nu stochează datele cardului.
       </p>
     </form>
@@ -583,21 +564,13 @@ function ProductModal({ product, onClose, onNav }) {
     <div className="shop-modal-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
       <div className="shop-modal">
 
-        {/* Header colorat */}
-        <div className="shop-modal-hd" style={{ background: fmt.bg }}>
-          <button className="shop-modal-close" onClick={onClose}>×</button>
-          <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.14em', color: 'rgba(255,255,255,.5)', marginBottom: '10px' }}>
-            {fmt.label}
-          </div>
-          <h3 style={{ color: '#fff', fontSize: '1.3rem', fontWeight: 800, lineHeight: 1.3, marginBottom: '14px', letterSpacing: '-.02em', paddingRight: '36px' }}>
-            {product.title}
-          </h3>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-            {product.tags.map(t => (
-              <span key={t} style={{ fontSize: '12px', fontWeight: 600, background: 'rgba(255,255,255,.15)', color: 'rgba(255,255,255,.82)', padding: '3px 10px', borderRadius: '8px' }}>
-                {t}
-              </span>
-            ))}
+        {/* Antet navy, același pentru toate formatele */}
+        <div className="shop-modal-hd">
+          <button className="shop-modal-close" onClick={onClose} aria-label="Închide">×</button>
+          <div className="sp-modal-fmt">{fmt.label}</div>
+          <h3 className="sp-modal-title">{product.title}</h3>
+          <div className="sp-modal-tags">
+            {product.tags.map(t => <span key={t}>{t}</span>)}
           </div>
         </div>
 
@@ -606,7 +579,7 @@ function ProductModal({ product, onClose, onNav }) {
 
           <div className="shop-modal-sec">
             <div className="shop-modal-lbl">Descriere</div>
-            <p style={{ fontSize: '15px', color: 'var(--text-2)', lineHeight: '1.78' }}>{product.longDesc}</p>
+            <p className="sp-modal-text">{product.longDesc}</p>
           </div>
 
           <div className="shop-modal-sec">
@@ -624,17 +597,17 @@ function ProductModal({ product, onClose, onNav }) {
           {(product.stats.files > 0 || product.stats.pages > 0) && (
             <div className="shop-modal-sec">
               <div className="shop-modal-lbl">Detalii tehnice</div>
-              <div style={{ display: 'flex', gap: '24px' }}>
+              <div className="sp-modal-stats">
                 {product.stats.files > 0 && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '14.5px', color: 'var(--text-2)' }}>
+                  <div>
                     <IcoFile size={16} />
-                    <span><strong style={{ color: 'var(--navy)' }}>{product.stats.files}</strong> {product.stats.files === 1 ? 'fișier' : 'fișiere'}</span>
+                    <span><strong>{product.stats.files}</strong> {product.stats.files === 1 ? 'fișier' : 'fișiere'}</span>
                   </div>
                 )}
                 {product.stats.pages > 0 && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '14.5px', color: 'var(--text-2)' }}>
+                  <div>
                     <IcoPages size={16} />
-                    <span><strong style={{ color: 'var(--navy)' }}>{product.stats.pages}</strong> pagini totale</span>
+                    <span><strong>{product.stats.pages}</strong> pagini totale</span>
                   </div>
                 )}
               </div>
@@ -644,51 +617,39 @@ function ProductModal({ product, onClose, onNav }) {
           {/* ── Descărcare gratuită cu email + GDPR ── */}
           {hasFreeFile ? (
             downloaded ? (
-              <div style={{ textAlign: 'center', padding: '28px 20px', background: '#F0FDF4', borderRadius: '12px', border: '1px solid #86EFAC' }}>
-                <div style={{ fontSize: '2.2rem', marginBottom: '10px' }}>✓</div>
-                <div style={{ fontWeight: 700, color: '#16A34A', fontSize: '1.05rem', marginBottom: '6px' }}>Descărcare pornită!</div>
-                <div style={{ fontSize: '13.5px', color: 'var(--text-2)' }}>Verifică folderul de descărcări din browser.</div>
+              <div className="sp-done">
+                <div className="sp-done__ico">✓</div>
+                <div className="sp-done__title">Descărcarea a pornit</div>
+                <div className="sp-done__text">Verifică folderul de descărcări din browser.</div>
               </div>
             ) : (
-              <form onSubmit={handleDownload} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '14px', padding: '20px', background: '#F8FAFC', borderRadius: '12px', border: '1px solid var(--border)' }}>
-                <div className="shop-modal-lbl" style={{ marginBottom: '2px' }}>Descarcă gratuit</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                  <label style={{ fontSize: '13.5px', fontWeight: 600, color: 'var(--text)' }}>Adresă de email *</label>
+              <form onSubmit={handleDownload} noValidate className="sp-form">
+                <div className="shop-modal-lbl">Descarcă gratuit</div>
+                <div className="sp-field">
+                  <label className="sp-label">Adresă de email *</label>
                   <input
                     type="email"
                     placeholder="exemplu@email.ro"
                     value={email}
                     onChange={e => { setEmail(e.target.value); setEmailErr(''); }}
-                    style={{
-                      padding: '10px 14px',
-                      border: '1.5px solid ' + (emailErr ? '#DC2626' : 'var(--border)'),
-                      borderRadius: '6px', fontSize: '15px', fontFamily: 'var(--font)',
-                      color: 'var(--text)', background: '#fff', outline: 'none', width: '100%',
-                    }}
+                    className={'sp-input' + (emailErr ? ' is-invalid' : '')}
                   />
-                  {emailErr && <span style={{ fontSize: '12.5px', color: '#DC2626' }}>{emailErr}</span>}
+                  {emailErr && <span className="sp-err-inline">{emailErr}</span>}
                 </div>
-                <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
+                <label className="sp-check">
                   <input
                     type="checkbox"
                     checked={gdpr}
                     onChange={e => setGdpr(e.target.checked)}
-                    style={{ marginTop: '3px', flexShrink: 0, width: '15px', height: '15px', cursor: 'pointer', accentColor: '#1358B0' }}
                   />
-                  <span style={{ fontSize: '12.5px', color: 'var(--text-2)', lineHeight: '1.65' }}>
-                    Am citit și accept <strong style={{ color: 'var(--navy)' }}>Politica de confidențialitate</strong> și sunt de acord cu prelucrarea datelor cu caracter personal în scopul furnizării documentului solicitat, conform GDPR (Regulamentul UE 2016/679). *
+                  <span>
+                    Am citit și accept <strong>Politica de confidențialitate</strong> și sunt de acord cu prelucrarea datelor cu caracter personal în scopul furnizării documentului solicitat, conform GDPR (Regulamentul UE 2016/679). *
                   </span>
                 </label>
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn btn-primary sp-btn-block"
                   disabled={!canDownload || downloading}
-                  style={{
-                    background: canDownload ? '#16A34A' : '#D1D5DB',
-                    borderColor: canDownload ? '#16A34A' : '#D1D5DB',
-                    justifyContent: 'center',
-                    cursor: canDownload ? 'pointer' : 'not-allowed',
-                  }}
                 >
                   {downloading ? 'Se pregătește...' : 'Descarcă gratuit'}
                 </button>
@@ -696,15 +657,15 @@ function ProductModal({ product, onClose, onNav }) {
             )
           ) : (
             <>
-              <div className="shop-modal-price-box" style={isFree ? { borderColor: '#86EFAC', background: '#F0FDF4' } : {}}>
+              <div className="shop-modal-price-box">
                 <div>
                   {isFree
-                    ? <div className="shop-modal-price-note" style={{ fontSize: '15px', color: '#16A34A', fontWeight: 600 }}>
+                    ? <div className="shop-modal-price-note">
                         Fără costuri. Trimite-ne un email și îți livrăm documentul gratuit.
                       </div>
                     : <>
                         <div className="shop-modal-price">
-                          {product.price} <span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-2)' }}>{COMMERCE.currency}</span>
+                          {product.price} <span>{COMMERCE.currency}</span>
                         </div>
                         <div className="shop-modal-price-note">{COMMERCE.priceNote} · {COMMERCE.deliveryNote}</div>
                       </>
@@ -715,11 +676,11 @@ function ProductModal({ product, onClose, onNav }) {
               {isFree ? (
                 <>
                   <div className="shop-modal-actions">
-                    <button className="btn btn-primary" style={{ background: '#16A34A', borderColor: '#16A34A', justifyContent: 'center' }} onClick={handleRequestFree}>
+                    <button className="btn btn-primary" onClick={handleRequestFree}>
                       Solicită acces gratuit
                     </button>
                   </div>
-                  <p style={{ fontSize: '12px', color: 'var(--text-2)', marginTop: '14px', textAlign: 'center', lineHeight: '1.6' }}>
+                  <p className="sp-fine sp-fine--gap">
                     Trimite-ne un email și îți livrăm documentul gratuit în cel mai scurt timp.
                   </p>
                 </>
@@ -728,13 +689,13 @@ function ProductModal({ product, onClose, onNav }) {
               ) : (
                 <>
                   <div className="shop-modal-actions">
-                    <button className="btn btn-primary" style={{ justifyContent: 'center' }} onClick={() => setCheckout(true)}>
+                    <button className="btn btn-primary" onClick={() => setCheckout(true)}>
                       Cumpără cu cardul
                     </button>
                   </div>
-                  <p style={{ fontSize: '12px', color: 'var(--text-2)', marginTop: '14px', textAlign: 'center', lineHeight: '1.6' }}>
+                  <p className="sp-fine sp-fine--gap">
                     Documentele se livrează prin email, în format editabil, imediat după confirmarea plății.
-                    Preferi transferul bancar? Scrie-ne la <a href={'mailto:' + COMPANY.email} style={{ color: 'var(--blue-a)' }}>{COMPANY.email}</a>.
+                    Preferi transferul bancar? Scrie-ne la <a href={'mailto:' + COMPANY.email}>{COMPANY.email}</a>.
                   </p>
                 </>
               )}
@@ -782,16 +743,12 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
 
   return (
     <>
-      {/* Hero */}
-      <div className="pg-hero pg-hero-video" style={{ textAlign: 'center' }}>
-        <video className="pg-hero-vid" autoPlay muted playsInline loop preload="none">
-          <source src="assets/videos_library/portofoliu-produse-informs.mp4" type="video/mp4" />
-          <track kind="captions" src="" label="Română" srclang="ro" default />
-        </video>
-        <div className="pg-hero-overlay"></div>
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+      {/* Hero: navy plat, ca paginile statice */}
+      <div className="pg-hero">
+        <div className="container">
           <div className="tag-label">Produse digitale</div>
-          <h1 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)' }}>Documente profesionale adaptate<br />pentru sectorul public și sectorul privat</h1>
+          <h1>Documente profesionale pentru sectorul public și privat</h1>
+          <p>Modele Word, Excel și PDF, gata de completat. O parte sunt gratuite.</p>
           <div className="shop-search-wrap">
             <span className="shop-search-ico"><IcoSearch size={18} /></span>
             <input
@@ -806,44 +763,29 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
       </div>
 
       {/* SEAP notice */}
-      <div style={{ background: '#F0F6FF', borderBottom: '1px solid #C8DCEE' }}>
-        <div className="container" style={{ padding: '14px 28px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-            <a href="https://www.e-licitatie.ro/pub" target="_blank" rel="noopener noreferrer" style={{ flexShrink: 0 }}>
-              <img src="uploads/seap-sicap-logo.webp" alt="SEAP / SICAP" style={{ height: '28px', width: 'auto', display: 'block' }} />
-            </a>
-            <span style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: '1.5' }}>
-              <strong style={{ color: 'var(--navy)' }}>Suntem și pe SEAP</strong> - produsele și serviciile INFORMS pot fi achiziționate prin sistemul electronic de achiziții publice.
-            </span>
-          </div>
+      <div className="sp-seap">
+        <div className="container sp-seap__inner">
+          <a href="https://www.e-licitatie.ro/pub" target="_blank" rel="noopener noreferrer">
+            <img src="uploads/seap-sicap-logo.webp" alt="SEAP / SICAP" />
+          </a>
+          <span>
+            <strong>Suntem și pe SEAP.</strong> Produsele și serviciile INFORMS pot fi achiziționate prin sistemul electronic de achiziții publice.
+          </span>
         </div>
       </div>
 
       {/* Main categories */}
-      <div style={{ borderBottom: '1px solid var(--border)', background: '#fff' }}>
-        <div className="container" style={{ padding: '18px 28px' }}>
-          <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.12em', color: 'var(--text-2)', marginBottom: '12px' }}>
-            Filtrează după profil
-          </div>
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+      <div className="sp-profile">
+        <div className="container">
+          <div className="sp-profile__lbl">Filtrează după profil</div>
+          <div className="sp-profile__row">
             {MAIN_CATEGORIES.map(m => (
               <button
                 key={m.id}
+                type="button"
+                aria-pressed={mainCat === m.id}
                 onClick={() => handleMainCat(mainCat === m.id ? 'all' : m.id)}
-                style={{
-                  padding: '9px 22px',
-                  borderRadius: '8px',
-                  border: '1.5px solid',
-                  borderColor: mainCat === m.id ? 'var(--navy)' : 'var(--border)',
-                  background: mainCat === m.id ? 'var(--navy)' : '#fff',
-                  color: mainCat === m.id ? '#fff' : 'var(--text)',
-                  fontWeight: 600,
-                  fontSize: '14px',
-                  fontFamily: 'var(--font)',
-                  cursor: 'pointer',
-                  transition: 'all .15s',
-                  lineHeight: 1.4,
-                }}
+                className={'sp-chip' + (mainCat === m.id ? ' is-on' : '')}
               >
                 {m.label}
               </button>
@@ -860,7 +802,6 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
               <div
                 key={c.id}
                 className={`shop-tab${category === c.id ? ' active' : ''}`}
-                style={c.green ? { color: category === c.id ? '#16A34A' : '#16A34A', borderBottomColor: category === c.id ? '#16A34A' : 'transparent' } : {}}
                 onClick={() => setCategory(c.id)}
               >
                 {c.label}
@@ -883,7 +824,7 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
       </div>
 
       {/* Grid */}
-      <section className="sec" style={{ paddingTop: '36px' }}>
+      <section className="sec sp-catalog">
         <div className="container">
 
           {/* Result bar */}
@@ -892,7 +833,7 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
               <strong>{filtered.length}</strong>&nbsp;
               {filtered.length === 1 ? 'produs găsit' : 'produse găsite'}
               {hasFilters && (
-                <button className="shop-reset-btn" onClick={resetFilters} style={{ marginLeft: '14px' }}>
+                <button className="shop-reset-btn" onClick={resetFilters}>
                   ✕ Resetează filtrele
                 </button>
               )}
@@ -910,19 +851,17 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
           ) : (
             <div className="shop-empty">
               <div className="shop-empty-icon">🔍</div>
-              <h3 style={{ color: 'var(--navy)', marginBottom: '8px' }}>Niciun produs găsit</h3>
-              <p style={{ marginBottom: '24px' }}>Încearcă să modifici criteriile de filtrare sau căutare.</p>
+              <h3>Niciun produs găsit</h3>
+              <p>Încearcă să modifici criteriile de filtrare sau căutare.</p>
               <button className="btn btn-outline" onClick={resetFilters}>Resetează filtrele</button>
             </div>
           )}
 
           {/* CTA banner */}
           <div className="shop-cta-banner">
-            <div style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.14em', color: 'var(--blue-a)', marginBottom: '12px' }}>
-              Ai nevoie de ceva personalizat?
-            </div>
-            <h3 style={{ color: '#fff', marginBottom: '12px', fontSize: '1.35rem' }}>Documentație la comandă</h3>
-            <p style={{ color: 'rgba(255,255,255,.65)', fontSize: '15.5px', lineHeight: '1.75', maxWidth: '480px', margin: '0 auto 28px' }}>
+            <div className="sp-cta__k">Ai nevoie de ceva personalizat?</div>
+            <h2 className="sp-cta__title">Documentație la comandă</h2>
+            <p className="sp-cta__lead">
               Nu ai găsit ce căutai? Elaborăm documentații personalizate, adaptate exact situației și nevoilor tale specifice.
             </p>
             <button

@@ -100,10 +100,14 @@ function buildSpaChrome() {
   /* Fiecare parte din lista primeste prefixul. Altfel `${root} ul, ol`
      s-ar citi ca `.hdr ul` plus un `ol` global, iar reset-ul ar scapa
      peste tot: exact asa ajunsesera h2..h5 si svg resetate in magazin. */
+  /* :where() tine reset-ul la specificitatea unui element simplu, ca
+     `a { }` din base.css. Cu `.hdr a` (0,1,1) reset-ul batea regulile
+     cu o singura clasa, `.nav__link` si `.drawer__solo`, iar linkurile
+     mosteneau textul inchis al paginii: pe /magazin nu se vedeau. */
   const scoped = (sel, decl) => {
     const parts = sel.split(',').map((s) => s.trim());
     const all = [];
-    for (const r of roots) for (const p of parts) all.push(`${r} ${p}`);
+    for (const r of roots) for (const p of parts) all.push(`:where(${r}) ${p}`);
     return all.join(',\n') + ` {\n  ${decl}\n}`;
   };
 

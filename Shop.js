@@ -16,8 +16,9 @@ const {
    category: 'achizitii' | 'delegare' | 'management' | 'digitalizare' | 'gratuite'
    mainCategories: array cu unul sau mai multe dintre:
        'autoritati' | 'companii' | 'liber-profesionisti' | 'uz-zilnic'
-   cv: clasa CSS pentru culoarea header-ului cardului
-       cv-word (albastru) | cv-excel (verde) | cv-pdf (roșu) | cv-atr (navy)
+   cv: clasă CSS pe antetul cardului (cv-word | cv-excel | cv-pdf | cv-atr).
+       În css/shop.css toate au același antet navy; formatul se citește
+       din eticheta DOC/XLS/PDF, nu din culoare.
    file: calea relativă către fișier - DOAR pentru produse gratuite
          ex: 'assets/produse/gratuite/pdf/ghid-termeni.pdf'
    sku:  cod unic de produs, obligatoriu pentru produsele cu preț.
@@ -147,8 +148,7 @@ const SHOP_CATEGORIES = [{
   label: 'Digitalizare'
 }, {
   id: 'gratuite',
-  label: 'Gratuite',
-  green: true
+  label: 'Gratuite'
 }];
 const SHOP_FORMATS = [{
   id: 'all',
@@ -193,23 +193,19 @@ const MAIN_CATEGORIES = [{
 const FORMAT_META = {
   word: {
     abbr: 'DOC',
-    label: 'WORD',
-    bg: 'linear-gradient(135deg,#0D2D6A 0%,#1358B0 100%)'
+    label: 'WORD'
   },
   excel: {
     abbr: 'XLS',
-    label: 'EXCEL',
-    bg: 'linear-gradient(135deg,#083020 0%,#177245 100%)'
+    label: 'EXCEL'
   },
   pdf: {
     abbr: 'PDF',
-    label: 'PDF',
-    bg: 'linear-gradient(135deg,#6B1208 0%,#C23B22 100%)'
+    label: 'PDF'
   },
   pachet: {
     abbr: 'PKG',
-    label: 'PACHET',
-    bg: 'linear-gradient(135deg,#061830 0%,#0D3870 100%)'
+    label: 'PACHET'
   }
 };
 
@@ -363,18 +359,11 @@ function ProductCard({
   }), "\xA0", product.stats.pages, " pag.")), /*#__PURE__*/React.createElement("div", {
     className: "shop-card-footer"
   }, product.price === 0 ? /*#__PURE__*/React.createElement("div", {
-    className: "shop-card-price",
-    style: {
-      color: '#16A34A'
-    }
+    className: "shop-card-price"
   }, "Gratuit") : /*#__PURE__*/React.createElement("div", {
     className: "shop-card-price"
   }, product.price, " ", /*#__PURE__*/React.createElement("span", null, COMMERCE.currency)), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary btn-sm",
-    style: product.price === 0 ? {
-      background: '#16A34A',
-      borderColor: '#16A34A'
-    } : {},
     onClick: e => {
       e.stopPropagation();
       onClick(product);
@@ -689,63 +678,17 @@ function CheckoutForm({
       setLoading(false);
     }
   };
-  const input = {
-    padding: '9px 12px',
-    border: '1.5px solid var(--border)',
-    borderRadius: '6px',
-    fontSize: '14.5px',
-    fontFamily: 'var(--font)',
-    color: 'var(--text)',
-    background: '#fff',
-    outline: 'none',
-    width: '100%'
-  };
-  const lbl = {
-    fontSize: '12.5px',
-    fontWeight: 600,
-    color: 'var(--text)',
-    marginBottom: '4px',
-    display: 'block'
-  };
-  const check = {
-    marginTop: '3px',
-    flexShrink: 0,
-    width: '15px',
-    height: '15px',
-    cursor: 'pointer',
-    accentColor: '#1358B0'
-  };
-  const checkTxt = {
-    fontSize: '12.5px',
-    color: 'var(--text-2)',
-    lineHeight: '1.65'
-  };
-  const linkSt = {
-    color: 'var(--blue-a)',
-    fontWeight: 600
-  };
+
+  /* Aspectul vine din css/shop.css (sp-form, sp-input, ...). Aici
+     rămâne doar logica formularului. */
   return /*#__PURE__*/React.createElement("form", {
     onSubmit: handleSubmit,
     noValidate: true,
-    style: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '14px',
-      padding: '20px',
-      background: '#F8FAFC',
-      borderRadius: '12px',
-      border: '1px solid var(--border)'
-    }
+    className: "sp-form"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "shop-modal-lbl",
-    style: {
-      marginBottom: '2px'
-    }
+    className: "shop-modal-lbl"
   }, "Date de facturare"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      gap: '8px'
-    },
+    className: "sp-seg",
     role: "radiogroup",
     "aria-label": "Tip de client"
   }, [['pf', 'Persoană fizică'], ['pj', 'Persoană juridică']].map(([t, eticheta]) => /*#__PURE__*/React.createElement("button", {
@@ -754,33 +697,16 @@ function CheckoutForm({
     role: "radio",
     "aria-checked": entity === t,
     onClick: () => schimbaTip(t),
-    style: {
-      flex: 1,
-      padding: '9px 12px',
-      borderRadius: '6px',
-      fontSize: '13.5px',
-      fontWeight: 600,
-      fontFamily: 'var(--font)',
-      cursor: 'pointer',
-      border: '1.5px solid ' + (entity === t ? '#1358B0' : 'var(--border)'),
-      background: entity === t ? '#1358B0' : '#fff',
-      color: entity === t ? '#fff' : 'var(--text)'
-    }
+    className: 'sp-seg__opt' + (entity === t ? ' is-on' : '')
   }, eticheta))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      gap: '12px'
-    }
+    className: "sp-fields"
   }, (entity === 'pj' ? COMPANY_FIELDS.concat(CHECKOUT_FIELDS) : CHECKOUT_FIELDS).map(f => /*#__PURE__*/React.createElement("div", {
     key: f.k,
-    style: f.w === 2 ? {
-      gridColumn: '1 / -1'
-    } : undefined
+    className: f.w === 2 ? 'sp-field sp-field--full' : 'sp-field'
   }, /*#__PURE__*/React.createElement("label", {
-    style: lbl
+    className: "sp-label"
   }, f.label), f.kind === 'judet' ? /*#__PURE__*/React.createElement("select", {
-    style: input,
+    className: "sp-input",
     value: form.state,
     onChange: setJudet
   }, /*#__PURE__*/React.createElement("option", {
@@ -789,10 +715,7 @@ function CheckoutForm({
     key: j.c,
     value: j.n
   }, j.n))) : f.kind === 'localitate' ? /*#__PURE__*/React.createElement("select", {
-    style: {
-      ...input,
-      color: form.state ? 'var(--text)' : 'var(--text-2)'
-    },
+    className: 'sp-input' + (form.state ? '' : ' is-empty'),
     value: form.city,
     onChange: set('city'),
     disabled: !form.state || !localitati
@@ -803,107 +726,55 @@ function CheckoutForm({
     value: l
   }, l))) : /*#__PURE__*/React.createElement("input", {
     type: f.type || 'text',
-    style: input,
+    className: "sp-input",
     value: form[f.k],
     onChange: set(f.k),
     placeholder: f.ph
   })))), locEroare && /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: '12.5px',
-      color: '#c53030',
-      margin: 0
-    }
+    className: "sp-err-inline"
   }, "Lista localit\u0103\u021Bilor nu s-a putut \xEEnc\u0103rca. Re\xEEncarc\u0103 pagina sau scrie-ne la ", COMPANY.email, "."), /*#__PURE__*/React.createElement("label", {
-    style: {
-      display: 'flex',
-      alignItems: 'flex-start',
-      gap: '10px',
-      cursor: 'pointer'
-    }
+    className: "sp-check"
   }, /*#__PURE__*/React.createElement("input", {
     type: "checkbox",
     checked: terms,
-    onChange: e => setTerms(e.target.checked),
-    style: check
-  }), /*#__PURE__*/React.createElement("span", {
-    style: checkTxt
-  }, "Am citit \u0219i accept ", /*#__PURE__*/React.createElement("a", {
+    onChange: e => setTerms(e.target.checked)
+  }), /*#__PURE__*/React.createElement("span", null, "Am citit \u0219i accept ", /*#__PURE__*/React.createElement("a", {
     href: "/termeni-si-conditii",
-    style: linkSt,
     onClick: e => {
       e.preventDefault();
       go('termeni-si-conditii');
     }
   }, "Termenii \u0219i condi\u021Biile"), " \u0219i ", /*#__PURE__*/React.createElement("a", {
     href: "/politica-confidentialitate",
-    style: linkSt,
     onClick: e => {
       e.preventDefault();
       go('politica-confidentialitate');
     }
   }, "Politica de confiden\u021Bialitate"), ". *")), /*#__PURE__*/React.createElement("label", {
-    style: {
-      display: 'flex',
-      alignItems: 'flex-start',
-      gap: '10px',
-      cursor: 'pointer'
-    }
+    className: "sp-check"
   }, /*#__PURE__*/React.createElement("input", {
     type: "checkbox",
     checked: waiver,
-    onChange: e => setWaiver(e.target.checked),
-    style: check
-  }), /*#__PURE__*/React.createElement("span", {
-    style: checkTxt
-  }, "Solicit expres livrarea imediat\u0103 a documentului digital \u0219i confirm c\u0103 am luat cuno\u0219tin\u021B\u0103 c\u0103, odat\u0103 \xEEnceput\u0103 desc\u0103rcarea, \xEEmi pierd ", /*#__PURE__*/React.createElement("a", {
+    onChange: e => setWaiver(e.target.checked)
+  }), /*#__PURE__*/React.createElement("span", null, "Solicit expres livrarea imediat\u0103 a documentului digital \u0219i confirm c\u0103 am luat cuno\u0219tin\u021B\u0103 c\u0103, odat\u0103 \xEEnceput\u0103 desc\u0103rcarea, \xEEmi pierd ", /*#__PURE__*/React.createElement("a", {
     href: "/dreptul-de-retragere",
-    style: linkSt,
     onClick: e => {
       e.preventDefault();
       go('dreptul-de-retragere');
     }
   }, "dreptul de retragere"), " de ", COMMERCE.withdrawalDays, " zile. *")), error && /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: '#c53030',
-      fontSize: '13px',
-      background: '#fff5f5',
-      padding: '10px 14px',
-      borderRadius: '8px',
-      border: '1px solid #fed7d7',
-      margin: 0
-    }
+    className: "sp-err"
   }, error), /*#__PURE__*/React.createElement("button", {
     type: "submit",
-    className: "btn btn-primary",
-    disabled: !ready || loading,
-    style: {
-      justifyContent: 'center',
-      background: ready ? '' : '#D1D5DB',
-      borderColor: ready ? '' : '#D1D5DB',
-      cursor: ready ? 'pointer' : 'not-allowed'
-    }
+    className: "btn btn-primary sp-btn-block",
+    disabled: !ready || loading
   }, loading ? 'Se deschide pagina de plată...' : 'Plătește ' + fmtPrice(product.price)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '10px',
-      justifyContent: 'center'
-    }
+    className: "sp-pay-logo"
   }, /*#__PURE__*/React.createElement("img", {
     src: "uploads/netopia-payments.webp",
-    alt: "NETOPIA Payments, Visa, Mastercard",
-    style: {
-      height: '26px',
-      width: 'auto'
-    }
+    alt: "NETOPIA Payments, Visa, Mastercard"
   })), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: '11.5px',
-      color: 'var(--text-2)',
-      textAlign: 'center',
-      lineHeight: 1.6,
-      margin: 0
-    }
+    className: "sp-fine"
   }, "Plata se face \xEEn pagina securizat\u0103 NETOPIA Payments. ", COMPANY.brand, " nu vede \u0219i nu stocheaz\u0103 datele cardului."));
 }
 
@@ -987,48 +858,19 @@ function ProductModal({
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "shop-modal-hd",
-    style: {
-      background: fmt.bg
-    }
+    className: "shop-modal-hd"
   }, /*#__PURE__*/React.createElement("button", {
     className: "shop-modal-close",
-    onClick: onClose
+    onClick: onClose,
+    "aria-label": "\xCEnchide"
   }, "\xD7"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: '11px',
-      fontWeight: 700,
-      textTransform: 'uppercase',
-      letterSpacing: '.14em',
-      color: 'rgba(255,255,255,.5)',
-      marginBottom: '10px'
-    }
+    className: "sp-modal-fmt"
   }, fmt.label), /*#__PURE__*/React.createElement("h3", {
-    style: {
-      color: '#fff',
-      fontSize: '1.3rem',
-      fontWeight: 800,
-      lineHeight: 1.3,
-      marginBottom: '14px',
-      letterSpacing: '-.02em',
-      paddingRight: '36px'
-    }
+    className: "sp-modal-title"
   }, product.title), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      gap: '6px'
-    }
+    className: "sp-modal-tags"
   }, product.tags.map(t => /*#__PURE__*/React.createElement("span", {
-    key: t,
-    style: {
-      fontSize: '12px',
-      fontWeight: 600,
-      background: 'rgba(255,255,255,.15)',
-      color: 'rgba(255,255,255,.82)',
-      padding: '3px 10px',
-      borderRadius: '8px'
-    }
+    key: t
   }, t)))), /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-bd"
   }, /*#__PURE__*/React.createElement("div", {
@@ -1036,11 +878,7 @@ function ProductModal({
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-lbl"
   }, "Descriere"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: '15px',
-      color: 'var(--text-2)',
-      lineHeight: '1.78'
-    }
+    className: "sp-modal-text"
   }, product.longDesc)), /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-sec"
   }, /*#__PURE__*/React.createElement("div", {
@@ -1056,92 +894,29 @@ function ProductModal({
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-lbl"
   }, "Detalii tehnice"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      gap: '24px'
-    }
-  }, product.stats.files > 0 && /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '7px',
-      fontSize: '14.5px',
-      color: 'var(--text-2)'
-    }
-  }, /*#__PURE__*/React.createElement(IcoFile, {
+    className: "sp-modal-stats"
+  }, product.stats.files > 0 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IcoFile, {
     size: 16
-  }), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", {
-    style: {
-      color: 'var(--navy)'
-    }
-  }, product.stats.files), " ", product.stats.files === 1 ? 'fișier' : 'fișiere')), product.stats.pages > 0 && /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '7px',
-      fontSize: '14.5px',
-      color: 'var(--text-2)'
-    }
-  }, /*#__PURE__*/React.createElement(IcoPages, {
+  }), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, product.stats.files), " ", product.stats.files === 1 ? 'fișier' : 'fișiere')), product.stats.pages > 0 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IcoPages, {
     size: 16
-  }), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", {
-    style: {
-      color: 'var(--navy)'
-    }
-  }, product.stats.pages), " pagini totale")))), hasFreeFile ? downloaded ? /*#__PURE__*/React.createElement("div", {
-    style: {
-      textAlign: 'center',
-      padding: '28px 20px',
-      background: '#F0FDF4',
-      borderRadius: '12px',
-      border: '1px solid #86EFAC'
-    }
+  }), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, product.stats.pages), " pagini totale")))), hasFreeFile ? downloaded ? /*#__PURE__*/React.createElement("div", {
+    className: "sp-done"
   }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: '2.2rem',
-      marginBottom: '10px'
-    }
+    className: "sp-done__ico"
   }, "\u2713"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontWeight: 700,
-      color: '#16A34A',
-      fontSize: '1.05rem',
-      marginBottom: '6px'
-    }
-  }, "Desc\u0103rcare pornit\u0103!"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: '13.5px',
-      color: 'var(--text-2)'
-    }
+    className: "sp-done__title"
+  }, "Desc\u0103rcarea a pornit"), /*#__PURE__*/React.createElement("div", {
+    className: "sp-done__text"
   }, "Verific\u0103 folderul de desc\u0103rc\u0103ri din browser.")) : /*#__PURE__*/React.createElement("form", {
     onSubmit: handleDownload,
     noValidate: true,
-    style: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '14px',
-      padding: '20px',
-      background: '#F8FAFC',
-      borderRadius: '12px',
-      border: '1px solid var(--border)'
-    }
+    className: "sp-form"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "shop-modal-lbl",
-    style: {
-      marginBottom: '2px'
-    }
+    className: "shop-modal-lbl"
   }, "Descarc\u0103 gratuit"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '5px'
-    }
+    className: "sp-field"
   }, /*#__PURE__*/React.createElement("label", {
-    style: {
-      fontSize: '13.5px',
-      fontWeight: 600,
-      color: 'var(--text)'
-    }
+    className: "sp-label"
   }, "Adres\u0103 de email *"), /*#__PURE__*/React.createElement("input", {
     type: "email",
     placeholder: "exemplu@email.ro",
@@ -1150,102 +925,34 @@ function ProductModal({
       setEmail(e.target.value);
       setEmailErr('');
     },
-    style: {
-      padding: '10px 14px',
-      border: '1.5px solid ' + (emailErr ? '#DC2626' : 'var(--border)'),
-      borderRadius: '6px',
-      fontSize: '15px',
-      fontFamily: 'var(--font)',
-      color: 'var(--text)',
-      background: '#fff',
-      outline: 'none',
-      width: '100%'
-    }
+    className: 'sp-input' + (emailErr ? ' is-invalid' : '')
   }), emailErr && /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: '12.5px',
-      color: '#DC2626'
-    }
+    className: "sp-err-inline"
   }, emailErr)), /*#__PURE__*/React.createElement("label", {
-    style: {
-      display: 'flex',
-      alignItems: 'flex-start',
-      gap: '10px',
-      cursor: 'pointer'
-    }
+    className: "sp-check"
   }, /*#__PURE__*/React.createElement("input", {
     type: "checkbox",
     checked: gdpr,
-    onChange: e => setGdpr(e.target.checked),
-    style: {
-      marginTop: '3px',
-      flexShrink: 0,
-      width: '15px',
-      height: '15px',
-      cursor: 'pointer',
-      accentColor: '#1358B0'
-    }
-  }), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: '12.5px',
-      color: 'var(--text-2)',
-      lineHeight: '1.65'
-    }
-  }, "Am citit \u0219i accept ", /*#__PURE__*/React.createElement("strong", {
-    style: {
-      color: 'var(--navy)'
-    }
-  }, "Politica de confiden\u021Bialitate"), " \u0219i sunt de acord cu prelucrarea datelor cu caracter personal \xEEn scopul furniz\u0103rii documentului solicitat, conform GDPR (Regulamentul UE 2016/679). *")), /*#__PURE__*/React.createElement("button", {
+    onChange: e => setGdpr(e.target.checked)
+  }), /*#__PURE__*/React.createElement("span", null, "Am citit \u0219i accept ", /*#__PURE__*/React.createElement("strong", null, "Politica de confiden\u021Bialitate"), " \u0219i sunt de acord cu prelucrarea datelor cu caracter personal \xEEn scopul furniz\u0103rii documentului solicitat, conform GDPR (Regulamentul UE 2016/679). *")), /*#__PURE__*/React.createElement("button", {
     type: "submit",
-    className: "btn btn-primary",
-    disabled: !canDownload || downloading,
-    style: {
-      background: canDownload ? '#16A34A' : '#D1D5DB',
-      borderColor: canDownload ? '#16A34A' : '#D1D5DB',
-      justifyContent: 'center',
-      cursor: canDownload ? 'pointer' : 'not-allowed'
-    }
+    className: "btn btn-primary sp-btn-block",
+    disabled: !canDownload || downloading
   }, downloading ? 'Se pregătește...' : 'Descarcă gratuit')) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "shop-modal-price-box",
-    style: isFree ? {
-      borderColor: '#86EFAC',
-      background: '#F0FDF4'
-    } : {}
+    className: "shop-modal-price-box"
   }, /*#__PURE__*/React.createElement("div", null, isFree ? /*#__PURE__*/React.createElement("div", {
-    className: "shop-modal-price-note",
-    style: {
-      fontSize: '15px',
-      color: '#16A34A',
-      fontWeight: 600
-    }
+    className: "shop-modal-price-note"
   }, "F\u0103r\u0103 costuri. Trimite-ne un email \u0219i \xEE\u021Bi livr\u0103m documentul gratuit.") : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-price"
-  }, product.price, " ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: '1rem',
-      fontWeight: 600,
-      color: 'var(--text-2)'
-    }
-  }, COMMERCE.currency)), /*#__PURE__*/React.createElement("div", {
+  }, product.price, " ", /*#__PURE__*/React.createElement("span", null, COMMERCE.currency)), /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-price-note"
   }, COMMERCE.priceNote, " \xB7 ", COMMERCE.deliveryNote)))), isFree ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-actions"
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
-    style: {
-      background: '#16A34A',
-      borderColor: '#16A34A',
-      justifyContent: 'center'
-    },
     onClick: handleRequestFree
   }, "Solicit\u0103 acces gratuit")), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: '12px',
-      color: 'var(--text-2)',
-      marginTop: '14px',
-      textAlign: 'center',
-      lineHeight: '1.6'
-    }
+    className: "sp-fine sp-fine--gap"
   }, "Trimite-ne un email \u0219i \xEE\u021Bi livr\u0103m documentul gratuit \xEEn cel mai scurt timp.")) : checkout ? /*#__PURE__*/React.createElement(CheckoutForm, {
     product: product,
     onNav: onNav
@@ -1253,23 +960,11 @@ function ProductModal({
     className: "shop-modal-actions"
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
-    style: {
-      justifyContent: 'center'
-    },
     onClick: () => setCheckout(true)
   }, "Cump\u0103r\u0103 cu cardul")), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: '12px',
-      color: 'var(--text-2)',
-      marginTop: '14px',
-      textAlign: 'center',
-      lineHeight: '1.6'
-    }
+    className: "sp-fine sp-fine--gap"
   }, "Documentele se livreaz\u0103 prin email, \xEEn format editabil, imediat dup\u0103 confirmarea pl\u0103\u021Bii. Preferi transferul bancar? Scrie-ne la ", /*#__PURE__*/React.createElement("a", {
-    href: 'mailto:' + COMPANY.email,
-    style: {
-      color: 'var(--blue-a)'
-    }
+    href: 'mailto:' + COMPANY.email
   }, COMPANY.email), "."))))));
 }
 
@@ -1310,41 +1005,12 @@ function ShopPage({
     setQuery('');
   };
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "pg-hero pg-hero-video",
-    style: {
-      textAlign: 'center'
-    }
-  }, /*#__PURE__*/React.createElement("video", {
-    className: "pg-hero-vid",
-    autoPlay: true,
-    muted: true,
-    playsInline: true,
-    loop: true,
-    preload: "none"
-  }, /*#__PURE__*/React.createElement("source", {
-    src: "assets/videos_library/portofoliu-produse-informs.mp4",
-    type: "video/mp4"
-  }), /*#__PURE__*/React.createElement("track", {
-    kind: "captions",
-    src: "",
-    label: "Rom\xE2n\u0103",
-    srclang: "ro",
-    default: true
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "pg-hero-overlay"
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "container",
-    style: {
-      position: 'relative',
-      zIndex: 2
-    }
+    className: "pg-hero"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag-label"
-  }, "Produse digitale"), /*#__PURE__*/React.createElement("h1", {
-    style: {
-      fontSize: 'clamp(1.6rem, 3vw, 2.4rem)'
-    }
-  }, "Documente profesionale adaptate", /*#__PURE__*/React.createElement("br", null), "pentru sectorul public \u0219i sectorul privat"), /*#__PURE__*/React.createElement("div", {
+  }, "Produse digitale"), /*#__PURE__*/React.createElement("h1", null, "Documente profesionale pentru sectorul public \u0219i privat"), /*#__PURE__*/React.createElement("p", null, "Modele Word, Excel \u0219i PDF, gata de completat. O parte sunt gratuite."), /*#__PURE__*/React.createElement("div", {
     className: "shop-search-wrap"
   }, /*#__PURE__*/React.createElement("span", {
     className: "shop-search-ico"
@@ -1357,90 +1023,30 @@ function ShopPage({
     value: query,
     onChange: e => setQuery(e.target.value)
   })))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: '#F0F6FF',
-      borderBottom: '1px solid #C8DCEE'
-    }
+    className: "sp-seap"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "container",
-    style: {
-      padding: '14px 28px'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '16px',
-      flexWrap: 'wrap'
-    }
+    className: "container sp-seap__inner"
   }, /*#__PURE__*/React.createElement("a", {
     href: "https://www.e-licitatie.ro/pub",
     target: "_blank",
-    rel: "noopener noreferrer",
-    style: {
-      flexShrink: 0
-    }
+    rel: "noopener noreferrer"
   }, /*#__PURE__*/React.createElement("img", {
     src: "uploads/seap-sicap-logo.webp",
-    alt: "SEAP / SICAP",
-    style: {
-      height: '28px',
-      width: 'auto',
-      display: 'block'
-    }
-  })), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: '14px',
-      color: 'var(--text-2)',
-      lineHeight: '1.5'
-    }
-  }, /*#__PURE__*/React.createElement("strong", {
-    style: {
-      color: 'var(--navy)'
-    }
-  }, "Suntem \u0219i pe SEAP"), " - produsele \u0219i serviciile INFORMS pot fi achizi\u021Bionate prin sistemul electronic de achizi\u021Bii publice.")))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      borderBottom: '1px solid var(--border)',
-      background: '#fff'
-    }
+    alt: "SEAP / SICAP"
+  })), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, "Suntem \u0219i pe SEAP."), " Produsele \u0219i serviciile INFORMS pot fi achizi\u021Bionate prin sistemul electronic de achizi\u021Bii publice."))), /*#__PURE__*/React.createElement("div", {
+    className: "sp-profile"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "container",
-    style: {
-      padding: '18px 28px'
-    }
+    className: "container"
   }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: '11px',
-      fontWeight: 700,
-      textTransform: 'uppercase',
-      letterSpacing: '.12em',
-      color: 'var(--text-2)',
-      marginBottom: '12px'
-    }
+    className: "sp-profile__lbl"
   }, "Filtreaz\u0103 dup\u0103 profil"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      gap: '8px',
-      flexWrap: 'wrap',
-      alignItems: 'center'
-    }
+    className: "sp-profile__row"
   }, MAIN_CATEGORIES.map(m => /*#__PURE__*/React.createElement("button", {
     key: m.id,
+    type: "button",
+    "aria-pressed": mainCat === m.id,
     onClick: () => handleMainCat(mainCat === m.id ? 'all' : m.id),
-    style: {
-      padding: '9px 22px',
-      borderRadius: '8px',
-      border: '1.5px solid',
-      borderColor: mainCat === m.id ? 'var(--navy)' : 'var(--border)',
-      background: mainCat === m.id ? 'var(--navy)' : '#fff',
-      color: mainCat === m.id ? '#fff' : 'var(--text)',
-      fontWeight: 600,
-      fontSize: '14px',
-      fontFamily: 'var(--font)',
-      cursor: 'pointer',
-      transition: 'all .15s',
-      lineHeight: 1.4
-    }
+    className: 'sp-chip' + (mainCat === m.id ? ' is-on' : '')
   }, m.label))))), /*#__PURE__*/React.createElement("div", {
     className: "shop-filter-bar",
     id: "shop-filter-bar"
@@ -1451,10 +1057,6 @@ function ShopPage({
   }, activeSubs.map(c => /*#__PURE__*/React.createElement("div", {
     key: c.id,
     className: `shop-tab${category === c.id ? ' active' : ''}`,
-    style: c.green ? {
-      color: category === c.id ? '#16A34A' : '#16A34A',
-      borderBottomColor: category === c.id ? '#16A34A' : 'transparent'
-    } : {},
     onClick: () => setCategory(c.id)
   }, c.label))), /*#__PURE__*/React.createElement("div", {
     className: "shop-formats"
@@ -1465,10 +1067,7 @@ function ShopPage({
     className: `shop-fmt ${f.cls}${format === f.id ? ' active' : ''}`,
     onClick: () => setFormat(f.id)
   }, f.label))))), /*#__PURE__*/React.createElement("section", {
-    className: "sec",
-    style: {
-      paddingTop: '36px'
-    }
+    className: "sec sp-catalog"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
@@ -1477,10 +1076,7 @@ function ShopPage({
     className: "shop-result-count"
   }, /*#__PURE__*/React.createElement("strong", null, filtered.length), "\xA0", filtered.length === 1 ? 'produs găsit' : 'produse găsite', hasFilters && /*#__PURE__*/React.createElement("button", {
     className: "shop-reset-btn",
-    onClick: resetFilters,
-    style: {
-      marginLeft: '14px'
-    }
+    onClick: resetFilters
   }, "\u2715 Reseteaz\u0103 filtrele"))), filtered.length > 0 ? /*#__PURE__*/React.createElement("div", {
     className: "shop-grid"
   }, filtered.map((p, i) => /*#__PURE__*/React.createElement(FadeUp, {
@@ -1497,43 +1093,17 @@ function ShopPage({
     className: "shop-empty"
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-empty-icon"
-  }, "\uD83D\uDD0D"), /*#__PURE__*/React.createElement("h3", {
-    style: {
-      color: 'var(--navy)',
-      marginBottom: '8px'
-    }
-  }, "Niciun produs g\u0103sit"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      marginBottom: '24px'
-    }
-  }, "\xCEncearc\u0103 s\u0103 modifici criteriile de filtrare sau c\u0103utare."), /*#__PURE__*/React.createElement("button", {
+  }, "\uD83D\uDD0D"), /*#__PURE__*/React.createElement("h3", null, "Niciun produs g\u0103sit"), /*#__PURE__*/React.createElement("p", null, "\xCEncearc\u0103 s\u0103 modifici criteriile de filtrare sau c\u0103utare."), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-outline",
     onClick: resetFilters
   }, "Reseteaz\u0103 filtrele")), /*#__PURE__*/React.createElement("div", {
     className: "shop-cta-banner"
   }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: '13px',
-      fontWeight: 700,
-      textTransform: 'uppercase',
-      letterSpacing: '.14em',
-      color: 'var(--blue-a)',
-      marginBottom: '12px'
-    }
-  }, "Ai nevoie de ceva personalizat?"), /*#__PURE__*/React.createElement("h3", {
-    style: {
-      color: '#fff',
-      marginBottom: '12px',
-      fontSize: '1.35rem'
-    }
+    className: "sp-cta__k"
+  }, "Ai nevoie de ceva personalizat?"), /*#__PURE__*/React.createElement("h2", {
+    className: "sp-cta__title"
   }, "Documenta\u021Bie la comand\u0103"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: 'rgba(255,255,255,.65)',
-      fontSize: '15.5px',
-      lineHeight: '1.75',
-      maxWidth: '480px',
-      margin: '0 auto 28px'
-    }
+    className: "sp-cta__lead"
   }, "Nu ai g\u0103sit ce c\u0103utai? Elabor\u0103m documenta\u021Bii personalizate, adaptate exact situa\u021Biei \u0219i nevoilor tale specifice."), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
     onClick: () => {

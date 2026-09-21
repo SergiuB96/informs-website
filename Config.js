@@ -89,8 +89,10 @@ function fmtPrice(value) {
 /* ─── Stiluri comune paginilor legale ───────────── */
 const LEGAL_STYLES = {
   h2: {
-    fontSize: '1.15rem',
-    fontWeight: 700,
+    fontFamily: 'var(--f-display)',
+    fontSize: '1.45rem',
+    fontWeight: 400,
+    letterSpacing: '-.01em',
     color: 'var(--navy)',
     marginTop: '36px',
     marginBottom: '10px'

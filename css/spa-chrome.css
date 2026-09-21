@@ -55,81 +55,81 @@
 }
 
 /* reset limitat la chrome */
-.hdr ul,
-.hdr ol,
-.drawer ul,
-.drawer ol,
-.ftr ul,
-.ftr ol,
-.cookie ul,
-.cookie ol,
-.skip-link ul,
-.skip-link ol {
+:where(.hdr) ul,
+:where(.hdr) ol,
+:where(.drawer) ul,
+:where(.drawer) ol,
+:where(.ftr) ul,
+:where(.ftr) ol,
+:where(.cookie) ul,
+:where(.cookie) ol,
+:where(.skip-link) ul,
+:where(.skip-link) ol {
   margin: 0; padding: 0; list-style: none;
 }
 
-.hdr p,
-.drawer p,
-.ftr p,
-.cookie p,
-.skip-link p {
+:where(.hdr) p,
+:where(.drawer) p,
+:where(.ftr) p,
+:where(.cookie) p,
+:where(.skip-link) p {
   margin: 0;
 }
 
-.hdr h1,
-.hdr h2,
-.hdr h3,
-.hdr h4,
-.hdr h5,
-.drawer h1,
-.drawer h2,
-.drawer h3,
-.drawer h4,
-.drawer h5,
-.ftr h1,
-.ftr h2,
-.ftr h3,
-.ftr h4,
-.ftr h5,
-.cookie h1,
-.cookie h2,
-.cookie h3,
-.cookie h4,
-.cookie h5,
-.skip-link h1,
-.skip-link h2,
-.skip-link h3,
-.skip-link h4,
-.skip-link h5 {
+:where(.hdr) h1,
+:where(.hdr) h2,
+:where(.hdr) h3,
+:where(.hdr) h4,
+:where(.hdr) h5,
+:where(.drawer) h1,
+:where(.drawer) h2,
+:where(.drawer) h3,
+:where(.drawer) h4,
+:where(.drawer) h5,
+:where(.ftr) h1,
+:where(.ftr) h2,
+:where(.ftr) h3,
+:where(.ftr) h4,
+:where(.ftr) h5,
+:where(.cookie) h1,
+:where(.cookie) h2,
+:where(.cookie) h3,
+:where(.cookie) h4,
+:where(.cookie) h5,
+:where(.skip-link) h1,
+:where(.skip-link) h2,
+:where(.skip-link) h3,
+:where(.skip-link) h4,
+:where(.skip-link) h5 {
   margin: 0; font-weight: 400;
 }
 
-.hdr a,
-.drawer a,
-.ftr a,
-.cookie a,
-.skip-link a {
+:where(.hdr) a,
+:where(.drawer) a,
+:where(.ftr) a,
+:where(.cookie) a,
+:where(.skip-link) a {
   color: inherit; text-decoration: none;
 }
 
-.hdr img,
-.hdr svg,
-.drawer img,
-.drawer svg,
-.ftr img,
-.ftr svg,
-.cookie img,
-.cookie svg,
-.skip-link img,
-.skip-link svg {
+:where(.hdr) img,
+:where(.hdr) svg,
+:where(.drawer) img,
+:where(.drawer) svg,
+:where(.ftr) img,
+:where(.ftr) svg,
+:where(.cookie) img,
+:where(.cookie) svg,
+:where(.skip-link) img,
+:where(.skip-link) svg {
   display: block; max-width: 100%;
 }
 
-.hdr button,
-.drawer button,
-.ftr button,
-.cookie button,
-.skip-link button {
+:where(.hdr) button,
+:where(.drawer) button,
+:where(.ftr) button,
+:where(.cookie) button,
+:where(.skip-link) button {
   font: inherit; color: inherit; background: none; border: 0; cursor: pointer;
 }
 
