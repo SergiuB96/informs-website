@@ -21,6 +21,8 @@
          prețul la plată. Prețul de aici este doar pentru afișare;
          serverul nu are încredere în el niciodată.
 
+   hidden: true scoate produsul din listă; apare doar cu /magazin?test=1.
+
    ⚠️ Produsele cu preț NU au câmp 'file'. Fișierele lor stau în
    Vercel Blob privat și se livrează prin link semnat, după plată.
 ─────────────────────────────────────────────────── */
@@ -101,7 +103,29 @@ const SHOP_PRODUCTS = [
     stats: { files: 1, pages: 0 },
     file: 'assets/produse/gratuite/pdf/Proces-verbal_receptie%20terminare%20lucrari_v1.0.pdf',
   },
+  {
+    id: 'test-plata',
+    sku: 'INF-TEST-10',
+    title: 'Test plată INFORMS',
+    shortDesc: 'Produs de test pentru verificarea plății cu cardul.',
+    longDesc: 'Produs intern, folosit pentru a verifica plata NETOPIA, livrarea documentului și emiterea facturii.',
+    category: 'achizitii',
+    mainCategories: ['companii'],
+    format: 'word',
+    cv: 'cv-word',
+    price: 10,
+    hidden: true,
+    featured: false,
+    isNew: false,
+    tags: ['Test'],
+    includes: [
+      'Document de test (DOCX)',
+    ],
+    stats: { files: 1, pages: 0 },
+  },
 ];
+
+const SHOW_HIDDEN = new URLSearchParams(window.location.search).get('test') === '1';
 
 /* ─── Configurare categorii și formate ──────────── */
 const SHOP_CATEGORIES = [
@@ -740,6 +764,7 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
   }, [mainCat]);
 
   const filtered = SHOP_PRODUCTS.filter(p => {
+    if (p.hidden && !SHOW_HIDDEN) return false;
     const matchMain = mainCat === 'all' || p.mainCategories.includes(mainCat);
     const matchCat  = category === 'all' || p.category === category;
     const matchFmt  = format   === 'all' || p.format   === format;
