@@ -129,7 +129,11 @@ export default async function handler(req, res) {
     verifyNetopiaToken(req.headers['verification-token'] || req.headers['Verification-token'], rawBody);
     payload = JSON.parse(rawBody.toString('utf8'));
   } catch (err) {
-    console.error('IPN verification failed', err.message);
+    /* Tokenul nu e secret (semnătură publică + claims fără date de client);
+       îl logăm ca verificarea cheii să poată fi reprodusă offline. */
+    console.error('IPN verification failed', err.message, {
+      token: String(req.headers['verification-token'] || '').slice(0, 2000),
+    });
     return res.status(200).json({ ...FAIL_RESPONSE, errorMessage: err.message });
   }
 
