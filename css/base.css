@@ -14,7 +14,6 @@
   --blue:     #065AF7;
   --blue-deep:#043799;
   --blue-hover:#0A4FD6;
-  --pink:     #FF0074;
   --yellow:   #FFD400;
 
   --ink:      #212121;
@@ -26,11 +25,14 @@
   --line-str: rgba(210, 204, 230, .32);
 
   /* tipografie */
+  /* serif doar pentru titlurile mari (h1, h2): tonul unui text juridic
+     tipărit; h3 și interfața rămân pe Poppins și DM Sans */
+  --f-display: "Newsreader", Georgia, "Times New Roman", serif;
   --f-head: "Poppins", system-ui, sans-serif;
   --f-body: "DM Sans", system-ui, sans-serif;
 
-  --fs-h1: 64px;   --lh-h1: 70px;  --ls-h1: -1.28px;
-  --fs-h2: 64px;   --lh-h2: 72px;  --ls-h2: -1.92px;
+  --fs-h1: 76px;   --lh-h1: 80px;  --ls-h1: -1.4px;
+  --fs-h2: 64px;   --lh-h2: 70px;  --ls-h2: -1.2px;
   --fs-h3: 20px;   --lh-h3: 24px;
   --fs-body: 16px; --lh-body: 1.333;
   --fs-lead: 18px; --lh-lead: 27px;
@@ -74,6 +76,8 @@ h1, h2, h3, h4 {
   color: var(--white);
   margin: 0;
 }
+
+h1, h2 { font-family: var(--f-display); }
 
 h1, h2, h3, h4 { text-wrap: balance; }
 
@@ -215,15 +219,15 @@ a { color: inherit; text-decoration: none; }
 [data-reveal].is-in { opacity: 1; transform: none; }
 
 @media (max-width: 1200px) {
-  :root { --fs-h1: 52px; --lh-h1: 58px; --fs-h2: 48px; --lh-h2: 56px; --ls-h2: -1.2px; }
+  :root { --fs-h1: 64px; --lh-h1: 68px; --fs-h2: 52px; --lh-h2: 58px; --ls-h2: -1px; }
 }
 
 @media (max-width: 1023px) {
-  :root { --gutter: 24px; --sect-md: 56px; --sect-lg: 72px; --fs-h1: 44px; --lh-h1: 50px; --fs-h2: 38px; --lh-h2: 46px; }
+  :root { --gutter: 24px; --sect-md: 56px; --sect-lg: 72px; --fs-h1: 54px; --lh-h1: 58px; --fs-h2: 42px; --lh-h2: 48px; }
 }
 
 @media (max-width: 640px) {
-  :root { --gutter: 20px; --fs-h1: 36px; --lh-h1: 42px; --ls-h1: -.6px; --fs-h2: 30px; --lh-h2: 38px; --ls-h2: -.6px; --btn-h: 50px; --btn-r: 25px; --fs-lead: 16px; --lh-lead: 24px; }
+  :root { --gutter: 20px; --fs-h1: 44px; --lh-h1: 48px; --ls-h1: -.8px; --fs-h2: 34px; --lh-h2: 40px; --ls-h2: -.6px; --btn-h: 50px; --btn-r: 25px; --fs-lead: 16px; --lh-lead: 24px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

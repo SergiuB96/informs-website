@@ -42,7 +42,7 @@
 
 .anchors__cta { flex: none; }
 
-[id="capabilitati"], [id="proces"], [id="pachete"], [id="intrebari"] {
+[id="capabilitati"], [id="proces"], [id="pachete"], [id="intrebari"], [id="pentru-cine"] {
   scroll-margin-top: calc(var(--hdr-h) + 90px);
 }
 

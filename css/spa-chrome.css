@@ -12,7 +12,6 @@
   --blue:     #065AF7;
   --blue-deep:#043799;
   --blue-hover:#0A4FD6;
-  --pink:     #FF0074;
   --yellow:   #FFD400;
 
   --ink:      #212121;
@@ -24,11 +23,14 @@
   --line-str: rgba(210, 204, 230, .32);
 
   /* tipografie */
+  /* serif doar pentru titlurile mari (h1, h2): tonul unui text juridic
+     tipărit; h3 și interfața rămân pe Poppins și DM Sans */
+  --f-display: "Newsreader", Georgia, "Times New Roman", serif;
   --f-head: "Poppins", system-ui, sans-serif;
   --f-body: "DM Sans", system-ui, sans-serif;
 
-  --fs-h1: 64px;   --lh-h1: 70px;  --ls-h1: -1.28px;
-  --fs-h2: 64px;   --lh-h2: 72px;  --ls-h2: -1.92px;
+  --fs-h1: 76px;   --lh-h1: 80px;  --ls-h1: -1.4px;
+  --fs-h2: 64px;   --lh-h2: 70px;  --ls-h2: -1.2px;
   --fs-h3: 20px;   --lh-h3: 24px;
   --fs-body: 16px; --lh-body: 1.333;
   --fs-lead: 18px; --lh-lead: 27px;

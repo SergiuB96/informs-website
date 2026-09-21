@@ -24,7 +24,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/chrome.css">
 <link rel="stylesheet" href="css/components.css">
@@ -152,66 +152,49 @@
 <main id="main">
 
   <!-- ══ 1. Hero ══ -->
-  <section class="hero" aria-roledescription="carousel" aria-label="Ce facem">
-    <div class="hero__track" id="heroTrack">
-
-      <article class="hero__slide is-active" data-bg="1">
-        <div class="hero__media" aria-hidden="true"><span class="hero__orb"></span></div>
-        <div class="hero__scrim"></div>
-        <div class="container hero__body">
-          <p class="kicker hero__kicker">Autoritate contractantă</p>
-          <h1 class="hero__title">Documentația de atribuire,<br>gata de publicat</h1>
-          <p class="hero__lead">Modele verificate juridic pentru servicii, produse și lucrări, actualizate la fiecare modificare legislativă. Publici procedura fără să te întrebi ce ai omis.</p>
-          <div class="hero__cta">
-            <a class="btn btn--light" href="/contact">Solicită o consultare</a>
-            <a class="btn btn--ghost" href="/servicii">Vezi serviciile</a>
-          </div>
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__main">
+        <p class="kicker">Autoritate contractantă</p>
+        <h1 class="hero__title">Documentația de atribuire, gata de publicat</h1>
+        <p class="hero__lead">Modele verificate juridic pentru servicii, produse și lucrări, actualizate la fiecare modificare legislativă. Publici procedura fără să te întrebi ce ai omis.</p>
+        <div class="hero__cta">
+          <a class="btn btn--light" href="/contact">Solicită o consultare</a>
+          <a class="btn btn--ghost" href="/servicii">Vezi serviciile</a>
         </div>
-      </article>
+        <p class="hero__alt">Depui oferte? <a class="lnk" href="/servicii#pentru-cine">Ce pregătim pentru ofertanți <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+      </div>
 
-      <article class="hero__slide" data-bg="2">
-        <div class="hero__media" aria-hidden="true"><span class="hero__orb"></span></div>
-        <div class="hero__scrim"></div>
-        <div class="container hero__body">
-          <p class="kicker hero__kicker">Ofertant</p>
-          <h2 class="hero__title">Oferta care trece<br>de calificare</h2>
-          <p class="hero__lead">Instrumente pentru oferta tehnică și financiară, documentele de calificare complete și, când e cazul, contestația la CNSC sau în instanță.</p>
-          <div class="hero__cta">
-            <a class="btn btn--light" href="/contact">Solicită o ofertă</a>
-            <a class="btn btn--ghost" href="/servicii">Vezi serviciile</a>
-          </div>
+      <!-- Exemplu din produs, nu o ilustrație: o fișă de date completată.
+           Decorativ pentru cititoarele de ecran, conținutul real e în text. -->
+      <div class="sheet" aria-hidden="true">
+        <div class="sheet__head">
+          <span class="sheet__title">Fișa de date a achiziției</span>
+          <span class="sheet__ver">rev. 2026</span>
         </div>
-      </article>
+        <p class="sheet__meta">Procedură simplificată · contract de servicii</p>
 
-      <article class="hero__slide" data-bg="3">
-        <div class="hero__media" aria-hidden="true"><span class="hero__orb"></span></div>
-        <div class="hero__scrim"></div>
-        <div class="container hero__body">
-          <p class="kicker hero__kicker">Digitalizare</p>
-          <h2 class="hero__title">Formulare care se<br>completează singure</h2>
-          <p class="hero__lead">Modele Excel cu calcul automat, formulare PDF interactive și documente Word tipizate. Aceleași date, introduse o singură dată.</p>
-          <div class="hero__cta">
-            <a class="btn btn--light" href="/magazin">Vezi produsele</a>
-            <a class="btn btn--ghost" href="/servicii">Cum funcționează</a>
-          </div>
+        <div class="fld">
+          <p class="fld__lbl"><b>II.1.1</b> Titlu</p>
+          <p class="fld__val">Servicii de proiectare pentru modernizarea iluminatului public</p>
         </div>
-      </article>
-
-    </div>
-
-    <button class="hero__arrow hero__arrow--prev" id="heroPrev" type="button" aria-label="Slide anterior">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-    <button class="hero__arrow hero__arrow--next" id="heroNext" type="button" aria-label="Slide următor">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-
-    <div class="hero__nav">
-      <div class="hero__dots" id="heroDots" role="tablist" aria-label="Alege slide"></div>
-      <button class="pause" id="heroPause" type="button" aria-pressed="false" aria-label="Oprește derularea automată">
-        <svg class="pause__stop" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 2v8M9 2v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <svg class="pause__play" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7.5-4.5z" fill="currentColor"/></svg>
-      </button>
+        <div class="fld">
+          <p class="fld__lbl"><b>II.1.5</b> Valoarea estimată</p>
+          <p class="fld__val fld__val--num">412.600,00 lei fără TVA</p>
+        </div>
+        <div class="fld">
+          <p class="fld__lbl"><b>III.1.1</b> Motive de excludere</p>
+          <ul class="checks">
+            <li>art. 164 din Legea 98/2016</li>
+            <li>art. 165 din Legea 98/2016</li>
+            <li>art. 167 din Legea 98/2016</li>
+          </ul>
+        </div>
+        <div class="fld">
+          <p class="fld__lbl"><b>IV.2.1</b> Criteriul de atribuire</p>
+          <p class="fld__val">Cel mai bun raport calitate-preț</p>
+        </div>
+      </div>
     </div>
   </section>
 

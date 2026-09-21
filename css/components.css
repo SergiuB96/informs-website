@@ -53,9 +53,7 @@
   text-align: center;
   padding: 72px 40px;
   border-radius: 32px;
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(6,90,247,.4), rgba(12,0,50,0) 68%),
-    linear-gradient(160deg, var(--navy-600), var(--navy-800));
+  background: var(--navy-800);
   border: 1px solid var(--line);
 }
 
@@ -226,36 +224,14 @@
 }
 
 /* ── Pagini interioare (mutat din service.css) ── */
+/* Fundal plat, ca hero-ul de pe acasă; linia de jos separă antetul
+   paginii de conținut. Sfera în gradient de aici a fost scoasă. */
 .phero {
   position: relative;
   margin-top: calc(var(--hdr-h) * -1);
   padding-block: calc(var(--hdr-h) + 64px) 72px;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.phero__bg {
-  position: absolute; inset: 0; z-index: -2;
-  background: linear-gradient(120deg, #1B0B4D 0%, #2A0F72 52%, #08245E 100%);
-}
-
-.phero__orb {
-  position: absolute;
-  right: -10%; top: -30%;
-  width: 46vw; max-width: 680px;
-  aspect-ratio: 1;
-  border-radius: 48% 52% 56% 44% / 50% 46% 54% 50%;
-  background: radial-gradient(circle at 36% 34%, rgba(255,255,255,.26), rgba(255,255,255,0) 60%),
-              conic-gradient(from 210deg, var(--blue), var(--purple-lt), var(--pink), var(--blue));
-  filter: blur(6px);
-  opacity: .5;
-  animation: orbFloat 20s var(--ease) infinite alternate;
-}
-
-.phero::after {
-  content: "";
-  position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(90deg, rgba(12,0,50,.9) 0%, rgba(12,0,50,.5) 52%, rgba(12,0,50,.08) 82%);
+  background: var(--navy-900);
+  border-bottom: 1px solid var(--line);
 }
 
 .crumbs { margin-bottom: 34px; }

@@ -6,7 +6,6 @@
   'use strict';
 
   var MOBILE_BP = 1023;
-  var HERO_INTERVAL = 7000;
   var COUNT_DURATION = 1600;
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -129,93 +128,6 @@
     window.addEventListener('resize', function () {
       if (window.innerWidth > MOBILE_BP) setOpen(false);
     });
-  }
-
-  /* ── Hero carousel ────────────────────────────────────── */
-  function initHero() {
-    var track = document.getElementById('heroTrack');
-    var dotsWrap = document.getElementById('heroDots');
-    var prev = document.getElementById('heroPrev');
-    var next = document.getElementById('heroNext');
-    if (!track) return;
-
-    var slides = Array.prototype.slice.call(track.querySelectorAll('.hero__slide'));
-    if (slides.length < 2) return;
-
-    var hero = track.closest('.hero');
-    var pauseBtn = document.getElementById('heroPause');
-    var index = 0;
-    var timer = null;
-    var userPaused = false;   // oprit din buton, rămâne oprit
-    var holding = false;      // oprit temporar: mouse sau focus în hero
-
-    // dots
-    var dots = slides.map(function (_, i) {
-      var dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = 'hero__dot' + (i === 0 ? ' is-active' : '');
-      dot.setAttribute('role', 'tab');
-      dot.setAttribute('aria-label', 'Slide ' + (i + 1));
-      dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
-      dot.addEventListener('click', function () { go(i, true); });
-      if (dotsWrap) dotsWrap.appendChild(dot);
-      return dot;
-    });
-
-    function go(i, fromUser) {
-      index = (i + slides.length) % slides.length;
-      slides.forEach(function (s, n) { s.classList.toggle('is-active', n === index); });
-      dots.forEach(function (d, n) {
-        d.classList.toggle('is-active', n === index);
-        d.setAttribute('aria-selected', n === index ? 'true' : 'false');
-      });
-      if (fromUser) restart();
-    }
-
-    function restart() {
-      window.clearInterval(timer);
-      if (reduceMotion || userPaused || holding || document.hidden) return;
-      timer = window.setInterval(function () { go(index + 1, false); }, HERO_INTERVAL);
-    }
-
-    if (prev) prev.addEventListener('click', function () { go(index - 1, true); });
-    if (next) next.addEventListener('click', function () { go(index + 1, true); });
-
-    // WCAG 2.2.2: conținutul care se schimbă singur trebuie să poată fi oprit
-    if (pauseBtn) {
-      if (reduceMotion) pauseBtn.hidden = true;
-      pauseBtn.addEventListener('click', function () {
-        userPaused = !userPaused;
-        pauseBtn.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
-        pauseBtn.setAttribute('aria-label', userPaused ? 'Pornește derularea automată' : 'Oprește derularea automată');
-        restart();
-      });
-    }
-
-    function hold(on) { holding = on; restart(); }
-    if (hero) {
-      hero.addEventListener('mouseenter', function () { hold(true); });
-      hero.addEventListener('mouseleave', function () { hold(false); });
-      hero.addEventListener('focusin', function () { hold(true); });
-      hero.addEventListener('focusout', function (e) {
-        if (!hero.contains(e.relatedTarget)) hold(false);
-      });
-    }
-
-    // swipe
-    var startX = null;
-    track.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend', function (e) {
-      if (startX === null) return;
-      var dx = e.changedTouches[0].clientX - startX;
-      if (Math.abs(dx) > 45) go(index + (dx < 0 ? 1 : -1), true);
-      startX = null;
-    }, { passive: true });
-
-    // pauză când tab-ul nu e vizibil
-    document.addEventListener('visibilitychange', restart);
-
-    restart();
   }
 
   /* ── Scroll reveal + counters ─────────────────────────────
@@ -695,7 +607,6 @@
     initMegaMenu();
     initLangMenu();
     initDrawer();
-    initHero();
     initMarquee();
     initReveal();
     initCounters();
