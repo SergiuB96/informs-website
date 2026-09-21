@@ -233,10 +233,17 @@ for (const page of pages) {
     ? '\n<meta name="robots" content="noindex, follow">'
     : '';
 
+  // titlul și descrierea ajung și în atribute (og:*), unde o ghilimea
+  // dublă ar închide atributul
+  for (const k of ['title', 'desc']) {
+    if (/["<>]/.test(page[k])) throw new Error(`${page.out}: ${k} conține caractere nepermise ("<>)`);
+  }
+
+  // replaceAll: aceleași valori apar și în <title>/description și în og:*
   let html = layout
-    .replace('{{title}}', page.title)
-    .replace('{{desc}}', page.desc)
-    .replace('{{canonical}}', HOST + path)
+    .replaceAll('{{title}}', page.title)
+    .replaceAll('{{desc}}', page.desc)
+    .replaceAll('{{canonical}}', HOST + path)
     .replace('{{robots}}', robots)
     .replace('{{css}}', cssTags)
     .replace('{{body}}', body);

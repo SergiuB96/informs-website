@@ -142,8 +142,12 @@
     var slides = Array.prototype.slice.call(track.querySelectorAll('.hero__slide'));
     if (slides.length < 2) return;
 
+    var hero = track.closest('.hero');
+    var pauseBtn = document.getElementById('heroPause');
     var index = 0;
     var timer = null;
+    var userPaused = false;   // oprit din buton, rămâne oprit
+    var holding = false;      // oprit temporar: mouse sau focus în hero
 
     // dots
     var dots = slides.map(function (_, i) {
@@ -170,12 +174,33 @@
 
     function restart() {
       window.clearInterval(timer);
-      if (reduceMotion) return;
+      if (reduceMotion || userPaused || holding || document.hidden) return;
       timer = window.setInterval(function () { go(index + 1, false); }, HERO_INTERVAL);
     }
 
     if (prev) prev.addEventListener('click', function () { go(index - 1, true); });
     if (next) next.addEventListener('click', function () { go(index + 1, true); });
+
+    // WCAG 2.2.2: conținutul care se schimbă singur trebuie să poată fi oprit
+    if (pauseBtn) {
+      if (reduceMotion) pauseBtn.hidden = true;
+      pauseBtn.addEventListener('click', function () {
+        userPaused = !userPaused;
+        pauseBtn.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
+        pauseBtn.setAttribute('aria-label', userPaused ? 'Pornește derularea automată' : 'Oprește derularea automată');
+        restart();
+      });
+    }
+
+    function hold(on) { holding = on; restart(); }
+    if (hero) {
+      hero.addEventListener('mouseenter', function () { hold(true); });
+      hero.addEventListener('mouseleave', function () { hold(false); });
+      hero.addEventListener('focusin', function () { hold(true); });
+      hero.addEventListener('focusout', function (e) {
+        if (!hero.contains(e.relatedTarget)) hold(false);
+      });
+    }
 
     // swipe
     var startX = null;
@@ -188,10 +213,7 @@
     }, { passive: true });
 
     // pauză când tab-ul nu e vizibil
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) window.clearInterval(timer);
-      else restart();
-    });
+    document.addEventListener('visibilitychange', restart);
 
     restart();
   }
@@ -275,7 +297,10 @@
       window.requestAnimationFrame(step);
     }
 
+    /* HTML-ul conține valoarea finală, ca s-o vadă previzualizările de
+       link și oricine fără JavaScript. Pornim de la zero doar aici. */
     nums.forEach(function (el) {
+      if (!reduceMotion) el.textContent = format(0) + (el.getAttribute('data-suffix') || '');
       watchers.push({ el: el, hit: run });
     });
   }
@@ -285,6 +310,17 @@
     var row = document.getElementById('marqueeRow');
     if (!row) return;
     row.innerHTML += row.innerHTML;
+
+    var btn = document.getElementById('marqueePause');
+    var marquee = row.closest('.marquee');
+    if (!btn || !marquee) return;
+    if (reduceMotion) { btn.hidden = true; return; }
+
+    btn.addEventListener('click', function () {
+      var paused = marquee.classList.toggle('is-paused');
+      btn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      btn.setAttribute('aria-label', paused ? 'Pornește derularea benzii' : 'Oprește derularea benzii');
+    });
   }
 
   /* ── Scrollspy pentru bara de ancore ──────────────────────

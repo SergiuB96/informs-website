@@ -10,8 +10,8 @@
   --purple:   #5D16B3;
   --purple-lt:#7B32D6;
   --blue:     #065AF7;
-  --blue-alt: #015CFF;
   --blue-deep:#043799;
+  --blue-hover:#0A4FD6;
   --pink:     #FF0074;
   --yellow:   #FFD400;
 
@@ -189,25 +189,23 @@
 .drawer .btn--primary,
 .ftr .btn--primary,
 .cookie .btn--primary,
-.skip-link .btn--primary { background: var(--blue); color: var(--white); border-color: var(--blue); }
-
-.hdr .btn--primary:hover,
-.drawer .btn--primary:hover,
-.ftr .btn--primary:hover,
-.cookie .btn--primary:hover,
-.skip-link .btn--primary:hover { background: var(--blue-alt); border-color: var(--blue-alt); }
-
+.skip-link .btn--primary,
 .hdr .btn--blue,
 .drawer .btn--blue,
 .ftr .btn--blue,
 .cookie .btn--blue,
 .skip-link .btn--blue { background: var(--blue); color: var(--white); border-color: var(--blue); }
 
+.hdr .btn--primary:hover,
+.drawer .btn--primary:hover,
+.ftr .btn--primary:hover,
+.cookie .btn--primary:hover,
+.skip-link .btn--primary:hover,
 .hdr .btn--blue:hover,
 .drawer .btn--blue:hover,
 .ftr .btn--blue:hover,
 .cookie .btn--blue:hover,
-.skip-link .btn--blue:hover { background: #0A4FD6; border-color: #0A4FD6; }
+.skip-link .btn--blue:hover { background: var(--blue-hover); border-color: var(--blue-hover); }
 
 .hdr .btn--light,
 .drawer .btn--light,
@@ -245,29 +243,11 @@
 .cookie .btn--outline:hover,
 .skip-link .btn--outline:hover { border-color: var(--white); background: rgba(255,255,255,.06); }
 
-.hdr .btn--outline-dark,
-.drawer .btn--outline-dark,
-.ftr .btn--outline-dark,
-.cookie .btn--outline-dark,
-.skip-link .btn--outline-dark { background: transparent; color: var(--ink); border-color: #C9C9C9; }
-
-.hdr .btn--outline-dark:hover,
-.drawer .btn--outline-dark:hover,
-.ftr .btn--outline-dark:hover,
-.cookie .btn--outline-dark:hover,
-.skip-link .btn--outline-dark:hover { border-color: var(--ink); }
-
 .hdr .btn--sm,
 .drawer .btn--sm,
 .ftr .btn--sm,
 .cookie .btn--sm,
 .skip-link .btn--sm { height: 40px; font-size: 15px; padding-inline: 20px; border-radius: 20px; }
-
-.hdr .btn--tiny,
-.drawer .btn--tiny,
-.ftr .btn--tiny,
-.cookie .btn--tiny,
-.skip-link .btn--tiny { height: 34px; font-size: 13px; padding-inline: 16px; border-radius: 17px; }
 
 .hdr .lnk,
 .drawer .lnk,

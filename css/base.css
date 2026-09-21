@@ -12,8 +12,8 @@
   --purple:   #5D16B3;
   --purple-lt:#7B32D6;
   --blue:     #065AF7;
-  --blue-alt: #015CFF;
   --blue-deep:#043799;
+  --blue-hover:#0A4FD6;
   --pink:     #FF0074;
   --yellow:   #FFD400;
 
@@ -77,7 +77,7 @@ h1, h2, h3, h4 {
 
 p { margin: 0; }
 
-ul { margin: 0; padding: 0; list-style: none; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
 
 img, svg { display: block; max-width: 100%; }
 
@@ -156,13 +156,11 @@ a { color: inherit; text-decoration: none; }
 
 .btn:active { transform: translateY(0); }
 
-.btn--primary { background: var(--blue); color: var(--white); border-color: var(--blue); }
+/* Același buton sub două nume: --primary în chrome (header, drawer,
+   inclusiv în aplicația React), --blue în conținutul paginilor. */
+.btn--primary, .btn--blue { background: var(--blue); color: var(--white); border-color: var(--blue); }
 
-.btn--primary:hover { background: var(--blue-alt); border-color: var(--blue-alt); }
-
-.btn--blue { background: var(--blue); color: var(--white); border-color: var(--blue); }
-
-.btn--blue:hover { background: #0A4FD6; border-color: #0A4FD6; }
+.btn--primary:hover, .btn--blue:hover { background: var(--blue-hover); border-color: var(--blue-hover); }
 
 .btn--light { background: var(--white); color: #000; }
 
@@ -176,13 +174,7 @@ a { color: inherit; text-decoration: none; }
 
 .btn--outline:hover { border-color: var(--white); background: rgba(255,255,255,.06); }
 
-.btn--outline-dark { background: transparent; color: var(--ink); border-color: #C9C9C9; }
-
-.btn--outline-dark:hover { border-color: var(--ink); }
-
 .btn--sm { height: 40px; font-size: 15px; padding-inline: 20px; border-radius: 20px; }
-
-.btn--tiny { height: 34px; font-size: 13px; padding-inline: 16px; border-radius: 17px; }
 
 .lnk {
   display: inline-flex;

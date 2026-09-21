@@ -23,7 +23,7 @@
         <div class="hero__scrim"></div>
         <div class="container hero__body">
           <p class="hero__kicker">Ofertant</p>
-          <h1 class="hero__title">Oferta care trece<br>de calificare</h1>
+          <h2 class="hero__title">Oferta care trece<br>de calificare</h2>
           <p class="hero__lead">Instrumente pentru oferta tehnică și financiară, documentele de calificare complete și, când e cazul, contestația la CNSC sau în instanță.</p>
           <div class="hero__cta">
             <a class="btn btn--light" href="contact.html">Solicită o ofertă</a>
@@ -37,7 +37,7 @@
         <div class="hero__scrim"></div>
         <div class="container hero__body">
           <p class="hero__kicker">Digitalizare</p>
-          <h1 class="hero__title">Formulare care se<br>completează singure</h1>
+          <h2 class="hero__title">Formulare care se<br>completează singure</h2>
           <p class="hero__lead">Modele Excel cu calcul automat, formulare PDF interactive și documente Word tipizate. Aceleași date, introduse o singură dată.</p>
           <div class="hero__cta">
             <a class="btn btn--light" href="/magazin">Vezi produsele</a>
@@ -55,7 +55,13 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
 
-    <div class="hero__dots" id="heroDots" role="tablist" aria-label="Alege slide"></div>
+    <div class="hero__nav">
+      <div class="hero__dots" id="heroDots" role="tablist" aria-label="Alege slide"></div>
+      <button class="pause" id="heroPause" type="button" aria-pressed="false" aria-label="Oprește derularea automată">
+        <svg class="pause__stop" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 2v8M9 2v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="pause__play" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7.5-4.5z" fill="currentColor"/></svg>
+      </button>
+    </div>
   </section>
 
   <!-- ══ 2. Ce facem ══ -->
@@ -170,6 +176,13 @@
         <span class="chip">OUG 98/2017</span><span class="chip">Instrucțiuni ANAP</span><span class="chip">eForms SEAP</span>
       </div>
     </div>
+
+    <div class="container band__ctrl">
+      <button class="pause" id="marqueePause" type="button" aria-pressed="false" aria-label="Oprește derularea benzii">
+        <svg class="pause__stop" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 2v8M9 2v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="pause__play" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7.5-4.5z" fill="currentColor"/></svg>
+      </button>
+    </div>
   </section>
 
   <!-- ══ 5. Cifre ══ -->
@@ -177,10 +190,9 @@
     <div class="container">
       <h2 class="h2 stats__title" data-reveal>Cincisprezece ani, strânși în documente</h2>
       <div class="stats" data-reveal>
-        <div class="stat"><span class="stat__num" data-count="15" data-suffix="+">0</span><span class="stat__label">ani în achiziții publice</span></div>
-        <div class="stat"><span class="stat__num" data-count="500" data-suffix="+">0</span><span class="stat__label">ore de consultanță pe an</span></div>
-        <div class="stat"><span class="stat__num" data-count="90" data-suffix="%">0</span><span class="stat__label">mai puține erori de redactare</span></div>
-        <div class="stat"><span class="stat__num" data-count="3" data-suffix="">0</span><span class="stat__label">formate de lucru</span></div>
+        <div class="stat"><span class="stat__num" data-count="15" data-suffix="+">15+</span><span class="stat__label">ani în achiziții publice</span></div>
+        <div class="stat"><span class="stat__num" data-count="500" data-suffix="+">500+</span><span class="stat__label">ore de consultanță pe an</span></div>
+        <div class="stat"><span class="stat__num" data-count="3" data-suffix="">3</span><span class="stat__label">formate de lucru</span></div>
       </div>
     </div>
   </section>

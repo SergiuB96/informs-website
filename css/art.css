@@ -241,6 +241,10 @@
   min-height: 300px;
 }
 
+@media (max-width: 1023px) {
+  .artpanel { aspect-ratio: 16 / 9; min-height: 0; }
+}
+
 /* ── Accesibilitate / motion ──────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .art::before, .art::after { animation: none !important; }
