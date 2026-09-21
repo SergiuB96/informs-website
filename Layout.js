@@ -1,3 +1,4 @@
+(function(){
 const {
   useState,
   useEffect,
@@ -156,7 +157,7 @@ function Nav({
   }, /*#__PURE__*/React.createElement("a", {
     className: "logo",
     href: "/",
-    "aria-label": "INFORMS \u2014 acas\u0103"
+    "aria-label": "INFORMS - acas\u0103"
   }, /*#__PURE__*/React.createElement("img", {
     className: "logo__img",
     src: "assets/brand/logo-white.svg",
@@ -331,7 +332,7 @@ function Footer() {
   }, /*#__PURE__*/React.createElement("a", {
     className: "logo",
     href: "/",
-    "aria-label": "INFORMS \u2014 acas\u0103"
+    "aria-label": "INFORMS - acas\u0103"
   }, /*#__PURE__*/React.createElement("img", {
     className: "logo__img",
     src: "assets/brand/logo-white.svg",
@@ -464,3 +465,5 @@ Object.assign(window, {
   Footer,
   fmtTitle
 });
+
+})();

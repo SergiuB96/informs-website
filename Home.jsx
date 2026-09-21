@@ -465,7 +465,7 @@ function HomePage({ onNav }) {
           <FadeUp>
             <div className="quote-card">
               <blockquote className="quote-text">
-                Există un singur tip de succes – acela de a-ți putea petrece timpul așa cum îți dorești.
+                Există un singur tip de succes - acela de a-ți putea petrece timpul așa cum îți dorești.
               </blockquote>
               <p className="quote-author">Christopher Morley</p>
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>

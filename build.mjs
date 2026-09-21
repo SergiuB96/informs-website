@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   informs — build static
+   informs - build static
 
    Asamblează paginile din src/ în HTML static la rădăcină.
    Fără dependențe: rulezi `node build.mjs`.

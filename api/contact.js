@@ -26,7 +26,7 @@ export default async function handler(req, res) {
       from: `Website INFORMS <${process.env.SMTP_USER}>`,
       to: 'office@informs.ro',
       replyTo: email,
-      subject: `Mesaj nou — ${subiect || 'Contact INFORMS'}`,
+      subject: `Mesaj nou - ${subiect || 'Contact INFORMS'}`,
       text: `Nume: ${nume}\nEmail: ${email}\nTelefon: ${telefon || ''}\nSubiect: ${subiect || ''}\n\nMesaj:\n${mesaj}`,
     });
 

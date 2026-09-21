@@ -298,9 +298,9 @@ function PrivacyPage({ onNav }) {
       <Sec n="2" title="Datele pe care le colectăm">
         <p style={S.p}>Colectăm date cu caracter personal atunci când ni le furnizați voluntar:</p>
         <ul style={S.ul}>
-          <li><strong>Prin formularul de contact</strong> — nume și prenume, adresă de e-mail, telefon (opțional), subiect și mesaj</li>
-          <li><strong>La descărcarea materialelor gratuite</strong> — adresă de e-mail</li>
-          <li><strong>La plasarea unei comenzi</strong> — nume și prenume sau denumirea firmei, adresă de e-mail, telefon, adresă de facturare
+          <li><strong>Prin formularul de contact</strong> - nume și prenume, adresă de e-mail, telefon (opțional), subiect și mesaj</li>
+          <li><strong>La descărcarea materialelor gratuite</strong> - adresă de e-mail</li>
+          <li><strong>La plasarea unei comenzi</strong> - nume și prenume sau denumirea firmei, adresă de e-mail, telefon, adresă de facturare
             și, pentru persoane juridice, CUI</li>
         </ul>
         <p style={S.p}>
@@ -315,11 +315,11 @@ function PrivacyPage({ onNav }) {
 
       <Sec n="3" title="Scopurile și temeiurile juridice ale prelucrării">
         <ul style={S.ul}>
-          <li><strong>Procesarea comenzilor și livrarea produselor</strong> — executarea contractului (art. 6 alin. 1 lit. b GDPR)</li>
-          <li><strong>Răspuns la solicitări</strong> — executarea unui contract sau măsuri precontractuale (art. 6 alin. 1 lit. b GDPR)</li>
-          <li><strong>Facturare, contabilitate și raportare fiscală</strong> — obligație legală (art. 6 alin. 1 lit. c GDPR)</li>
-          <li><strong>Comunicări comerciale</strong> — consimțământul dumneavoastră explicit (art. 6 alin. 1 lit. a GDPR), retractabil oricând</li>
-          <li><strong>Prevenirea fraudei și securitatea sistemelor</strong> — interesul legitim al operatorului (art. 6 alin. 1 lit. f GDPR)</li>
+          <li><strong>Procesarea comenzilor și livrarea produselor</strong> - executarea contractului (art. 6 alin. 1 lit. b GDPR)</li>
+          <li><strong>Răspuns la solicitări</strong> - executarea unui contract sau măsuri precontractuale (art. 6 alin. 1 lit. b GDPR)</li>
+          <li><strong>Facturare, contabilitate și raportare fiscală</strong> - obligație legală (art. 6 alin. 1 lit. c GDPR)</li>
+          <li><strong>Comunicări comerciale</strong> - consimțământul dumneavoastră explicit (art. 6 alin. 1 lit. a GDPR), retractabil oricând</li>
+          <li><strong>Prevenirea fraudei și securitatea sistemelor</strong> - interesul legitim al operatorului (art. 6 alin. 1 lit. f GDPR)</li>
         </ul>
       </Sec>
 
@@ -356,13 +356,13 @@ function PrivacyPage({ onNav }) {
       <Sec n="7" title="Drepturile dumneavoastră">
         <p style={S.p}>În conformitate cu GDPR, beneficiați de următoarele drepturi:</p>
         <ul style={S.ul}>
-          <li><strong>Dreptul de acces</strong> — confirmarea prelucrării și o copie a datelor</li>
-          <li><strong>Dreptul la rectificare</strong> — corectarea datelor inexacte sau completarea celor incomplete</li>
-          <li><strong>Dreptul la ștergere</strong> — ștergerea datelor atunci când nu mai sunt necesare</li>
-          <li><strong>Dreptul la restricționarea prelucrării</strong> — în situațiile prevăzute de lege</li>
-          <li><strong>Dreptul la portabilitate</strong> — primirea datelor într-un format structurat și transferul lor</li>
-          <li><strong>Dreptul la opoziție</strong> — față de prelucrarea bazată pe interesul legitim</li>
-          <li><strong>Dreptul de a retrage consimțământul</strong> — oricând, fără a afecta legalitatea prelucrării anterioare</li>
+          <li><strong>Dreptul de acces</strong> - confirmarea prelucrării și o copie a datelor</li>
+          <li><strong>Dreptul la rectificare</strong> - corectarea datelor inexacte sau completarea celor incomplete</li>
+          <li><strong>Dreptul la ștergere</strong> - ștergerea datelor atunci când nu mai sunt necesare</li>
+          <li><strong>Dreptul la restricționarea prelucrării</strong> - în situațiile prevăzute de lege</li>
+          <li><strong>Dreptul la portabilitate</strong> - primirea datelor într-un format structurat și transferul lor</li>
+          <li><strong>Dreptul la opoziție</strong> - față de prelucrarea bazată pe interesul legitim</li>
+          <li><strong>Dreptul de a retrage consimțământul</strong> - oricând, fără a afecta legalitatea prelucrării anterioare</li>
         </ul>
         <p style={S.p}>
           Pentru exercitarea oricărui drept, trimiteți o cerere la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a>.
@@ -421,11 +421,11 @@ function GdprPage({ onNav }) {
 
       <Sec n="2" title="Categoriile de date prelucrate la o comandă">
         <ul style={S.ul}>
-          <li><strong>Date de identificare</strong> — nume și prenume sau denumirea firmei și CUI</li>
-          <li><strong>Date de contact</strong> — adresă de e-mail, telefon</li>
-          <li><strong>Date de facturare</strong> — adresă, localitate, județ, cod poștal</li>
-          <li><strong>Date despre tranzacție</strong> — produsul comandat, suma, moneda, data, identificatorul comenzii și statusul plății</li>
-          <li><strong>Date tehnice</strong> — adresa IP și user-agent, transmise procesatorului pentru analiza antifraudă</li>
+          <li><strong>Date de identificare</strong> - nume și prenume sau denumirea firmei și CUI</li>
+          <li><strong>Date de contact</strong> - adresă de e-mail, telefon</li>
+          <li><strong>Date de facturare</strong> - adresă, localitate, județ, cod poștal</li>
+          <li><strong>Date despre tranzacție</strong> - produsul comandat, suma, moneda, data, identificatorul comenzii și statusul plății</li>
+          <li><strong>Date tehnice</strong> - adresa IP și user-agent, transmise procesatorului pentru analiza antifraudă</li>
         </ul>
         <p style={S.p}>
           <strong>Nu prelucrăm date de card.</strong> Numărul cardului, data expirării și codul CVV sunt introduse exclusiv în pagina
@@ -435,20 +435,20 @@ function GdprPage({ onNav }) {
 
       <Sec n="3" title="Temeiurile juridice">
         <ul style={S.ul}>
-          <li><strong>Executarea contractului</strong> (art. 6 alin. 1 lit. b GDPR) — procesarea comenzii, livrarea documentului, asistența
+          <li><strong>Executarea contractului</strong> (art. 6 alin. 1 lit. b GDPR) - procesarea comenzii, livrarea documentului, asistența
             post-vânzare</li>
-          <li><strong>Obligația legală</strong> (art. 6 alin. 1 lit. c GDPR) — emiterea facturii, evidența contabilă, raportarea fiscală</li>
-          <li><strong>Interesul legitim</strong> (art. 6 alin. 1 lit. f GDPR) — prevenirea fraudei la plată și securitatea platformei</li>
-          <li><strong>Consimțământul</strong> (art. 6 alin. 1 lit. a GDPR) — comunicările comerciale și cookie-urile de analiză</li>
+          <li><strong>Obligația legală</strong> (art. 6 alin. 1 lit. c GDPR) - emiterea facturii, evidența contabilă, raportarea fiscală</li>
+          <li><strong>Interesul legitim</strong> (art. 6 alin. 1 lit. f GDPR) - prevenirea fraudei la plată și securitatea platformei</li>
+          <li><strong>Consimțământul</strong> (art. 6 alin. 1 lit. a GDPR) - comunicările comerciale și cookie-urile de analiză</li>
         </ul>
       </Sec>
 
       <Sec n="4" title="Persoane împuternicite și destinatari">
         <ul style={S.ul}>
-          <li><strong>NETOPIA Payments</strong> — procesarea plăților cu cardul și analiza antifraudă</li>
-          <li><strong>Furnizorul de găzduire</strong> — stocarea și livrarea site-ului și a funcțiilor sale</li>
-          <li><strong>Furnizorul de e-mail</strong> — transmiterea confirmărilor de comandă și a linkurilor de descărcare</li>
-          <li><strong>Furnizorul de newsletter</strong> — doar pentru persoanele care și-au exprimat consimțământul</li>
+          <li><strong>NETOPIA Payments</strong> - procesarea plăților cu cardul și analiza antifraudă</li>
+          <li><strong>Furnizorul de găzduire</strong> - stocarea și livrarea site-ului și a funcțiilor sale</li>
+          <li><strong>Furnizorul de e-mail</strong> - transmiterea confirmărilor de comandă și a linkurilor de descărcare</li>
+          <li><strong>Furnizorul de newsletter</strong> - doar pentru persoanele care și-au exprimat consimțământul</li>
           <li><strong>Contabilul societății</strong> și autoritățile fiscale, în limita obligațiilor legale</li>
         </ul>
         <p style={S.p}>
@@ -459,10 +459,10 @@ function GdprPage({ onNav }) {
 
       <Sec n="5" title="Durata păstrării">
         <ul style={S.ul}>
-          <li><strong>Facturi și documente contabile</strong> — 10 ani, termen impus de legislația fiscală</li>
-          <li><strong>Date de comandă și corespondență aferentă</strong> — 3 ani de la finalizarea comenzii</li>
-          <li><strong>Linkuri de descărcare</strong> — expiră automat, la scurt timp după livrare</li>
-          <li><strong>Adrese de e-mail pentru newsletter</strong> — până la retragerea consimțământului</li>
+          <li><strong>Facturi și documente contabile</strong> - 10 ani, termen impus de legislația fiscală</li>
+          <li><strong>Date de comandă și corespondență aferentă</strong> - 3 ani de la finalizarea comenzii</li>
+          <li><strong>Linkuri de descărcare</strong> - expiră automat, la scurt timp după livrare</li>
+          <li><strong>Adrese de e-mail pentru newsletter</strong> - până la retragerea consimțământului</li>
         </ul>
       </Sec>
 
@@ -513,9 +513,9 @@ function DeliveryPage({ onNav }) {
 
       <Sec n="2" title="Termenul de livrare">
         <ul style={S.ul}>
-          <li><strong>Plată cu cardul</strong> — livrare automată, imediat după confirmarea plății de către procesator, în mod obișnuit în
+          <li><strong>Plată cu cardul</strong> - livrare automată, imediat după confirmarea plății de către procesator, în mod obișnuit în
             câteva minute</li>
-          <li><strong>Transfer bancar</strong> — livrare în cel mult {COMMERCE.deliveryMaxHours} de ore de la confirmarea încasării în contul
+          <li><strong>Transfer bancar</strong> - livrare în cel mult {COMMERCE.deliveryMaxHours} de ore de la confirmarea încasării în contul
             societății, în zilele lucrătoare</li>
         </ul>
       </Sec>
@@ -678,7 +678,7 @@ function WithdrawalForm() {
           nume: form.nume,
           email: form.email,
           telefon: form.telefon,
-          subiect: 'Cerere de retragere — comanda ' + form.comanda,
+          subiect: 'Cerere de retragere - comanda ' + form.comanda,
           mesaj,
         }),
       });

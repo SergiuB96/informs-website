@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   informs — sistem de ilustrație fără fotografie
+   informs - sistem de ilustrație fără fotografie
    Compoziții din gradiente stratificate. Zero cereri de rețea.
 
    Fiecare variantă împarte aceleași reguli: grosime de linie 1px,
@@ -18,7 +18,7 @@
   isolation: isolate;
 }
 
-/* vinietă comună — leagă toate variantele între ele */
+/* vinietă comună - leagă toate variantele între ele */
 .art::after {
   content: "";
   position: absolute;
@@ -36,7 +36,7 @@
 .art[data-tint="teal"]   { --t1: 0 194 168;   --t2: 6 90 247; }
 .art[data-tint="deep"]   { --t1: 4 55 153;    --t2: 93 22 179; }
 
-/* ── 1. grid — plan cartezian cu noduri ───────────────────── */
+/* ── 1. grid - plan cartezian cu noduri ───────────────────── */
 .art[data-art="grid"] {
   background-image:
     radial-gradient(64% 84% at 72% 26%, rgb(var(--t1) / .72), transparent 66%),
@@ -61,7 +61,7 @@
   background-position: 24% 30%, 56% 62%, 82% 24%, 40% 78%;
 }
 
-/* ── 2. arcs — inele concentrice dintr-un colț ────────────── */
+/* ── 2. arcs - inele concentrice dintr-un colț ────────────── */
 .art[data-art="arcs"] {
   background-image:
     radial-gradient(56% 78% at 10% 88%, rgb(var(--t1) / .68), transparent 70%),
@@ -84,7 +84,7 @@
   -webkit-mask-image: radial-gradient(circle at center, #000 34%, transparent 78%);
 }
 
-/* ── 3. bars — histogramă abstractă ───────────────────────── */
+/* ── 3. bars - histogramă abstractă ───────────────────────── */
 .art[data-art="bars"] {
   background-image:
     radial-gradient(60% 80% at 80% 12%, rgb(var(--t2) / .42), transparent 70%),
@@ -115,7 +115,7 @@
   background-size: 100% 100%, 100% 1px;
 }
 
-/* ── 4. orbit — inele eliptice cu punct ───────────────────── */
+/* ── 4. orbit - inele eliptice cu punct ───────────────────── */
 /* Hub cu sateliți, nu planetă: miezul rămâne difuz, accentul cade
    pe inelele eliptice și pe nodurile de pe ele. */
 .art[data-art="orbit"] {
@@ -148,7 +148,7 @@
     radial-gradient(ellipse 15% 37% at 50% 50%, transparent 96%, rgb(var(--line) / .22) 97.5%, transparent 99%);
 }
 
-/* ── 5. flow — trasee diagonale ───────────────────────────── */
+/* ── 5. flow - trasee diagonale ───────────────────────────── */
 .art[data-art="flow"] {
   background-image:
     radial-gradient(54% 70% at 84% 78%, rgb(var(--t1) / .48), transparent 70%),
@@ -169,7 +169,7 @@
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at 70% 70%, #000, transparent 72%);
 }
 
-/* ── 6. pulse — unde radiale ──────────────────────────────── */
+/* ── 6. pulse - unde radiale ──────────────────────────────── */
 .art[data-art="pulse"] {
   background-image:
     radial-gradient(40% 56% at 50% 46%, rgb(var(--t1) / .52), transparent 68%),
@@ -188,7 +188,7 @@
   -webkit-mask-image: radial-gradient(circle at center, #000 10%, transparent 62%);
 }
 
-/* ── Monogram — cardurile de oameni, fără fotografie ──────── */
+/* ── Monogram - cardurile de oameni, fără fotografie ──────── */
 .mono {
   --t1: 6 90 247;
   --t2: 123 50 214;

@@ -27,7 +27,7 @@ const COMPANY = {
   phone: TODO,
   // ex: +40 712 345 678 - singurul câmp care mai lipsește
   email: 'office@informs.ro',
-  schedule: 'Luni – Vineri, 09:00 – 17:00',
+  schedule: 'Luni - Vineri, 09:00 - 17:00',
   shareCapital: TODO,
   // opțional, ex: 200 RON
   iban: TODO,

@@ -293,7 +293,7 @@ function ContactPage() {
 }
 
 /* ══════════════════════════════════════
-   SERVICII — OVERVIEW
+   SERVICII - OVERVIEW
 ══════════════════════════════════════ */
 function ServicesPage({ onNav }) {
   const go = (p) => { onNav(p); window.scrollTo({ top: 0, behavior: 'instant' }); };
@@ -343,7 +343,7 @@ function ServicesPage({ onNav }) {
 }
 
 /* ══════════════════════════════════════
-   SERVICE DETAIL — template
+   SERVICE DETAIL - template
 ══════════════════════════════════════ */
 function ServiceDetailPage({ onNav, service }) {
   const go = (p) => { onNav(p); window.scrollTo({ top: 0, behavior: 'instant' }); };

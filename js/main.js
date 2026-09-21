@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   informs — comportament UI
+   informs - comportament UI
    Fără dependențe, fără backend.
    ═══════════════════════════════════════════════════════════ */
 (function () {

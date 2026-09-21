@@ -17,7 +17,7 @@ if (!$data) {
 $to   = 'office@informs.ro';
 $from = 'office@informs.ro';
 
-$subject = '=?UTF-8?B?' . base64_encode('Mesaj nou — ' . ($data['subiect'] ?? 'Contact INFORMS')) . '?=';
+$subject = '=?UTF-8?B?' . base64_encode('Mesaj nou - ' . ($data['subiect'] ?? 'Contact INFORMS')) . '?=';
 
 $body = "Nume: "    . ($data['nume']    ?? '') . "\n"
       . "Email: "   . ($data['email']   ?? '') . "\n"

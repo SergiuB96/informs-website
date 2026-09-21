@@ -789,7 +789,7 @@ function HomePage({
     className: "quote-card"
   }, /*#__PURE__*/React.createElement("blockquote", {
     className: "quote-text"
-  }, "Exist\u0103 un singur tip de succes \u2013 acela de a-\u021Bi putea petrece timpul a\u0219a cum \xEE\u021Bi dore\u0219ti."), /*#__PURE__*/React.createElement("p", {
+  }, "Exist\u0103 un singur tip de succes - acela de a-\u021Bi putea petrece timpul a\u0219a cum \xEE\u021Bi dore\u0219ti."), /*#__PURE__*/React.createElement("p", {
     className: "quote-author"
   }, "Christopher Morley"), /*#__PURE__*/React.createElement("div", {
     style: {

@@ -1,4 +1,4 @@
-/* ── INFORMS Icon Library — icontellyou UI Essential Line ── */
+/* ── INFORMS Icon Library - icontellyou UI Essential Line ── */
 
 const IcoLib = ({ children, size = 22 }) => (
   <svg width={size} height={size} viewBox="0 0 32 32" fill="none"

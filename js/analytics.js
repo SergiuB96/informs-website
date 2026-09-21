@@ -1,5 +1,5 @@
 /* ═════════════════════════════════════════════════════════
-   INFORMS — Google Analytics
+   INFORMS - Google Analytics
 
    Incarcat de paginile statice si de aplicatie, ca sa existe o
    singura definitie.

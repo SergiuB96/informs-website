@@ -1,5 +1,5 @@
 (function(){
-/* ── INFORMS Icon Library — icontellyou UI Essential Line ── */
+/* ── INFORMS Icon Library - icontellyou UI Essential Line ── */
 
 const IcoLib = ({
   children,

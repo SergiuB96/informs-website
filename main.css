@@ -46,7 +46,7 @@ em{font-style:normal}
 .top-bar-inner{display:flex;justify-content:space-between;align-items:center;gap:16px}
 .top-bar a:hover{color:rgba(255,255,255,.8)}
 
-/* ── Nav — Full-width white bar ── */
+/* ── Nav - Full-width white bar ── */
 nav.main-nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   background:#fff;padding:0;
@@ -85,7 +85,7 @@ nav.main-nav.scrolled .nav-island{background:transparent;box-shadow:none}
 }
 .nav-cta:hover{background:#5294D4!important;color:#fff!important;transform:translateY(-1px)}
 
-/* Dropdown — dark */
+/* Dropdown - dark */
 .nav-dd{position:relative}
 .nav-dd::after{content:'';position:absolute;top:100%;left:0;right:0;height:8px}
 .nav-dd .nav-dd-menu{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-4px)}
@@ -109,7 +109,7 @@ nav.main-nav.scrolled .nav-island{background:transparent;box-shadow:none}
 }
 .nav-dd-item:hover{background:var(--blue-lt);color:var(--blue)}
 
-/* Hamburger — dark (nav island is white glass) */
+/* Hamburger - dark (nav island is white glass) */
 .hamburger{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:6px;transition:background var(--dur)}
 .hamburger:hover{background:rgba(6,24,48,.07)}
 .hamburger span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px;transition:all var(--dur) var(--ease)}
@@ -117,7 +117,7 @@ nav.main-nav.scrolled .nav-island{background:transparent;box-shadow:none}
 .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-/* Mobile menu — dark */
+/* Mobile menu - dark */
 .mobile-menu{
   display:none;position:fixed;inset:74px 0 0;
   background:rgba(5,20,42,.97);backdrop-filter:blur(18px);
@@ -191,7 +191,7 @@ h4{font-size:1.02rem;font-weight:700;letter-spacing:.01em}
 /* Sections sit above parallax layer */
 .home-page > section,
 .home-page > .sec{position:relative;z-index:1}
-/* CSS scroll-driven parallax — replaces JS scroll listener */
+/* CSS scroll-driven parallax - replaces JS scroll listener */
 @supports (animation-timeline: scroll()) {
   .hbg-b1{
     animation:hbg-drift1 linear both;
@@ -289,7 +289,7 @@ h4{font-size:1.02rem;font-weight:700;letter-spacing:.01em}
   position:absolute;inset:0;pointer-events:none;z-index:0;
   background:linear-gradient(118deg,#061A30 30%,rgba(13,56,110,.65) 65%,rgba(25,80,140,.3) 100%);
 }
-/* Floating document shapes — B2G metaphor */
+/* Floating document shapes - B2G metaphor */
 .hero-doc{position:absolute;border-radius:3px;pointer-events:none;z-index:0}
 .hero-doc-1{
   width:130px;height:168px;top:12%;right:18%;
@@ -363,7 +363,7 @@ h4{font-size:1.02rem;font-weight:700;letter-spacing:.01em}
   .challenge-num{display:none}
 }
 
-/* ── Provocări — two separate cards ── */
+/* ── Provocări - two separate cards ── */
 .prov-two-cards{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .prov-card{border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(6,24,48,.10),0 1px 4px rgba(6,24,48,.06)}
 .prov-card-left{background:#FFF8F5}
@@ -396,7 +396,7 @@ h4{font-size:1.02rem;font-weight:700;letter-spacing:.01em}
 .feat-item h4{margin-bottom:3px;color:var(--navy);font-size:.98rem;text-transform:uppercase;letter-spacing:.05em}
 .feat-item p{font-size:16.5px;color:var(--text-2);line-height:1.55}
 
-/* ── Domain strip (legacy — kept for safety) ── */
+/* ── Domain strip (legacy - kept for safety) ── */
 .domain-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
 .d-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:24px 20px;text-align:center;transition:all var(--dur) var(--ease)}
 .d-card:hover{border-color:var(--blue-a);box-shadow:var(--s-sm);transform:translateY(-2px)}
@@ -456,7 +456,7 @@ h4{font-size:1.02rem;font-weight:700;letter-spacing:.01em}
 @media(max-width:1024px){.dom-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.dom-grid{grid-template-columns:1fr}}
 
-/* ── Trust strip — dark ── */
+/* ── Trust strip - dark ── */
 .trust-strip{
   background:linear-gradient(135deg,#0b1f3a 0%,#0d2d5a 100%);
   border-top:1px solid rgba(59,128,202,.14);
@@ -466,7 +466,7 @@ h4{font-size:1.02rem;font-weight:700;letter-spacing:.01em}
 .trust-item{color:rgba(255,255,255,.62)}
 .trust-dot{background:var(--blue-a)}
 
-/* ── Feature strip — dark ── */
+/* ── Feature strip - dark ── */
 .feat-strip{border-bottom:1px solid rgba(59,128,202,.12)}
 .feat-item{border-right:1px solid rgba(59,128,202,.14)}
 .feat-item:last-child{border-right:none}
@@ -474,7 +474,7 @@ h4{font-size:1.02rem;font-weight:700;letter-spacing:.01em}
 .feat-item h4{color:#fff}
 .feat-item p{color:rgba(255,255,255,.58)}
 
-/* ── Process section — dark ── */
+/* ── Process section - dark ── */
 .proc-section{padding:88px 0}
 .proc-section .badge{color:var(--blue-a)}
 .proc-section h2{color:#fff}
@@ -526,7 +526,7 @@ h4{font-size:1.02rem;font-weight:700;letter-spacing:.01em}
 .mc-pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
 .mc-pill{font-size:12px;font-weight:600;color:var(--text-2);background:var(--bg);border:1px solid var(--border);padding:2px 8px;border-radius:8px}
 
-/* ── Services — overview cards ── */
+/* ── Services - overview cards ── */
 .svc-grid-card{
   background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);
   padding:28px;display:flex;flex-direction:column;
@@ -657,7 +657,7 @@ h4{font-size:1.02rem;font-weight:700;letter-spacing:.01em}
   margin-bottom: 44px;
 }
 
-/* ── Trust strip — dark ── */
+/* ── Trust strip - dark ── */
 .trust-strip{
   background:linear-gradient(135deg,#0b1f3a 0%,#0d2d5a 100%);
   border-top:1px solid rgba(59,128,202,.14);
@@ -716,7 +716,7 @@ a.f-legal-val:hover{color:#fff}
 .breadcrumb span:hover{color:rgba(255,255,255,.75)}
 .breadcrumb-sep{opacity:.3}
 
-/* ── Page hero — video variant (dark — About, Contact, Services, Materiale) ── */
+/* ── Page hero - video variant (dark - About, Contact, Services, Materiale) ── */
 .pg-hero-video{
   position:relative;overflow:hidden;
   background-image:none;
@@ -734,7 +734,7 @@ a.f-legal-val:hover{color:#fff}
 }
 .pg-hero-video .container{position:relative;z-index:2}
 
-/* ── Service detail pages — white bg, dark text, clean video ── */
+/* ── Service detail pages - white bg, dark text, clean video ── */
 .pg-hero-svc{background:#fff}
 .pg-hero-svc .pg-hero-vid{opacity:.55}
 

@@ -113,7 +113,7 @@ function Nav({ onNav, page }) {
       <header className={`hdr${scrolled ? ' is-stuck' : ''}`}>
         <div className="hdr__inner">
 
-          <a className="logo" href="/" aria-label="INFORMS — acasă">
+          <a className="logo" href="/" aria-label="INFORMS - acasă">
             <img className="logo__img" src="assets/brand/logo-white.svg" alt="INFORMS" width="1000" height="166" />
           </a>
 
@@ -241,7 +241,7 @@ function Footer() {
       <div className="container">
         <div className="ftr__top">
           <div className="ftr__brand">
-            <a className="logo" href="/" aria-label="INFORMS — acasă">
+            <a className="logo" href="/" aria-label="INFORMS - acasă">
               <img className="logo__img" src="assets/brand/logo-white.svg" alt="INFORMS" width="1000" height="166" />
             </a>
             <p className="ftr__tag">

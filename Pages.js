@@ -575,7 +575,7 @@ function ContactPage() {
 }
 
 /* ══════════════════════════════════════
-   SERVICII — OVERVIEW
+   SERVICII - OVERVIEW
 ══════════════════════════════════════ */
 function ServicesPage({
   onNav
@@ -684,7 +684,7 @@ function ServicesPage({
 }
 
 /* ══════════════════════════════════════
-   SERVICE DETAIL — template
+   SERVICE DETAIL - template
 ══════════════════════════════════════ */
 function ServiceDetailPage({
   onNav,
