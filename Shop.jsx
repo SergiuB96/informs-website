@@ -230,17 +230,75 @@ function ProductCard({ product, onClick }) {
    Datele de facturare cerute de procesator + cele două
    acorduri obligatorii. Prețul NU se trimite de aici:
    serverul îl ia din propriul catalog, după sku. */
+/* Judetele, dupa registrul SIRUTA. Codul auto e cheia in
+   assets/date/localitati.json, care tine unitatile administrative. */
+const JUDETE = [
+  { c: 'AB', n: 'Alba' },
+  { c: 'AR', n: 'Arad' },
+  { c: 'AG', n: 'Argeș' },
+  { c: 'BC', n: 'Bacău' },
+  { c: 'BH', n: 'Bihor' },
+  { c: 'BN', n: 'Bistrița-Năsăud' },
+  { c: 'BT', n: 'Botoșani' },
+  { c: 'BV', n: 'Brașov' },
+  { c: 'BR', n: 'Brăila' },
+  { c: 'B', n: 'București' },
+  { c: 'BZ', n: 'Buzău' },
+  { c: 'CS', n: 'Caraș-Severin' },
+  { c: 'CJ', n: 'Cluj' },
+  { c: 'CT', n: 'Constanța' },
+  { c: 'CV', n: 'Covasna' },
+  { c: 'CL', n: 'Călărași' },
+  { c: 'DJ', n: 'Dolj' },
+  { c: 'DB', n: 'Dâmbovița' },
+  { c: 'GL', n: 'Galați' },
+  { c: 'GR', n: 'Giurgiu' },
+  { c: 'GJ', n: 'Gorj' },
+  { c: 'HR', n: 'Harghita' },
+  { c: 'HD', n: 'Hunedoara' },
+  { c: 'IL', n: 'Ialomița' },
+  { c: 'IS', n: 'Iași' },
+  { c: 'IF', n: 'Ilfov' },
+  { c: 'MM', n: 'Maramureș' },
+  { c: 'MH', n: 'Mehedinți' },
+  { c: 'MS', n: 'Mureș' },
+  { c: 'NT', n: 'Neamț' },
+  { c: 'OT', n: 'Olt' },
+  { c: 'PH', n: 'Prahova' },
+  { c: 'SM', n: 'Satu Mare' },
+  { c: 'SB', n: 'Sibiu' },
+  { c: 'SV', n: 'Suceava' },
+  { c: 'SJ', n: 'Sălaj' },
+  { c: 'TR', n: 'Teleorman' },
+  { c: 'TM', n: 'Timiș' },
+  { c: 'TL', n: 'Tulcea' },
+  { c: 'VS', n: 'Vaslui' },
+  { c: 'VN', n: 'Vrancea' },
+  { c: 'VL', n: 'Vâlcea' }
+];
+
+/* Localitatile se incarca o singura data, la deschiderea formularului:
+   34 KB pentru 2898 de unitati administrative, prea mult ca sa stea in
+   pagina degeaba, destul de putin cat sa nu merite impartit pe judete. */
+const LOCALITATI_URL = 'assets/date/localitati.json';
+
 const CHECKOUT_FIELDS = [
-  { k: 'lastName',   label: 'Nume *',        ph: 'Popescu',        w: 1 },
-  { k: 'firstName',  label: 'Prenume *',     ph: 'Ion',            w: 1 },
-  { k: 'email',      label: 'Email *',       ph: 'ion@exemplu.ro', w: 2, type: 'email' },
-  { k: 'phone',      label: 'Telefon *',     ph: '+40 7xx xxx xxx', w: 2, type: 'tel' },
-  { k: 'address',    label: 'Adresă *',      ph: 'Str. Exemplu nr. 1',  w: 2 },
-  { k: 'city',       label: 'Localitate *',  ph: 'București',      w: 1 },
-  { k: 'state',      label: 'Județ *',       ph: 'București',      w: 1 },
-  { k: 'postalCode', label: 'Cod poștal *',  ph: '010101',         w: 1 },
-  { k: 'company',    label: 'Firmă',         ph: 'opțional',       w: 1 },
-  { k: 'cui',        label: 'CUI',           ph: 'opțional',       w: 2 },
+  { k: 'lastName',   label: 'Nume *',        ph: 'Popescu',            w: 1 },
+  { k: 'firstName',  label: 'Prenume *',     ph: 'Ion',                w: 1 },
+  { k: 'email',      label: 'Email *',       ph: 'ion@exemplu.ro',     w: 2, type: 'email' },
+  { k: 'phone',      label: 'Telefon *',     ph: '+40 7xx xxx xxx',    w: 2, type: 'tel' },
+  { k: 'address',    label: 'Adresă *',      ph: 'Str. Exemplu nr. 1', w: 2 },
+  { k: 'state',      label: 'Județ *',       w: 1, kind: 'judet' },
+  { k: 'city',       label: 'Localitate *',  w: 1, kind: 'localitate' },
+  { k: 'postalCode', label: 'Cod poștal *',  ph: '010101',             w: 1 },
+];
+
+/* Doar pentru persoana juridica. Oblio decide dupa CUI daca factura
+   se emite pe firma, deci la comutarea pe persoana fizica ambele se
+   golesc, altfel o valoare ramasa ar schimba destinatarul facturii. */
+const COMPANY_FIELDS = [
+  { k: 'company', label: 'Denumire firmă *', ph: 'Exemplu S.R.L.', w: 2 },
+  { k: 'cui',     label: 'CUI *',            ph: 'RO12345678',     w: 1 },
 ];
 
 const REQUIRED_FIELDS = ['lastName', 'firstName', 'email', 'phone', 'address', 'city', 'state', 'postalCode'];
@@ -252,11 +310,50 @@ function CheckoutForm({ product, onNav }) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const [entity, setEntity] = useState('pf');
+  const [localitati, setLocalitati] = useState(null);
+  const [locEroare, setLocEroare] = useState(false);
+
+  /* Incarcam o singura data, la montarea formularului. */
+  useEffect(() => {
+    let activ = true;
+    fetch(LOCALITATI_URL)
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(d => { if (activ) setLocalitati(d); })
+      .catch(() => { if (activ) setLocEroare(true); });
+    return () => { activ = false; };
+  }, []);
+
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+
+  /* Schimbarea judetului invalideaza localitatea aleasa. */
+  const setJudet = (e) => setForm({ ...form, state: e.target.value, city: '' });
+
+  const schimbaTip = (t) => {
+    setEntity(t);
+    /* Oblio emite pe firma daca exista CUI, deci la persoana fizica
+       golim ambele campuri, nu doar le ascundem. */
+    if (t === 'pf') setForm({ ...form, company: '', cui: '' });
+  };
+
   const go = (p) => { onNav(p); window.scrollTo({ top: 0, behavior: 'instant' }); };
 
-  const complete = REQUIRED_FIELDS.every(k => form[k].trim()) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim());
+  const cuiValid = (v) => /^(RO)?\s?\d{2,10}$/i.test(v.trim());
+
+  const obligatorii = entity === 'pj'
+    ? REQUIRED_FIELDS.concat(['company', 'cui'])
+    : REQUIRED_FIELDS;
+
+  const complete = obligatorii.every(k => (form[k] || '').trim())
+    && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())
+    && (entity !== 'pj' || cuiValid(form.cui));
   const ready = complete && terms && waiver;
+
+  /* In form.state tinem NUMELE judetului, nu codul: campul pleaca asa
+     cum e catre Oblio si ajunge pe factura, unde „AB” ar fi gresit.
+     Codul il derivam doar ca sa cautam localitatile. */
+  const codJudet = (JUDETE.find(j => j.n === form.state) || {}).c;
+  const locJudet = (localitati && codJudet && localitati[codJudet]) || [];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -295,14 +392,67 @@ function CheckoutForm({ product, onNav }) {
     <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '14px', padding: '20px', background: '#F8FAFC', borderRadius: '12px', border: '1px solid var(--border)' }}>
       <div className="shop-modal-lbl" style={{ marginBottom: '2px' }}>Date de facturare</div>
 
+      <div style={{ display: 'flex', gap: '8px' }} role="radiogroup" aria-label="Tip de client">
+        {[['pf', 'Persoană fizică'], ['pj', 'Persoană juridică']].map(([t, eticheta]) => (
+          <button
+            key={t}
+            type="button"
+            role="radio"
+            aria-checked={entity === t}
+            onClick={() => schimbaTip(t)}
+            style={{
+              flex: 1,
+              padding: '9px 12px',
+              borderRadius: '6px',
+              fontSize: '13.5px',
+              fontWeight: 600,
+              fontFamily: 'var(--font)',
+              cursor: 'pointer',
+              border: '1.5px solid ' + (entity === t ? '#1358B0' : 'var(--border)'),
+              background: entity === t ? '#1358B0' : '#fff',
+              color: entity === t ? '#fff' : 'var(--text)',
+            }}
+          >{eticheta}</button>
+        ))}
+      </div>
+
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-        {CHECKOUT_FIELDS.map(f => (
+        {(entity === 'pj' ? COMPANY_FIELDS.concat(CHECKOUT_FIELDS) : CHECKOUT_FIELDS).map(f => (
           <div key={f.k} style={f.w === 2 ? { gridColumn: '1 / -1' } : undefined}>
             <label style={lbl}>{f.label}</label>
-            <input type={f.type || 'text'} style={input} value={form[f.k]} onChange={set(f.k)} placeholder={f.ph} />
+
+            {f.kind === 'judet' ? (
+              <select style={input} value={form.state} onChange={setJudet}>
+                <option value="">Alege județul</option>
+                {JUDETE.map(j => <option key={j.c} value={j.n}>{j.n}</option>)}
+              </select>
+            ) : f.kind === 'localitate' ? (
+              <select
+                style={{ ...input, color: form.state ? 'var(--text)' : 'var(--text-2)' }}
+                value={form.city}
+                onChange={set('city')}
+                disabled={!form.state || !localitati}
+              >
+                <option value="">
+                  {!form.state ? 'Alege întâi județul'
+                    : locEroare ? 'Lista nu s-a încărcat'
+                    : !localitati ? 'Se încarcă...'
+                    : 'Alege localitatea'}
+                </option>
+                {locJudet.map(l => <option key={l} value={l}>{l}</option>)}
+              </select>
+            ) : (
+              <input type={f.type || 'text'} style={input} value={form[f.k]} onChange={set(f.k)} placeholder={f.ph} />
+            )}
           </div>
         ))}
       </div>
+
+      {locEroare && (
+        <p style={{ fontSize: '12.5px', color: '#c53030', margin: 0 }}>
+          Lista localităților nu s-a putut încărca. Reîncarcă pagina sau scrie-ne la {COMPANY.email}.
+        </p>
+      )}
 
       <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
         <input type="checkbox" checked={terms} onChange={e => setTerms(e.target.checked)} style={check} />
@@ -638,7 +788,7 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
               <img src="uploads/seap-sicap-logo.webp" alt="SEAP / SICAP" style={{ height: '28px', width: 'auto', display: 'block' }} />
             </a>
             <span style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: '1.5' }}>
-              <strong style={{ color: 'var(--navy)' }}>Suntem și pe SEAP</strong> — produsele și serviciile INFORMS pot fi achiziționate prin sistemul electronic de achiziții publice.
+              <strong style={{ color: 'var(--navy)' }}>Suntem și pe SEAP</strong> - produsele și serviciile INFORMS pot fi achiziționate prin sistemul electronic de achiziții publice.
             </span>
           </div>
         </div>
