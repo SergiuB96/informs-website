@@ -1,4 +1,4 @@
-import { head } from '@vercel/blob';
+import { get } from '@vercel/blob';
 import { verifyDownloadToken } from './_lib/netopia.js';
 import { getProduct } from './_lib/products.js';
 
@@ -27,15 +27,17 @@ export default async function handler(req, res) {
   }
 
   try {
-    const blob = await head(product.blobPath);
-    const upstream = await fetch(blob.downloadUrl || blob.url);
-    if (!upstream.ok) throw new Error('Blob fetch failed: ' + upstream.status);
+    /* Store-ul e privat: un fetch() simplu pe URL-ul blob-ului e respins,
+       get() trimite tokenul BLOB_READ_WRITE_TOKEN. */
+    const result = await get(product.blobPath, { access: 'private', useCache: false });
+    if (!result || result.statusCode !== 200) throw new Error('Blob not found: ' + product.blobPath);
+    const blob = result.blob;
 
     res.setHeader('Content-Type', blob.contentType || 'application/octet-stream');
     res.setHeader('Content-Disposition', 'attachment; filename="' + product.fileName + '"');
     if (blob.size) res.setHeader('Content-Length', String(blob.size));
 
-    const buffer = Buffer.from(await upstream.arrayBuffer());
+    const buffer = Buffer.from(await new Response(result.stream).arrayBuffer());
     return res.status(200).send(buffer);
   } catch (err) {
     console.error('download error', { sku: claims.sku, orderID: claims.orderID, message: err.message });
