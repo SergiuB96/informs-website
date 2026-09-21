@@ -216,6 +216,40 @@ function isFailed(status) {
 /* ─── Verificarea notificării IPN ──────────────── */
 const HASH_BY_ALG = { RS256: 'sha256', RS384: 'sha384', RS512: 'sha512' };
 
+/* Cheia cu care NETOPIA semnează IPN-ul, aceeași în sandbox și live.
+   NU este certificatul din „Punct de vânzare → Setări securitate”: acela
+   are 1024 de biți, iar semnătura IPN are 2048, deci nu o poate verifica.
+   Sursa: pluginul oficial netopiapayments/woocommerce, v2/
+   wc-netopiapayments-gateway.php (publicKeyStr). Verificat pe 21.09.2026
+   cu tokenul real al unei plăți din sandbox. Este o cheie publică. */
+const NETOPIA_IPN_PUBLIC_KEY = [
+  '-----BEGIN PUBLIC KEY-----',
+  'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy6pUDAFLVul4y499gz1P',
+  'gGSvTSc82U3/ih3e5FDUs/F0Jvfzc4cew8TrBDrw7Y+AYZS37D2i+Xi5nYpzQpu7',
+  'ryS4W+qvgAA1SEjiU1Sk2a4+A1HeH+vfZo0gDrIYTh2NSAQnDSDxk5T475ukSSwX',
+  'L9tYwO6CpdAv3BtpMT5YhyS3ipgPEnGIQKXjh8GMgLSmRFbgoCTRWlCvu7XOg94N',
+  'fS8l4it2qrEldU8VEdfPDfFLlxl3lUoLEmCncCjmF1wRVtk4cNu+WtWQ4mBgxpt0',
+  'tX2aJkqp4PV3o5kI4bqHq/MS7HVJ7yxtj/p8kawlVYipGsQj3ypgltQ3bnYV/LRq',
+  '8QIDAQAB',
+  '-----END PUBLIC KEY-----',
+].join('\n');
+
+/* Cheia de mai sus plus, opțional, NETOPIA_PUBLIC_KEY din mediu, pentru
+   cazul în care NETOPIA o rotește. Oricare verifică, e la fel de sigur:
+   niciuna nu poate semna. */
+function trustedIpnKeys() {
+  const extra = (process.env.NETOPIA_PUBLIC_KEY || '').replace(/\\n/g, '\n').trim();
+  return extra ? [NETOPIA_IPN_PUBLIC_KEY, extra] : [NETOPIA_IPN_PUBLIC_KEY];
+}
+
+function signatureMatches(hash, signedPart, signature, key) {
+  try {
+    return crypto.createVerify(hash).update(signedPart).verify(key, signature);
+  } catch {
+    return false; // cheie invalidă sau de altă mărime decât semnătura
+  }
+}
+
 function verifyNetopiaToken(token, rawBody) {
   const parts = String(token || '').split('.');
   if (parts.length !== 3) throw new Error('Wrong_Verification_Token');
@@ -226,11 +260,8 @@ function verifyNetopiaToken(token, rawBody) {
   const hash = HASH_BY_ALG[header.alg || 'RS512'];
   if (!hash) throw new Error('Unsupported_Alg');
 
-  const publicKey = requireEnv('NETOPIA_PUBLIC_KEY').replace(/\\n/g, '\n');
-  const valid = crypto
-    .createVerify(hash)
-    .update(h + '.' + p)
-    .verify(publicKey, Buffer.from(s, 'base64url'));
+  const signature = Buffer.from(s, 'base64url');
+  const valid = trustedIpnKeys().some(key => signatureMatches(hash, h + '.' + p, signature, key));
   if (!valid) throw new Error('E_VERIFICATION_FAILED_SIGNATURE');
 
   const claims = JSON.parse(Buffer.from(p, 'base64url').toString('utf8'));

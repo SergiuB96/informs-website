@@ -68,7 +68,7 @@ Creează un store Blob în proiectul Vercel; `BLOB_READ_WRITE_TOKEN` se injectea
 |---|---|
 | `NETOPIA_API_KEY` | admin NETOPIA → Profile → Security. Cheia de sandbox nu merge pe live și invers. |
 | `NETOPIA_POS_SIGNATURE` | `XXXX-XXXX-XXXX-XXXX-XXXX`, din punctul de vânzare |
-| `NETOPIA_PUBLIC_KEY` | admin → Conturi de comerciant → Detalii → Setări securitate. PEM complet. Poate fi salvat cu `\n` escapate, codul le convertește. |
+| `NETOPIA_PUBLIC_KEY` | **opțional.** Cheia cu care NETOPIA semnează IPN-ul e deja în cod (`NETOPIA_IPN_PUBLIC_KEY` în `api/_lib/netopia.js`), aceeași pentru sandbox și live. Variabila e acceptată în plus, doar dacă NETOPIA rotește cheia. ⚠️ **Nu** pune aici certificatul din „Punct de vânzare → Setări securitate”: are 1024 de biți, semnătura IPN are 2048, deci orice notificare ar fi respinsă cu `E_VERIFICATION_FAILED_SIGNATURE` (s-a întâmplat la primul test, 21.09.2026). |
 | `NETOPIA_LIVE` | `0` pentru sandbox, `1` pentru producție |
 | `NETOPIA_BASE_URL` | opțional, suprascrie URL-ul dacă NETOPIA îți dă altul |
 | `SITE_URL` | **`https://www.informs.ro`**, cu www. Apex-ul `informs.ro` face 307 către www, iar un webhook POST pe un URL care redirecționează este o sursă sigură de probleme. Din el se construiesc `notifyUrl` și `redirectUrl`. Nu se folosește `req.headers.host`, ca să nu fie posibilă injecția de host. |
@@ -125,7 +125,15 @@ singurul canal pe care îl poate falsifica un utilizator.
 7. **`instrument.type`**: folosim `"card"`, ca în aplicația exemplu oficială. Pluginul de
    WooCommerce trimite `"credit_card"`. Dacă `start` întoarce 400 pe acest câmp, încearcă
    varianta cealaltă.
-8. **`X-Frame-Options: SAMEORIGIN`** din `vercel.json` nu deranjează: mergem pe redirect
+8. **Cheia de verificare a IPN-ului nu e în contul tău.** Certificatul descărcabil din
+   „Punct de vânzare” nu verifică semnătura. Cheia corectă e cea hardcodată în pluginul
+   oficial [netopiapayments/woocommerce](https://github.com/netopiapayments/woocommerce),
+   `v2/wc-netopiapayments-gateway.php`, câmpul `publicKeyStr`. Am verificat-o cu tokenul
+   real al unei plăți din sandbox.
+9. **Butonul „Notifică” din admin nu retrimite IPN-ul original.** Trimite
+   `{"action":0,"amount":0,"id":"<ntpID>"}`, fără `orderID`, pe care webhook-ul îl ignoră.
+   După o notificare respinsă, testul se reia cu o plată nouă.
+10. **`X-Frame-Options: SAMEORIGIN`** din `vercel.json` nu deranjează: mergem pe redirect
    top-level către pagina găzduită NETOPIA, nu pe iframe.
 
 ## Carduri de test în sandbox
