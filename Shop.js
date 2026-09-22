@@ -666,6 +666,7 @@ function CheckoutForm({
       });
       const json = await res.json();
       if (res.ok && json.paymentURL) {
+        if (json.orderID) rememberOrder(json.orderID);
         window.location.assign(json.paymentURL);
         return;
       }
@@ -967,10 +968,53 @@ function ProductModal({
 }
 
 /* ─── Pagina principală Shop ────────────────────── */
+/* ─── Comanda în curs de plată ───────────────────
+   NETOPIA folosește redirectUrl doar după 3-D Secure. Fără 3DS,
+   butonul „Înapoi la magazin” din pagina lor duce la adresa din
+   contul NETOPIA (/magazin), fără numărul comenzii. De aceea îl
+   ținem în sessionStorage și, la întoarcerea de pe domeniul
+   NETOPIA, trimitem clientul la „Stare comandă”. */
+const PENDING_ORDER_KEY = 'informs_order';
+const PENDING_ORDER_TTL = 60 * 60 * 1000;
+function rememberOrder(orderID) {
+  try {
+    sessionStorage.setItem(PENDING_ORDER_KEY, JSON.stringify({
+      orderID,
+      at: Date.now()
+    }));
+  } catch {/* stocare blocată */}
+}
+function pendingOrder() {
+  try {
+    const v = JSON.parse(sessionStorage.getItem(PENDING_ORDER_KEY) || 'null');
+    return v && v.orderID && Date.now() - v.at < PENDING_ORDER_TTL ? v.orderID : null;
+  } catch {
+    return null;
+  }
+}
+function forgetOrder() {
+  try {
+    sessionStorage.removeItem(PENDING_ORDER_KEY);
+  } catch {/* stocare blocată */}
+}
+function cameFromNetopia() {
+  try {
+    return /netopia|mobilpay/i.test(new URL(document.referrer).host);
+  } catch {
+    return false;
+  }
+}
 function ShopPage({
   onNav,
   initialCategory = 'all'
 }) {
+  /* Întoarcere de pe pagina NETOPIA fără redirectUrl: vezi mai sus. */
+  useEffect(() => {
+    const id = pendingOrder();
+    if (id && cameFromNetopia()) {
+      window.location.replace('/comanda-finalizata?o=' + encodeURIComponent(id));
+    }
+  }, []);
   const [mainCat, setMainCat] = useState('all');
   const [category, setCategory] = useState(initialCategory);
   const [format, setFormat] = useState('all');
@@ -1122,7 +1166,18 @@ function ShopPage({
    /api/netopia-return interoghează statusul comenzii la
    procesator și redirecționează aici cu ?s=ok|pending|fail.
    Pagina e strict informativă: livrarea o face webhook-ul. */
+const ORDER_POLL_MS = 4000;
+const ORDER_POLL_MAX = 23; // ~90 de secunde
+
 const ORDER_STATES = {
+  checking: {
+    color: '#1C0A55',
+    bg: '#F3F1EA',
+    border: '#D2CCE6',
+    icon: '…',
+    title: 'Verificăm plata',
+    body: 'Durează doar câteva secunde. Nu închide pagina și nu relua plata.'
+  },
   ok: {
     color: '#16A34A',
     bg: '#F0FDF4',
@@ -1151,8 +1206,9 @@ const ORDER_STATES = {
 function OrderStatusPage({
   onNav
 }) {
-  const key = new URLSearchParams(window.location.search).get('s');
-  const st = ORDER_STATES[key] || ORDER_STATES.pending;
+  const params = new URLSearchParams(window.location.search);
+  const orderID = params.get('o') || pendingOrder();
+  const [key, setKey] = useState(params.get('s') || (orderID ? 'checking' : 'pending'));
   const go = p => {
     onNav(p);
     window.scrollTo({
@@ -1160,6 +1216,47 @@ function OrderStatusPage({
       behavior: 'instant'
     });
   };
+
+  /* Cât timp plata e „în curs”, întrebăm serverul din nou la câteva
+     secunde: IPN-ul ajunge de obicei în primul minut. */
+  useEffect(() => {
+    if (key === 'ok' || key === 'fail') {
+      forgetOrder();
+      return;
+    }
+    if (!orderID) return;
+    let tries = 0;
+    let stopped = false;
+    const check = async () => {
+      tries += 1;
+      try {
+        const r = await fetch('/api/netopia-return?format=json&orderId=' + encodeURIComponent(orderID), {
+          cache: 'no-store'
+        });
+        const j = await r.json();
+        if (stopped) return;
+        if (j.state === 'ok' || j.state === 'fail') {
+          setKey(j.state);
+          forgetOrder();
+          return;
+        }
+      } catch {/* rețea: mai încercăm */}
+      if (stopped) return;
+      if (tries < ORDER_POLL_MAX) timer = setTimeout(check, ORDER_POLL_MS);else {
+        setKey('pending');
+        forgetOrder();
+      }
+    };
+    let timer = setTimeout(check, key === 'checking' ? 0 : ORDER_POLL_MS);
+    return () => {
+      stopped = true;
+      clearTimeout(timer);
+    };
+    // o singură rundă de verificări pe comandă; schimbările de stare
+    // făcute de ea nu trebuie să o repornească
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderID]);
+  const st = ORDER_STATES[key] || ORDER_STATES.pending;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "pg-hero"
   }, /*#__PURE__*/React.createElement("div", {
