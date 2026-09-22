@@ -417,6 +417,13 @@
 
 .cap--art:hover { --cap-veil: linear-gradient(180deg, rgba(12, 0, 50, .52) 0%, rgba(12, 0, 50, .84) 45%, rgba(12, 0, 50, .92) 100%); }
 
+/* Pe mobil cardul e lat si textul il traverseaza tot, deci imaginea
+   trece mai mult in spate. */
+@media (max-width: 1023px) {
+  .cap--art,
+  .cap--art:hover { --cap-veil: linear-gradient(180deg, rgba(12, 0, 50, .78) 0%, rgba(12, 0, 50, .92) 45%, rgba(12, 0, 50, .95) 100%); }
+}
+
 .cap--art-planificare { background-image: var(--cap-veil), url("../assets/renders/card-planificare.webp"); }
 .cap--art-atribuire   { background-image: var(--cap-veil), url("../assets/renders/card-atribuire.webp"); }
 .cap--art-ofertare    { background-image: var(--cap-veil), url("../assets/renders/card-ofertare.webp"); }
