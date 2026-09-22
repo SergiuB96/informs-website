@@ -831,7 +831,7 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
       <div className="pg-hero pg-hero--shop">
         <div className="container">
           <div className="tag-label">Magazin</div>
-          <h1>Instrumente Excel, Word și PDF pentru documentele pe care le completezi des</h1>
+          <h1>Documente profesionale pentru sectorul public și privat</h1>
           <p>Fiecare model indică formatul, versiunea și ce conține. Câteva formulare sunt gratuite.</p>
           <div className="shop-search-wrap">
             <span className="shop-search-ico"><IcoSearch size={18} /></span>

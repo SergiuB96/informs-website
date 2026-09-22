@@ -1085,7 +1085,7 @@ function ShopPage({
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag-label"
-  }, "Magazin"), /*#__PURE__*/React.createElement("h1", null, "Instrumente Excel, Word \u0219i PDF pentru documentele pe care le completezi des"), /*#__PURE__*/React.createElement("p", null, "Fiecare model indic\u0103 formatul, versiunea \u0219i ce con\u021Bine. C\xE2teva formulare sunt gratuite."), /*#__PURE__*/React.createElement("div", {
+  }, "Magazin"), /*#__PURE__*/React.createElement("h1", null, "Documente profesionale pentru sectorul public \u0219i privat"), /*#__PURE__*/React.createElement("p", null, "Fiecare model indic\u0103 formatul, versiunea \u0219i ce con\u021Bine. C\xE2teva formulare sunt gratuite."), /*#__PURE__*/React.createElement("div", {
     className: "shop-search-wrap"
   }, /*#__PURE__*/React.createElement("span", {
     className: "shop-search-ico"
