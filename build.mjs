@@ -35,7 +35,7 @@ const read = (...p) => readFileSync(join(...p), 'utf8');
    fișierul. vendor/ are deja cache imutabil și nu se atinge.
    Hash-ul ignoră sfârșitul de rând, ca să iasă la fel pe Windows
    (autocrlf) și pe Vercel. */
-const ASSET_REF = /(src|href)="((?:css\/|js\/)?[A-Za-z0-9_.-]+\.(?:css|js))(?:\?v=[0-9a-f]+)?"/g;
+const ASSET_REF = /(src|href)="((?:css\/|js\/|vendor\/)?[A-Za-z0-9_.-]+\.(?:css|js))(?:\?v=[0-9a-f]+)?"/g;
 
 function stampAssets(html) {
   return html.replace(ASSET_REF, (m, attr, file) => {

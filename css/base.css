@@ -14,6 +14,8 @@
   --blue:     #065AF7;
   --blue-deep:#043799;
   --blue-hover:#0A4FD6;
+  /* albastru pentru text mic pe navy: --blue are doar 3,1-3,6:1 acolo */
+  --blue-text:#6E9BFF;
   --yellow:   #FFD400;
 
   --ink:      #212121;

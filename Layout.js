@@ -197,7 +197,7 @@ function Nav({
     "data-tint": "deep"
   }), /*#__PURE__*/React.createElement("p", {
     className: "mega__promo-kicker"
-  }, "Actualizare 2026"), /*#__PURE__*/React.createElement("h4", {
+  }, "Actualizare 2026"), /*#__PURE__*/React.createElement("p", {
     className: "mega__promo-title"
   }, "Ce se schimb\u0103 odat\u0103 cu eForms \u0219i noile praguri"), /*#__PURE__*/React.createElement("a", {
     className: "lnk",
@@ -237,7 +237,7 @@ function Nav({
     "data-tint": "blue"
   }), /*#__PURE__*/React.createElement("p", {
     className: "mega__promo-kicker"
-  }, "F\u0103r\u0103 cost"), /*#__PURE__*/React.createElement("h4", {
+  }, "F\u0103r\u0103 cost"), /*#__PURE__*/React.createElement("p", {
     className: "mega__promo-title"
   }, "Modele gratuite, desc\u0103rcabile imediat"), /*#__PURE__*/React.createElement("a", {
     className: "lnk",
@@ -329,11 +329,15 @@ function Footer() {
     "aria-label": "Navigare subsol"
   }, /*#__PURE__*/React.createElement("div", {
     className: "ftr__col"
-  }, /*#__PURE__*/React.createElement("h4", null, "Date firm\u0103"), /*#__PURE__*/React.createElement("ul", null, rows.map((r, i) => /*#__PURE__*/React.createElement("li", {
+  }, /*#__PURE__*/React.createElement("h2", {
+    class: "ftr__h"
+  }, "Date firm\u0103"), /*#__PURE__*/React.createElement("ul", null, rows.map((r, i) => /*#__PURE__*/React.createElement("li", {
     key: i
   }, link(r))))), /*#__PURE__*/React.createElement("div", {
     className: "ftr__col"
-  }, /*#__PURE__*/React.createElement("h4", null, "Navigare"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, /*#__PURE__*/React.createElement("h2", {
+    class: "ftr__h"
+  }, "Navigare"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/"
   }, "Pagina principal\u0103")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/despre-noi"
@@ -345,13 +349,17 @@ function Footer() {
     href: "/contact"
   }, "Contact")))), /*#__PURE__*/React.createElement("div", {
     className: "ftr__col"
-  }, /*#__PURE__*/React.createElement("h4", null, "Servicii"), /*#__PURE__*/React.createElement("ul", null, SVC_LINKS.map(([h, l]) => /*#__PURE__*/React.createElement("li", {
+  }, /*#__PURE__*/React.createElement("h2", {
+    class: "ftr__h"
+  }, "Servicii"), /*#__PURE__*/React.createElement("ul", null, SVC_LINKS.map(([h, l]) => /*#__PURE__*/React.createElement("li", {
     key: h
   }, /*#__PURE__*/React.createElement("a", {
     href: h
   }, l.replace('Modele de lucru ', 'Modele ').replace(' personalizate', '')))))), /*#__PURE__*/React.createElement("div", {
     className: "ftr__col"
-  }, /*#__PURE__*/React.createElement("h4", null, "Politici"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, /*#__PURE__*/React.createElement("h2", {
+    class: "ftr__h"
+  }, "Politici"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/termeni-si-conditii"
   }, "Termeni \u0219i condi\u021Bii")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/politica-confidentialitate"
@@ -379,9 +387,10 @@ function Footer() {
     target: "_blank",
     rel: "noopener noreferrer"
   }, /*#__PURE__*/React.createElement("img", {
-    src: "uploads/seap-sicap-logo.webp",
+    src: "uploads/seap-sicap-logo-h102.webp",
     alt: "SEAP / SICAP",
-    height: "34",
+    width: "250",
+    height: "102",
     loading: "lazy"
   })), /*#__PURE__*/React.createElement("a", {
     className: "ftr__badge",
@@ -393,7 +402,8 @@ function Footer() {
     className: "ftr__badge-img--pay",
     src: "uploads/netopia-payments-white.svg",
     alt: "NETOPIA Payments, Visa, Mastercard",
-    height: "26",
+    width: "418",
+    height: "75",
     loading: "lazy"
   }))), /*#__PURE__*/React.createElement("div", {
     className: "ftr__badge-row"
@@ -403,10 +413,10 @@ function Footer() {
     target: "_blank",
     rel: "noopener noreferrer"
   }, /*#__PURE__*/React.createElement("img", {
-    src: "uploads/anpc-sal.png",
+    src: "uploads/anpc-sal-h102.webp",
     alt: "ANPC SAL",
-    width: "530",
-    height: "136",
+    width: "398",
+    height: "102",
     loading: "lazy"
   })), /*#__PURE__*/React.createElement("a", {
     className: "ftr__badge",
@@ -414,10 +424,10 @@ function Footer() {
     target: "_blank",
     rel: "noopener noreferrer"
   }, /*#__PURE__*/React.createElement("img", {
-    src: "uploads/anpc-sol.png",
+    src: "uploads/anpc-sol-h102.webp",
     alt: "ANPC SOL",
-    width: "516",
-    height: "144",
+    width: "366",
+    height: "102",
     loading: "lazy"
   })))), /*#__PURE__*/React.createElement("div", {
     className: "ftr__legal"

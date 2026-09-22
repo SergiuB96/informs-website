@@ -22,17 +22,17 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="INFORMS - Formulare inteligente. Documentații complete">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css?v=6444f0f7">
-<link rel="stylesheet" href="css/chrome.css?v=8bc20e3a">
-<link rel="stylesheet" href="css/components.css?v=fff482b3">
+<link rel="preload" href="assets/fonts/dmsans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css?v=7cdcce6b">
+<link rel="stylesheet" href="css/base.css?v=7160fdbc">
+<link rel="stylesheet" href="css/chrome.css?v=8c78fa82">
+<link rel="stylesheet" href="css/components.css?v=e0c55f7d">
 <link rel="stylesheet" href="css/art.css?v=bd6c8bdd">
 <link rel="stylesheet" href="css/listing.css?v=2132cef5">
 <link rel="stylesheet" href="css/form.css?v=87095670">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3.1.0/dist/cookieconsent.css" integrity="sha384-9KcNFt4axT+TNOVPHpwGHOm4Kv0UcMjdVya1kl+EPBQG+Vmqtz28cnx0f5PZYcnF" crossorigin="anonymous">
-<link rel="stylesheet" href="css/consent.css?v=6d7b58cb">
+<link rel="stylesheet" href="css/cookieconsent.css?v=c82270e3" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="css/consent.css?v=6d7b58cb" media="print" onload="this.media='all'">
 <link rel="icon" href="assets/brand/logo-navy.svg">
 </head>
 <body>
@@ -77,7 +77,7 @@
               <div class="mega__promo">
                 <div class="mega__promo-art art" data-art="grid" data-tint="deep"></div>
                 <p class="mega__promo-kicker">Actualizare 2026</p>
-                <h4 class="mega__promo-title">Ce se schimbă odată cu eForms și noile praguri</h4>
+                <p class="mega__promo-title">Ce se schimbă odată cu eForms și noile praguri</p>
                 <a class="lnk" href="/servicii">Vezi serviciile <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               </div>
             </div>
@@ -102,7 +102,7 @@
               <div class="mega__promo">
                 <div class="mega__promo-art art" data-art="bars" data-tint="blue"></div>
                 <p class="mega__promo-kicker">Fără cost</p>
-                <h4 class="mega__promo-title">Modele gratuite, descărcabile imediat</h4>
+                <p class="mega__promo-title">Modele gratuite, descărcabile imediat</p>
                 <a class="lnk" href="/magazin#gratuite">Vezi modelele <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               </div>
             </div>
@@ -304,7 +304,7 @@
 
       <nav class="ftr__cols" aria-label="Navigare subsol">
         <div class="ftr__col">
-          <h4>Date firmă</h4>
+          <h2 class="ftr__h">Date firmă</h2>
           <ul>
             <li><span>MILBAC MANAGEMENT S.R.L.</span></li>
             <li><span>CUI 44991231</span></li>
@@ -315,7 +315,7 @@
           </ul>
         </div>
         <div class="ftr__col">
-          <h4>Navigare</h4>
+          <h2 class="ftr__h">Navigare</h2>
           <ul>
             <li><a href="/">Pagina principală</a></li>
             <li><a href="/despre-noi">Despre noi</a></li>
@@ -325,7 +325,7 @@
           </ul>
         </div>
         <div class="ftr__col">
-          <h4>Servicii</h4>
+          <h2 class="ftr__h">Servicii</h2>
           <ul>
             <li><a href="/servicii#analiza">Analiză și soluții</a></li>
             <li><a href="/servicii#achizitii">Achiziții publice</a></li>
@@ -336,7 +336,7 @@
           </ul>
         </div>
         <div class="ftr__col">
-          <h4>Politici</h4>
+          <h2 class="ftr__h">Politici</h2>
           <ul>
             <li><a href="/termeni-si-conditii">Termeni și condiții</a></li>
             <li><a href="/politica-confidentialitate">Politica de confidențialitate</a></li>
@@ -357,19 +357,19 @@
     <div class="ftr__badges">
       <div class="ftr__badge-row">
         <a class="ftr__badge" href="https://www.e-licitatie.ro/pub" target="_blank" rel="noopener">
-          <img src="uploads/seap-sicap-logo.webp" alt="SEAP / SICAP" height="34" loading="lazy">
+          <img src="uploads/seap-sicap-logo-h102.webp" alt="SEAP / SICAP" width="250" height="102" loading="lazy">
         </a>
         <a class="ftr__badge" href="https://netopia-payments.com/" target="_blank" rel="noopener" title="NETOPIA Payments">
           <img class="ftr__badge-img--pay" src="uploads/netopia-payments-white.svg"
-               alt="NETOPIA Payments, Visa, Mastercard" height="26" loading="lazy">
+               alt="NETOPIA Payments, Visa, Mastercard" width="418" height="75" loading="lazy">
         </a>
       </div>
       <div class="ftr__badge-row">
         <a class="ftr__badge" href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener">
-          <img src="uploads/anpc-sal.png" alt="ANPC SAL" width="530" height="136" loading="lazy">
+          <img src="uploads/anpc-sal-h102.webp" alt="ANPC SAL" width="398" height="102" loading="lazy">
         </a>
         <a class="ftr__badge" href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">
-          <img src="uploads/anpc-sol.png" alt="ANPC SOL" width="516" height="144" loading="lazy">
+          <img src="uploads/anpc-sol-h102.webp" alt="ANPC SOL" width="366" height="102" loading="lazy">
         </a>
       </div>
     </div>
@@ -380,8 +380,8 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=e18765fc"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3.1.0/dist/cookieconsent.umd.js" integrity="sha384-xOY5eqzqHsjfa8YYAomICWjVJ3g9q1C1tWgRF09ut5PzRJjLFSpKH7gCsIN3hKcA" crossorigin="anonymous"></script>
-<script src="js/analytics.js?v=6b9c75a0"></script>
+<script src="js/main.js?v=e18765fc" defer></script>
+<script src="js/cookieconsent.js?v=6604b61f" defer></script>
+<script src="js/analytics.js?v=6b9c75a0" defer></script>
 </body>
 </html>

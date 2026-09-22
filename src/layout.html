@@ -22,12 +22,12 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="INFORMS - Formulare inteligente. Documentații complete">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/dmsans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
 {{css}}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3.1.0/dist/cookieconsent.css" integrity="sha384-9KcNFt4axT+TNOVPHpwGHOm4Kv0UcMjdVya1kl+EPBQG+Vmqtz28cnx0f5PZYcnF" crossorigin="anonymous">
-<link rel="stylesheet" href="css/consent.css">
+<link rel="stylesheet" href="css/cookieconsent.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="css/consent.css" media="print" onload="this.media='all'">
 <link rel="icon" href="assets/brand/logo-navy.svg">
 </head>
 <body>
@@ -42,8 +42,8 @@
 
 {{>footer}}
 
-<script src="js/main.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3.1.0/dist/cookieconsent.umd.js" integrity="sha384-xOY5eqzqHsjfa8YYAomICWjVJ3g9q1C1tWgRF09ut5PzRJjLFSpKH7gCsIN3hKcA" crossorigin="anonymous"></script>
-<script src="js/analytics.js"></script>
+<script src="js/main.js" defer></script>
+<script src="js/cookieconsent.js" defer></script>
+<script src="js/analytics.js" defer></script>
 </body>
 </html>

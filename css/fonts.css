@@ -1,0 +1,55 @@
+/* Fonturi găzduite pe site (înainte: Google Fonts, cu ~1 s de blocare).
+   Subset generat de Google Fonts cu parametrul text=: latin de bază,
+   Latin-1 (â î), ă ș ț (și variantele cu sedilă), ghilimele românești,
+   liniuțe, săgeți. Un caracter în afara setului cade pe fontul de
+   sistem; pentru text nou cu simboluri rare, regenerează subsetul.
+   font-display: swap - textul apare imediat, apoi fontul se schimbă.
+   Newsreader: doar tăietura optică 72 (titluri mari), 71 KB în loc de 161. */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(../assets/fonts/dmsans.woff2) format('woff2');
+  unicode-range: U+20-7e, U+a0-ff, U+102-103, U+106-109, U+114-115, U+11c-11f, U+122-125, U+128-129, U+12c-12d, U+134-137, U+139-13c, U+143-146, U+14e-14f, U+154-157, U+15a-15f, U+162-163, U+168-169, U+16c-16f, U+174-17a, U+1d7-1d8, U+1db-1dc, U+1f4-1f5, U+1f8-1ff, U+218-21b, U+228-229, U+300-303, U+306, U+308, U+30a, U+326-327, U+385, U+1e08-1e09, U+1e10-1e11, U+1e1c-1e1d, U+1e26-1e29, U+1e2e-1e31, U+1e3e-1e3f, U+1e4c-1e4f, U+1e54-1e55, U+1e78-1e79, U+1e7c-1e7d, U+1e80-1e85, U+1e8c-1e8d, U+1e90-1e91, U+1e97-1e99, U+1ea4-1ea7, U+1eaa-1eab, U+1eae-1eb1, U+1eb4-1eb5, U+1ebc-1ec1, U+1ec4-1ec5, U+1ed0-1ed3, U+1ed6-1ed7, U+1ef2-1ef3, U+1ef8-1ef9, U+1fed, U+2013-2014, U+2018-201a, U+201c-201e, U+2022, U+2026, U+2039-203a, U+20ac, U+2190, U+2192, U+2212;
+}
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url(../assets/fonts/newsreader.woff2) format('woff2');
+  unicode-range: U+20-7e, U+a0-ff, U+102-103, U+106-109, U+114-115, U+11c-11f, U+122-125, U+128-129, U+12c-12d, U+134-137, U+139-13c, U+143-146, U+14e-14f, U+154-157, U+15a-15f, U+162-163, U+168-169, U+16c-16f, U+174-17a, U+1d7-1d8, U+1db-1dc, U+1f4-1f5, U+1f8-1ff, U+218-21b, U+228-229, U+300-303, U+306, U+308, U+30a, U+326-327, U+385, U+1e08-1e09, U+1e10-1e11, U+1e1c-1e1d, U+1e26-1e29, U+1e2e-1e31, U+1e3e-1e3f, U+1e4c-1e4f, U+1e54-1e55, U+1e78-1e79, U+1e7c-1e7d, U+1e80-1e85, U+1e8c-1e8d, U+1e90-1e91, U+1e97-1e99, U+1ea4-1ea7, U+1eaa-1eab, U+1eae-1eb1, U+1eb4-1eb5, U+1ebc-1ec1, U+1ec4-1ec5, U+1ed0-1ed3, U+1ed6-1ed7, U+1ef2-1ef3, U+1ef8-1ef9, U+1fed, U+2013-2014, U+2018-201a, U+201c-201e, U+2022, U+2026, U+2039-203a, U+20ac, U+2190, U+2192, U+2212;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(../assets/fonts/poppins300.woff2) format('woff2');
+  unicode-range: U+20-7e, U+a0-ff, U+102-103, U+106-109, U+114-115, U+11c-11f, U+122-125, U+128-129, U+12c-12d, U+134-137, U+139-13c, U+143-146, U+14e-14f, U+154-157, U+15a-15f, U+162-163, U+168-169, U+16c-16f, U+174-17a, U+1d7-1d8, U+1db-1dc, U+1f4-1f5, U+1f8-1ff, U+218-21b, U+228-229, U+300-303, U+306, U+308, U+30a, U+326-327, U+385, U+1e08-1e09, U+1e10-1e11, U+1e1c-1e1d, U+1e26-1e29, U+1e2e-1e31, U+1e3e-1e3f, U+1e4c-1e4f, U+1e54-1e55, U+1e78-1e79, U+1e7c-1e7d, U+1e80-1e85, U+1e8c-1e8d, U+1e90-1e91, U+1e97-1e99, U+1ea4-1ea7, U+1eaa-1eab, U+1eae-1eb1, U+1eb4-1eb5, U+1ebc-1ec1, U+1ec4-1ec5, U+1ed0-1ed3, U+1ed6-1ed7, U+1ef2-1ef3, U+1ef8-1ef9, U+1fed, U+2013-2014, U+2018-201a, U+201c-201e, U+2022, U+2026, U+2039-203a, U+20ac, U+2190, U+2192, U+2212;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../assets/fonts/poppins400.woff2) format('woff2');
+  unicode-range: U+20-7e, U+a0-ff, U+102-103, U+106-109, U+114-115, U+11c-11f, U+122-125, U+128-129, U+12c-12d, U+134-137, U+139-13c, U+143-146, U+14e-14f, U+154-157, U+15a-15f, U+162-163, U+168-169, U+16c-16f, U+174-17a, U+1d7-1d8, U+1db-1dc, U+1f4-1f5, U+1f8-1ff, U+218-21b, U+228-229, U+300-303, U+306, U+308, U+30a, U+326-327, U+385, U+1e08-1e09, U+1e10-1e11, U+1e1c-1e1d, U+1e26-1e29, U+1e2e-1e31, U+1e3e-1e3f, U+1e4c-1e4f, U+1e54-1e55, U+1e78-1e79, U+1e7c-1e7d, U+1e80-1e85, U+1e8c-1e8d, U+1e90-1e91, U+1e97-1e99, U+1ea4-1ea7, U+1eaa-1eab, U+1eae-1eb1, U+1eb4-1eb5, U+1ebc-1ec1, U+1ec4-1ec5, U+1ed0-1ed3, U+1ed6-1ed7, U+1ef2-1ef3, U+1ef8-1ef9, U+1fed, U+2013-2014, U+2018-201a, U+201c-201e, U+2022, U+2026, U+2039-203a, U+20ac, U+2190, U+2192, U+2212;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../assets/fonts/poppins500.woff2) format('woff2');
+  unicode-range: U+20-7e, U+a0-ff, U+102-103, U+106-109, U+114-115, U+11c-11f, U+122-125, U+128-129, U+12c-12d, U+134-137, U+139-13c, U+143-146, U+14e-14f, U+154-157, U+15a-15f, U+162-163, U+168-169, U+16c-16f, U+174-17a, U+1d7-1d8, U+1db-1dc, U+1f4-1f5, U+1f8-1ff, U+218-21b, U+228-229, U+300-303, U+306, U+308, U+30a, U+326-327, U+385, U+1e08-1e09, U+1e10-1e11, U+1e1c-1e1d, U+1e26-1e29, U+1e2e-1e31, U+1e3e-1e3f, U+1e4c-1e4f, U+1e54-1e55, U+1e78-1e79, U+1e7c-1e7d, U+1e80-1e85, U+1e8c-1e8d, U+1e90-1e91, U+1e97-1e99, U+1ea4-1ea7, U+1eaa-1eab, U+1eae-1eb1, U+1eb4-1eb5, U+1ebc-1ec1, U+1ec4-1ec5, U+1ed0-1ed3, U+1ed6-1ed7, U+1ef2-1ef3, U+1ef8-1ef9, U+1fed, U+2013-2014, U+2018-201a, U+201c-201e, U+2022, U+2026, U+2039-203a, U+20ac, U+2190, U+2192, U+2212;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../assets/fonts/poppins600.woff2) format('woff2');
+  unicode-range: U+20-7e, U+a0-ff, U+102-103, U+106-109, U+114-115, U+11c-11f, U+122-125, U+128-129, U+12c-12d, U+134-137, U+139-13c, U+143-146, U+14e-14f, U+154-157, U+15a-15f, U+162-163, U+168-169, U+16c-16f, U+174-17a, U+1d7-1d8, U+1db-1dc, U+1f4-1f5, U+1f8-1ff, U+218-21b, U+228-229, U+300-303, U+306, U+308, U+30a, U+326-327, U+385, U+1e08-1e09, U+1e10-1e11, U+1e1c-1e1d, U+1e26-1e29, U+1e2e-1e31, U+1e3e-1e3f, U+1e4c-1e4f, U+1e54-1e55, U+1e78-1e79, U+1e7c-1e7d, U+1e80-1e85, U+1e8c-1e8d, U+1e90-1e91, U+1e97-1e99, U+1ea4-1ea7, U+1eaa-1eab, U+1eae-1eb1, U+1eb4-1eb5, U+1ebc-1ec1, U+1ec4-1ec5, U+1ed0-1ed3, U+1ed6-1ed7, U+1ef2-1ef3, U+1ef8-1ef9, U+1fed, U+2013-2014, U+2018-201a, U+201c-201e, U+2022, U+2026, U+2039-203a, U+20ac, U+2190, U+2192, U+2212;
+}

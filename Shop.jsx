@@ -802,7 +802,7 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
       <div className="sp-seap">
         <div className="container sp-seap__inner">
           <a href="https://www.e-licitatie.ro/pub" target="_blank" rel="noopener noreferrer">
-            <img src="uploads/seap-sicap-logo.webp" alt="SEAP / SICAP" />
+            <img src="uploads/seap-sicap-logo-h102.webp" alt="SEAP / SICAP" width="250" height="102" />
           </a>
           <span>
             <strong>Suntem și pe SEAP.</strong> Produsele și serviciile INFORMS pot fi achiziționate prin sistemul electronic de achiziții publice.

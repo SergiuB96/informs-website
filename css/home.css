@@ -297,18 +297,22 @@
   margin-top: 28px;
 }
 
-.car__dots { display: flex; gap: 10px; }
+.car__dots { display: flex; gap: 0; }
 
+/* zona de apăsat are 24px (minimul WCAG); punctul vizibil rămâne
+   de 10px, desenat doar în content-box */
 .car__dot {
-  width: 10px; height: 10px;
-  border-radius: 5px;
-  background: rgba(255, 255, 255, .3);
+  width: 24px; height: 24px;
+  padding: 7px;
+  border-radius: 12px;
+  background-clip: content-box;
+  background: rgba(255, 255, 255, .3) content-box;
   transition: width .25s var(--ease), background-color .25s var(--ease);
 }
 
-.car__dot:hover { background: rgba(255, 255, 255, .6); }
+.car__dot:hover { background: rgba(255, 255, 255, .6) content-box; }
 
-.car__dot[aria-current="true"] { width: 28px; background: var(--white); }
+.car__dot[aria-current="true"] { width: 42px; background: var(--white) content-box; }
 
 .car__arrows { display: flex; gap: 10px; }
 

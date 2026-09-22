@@ -19,48 +19,57 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="uploads/informs-website-favicon-color-removebg-preview-removebg-preview.png" />
 
-  <!-- Preconnect pentru resurse externe critice -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
   <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
-  <!-- Google Fonts - aceleasi familii ca paginile statice -->
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- Fonturi găzduite pe site; cele două din primul ecran, preîncărcate -->
+  <link rel="preload" href="assets/fonts/dmsans.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/fonts.css?v=7cdcce6b" />
+
+  <!-- Imaginea din antetul magazinului e fundal CSS, deci browserul ar
+       găsi-o târziu; o cerem devreme, doar pe /magazin. -->
+  <script>
+    if (location.pathname === '/magazin') {
+      [['assets/renders/produse-fundal-1000.webp', '(max-width: 640px)'],
+       ['assets/renders/produse-fundal.webp', '(min-width: 641px)']].forEach(function (x) {
+        var l = document.createElement('link');
+        l.rel = 'preload'; l.as = 'image'; l.href = x[0]; l.media = x[1];
+        l.setAttribute('fetchpriority', 'high');
+        document.head.appendChild(l);
+      });
+    }
+  </script>
 
   <!-- CSS critic - blocking, necesar inainte de orice paint -->
   <link rel="stylesheet" href="main.css?v=2f854b2f" />
   <!-- Chrome-ul comun cu paginile statice. Generat de build.mjs,
        cu tokenii limitati ca sa nu atinga tema magazinului. -->
   <link rel="stylesheet" href="css/art.css?v=bd6c8bdd" />
-  <link rel="stylesheet" href="css/spa-chrome.css?v=9033ea7e" />
+  <link rel="stylesheet" href="css/spa-chrome.css?v=126e2304" />
   <!-- Identitatea site-ului peste main.css: ultimul, ca sa castige. -->
   <link rel="stylesheet" href="css/shop.css?v=27228347" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3.1.0/dist/cookieconsent.css" integrity="sha384-9KcNFt4axT+TNOVPHpwGHOm4Kv0UcMjdVya1kl+EPBQG+Vmqtz28cnx0f5PZYcnF" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/consent.css?v=6d7b58cb" />
-
-
-  <!-- Cookie Consent CSS - async -->
+  <!-- Bannerul de cookie apare după randare: stilurile lui nu blochează pagina -->
+  <link rel="stylesheet" href="css/cookieconsent.css?v=c82270e3" media="print" onload="this.media='all'" />
+  <link rel="stylesheet" href="css/consent.css?v=6d7b58cb" media="print" onload="this.media='all'" />
 
   <!-- React self-hosted - defer elimină render blocking -->
-  <script defer src="vendor/react.production.min.js"></script>
-  <script defer src="vendor/react-dom.production.min.js"></script>
+  <script defer src="vendor/react.production.min.js?v=aa77ae4c"></script>
+  <script defer src="vendor/react-dom.production.min.js?v=feb8ddc9"></script>
 
   <!-- Aplicație - defer, se execută în ordine după parsarea HTML -->
   <script defer src="Config.js?v=5591880c"></script>
-  <script defer src="Layout.js?v=e71059cf"></script>
+  <script defer src="Layout.js?v=6f8c90bf"></script>
   <script defer src="Icons.js?v=d1a3406e"></script>
   <script defer src="Pages.js?v=56cc0686"></script>
   <script defer src="Legal.js?v=fafab680"></script>
-  <script defer src="Shop.js?v=de4dfe1e"></script>
+  <script defer src="Shop.js?v=9ada8221"></script>
   <script defer src="App.js?v=8b438016"></script>
 
-
-  <!-- Stil cookie bar aliniat cu tema site-ului -->
 </head>
 <body>
   <div id="root"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3.1.0/dist/cookieconsent.umd.js" integrity="sha384-xOY5eqzqHsjfa8YYAomICWjVJ3g9q1C1tWgRF09ut5PzRJjLFSpKH7gCsIN3hKcA" crossorigin="anonymous"></script>
-  <script src="js/analytics.js?v=6b9c75a0"></script>
+  <script defer src="js/cookieconsent.js?v=6604b61f"></script>
+  <script defer src="js/analytics.js?v=6b9c75a0"></script>
 </body>
 </html>

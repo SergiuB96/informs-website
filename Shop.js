@@ -1073,8 +1073,10 @@ function ShopPage({
     target: "_blank",
     rel: "noopener noreferrer"
   }, /*#__PURE__*/React.createElement("img", {
-    src: "uploads/seap-sicap-logo.webp",
-    alt: "SEAP / SICAP"
+    src: "uploads/seap-sicap-logo-h102.webp",
+    alt: "SEAP / SICAP",
+    width: "250",
+    height: "102"
   })), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, "Suntem \u0219i pe SEAP."), " Produsele \u0219i serviciile INFORMS pot fi achizi\u021Bionate prin sistemul electronic de achizi\u021Bii publice."))), /*#__PURE__*/React.createElement("div", {
     className: "sp-profile"
   }, /*#__PURE__*/React.createElement("div", {

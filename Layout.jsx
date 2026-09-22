@@ -131,7 +131,7 @@ function Nav({ onNav, page }) {
                     <div className="mega__promo">
                       <div className="mega__promo-art art" data-art="grid" data-tint="deep" />
                       <p className="mega__promo-kicker">Actualizare 2026</p>
-                      <h4 className="mega__promo-title">Ce se schimbă odată cu eForms și noile praguri</h4>
+                      <p className="mega__promo-title">Ce se schimbă odată cu eForms și noile praguri</p>
                       <a className="lnk" href="/servicii">Vezi serviciile <Arrow /></a>
                     </div>
                   </div>
@@ -160,7 +160,7 @@ function Nav({ onNav, page }) {
                     <div className="mega__promo">
                       <div className="mega__promo-art art" data-art="bars" data-tint="blue" />
                       <p className="mega__promo-kicker">Fără cost</p>
-                      <h4 className="mega__promo-title">Modele gratuite, descărcabile imediat</h4>
+                      <p className="mega__promo-title">Modele gratuite, descărcabile imediat</p>
                       <a className="lnk" href="/magazin" onClick={(e) => goShop('gratuite', e)}>Vezi modelele <Arrow /></a>
                     </div>
                   </div>
@@ -238,13 +238,13 @@ function Footer() {
 
           <nav className="ftr__cols" aria-label="Navigare subsol">
             <div className="ftr__col">
-              <h4>Date firmă</h4>
+              <h2 class="ftr__h">Date firmă</h2>
               <ul>
                 {rows.map((r, i) => <li key={i}>{link(r)}</li>)}
               </ul>
             </div>
             <div className="ftr__col">
-              <h4>Navigare</h4>
+              <h2 class="ftr__h">Navigare</h2>
               <ul>
                 <li><a href="/">Pagina principală</a></li>
                 <li><a href="/despre-noi">Despre noi</a></li>
@@ -254,7 +254,7 @@ function Footer() {
               </ul>
             </div>
             <div className="ftr__col">
-              <h4>Servicii</h4>
+              <h2 class="ftr__h">Servicii</h2>
               <ul>
                 {SVC_LINKS.map(([h, l]) => (
                   <li key={h}><a href={h}>{l.replace('Modele de lucru ', 'Modele ').replace(' personalizate', '')}</a></li>
@@ -262,7 +262,7 @@ function Footer() {
               </ul>
             </div>
             <div className="ftr__col">
-              <h4>Politici</h4>
+              <h2 class="ftr__h">Politici</h2>
               <ul>
                 <li><a href="/termeni-si-conditii">Termeni și condiții</a></li>
                 <li><a href="/politica-confidentialitate">Politica de confidențialitate</a></li>
@@ -282,19 +282,19 @@ function Footer() {
         <div className="ftr__badges">
           <div className="ftr__badge-row">
             <a className="ftr__badge" href="https://www.e-licitatie.ro/pub" target="_blank" rel="noopener noreferrer">
-              <img src="uploads/seap-sicap-logo.webp" alt="SEAP / SICAP" height="34" loading="lazy" />
+              <img src="uploads/seap-sicap-logo-h102.webp" alt="SEAP / SICAP" width="250" height="102" loading="lazy" />
             </a>
             <a className="ftr__badge" href="https://netopia-payments.com/" target="_blank" rel="noopener noreferrer" title="NETOPIA Payments">
               <img className="ftr__badge-img--pay" src="uploads/netopia-payments-white.svg"
-                   alt="NETOPIA Payments, Visa, Mastercard" height="26" loading="lazy" />
+                   alt="NETOPIA Payments, Visa, Mastercard" width="418" height="75" loading="lazy" />
             </a>
           </div>
           <div className="ftr__badge-row">
             <a className="ftr__badge" href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener noreferrer">
-              <img src="uploads/anpc-sal.png" alt="ANPC SAL" width="530" height="136" loading="lazy" />
+              <img src="uploads/anpc-sal-h102.webp" alt="ANPC SAL" width="398" height="102" loading="lazy" />
             </a>
             <a className="ftr__badge" href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">
-              <img src="uploads/anpc-sol.png" alt="ANPC SOL" width="516" height="144" loading="lazy" />
+              <img src="uploads/anpc-sol-h102.webp" alt="ANPC SOL" width="366" height="102" loading="lazy" />
             </a>
           </div>
         </div>

@@ -340,12 +340,15 @@
   gap: 32px;
 }
 
-.ftr__col h4 {
+/* h2 pentru ordinea titlurilor (cititoare de ecran); arată ca înainte */
+.ftr__col .ftr__h {
   font-family: var(--f-body);
   font-size: 15px;
+  line-height: 1.4;
+  letter-spacing: 0;
   font-weight: 700;
   color: var(--white);
-  margin-bottom: 18px;
+  margin: 0 0 18px;
 }
 
 .ftr__col li { margin-bottom: 11px; }
@@ -375,7 +378,7 @@
 
 .ftr__legal a:hover { color: var(--white); }
 
-.ftr__copy { font-size: 13px; color: var(--muted-3); }
+.ftr__copy { font-size: 13px; color: #9A94B2; } /* 7:1 pe #06001C */
 
 
 
