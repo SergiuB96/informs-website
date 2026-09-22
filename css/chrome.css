@@ -37,11 +37,17 @@
 
 .ftr .logo__img { height: 32px; }
 
-.nav { flex: 1 1 auto; display: flex; justify-content: center; }
+/* fără buton în dreapta, meniul stă la marginea dreaptă, nu centrat
+   în spațiul rămas (ar fi părut deplasat) */
+.nav { flex: 1 1 auto; display: flex; justify-content: flex-end; }
 
 .nav__list { display: flex; align-items: center; gap: 4px; }
 
-.nav__item { position: relative; }
+/* panourile se ancorează de lista întreagă, nu de element: lista se
+   termină lângă marginea dreaptă, deci au loc la orice lățime */
+.nav__list { position: relative; }
+
+.nav__item { position: static; }
 
 .nav__link {
   display: inline-flex;
@@ -60,11 +66,11 @@
 
 .nav__item.is-open > .nav__link .ico-caret { transform: rotate(180deg); }
 
+/* aliniat la dreapta listei de meniu (vezi .nav__list) */
 .mega {
   position: absolute;
   top: calc(100% - 6px);
-  left: 50%;
-  translate: -50% 0;
+  right: 0;
   padding-top: 10px;
   opacity: 0;
   visibility: hidden;
@@ -407,7 +413,7 @@
 }
 
 /* ── Pagini interioare (mutat din service.css) ── */
-.nav__item.is-current > .nav__link { color: var(--white); }
+.nav__item.is-current > .nav__link { position: relative; color: var(--white); }
 
 .nav__item.is-current > .nav__link::after {
   content: "";

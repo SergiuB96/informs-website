@@ -248,12 +248,7 @@ function Nav({
   }, /*#__PURE__*/React.createElement("a", {
     className: "nav__link",
     href: "/contact"
-  }, "Contact")))), /*#__PURE__*/React.createElement("div", {
-    className: "hdr__actions"
-  }, /*#__PURE__*/React.createElement("a", {
-    className: "btn btn--primary btn--sm",
-    href: "/contact"
-  }, "Solicit\u0103 o consultare")), /*#__PURE__*/React.createElement("button", {
+  }, "Contact")))), /*#__PURE__*/React.createElement("button", {
     className: "burger",
     type: "button",
     "aria-expanded": open,
@@ -288,10 +283,7 @@ function Nav({
   }, label))), /*#__PURE__*/React.createElement("a", {
     className: "drawer__solo",
     href: "/contact"
-  }, "Contact"), /*#__PURE__*/React.createElement("a", {
-    className: "btn btn--primary drawer__cta",
-    href: "/contact"
-  }, "Solicit\u0103 o consultare"))));
+  }, "Contact"))));
 }
 function Footer() {
   const rows = companyRows();

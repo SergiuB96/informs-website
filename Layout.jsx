@@ -171,10 +171,6 @@ function Nav({ onNav, page }) {
             </ul>
           </nav>
 
-          <div className="hdr__actions">
-            <a className="btn btn--primary btn--sm" href="/contact">Solicită o consultare</a>
-          </div>
-
           <button className="burger" type="button" aria-expanded={open}
                   aria-label={open ? 'Închide meniul' : 'Deschide meniul'}
                   onClick={() => setOpen(!open)}>
@@ -202,7 +198,6 @@ function Nav({ onNav, page }) {
             </details>
 
             <a className="drawer__solo" href="/contact">Contact</a>
-            <a className="btn btn--primary drawer__cta" href="/contact">Solicită o consultare</a>
           </nav>
         </div>
       )}
