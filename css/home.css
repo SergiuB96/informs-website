@@ -245,11 +245,129 @@
 
 .work__head .h2 { max-width: 20ch; }
 
-.work__grid {
+/* ── Carusel de carduri înalte ────────────────────────────────
+   Derulare nativă cu scroll-snap: merge cu degetul, cu trackpadul
+   și cu tastatura (pista are tabindex). JS doar sincronizează
+   punctele și săgețile. Pe desktop se vede marginea cardului
+   următor, ca să fie clar că rândul continuă. */
+.car__track {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 2 * 24px) / 3.25);
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  padding-bottom: 4px;
 }
+
+.car__track::-webkit-scrollbar { display: none; }
+
+.car__track:focus-visible { outline-offset: 6px; }
+
+.car__slide { scroll-snap-align: start; }
+
+.fcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--card-r);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--navy-800);
+}
+
+/* imaginea umple cardul: acum ilustrație CSS, apoi <img> cu randarea.
+   Două clase, pentru că art.css (încărcat după) pune `.art` pe relative. */
+.fcard .fcard__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s var(--ease-out);
+}
+
+/* treimea de jos întunecată, ca titlul să se citească pe orice imagine */
+.fcard::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  z-index: -1;
+  background: linear-gradient(0deg, rgba(12, 0, 50, .92), rgba(12, 0, 50, 0));
+}
+
+.fcard:hover .fcard__media { transform: scale(1.04); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fcard:hover .fcard__media { transform: none; }
+}
+
+.fcard__body { padding: 28px 28px 30px; }
+
+.fcard__tag { margin-bottom: 10px; font-size: 14px; font-weight: 500; color: var(--muted-2); }
+
+.fcard__title {
+  font-family: var(--f-head);
+  font-size: 24px;
+  line-height: 31px;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.fcard__chev {
+  display: inline-block;
+  margin-left: 4px;
+  color: #8FB6FF;
+  transition: transform .25s var(--ease);
+}
+
+.fcard:hover .fcard__chev { transform: translateX(4px); }
+
+.car__ctrl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.car__dots { display: flex; gap: 10px; }
+
+.car__dot {
+  width: 10px; height: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, .3);
+  transition: width .25s var(--ease), background-color .25s var(--ease);
+}
+
+.car__dot:hover { background: rgba(255, 255, 255, .6); }
+
+.car__dot[aria-current="true"] { width: 28px; background: var(--white); }
+
+.car__arrows { display: flex; gap: 10px; }
+
+.car__arrow {
+  width: 48px; height: 48px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line-str);
+  color: var(--white);
+  transition: border-color .2s var(--ease), opacity .2s var(--ease);
+}
+
+.car__arrow:hover { border-color: var(--white); }
+
+.car__arrow:disabled { opacity: .3; cursor: default; border-color: var(--line-str); }
+
+.car__arrow svg { width: 20px; height: 20px; }
+
+/* când toate cardurile încap, controalele nu au ce face */
+.car.is-static .car__ctrl { display: none; }
 
 @media (max-width: 1200px) {
   .hero__grid { grid-template-columns: minmax(0, 1fr) 440px; gap: 48px; }
@@ -270,7 +388,7 @@
   .issue { grid-template-columns: 1fr; gap: 10px; padding-block: 26px; }
   .issue__title { font-size: 22px; line-height: 30px; }
   .work__head { flex-direction: column; align-items: flex-start; }
-  .work__grid { grid-template-columns: repeat(2, 1fr); }
+  .car__track { grid-auto-columns: calc((100% - 20px) / 2.2); gap: 20px; }
 }
 
 @media (max-width: 640px) {
@@ -287,5 +405,17 @@
   .stat { padding-top: 22px; }
   .stat__num { font-size: 48px; }
   .issue__text { font-size: 16px; line-height: 25px; }
-  .work__grid { grid-template-columns: 1fr; }
+  /* pe telefon: un card și marginea următorului; cardurile ies până la
+     marginea ecranului, ca la derularea cu degetul */
+  .car__track {
+    grid-auto-columns: 82%;
+    gap: 14px;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
+  }
+  .car__arrows { display: none; }
+  .car__ctrl { justify-content: center; }
+  .fcard__body { padding: 22px 22px 24px; }
+  .fcard__title { font-size: 21px; line-height: 28px; }
 }

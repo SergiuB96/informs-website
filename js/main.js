@@ -235,6 +235,84 @@
     });
   }
 
+  /* ── Carusel de carduri ──────────────────────────────────
+     Derularea e nativă (scroll-snap în CSS); aici doar punctele
+     și săgețile, sincronizate cu poziția. Un punct = o poziție la
+     care se poate ajunge, nu un card: pe desktop se văd trei odată.
+     Fără derulare automată.
+     ───────────────────────────────────────────────────────── */
+  function initCarousel() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-carousel]'), function (root) {
+      var track = root.querySelector('.car__track');
+      var dotsWrap = root.querySelector('.car__dots');
+      var prev = root.querySelector('.car__arrow[data-dir="-1"]');
+      var next = root.querySelector('.car__arrow[data-dir="1"]');
+      var slides = track ? track.querySelectorAll('.car__slide') : [];
+      if (!track || slides.length < 2) return;
+
+      var dots = [];
+      var count = 0;
+
+      function step() { return slides[1].offsetLeft - slides[0].offsetLeft; }
+      function maxScroll() { return track.scrollWidth - track.clientWidth; }
+
+      function current() {
+        if (track.scrollLeft >= maxScroll() - 2) return count - 1;
+        return Math.round(track.scrollLeft / step());
+      }
+
+      function go(i) {
+        var left = Math.min(i * step(), maxScroll());
+        track.scrollTo({ left: left, behavior: reduceMotion ? 'auto' : 'smooth' });
+      }
+
+      function paint() {
+        var i = current();
+        dots.forEach(function (d, n) { d.setAttribute('aria-current', n === i ? 'true' : 'false'); });
+        if (prev) prev.disabled = i <= 0;
+        if (next) next.disabled = i >= count - 1;
+      }
+
+      function build() {
+        var max = maxScroll();
+        root.classList.toggle('is-static', max <= 2);
+        count = max <= 2 ? 1 : Math.round(max / step()) + 1;
+        if (dotsWrap) {
+          dotsWrap.innerHTML = '';
+          dots = [];
+          for (var n = 0; n < count; n++) {
+            var dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'car__dot';
+            dot.setAttribute('aria-label', 'Poziția ' + (n + 1) + ' din ' + count);
+            dot.addEventListener('click', go.bind(null, n));
+            dotsWrap.appendChild(dot);
+            dots.push(dot);
+          }
+        }
+        paint();
+      }
+
+      if (prev) prev.addEventListener('click', function () { go(current() - 1); });
+      if (next) next.addEventListener('click', function () { go(current() + 1); });
+
+      var ticking = false;
+      track.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(function () { ticking = false; paint(); });
+      }, { passive: true });
+
+      var resizeTimer = null;
+      window.addEventListener('resize', function () {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(build, 150);
+      });
+
+      build();
+    });
+  }
+
   /* ── Scrollspy pentru bara de ancore ──────────────────────
      Prezent doar pe paginile interioare; pe homepage iese imediat.
      ───────────────────────────────────────────────────────── */
@@ -608,6 +686,7 @@
     initLangMenu();
     initDrawer();
     initMarquee();
+    initCarousel();
     initReveal();
     initCounters();
     initSweep();

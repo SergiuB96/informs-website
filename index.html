@@ -28,7 +28,7 @@
 <link rel="stylesheet" href="css/base.css?v=6444f0f7">
 <link rel="stylesheet" href="css/chrome.css?v=b65eb174">
 <link rel="stylesheet" href="css/components.css?v=41cf4cb1">
-<link rel="stylesheet" href="css/home.css?v=fce1cd6f">
+<link rel="stylesheet" href="css/home.css?v=1d71e28a">
 <link rel="stylesheet" href="css/art.css?v=7484bc59">
 <link rel="icon" href="assets/brand/logo-navy.svg">
 </head>
@@ -319,66 +319,76 @@
     <div class="container">
       <div class="work__head" data-reveal>
         <div>
-          <p class="kicker">Instrumente de lucru</p>
+          <p class="kicker">Servicii și instrumente</p>
           <h2 class="h2">Ce primești, concret</h2>
         </div>
         <a class="btn btn--outline" href="/magazin">Catalogul complet</a>
       </div>
 
-      <div class="work__grid">
-        <article class="wcard wcard--wide" data-reveal>
-          <div class="wcard__art art" data-art="grid" data-tint="deep" aria-hidden="true"></div>
-          <div class="wcard__body">
-            <p class="wcard__tag">Documentații</p>
-            <h3 class="wcard__title">Documentații de atribuire pentru servicii, produse și lucrări</h3>
-            <a class="lnk" href="/servicii#achizitii">Vezi ce include <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          </div>
-        </article>
+      <!-- Carusel: derulare nativă cu snap, puncte și săgeți sincronizate
+           din main.js (initCarousel). Fără derulare automată.
+           Imaginile de acum sunt ilustrațiile CSS din art.css, înlocuite
+           cu randări când sosesc: .fcard__media devine <img class="fcard__media">. -->
+      <div class="car" data-carousel>
+        <ul class="car__track" aria-label="Servicii și instrumente" tabindex="0">
+          <li class="car__slide">
+            <a class="fcard" href="/servicii#achizitii">
+              <div class="fcard__media art" data-art="grid" data-tint="deep" aria-hidden="true"></div>
+              <div class="fcard__body">
+                <p class="fcard__tag">Serviciu</p>
+                <h3 class="fcard__title">Documentații de atribuire <span class="fcard__chev" aria-hidden="true">›</span></h3>
+              </div>
+            </a>
+          </li>
+          <li class="car__slide">
+            <a class="fcard" href="/servicii#delegare">
+              <div class="fcard__media art" data-art="orbit" data-tint="purple" aria-hidden="true"></div>
+              <div class="fcard__body">
+                <p class="fcard__tag">Serviciu</p>
+                <h3 class="fcard__title">Delegarea serviciilor de utilități publice <span class="fcard__chev" aria-hidden="true">›</span></h3>
+              </div>
+            </a>
+          </li>
+          <li class="car__slide">
+            <a class="fcard" href="/servicii#pentru-cine">
+              <div class="fcard__media art" data-art="arcs" data-tint="blue" aria-hidden="true"></div>
+              <div class="fcard__body">
+                <p class="fcard__tag">Pentru ofertanți</p>
+                <h3 class="fcard__title">Oferta care trece de calificare <span class="fcard__chev" aria-hidden="true">›</span></h3>
+              </div>
+            </a>
+          </li>
+          <li class="car__slide">
+            <a class="fcard" href="/servicii#instrumente">
+              <div class="fcard__media art" data-art="bars" data-tint="deep" aria-hidden="true"></div>
+              <div class="fcard__body">
+                <p class="fcard__tag">Instrumente</p>
+                <h3 class="fcard__title">Modele Excel, Word și PDF <span class="fcard__chev" aria-hidden="true">›</span></h3>
+              </div>
+            </a>
+          </li>
+          <li class="car__slide">
+            <a class="fcard" href="/magazin#gratuite">
+              <div class="fcard__media art" data-art="pulse" data-tint="purple" aria-hidden="true"></div>
+              <div class="fcard__body">
+                <p class="fcard__tag">Gratuit</p>
+                <h3 class="fcard__title">Modele descărcabile imediat <span class="fcard__chev" aria-hidden="true">›</span></h3>
+              </div>
+            </a>
+          </li>
+        </ul>
 
-        <article class="wcard" data-reveal>
-          <div class="wcard__art art" data-art="bars" data-tint="blue" aria-hidden="true"></div>
-          <div class="wcard__body">
-            <p class="wcard__tag">Excel</p>
-            <h3 class="wcard__title">Instrumente de calcul și monitorizare</h3>
-            <a class="lnk" href="/servicii#excel">Detalii <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="car__ctrl">
+          <div class="car__dots" role="group" aria-label="Alege cardul"></div>
+          <div class="car__arrows">
+            <button class="car__arrow" type="button" data-dir="-1" aria-label="Cardul anterior">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="car__arrow" type="button" data-dir="1" aria-label="Cardul următor">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
           </div>
-        </article>
-
-        <article class="wcard" data-reveal>
-          <div class="wcard__art art" data-art="arcs" data-tint="purple" aria-hidden="true"></div>
-          <div class="wcard__body">
-            <p class="wcard__tag">Word</p>
-            <h3 class="wcard__title">Formulare tipizate și documente editabile</h3>
-            <a class="lnk" href="/servicii#word">Detalii <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          </div>
-        </article>
-
-        <article class="wcard" data-reveal>
-          <div class="wcard__art art" data-art="flow" data-tint="blue" aria-hidden="true"></div>
-          <div class="wcard__body">
-            <p class="wcard__tag">PDF inteligent</p>
-            <h3 class="wcard__title">Formulare interactive, completate pe ecran</h3>
-            <a class="lnk" href="/servicii#pdf">Detalii <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          </div>
-        </article>
-
-        <article class="wcard" data-reveal>
-          <div class="wcard__art art" data-art="pulse" data-tint="purple" aria-hidden="true"></div>
-          <div class="wcard__body">
-            <p class="wcard__tag">Rapoarte</p>
-            <h3 class="wcard__title">Procese verbale pentru situații complexe</h3>
-            <a class="lnk" href="/magazin#achizitii">Detalii <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          </div>
-        </article>
-
-        <article class="wcard wcard--wide" data-reveal>
-          <div class="wcard__art art" data-art="orbit" data-tint="deep" aria-hidden="true"></div>
-          <div class="wcard__body">
-            <p class="wcard__tag">Utilități publice</p>
-            <h3 class="wcard__title">Delegarea serviciilor de salubrizare, transport și iluminat</h3>
-            <a class="lnk" href="/servicii#delegare">Vezi ce include <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          </div>
-        </article>
+        </div>
       </div>
     </div>
   </section>
@@ -533,7 +543,7 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=7945f3ea"></script>
+<script src="js/main.js?v=e18765fc"></script>
 <script src="js/analytics.js?v=d8a3a1f1"></script>
 </body>
 </html>
