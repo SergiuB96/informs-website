@@ -1,0 +1,20 @@
+# Randări 3D folosite pe site
+
+Toate sunt de pe Unsplash, sub [Unsplash License](https://unsplash.com/license):
+folosire comercială gratuită, fără obligație de atribuire. Imaginile
+Unsplash+ (plătite) au fost excluse: linkul lor de descărcare gratuită
+răspunde 403.
+
+Decupate la 4:5 și convertite în WebP (800×1000 și 480×600).
+
+| Fișier | Card pe acasă | Sursa |
+|---|---|---|
+| documentatii.webp | Documentații de atribuire | https://unsplash.com/photos/W0EaIFjAck4 |
+| delegare.webp | Delegarea serviciilor de utilități publice | https://unsplash.com/photos/yIbz_ts9-tQ |
+| ofertanti.webp | Oferta care trece de calificare | https://unsplash.com/photos/3G03lBTzjA8 |
+| instrumente.webp | Modele Excel, Word și PDF | https://unsplash.com/photos/prMn9KINLtI |
+| gratuit.webp | Modele descărcabile imediat | https://unsplash.com/photos/1A_dO4TFKgM |
+
+**Înlocuire:** `/assets/` are cache imutabil de un an (vercel.json), deci
+o imagine schimbată trebuie să primească un nume nou, altfel vizitatorii
+văd în continuare varianta veche.
