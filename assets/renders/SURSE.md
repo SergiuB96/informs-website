@@ -30,3 +30,4 @@ văd în continuare varianta veche.
 | Fișier | Unde | Sursa |
 |---|---|---|
 | capitel-ionic.webp | Banda „Documente care stau pe lege” (acasă, despre noi), colțul din dreapta jos | Agostino Veneziano, *Capitel ionic*, 1528, din Speculum Romanae Magnificentiae, Metropolitan Museum of Art, **CC0**: https://commons.wikimedia.org/wiki/File:Speculum_Romanae_Magnificentiae-_Ionic_Capital_MET_DP870182.jpg . Decupat capitelul din dreapta, inscripția ștearsă, liniile convertite în alb-lavandă pe fundal transparent (900 px). |
+| banda-curbe.webp | Banda „Documente care stau pe lege” de pe acasă, fundal întreg | Unsplash, [Unsplash License](https://unsplash.com/license): https://unsplash.com/photos/abstract-dark-blue-and-white-curved-lines-Vj1pkbDfbWg . Decupat 1920×600, convertit în duoton navy (#0C0032) spre albastru (#4A5BC4). |
