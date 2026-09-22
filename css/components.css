@@ -238,6 +238,24 @@
   border-bottom: 1px solid var(--line);
 }
 
+/* Despre noi: fațada clasică sub un voal navy, ca fundalul de pe acasă.
+   Textul stă pe partea închisă din stânga; imaginea se vede în dreapta. */
+.phero--despre {
+  background:
+    linear-gradient(90deg, rgba(12, 0, 50, .94) 0%, rgba(12, 0, 50, .80) 46%, rgba(12, 0, 50, .30) 100%),
+    url("../assets/renders/despre-fundal.webp") center / cover no-repeat,
+    var(--navy-900);
+}
+
+@media (max-width: 1023px) {
+  .phero--despre {
+    background:
+      linear-gradient(rgba(12, 0, 50, .84), rgba(12, 0, 50, .84)),
+      url("../assets/renders/despre-fundal-1000.webp") center / cover no-repeat,
+      var(--navy-900);
+  }
+}
+
 .crumbs { margin-bottom: 34px; }
 
 .crumbs ol { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }

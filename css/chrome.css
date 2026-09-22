@@ -135,7 +135,7 @@
 /* Imagini Unsplash colorate navy-albastru; sursele în assets/renders/SURSE.md. */
 .mega__promo-art--servicii,
 .mega__promo-art--produse { background: var(--navy-800) center / cover no-repeat; }
-.mega__promo-art--servicii { background-image: url("../assets/renders/meniu-servicii.webp"); }
+.mega__promo-art--servicii { background-image: url("../assets/renders/meniu-servicii-teancuri.webp"); }
 .mega__promo-art--produse { background-image: url("../assets/renders/meniu-produse.webp"); }
 
 .mega__promo-kicker {
