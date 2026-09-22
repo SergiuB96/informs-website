@@ -27,6 +27,10 @@
   /* aceleași nume ca în base.css al site-ului static */
   --f-display: "Newsreader", Georgia, "Times New Roman", serif;
   --f-head:    "Poppins", system-ui, sans-serif;
+
+  /* Aceeasi inaltime ca antetul (spa-chrome.css). Continutul aplicatiei
+     nu vede tokenii de chrome, deci o repetam aici. */
+  --hdr-h: 84px;
   --blue-hover:#0A4FD6;
   --paper-2:   #ECE9DF;
   --sp-gutter: 40px;
@@ -81,10 +85,14 @@ main .btn:disabled:hover {
 .sp-btn-block { width: 100%; }
 
 /* ── Antetul paginii: navy plat, titlu serif ── */
+/* Ca pe paginile statice: antetul e transparent si sta peste hero, nu
+   deasupra lui. Fara asta, pe /magazin se vedea o banda navy separata
+   sub antet si parea alt navbar. */
 main .pg-hero {
+  margin-top: calc(var(--hdr-h) * -1);
   background: var(--navy);
   background-image: none;
-  padding: 64px 0 60px;
+  padding: calc(var(--hdr-h) + 64px) 0 60px;
   border-bottom: 1px solid rgba(210, 204, 230, .18);
 }
 
@@ -98,7 +106,7 @@ main .pg-hero--shop {
     url("../assets/renders/produse-fundal.webp");
   background-size: cover;
   background-position: center;
-  padding-block: 88px 84px;
+  padding-block: calc(var(--hdr-h) + 88px) 84px;
 }
 
 @media (max-width: 640px) {
@@ -107,7 +115,7 @@ main .pg-hero--shop {
       linear-gradient(rgba(12, 0, 50, .6), rgba(12, 0, 50, .6)),
       url("../assets/renders/produse-fundal-1000.webp");
     background-position: 88% center;
-    padding-block: 52px 48px;
+    padding-block: calc(var(--hdr-h) + 52px) 48px;
   }
 }
 
@@ -564,7 +572,7 @@ main .card:hover { transform: none; box-shadow: none; }
 
 @media (max-width: 640px) {
   :root { --sp-gutter: 20px; }
-  main .pg-hero { padding: 44px 0 44px; }
+  main .pg-hero { padding: calc(var(--hdr-h) + 44px) 0 44px; }
   main .shop-cta-banner { padding: 40px 22px; }
   .sp-fields { grid-template-columns: 1fr; }
 }

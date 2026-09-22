@@ -56,6 +56,24 @@
 
 }
 
+@media (max-width: 1200px) {
+  .hdr, .drawer, .ftr, .cookie, .skip-link {
+    --fs-h1: 64px; --lh-h1: 68px; --fs-h2: 52px; --lh-h2: 58px; --ls-h2: -1px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hdr, .drawer, .ftr, .cookie, .skip-link {
+    --gutter: 24px; --sect-md: 56px; --sect-lg: 72px; --fs-h1: 54px; --lh-h1: 58px; --fs-h2: 42px; --lh-h2: 48px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hdr, .drawer, .ftr, .cookie, .skip-link {
+    --gutter: 20px; --fs-h1: 44px; --lh-h1: 48px; --ls-h1: -.8px; --fs-h2: 34px; --lh-h2: 40px; --ls-h2: -.6px; --btn-h: 50px; --btn-r: 25px; --fs-lead: 16px; --lh-lead: 24px;
+  }
+}
+
 /* reset limitat la chrome */
 :where(.hdr) ul,
 :where(.hdr) ol,

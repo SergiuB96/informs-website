@@ -92,6 +92,19 @@ function buildSpaChrome() {
   const root = rules.find((r) => r.sel === ':root');
   const tokens = root.block.slice(root.block.indexOf('{') + 1, root.block.lastIndexOf('}'));
 
+  /* base.css rescrie o parte din tokeni la ecrane mici (--gutter trece de
+     la 40px la 24px, apoi la 20px). Fara ei, antetul si subsolul din
+     aplicatie raman cu marginea de desktop si se vede ca sunt alte
+     componente decat pe paginile statice. */
+  const mediaTokens = rules
+    .filter((r) => r.sel.startsWith('@media') && r.block.includes(':root'))
+    .map((r) => {
+      const inner = r.block.slice(r.block.indexOf(':root'));
+      const decl = inner.slice(inner.indexOf('{') + 1, inner.indexOf('}')).trim();
+      return `${r.sel} {\n  ${CHROME_ROOTS} {\n    ${decl}\n  }\n}`;
+    })
+    .join('\n\n');
+
   const roots = CHROME_ROOTS.split(',').map((s) => s.trim());
 
   const prims = rules
@@ -144,6 +157,7 @@ function buildSpaChrome() {
   const css =
     '/* GENERAT de build.mjs din base.css + chrome.css. Nu edita aici. */\n\n' +
     `${CHROME_ROOTS} {\n${tokens}\n}\n\n` +
+    (mediaTokens ? mediaTokens + '\n\n' : '') +
     '/* reset limitat la chrome */\n' + reset + '\n\n' +
     prims.join('\n\n') + '\n\n' +
     '/* doar subsolul foloseste .container din sistemul nou */\n' +

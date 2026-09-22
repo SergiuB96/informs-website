@@ -133,12 +133,73 @@
 .cform {
   padding: 40px;
   border-radius: var(--card-r);
-  background: rgba(255,255,255,.04);
-  border: 1px solid var(--line);
+  background: #FBFAF7;
+  border: 1px solid #E2DED3;
 }
 .cform__title { font-size: 26px; line-height: 34px; font-weight: 500; margin-bottom: 8px; }
-.cform__lead { color: var(--muted); margin-bottom: 30px; }
 .cform .btn { margin-top: 4px; }
+
+/* ── Cardul formularului: hârtie albă pe pagina navy ──────────
+   Câmpurile de mai sus sunt scrise pentru fundal închis, deci aici
+   întoarcem culorile. Casetele din dreapta (.cbox) rămân pe navy. */
+.cform,
+.cform__title { color: var(--navy-900); }
+
+.cform__lead { color: #5E5972; margin-bottom: 30px; }
+
+.cform .field__label { color: var(--navy-900); }
+
+.cform .field__label .req { color: #B3123C; }
+
+.cform .field__hint { color: #5E5972; }
+
+.cform .field input,
+.cform .field select,
+.cform .field textarea {
+  border-color: #CFCABB;
+  background: #FFFFFF;
+  color: #1E1B2E;
+}
+
+.cform .field input::placeholder,
+.cform .field textarea::placeholder { color: #8A8599; }
+
+.cform .field input:focus,
+.cform .field select:focus,
+.cform .field textarea:focus {
+  border-color: var(--blue);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(6, 90, 247, .14);
+}
+
+.cform .field select option { background: #FFFFFF; color: #1E1B2E; }
+
+.cform .field--select::after {
+  border-right-color: #5E5972;
+  border-bottom-color: #5E5972;
+}
+
+.cform .field.is-bad input,
+.cform .field.is-bad select,
+.cform .field.is-bad textarea { border-color: #B3123C; }
+
+.cform .field__err { color: #B3123C; }
+
+.cform .check { color: #3A3550; }
+
+.cform .check a { color: var(--blue); }
+
+.cform .fnote.is-ok {
+  background: #F0FDF4;
+  border-color: #86EFAC;
+  color: #166534;
+}
+
+.cform .fnote.is-err {
+  background: #FEF2F2;
+  border-color: #FECACA;
+  color: #B3123C;
+}
 
 .cside { display: flex; flex-direction: column; gap: 14px; }
 
