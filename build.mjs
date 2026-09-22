@@ -204,6 +204,132 @@ function companyRowsHtml() {
   return out.join('\n');
 }
 
+/* ── Date structurate (JSON-LD) ───────────────────────────────
+   Google nu are de unde sti cine e INFORMS: cine il opereaza, unde e,
+   ce servicii vinde. Le declaram o singura data, din aceeasi sursa ca
+   datele din subsol (Config.jsx), ca sa nu divergheze.
+
+   Nodurile primesc @id, ca paginile sa se lege de aceeasi organizatie
+   in loc sa o redeclare. Nu punem marcare de tip FAQ: rezultatele
+   imbogatite pentru ea au fost retrase in mai 2026.
+   ───────────────────────────────────────────────────────────── */
+/* Marcajul din Config.jsx pentru campurile necompletate. */
+const TODO_MARK = '«TODO»';
+
+function companyData() {
+  const cfg = read(ROOT, 'Config.jsx');
+  const block = cfg.slice(cfg.indexOf('const COMPANY = {'));
+  const body = block.slice(0, block.indexOf('};'));
+  const field = (k) => {
+    const m = new RegExp(`\\b${k}:\\s*'([^']*)'`).exec(body);
+    return m && m[1] !== TODO_MARK ? m[1] : null;
+  };
+  return {
+    name: field('name'),
+    brand: field('brand'),
+    cui: field('cui'),
+    regCom: field('regCom'),
+    address: field('address'),
+    phone: field('phone'),
+    email: field('email'),
+  };
+}
+
+const SERVICES = [
+  ['Analiză și consultanță în achiziții publice', '/servicii#analiza'],
+  ['Documentații de atribuire', '/servicii#achizitii'],
+  ['Delegarea serviciilor de utilități publice', '/servicii#delegare'],
+  ['Digitalizare la comandă', '/servicii#digitalizare'],
+  ['Instrumente de lucru Excel, Word și PDF', '/servicii#instrumente'],
+];
+
+function jsonLd(page, path) {
+  const c = companyData();
+  const url = HOST + path;
+  const site = HOST + '/#site';
+  const org = HOST + '/#organizatie';
+
+  /* Adresa e tinuta ca un singur sir in Config.jsx, pentru subsol.
+     Aici o desfacem in campurile cerute de schema.org. */
+  const addr = (c.address || '').split(',').map((x) => x.trim());
+  const postal = {
+    '@type': 'PostalAddress',
+    streetAddress: addr.slice(0, 3).join(', '),
+    addressLocality: addr[3] || 'Târgu Mureș',
+    addressRegion: (addr[4] || 'jud. Mureș').replace('jud. ', ''),
+    postalCode: addr[5] || '',
+    addressCountry: 'RO',
+  };
+
+  const graph = [
+    {
+      '@type': 'Organization',
+      '@id': org,
+      name: c.name,
+      alternateName: c.brand,
+      legalName: c.name,
+      url: HOST + '/',
+      logo: {
+        '@type': 'ImageObject',
+        url: HOST + '/assets/brand/logo-email.png',
+        width: 374,
+        height: 76,
+      },
+      email: c.email,
+      telephone: c.phone,
+      taxID: c.cui,
+      vatID: c.cui,
+      identifier: c.regCom,
+      address: postal,
+      areaServed: { '@type': 'Country', name: 'România' },
+      knowsLanguage: 'ro',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': site,
+      url: HOST + '/',
+      name: c.brand,
+      inLanguage: 'ro-RO',
+      publisher: { '@id': org },
+    },
+    {
+      '@type': page.schemaType || 'WebPage',
+      '@id': url + '#pagina',
+      url,
+      name: page.title,
+      description: page.desc,
+      inLanguage: 'ro-RO',
+      isPartOf: { '@id': site },
+      about: { '@id': org },
+      ...(path === '/' ? {} : {
+        breadcrumb: {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Acasă', item: HOST + '/' },
+            { '@type': 'ListItem', position: 2, name: page.crumb || page.title, item: url },
+          ],
+        },
+      }),
+    },
+  ];
+
+  /* Serviciile sunt oferta reala a firmei, enumerate pe pagina Servicii. */
+  if (page.out === 'servicii.html') {
+    graph.push(...SERVICES.map(([name, href]) => ({
+      '@type': 'Service',
+      '@id': HOST + href,
+      name,
+      serviceType: name,
+      provider: { '@id': org },
+      areaServed: { '@type': 'Country', name: 'România' },
+    })));
+  }
+
+  return '<script type="application/ld+json">' +
+    JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }) +
+    '</script>';
+}
+
 /* ── partiale ─────────────────────────────────────────────── */
 const partials = {};
 for (const file of readdirSync(join(SRC, 'partials'))) {
@@ -285,6 +411,7 @@ for (const page of pages) {
     .replaceAll('{{canonical}}', HOST + path)
     .replace('{{robots}}', robots)
     .replace('{{css}}', cssTags)
+    .replace('{{jsonld}}', page.noindex ? '' : jsonLd(page, path))
     .replace('{{body}}', body);
 
   // partialele se injectează după body, ca un {{>x}} din conținut

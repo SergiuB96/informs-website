@@ -60,6 +60,54 @@ function setCanonical(page) {
   tag.setAttribute('href', COMPANY.url + pathFromPage(page));
 }
 
+/* Numele scurt din firimituri, pentru datele structurate. Lipsa lui
+   nu e o eroare: titlul fără sufixul de brand e un fallback bun. */
+const CRUMB = {
+  'magazin': 'Magazin',
+  'comanda-finalizata': 'Stare comandă',
+  'politica-confidentialitate': 'Politica de confidențialitate',
+  'termeni-si-conditii': 'Termeni și condiții',
+  'politica-gdpr': 'Politica GDPR',
+  'politica-cookies': 'Politica de cookie-uri',
+  'politica-livrare': 'Politica de livrare',
+  'politica-anulare': 'Anulare și retur',
+  'dreptul-de-retragere': 'Dreptul de retragere',
+};
+
+/* Organizația și site-ul sunt declarate static în app.html. Aici
+   adăugăm doar pagina curentă, legată de ele prin @id. */
+function setJsonLd(page) {
+  const meta = PAGE_META[page] || PAGE_META['home'];
+  const url = COMPANY.url + pathFromPage(page);
+  const node = {
+    '@type': page === 'magazin' ? 'CollectionPage' : 'WebPage',
+    '@id': url + '#pagina',
+    url,
+    name: meta.title,
+    description: meta.desc,
+    inLanguage: 'ro-RO',
+    isPartOf: { '@id': COMPANY.url + '/#site' },
+    about: { '@id': COMPANY.url + '/#organizatie' },
+  };
+  if (page !== 'home') {
+    node.breadcrumb = {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Acasă', item: COMPANY.url + '/' },
+        { '@type': 'ListItem', position: 2, name: CRUMB[page] || meta.title.split(' | ')[0], item: url },
+      ],
+    };
+  }
+  let tag = document.getElementById('jsonld-pagina');
+  if (!tag) {
+    tag = document.createElement('script');
+    tag.type = 'application/ld+json';
+    tag.id = 'jsonld-pagina';
+    document.head.appendChild(tag);
+  }
+  tag.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': [node] });
+}
+
 function App() {
   const initial = pageFromPath(window.location.pathname);
   const [page, setPage] = useState(initial);
@@ -73,6 +121,7 @@ function App() {
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', meta.title);
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', meta.desc);
     setCanonical(displayPage);
+    setJsonLd(displayPage);
   }, [displayPage]);
 
   /* Aplicația nu mai are versiuni proprii ale paginilor statice. Dacă

@@ -21,7 +21,8 @@
       "service"
     ],
     "nav": "servicii",
-    "navlink": null
+    "navlink": null,
+    "crumb": "Servicii"
   },
   {
     "out": "despre-noi.html",
@@ -32,7 +33,9 @@
       "art"
     ],
     "nav": "despre",
-    "navlink": null
+    "navlink": null,
+    "schemaType": "AboutPage",
+    "crumb": "Despre noi"
   },
   {
     "out": "contact.html",
@@ -45,7 +48,9 @@
       "form"
     ],
     "nav": "contact",
-    "navlink": null
+    "navlink": null,
+    "schemaType": "ContactPage",
+    "crumb": "Contact"
   },
   {
     "out": "404.html",

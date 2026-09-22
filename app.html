@@ -21,6 +21,16 @@
   <link rel="icon" href="assets/brand/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
 
+  <!-- Firma si site-ul, declarate static: crawlerele care nu ruleaza
+       JavaScript le citesc si aici, nu doar pe paginile generate.
+       Nodul paginii curente il adauga App.jsx la navigare. -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"Organization","@id":"https://www.informs.ro/#organizatie","name":"MILBAC MANAGEMENT S.R.L.","alternateName":"INFORMS","legalName":"MILBAC MANAGEMENT S.R.L.","url":"https://www.informs.ro/","logo":{"@type":"ImageObject","url":"https://www.informs.ro/assets/brand/logo-email.png","width":374,"height":76},"email":"office@informs.ro","telephone":"+40 740 023 338","taxID":"44991231","vatID":"44991231","identifier":"J26/1603/2021","address":{"@type":"PostalAddress","streetAddress":"Bld. Pandurilor nr. 86, et. 3, ap. 11","addressLocality":"Târgu Mureș","addressRegion":"Mureș","postalCode":"540487","addressCountry":"RO"},"areaServed":{"@type":"Country","name":"România"},"knowsLanguage":"ro"},
+    {"@type":"WebSite","@id":"https://www.informs.ro/#site","url":"https://www.informs.ro/","name":"INFORMS","inLanguage":"ro-RO","publisher":{"@id":"https://www.informs.ro/#organizatie"}}
+  ]}
+  </script>
+
   <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
   <!-- Fonturi găzduite pe site; cele două din primul ecran, preîncărcate -->
@@ -67,7 +77,7 @@
   <script defer src="Shop.js?v=6739310c"></script>
   <!-- înaintea App.js: observă elementele din prima randare -->
   <script defer src="js/spa-reveal.js?v=0b37734c"></script>
-  <script defer src="App.js?v=e3d4933a"></script>
+  <script defer src="App.js?v=0f089bc7"></script>
 
 </head>
 <body>
