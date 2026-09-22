@@ -78,6 +78,10 @@ const PROD_CATS = [{
   cat: 'gratuite',
   label: 'Gratuite'
 }];
+
+/* Categoriile fără produse nu apar în meniu (vezi hasProducts în Shop.jsx).
+   Shop.js se încarcă după Layout.js, deci funcția se citește la randare. */
+const prodCats = () => PROD_CATS.filter(c => !window.shopHasProducts || window.shopHasProducts(c.cat));
 const SVC_LINKS = [['/servicii#analiza', 'Analiză și soluții personalizate'], ['/servicii#achizitii', 'Achiziții publice'], ['/servicii#delegare', 'Delegare servicii de utilități publice'], ['/servicii#excel', 'Modele de lucru EXCEL'], ['/servicii#word', 'Modele de lucru WORD'], ['/servicii#pdf', 'Modele de lucru PDF inteligent']];
 function Nav({
   onNav,
@@ -197,12 +201,12 @@ function Nav({
     "data-tint": "deep"
   }), /*#__PURE__*/React.createElement("p", {
     className: "mega__promo-kicker"
-  }, "Actualizare 2026"), /*#__PURE__*/React.createElement("p", {
+  }, "Primul pas"), /*#__PURE__*/React.createElement("p", {
     className: "mega__promo-title"
-  }, "Ce se schimb\u0103 odat\u0103 cu eForms \u0219i noile praguri"), /*#__PURE__*/React.createElement("a", {
+  }, "Descrie procedura \u0219i \xEE\u021Bi spunem ce documente \xEE\u021Bi trebuie"), /*#__PURE__*/React.createElement("a", {
     className: "lnk",
-    href: "/servicii"
-  }, "Vezi serviciile ", /*#__PURE__*/React.createElement(Arrow, null)))))), /*#__PURE__*/React.createElement("li", {
+    href: "/contact"
+  }, "Scrie-ne ", /*#__PURE__*/React.createElement(Arrow, null)))))), /*#__PURE__*/React.createElement("li", {
     className: item('produse', ' has-menu'),
     onMouseEnter: () => enter('produse'),
     onMouseLeave: leave
@@ -220,7 +224,7 @@ function Nav({
     className: "mega__label"
   }, "Catalog"), /*#__PURE__*/React.createElement("ul", {
     className: "mega__links"
-  }, PROD_CATS.map(({
+  }, prodCats().map(({
     cat,
     label
   }) => /*#__PURE__*/React.createElement("li", {
@@ -273,7 +277,7 @@ function Nav({
   }, l))), /*#__PURE__*/React.createElement("details", {
     className: "drawer__group",
     open: page === 'magazin'
-  }, /*#__PURE__*/React.createElement("summary", null, "Produse"), PROD_CATS.map(({
+  }, /*#__PURE__*/React.createElement("summary", null, "Produse"), prodCats().map(({
     cat,
     label
   }) => /*#__PURE__*/React.createElement("a", {

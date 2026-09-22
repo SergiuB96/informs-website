@@ -15,7 +15,7 @@ const POLICY_PAGES  = [
 
 const PAGE_META = {
   'home':                       { title: 'INFORMS - Formulare inteligente. Documentații complete.', desc: 'Documentații complete, formulare și instrumente de lucru inteligente, într-un format intuitiv, standard și ușor de utilizat.' },
-  'despre-noi':                 { title: 'Despre noi | INFORMS', desc: '15 ani de experiență în achiziții publice, consultanță și digitalizare pentru instituții publice și companii private.' },
+  'despre-noi':                 { title: 'Despre noi | INFORMS', desc: 'Echipă cu peste 15 ani de experiență în achiziții publice, consultanță și digitalizare pentru instituții publice și companii private.' },
   'contact':                    { title: 'Contact | INFORMS', desc: 'Contactează echipa INFORMS pentru consultanță în achiziții publice, documentații și instrumente de lucru specializate.' },
   'servicii':                   { title: 'Servicii | INFORMS', desc: 'Soluții complete pentru instituții publice, companii și liber-profesioniști: achiziții publice, delegare servicii, instrumente de lucru.' },
   'analiza-si-solutii':         { title: 'Analiză și soluții personalizate | INFORMS', desc: 'Analizăm situația prezentată și oferim soluții concrete, aplicate, care răspund tuturor cerințelor și obiectivelor stabilite.' },

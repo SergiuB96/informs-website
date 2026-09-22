@@ -46,6 +46,10 @@ const PROD_CATS = [
   { cat: 'gratuite',     label: 'Gratuite' },
 ];
 
+/* Categoriile fără produse nu apar în meniu (vezi hasProducts în Shop.jsx).
+   Shop.js se încarcă după Layout.js, deci funcția se citește la randare. */
+const prodCats = () => PROD_CATS.filter(c => !window.shopHasProducts || window.shopHasProducts(c.cat));
+
 const SVC_LINKS = [
   ['/servicii#analiza',  'Analiză și soluții personalizate'],
   ['/servicii#achizitii', 'Achiziții publice'],
@@ -130,9 +134,9 @@ function Nav({ onNav, page }) {
                     </div>
                     <div className="mega__promo">
                       <div className="mega__promo-art art" data-art="grid" data-tint="deep" />
-                      <p className="mega__promo-kicker">Actualizare 2026</p>
-                      <p className="mega__promo-title">Ce se schimbă odată cu eForms și noile praguri</p>
-                      <a className="lnk" href="/servicii">Vezi serviciile <Arrow /></a>
+                      <p className="mega__promo-kicker">Primul pas</p>
+                      <p className="mega__promo-title">Descrie procedura și îți spunem ce documente îți trebuie</p>
+                      <a className="lnk" href="/contact">Scrie-ne <Arrow /></a>
                     </div>
                   </div>
                 </div>
@@ -149,7 +153,7 @@ function Nav({ onNav, page }) {
                     <div className="mega__col">
                       <p className="mega__label">Catalog</p>
                       <ul className="mega__links">
-                        {PROD_CATS.map(({ cat, label }) => (
+                        {prodCats().map(({ cat, label }) => (
                           <li key={cat}>
                             <a className={page === 'magazin' && cat === 'all' ? 'is-active' : undefined}
                                href="/magazin" onClick={(e) => goShop(cat, e)}>{label}</a>
@@ -192,7 +196,7 @@ function Nav({ onNav, page }) {
 
             <details className="drawer__group" open={page === 'magazin'}>
               <summary>Produse</summary>
-              {PROD_CATS.map(({ cat, label }) => (
+              {prodCats().map(({ cat, label }) => (
                 <a key={cat} href="/magazin" onClick={(e) => goShop(cat, e)}>{label}</a>
               ))}
             </details>

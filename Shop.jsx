@@ -118,6 +118,19 @@ const SHOP_CATEGORIES = [
   { id: 'gratuite',    label: 'Gratuite' },
 ];
 
+/* Produsele pe care vizitatorul le vede. O categorie fără niciun produs
+   vizibil nu apare în filtre: un raft gol arată ca un magazin părăsit. */
+const VISIBLE_PRODUCTS = SHOP_PRODUCTS.filter(p => !p.hidden || SHOW_HIDDEN);
+const hasProducts = id => id === 'all' || VISIBLE_PRODUCTS.some(p => p.category === id);
+
+/* Paginile statice trimit la /magazin#gratuite etc. Aplicația nu vede
+   ancora în cale, deci o citim aici; o ancoră necunoscută sau spre o
+   categorie goală lasă magazinul pe „Toate produsele”. */
+function categoryFromHash(fallback) {
+  const id = decodeURIComponent(window.location.hash.slice(1));
+  return SHOP_CATEGORIES.some(c => c.id === id) && hasProducts(id) ? id : fallback;
+}
+
 const SHOP_FORMATS = [
   { id: 'all',    label: 'Toate',   cls: 'fmt-all' },
   { id: 'word',   label: 'WORD',    cls: 'fmt-word' },
@@ -667,7 +680,7 @@ function ProductModal({ product, onClose, onNav }) {
                     </button>
                   </div>
                   <p className="sp-fine sp-fine--gap">
-                    Trimite-ne un email și îți livrăm documentul gratuit în cel mai scurt timp.
+                    Trimite-ne un email și îți livrăm documentul gratuit în cel mult o zi lucrătoare.
                   </p>
                 </>
               ) : checkout ? (
@@ -732,7 +745,8 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
   }, []);
 
   const [mainCat,  setMainCat]  = useState('all');
-  const [category, setCategory] = useState(initialCategory);
+  const [category, setCategory] = useState(() =>
+    categoryFromHash(hasProducts(initialCategory) ? initialCategory : 'all'));
   const [format,   setFormat]   = useState('all');
   const [query,    setQuery]    = useState('');
   const [selected, setSelected] = useState(null);
@@ -740,14 +754,13 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
   const handleMainCat = id => { setMainCat(id); setCategory('all'); };
 
   const activeSubs = React.useMemo(() => {
-    if (mainCat === 'all') return SHOP_CATEGORIES;
+    const withProducts = SHOP_CATEGORIES.filter(c => hasProducts(c.id));
     const mc = MAIN_CATEGORIES.find(m => m.id === mainCat);
-    if (!mc) return SHOP_CATEGORIES;
-    return SHOP_CATEGORIES.filter(c => c.id === 'all' || mc.subcategories.includes(c.id));
+    if (mainCat === 'all' || !mc) return withProducts;
+    return withProducts.filter(c => c.id === 'all' || mc.subcategories.includes(c.id));
   }, [mainCat]);
 
-  const filtered = SHOP_PRODUCTS.filter(p => {
-    if (p.hidden && !SHOW_HIDDEN) return false;
+  const filtered = VISIBLE_PRODUCTS.filter(p => {
     const matchMain = mainCat === 'all' || p.mainCategories.includes(mainCat);
     const matchCat  = category === 'all' || p.category === category;
     const matchFmt  = format   === 'all' || p.format   === format;
@@ -1003,4 +1016,4 @@ function OrderStatusPage({ onNav }) {
   );
 }
 
-Object.assign(window, { ShopPage, OrderStatusPage });
+Object.assign(window, { ShopPage, OrderStatusPage, shopHasProducts: hasProducts });

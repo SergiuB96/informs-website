@@ -3,7 +3,7 @@
     "out": "index.html",
     "src": "index.html",
     "title": "INFORMS - Formulare inteligente. Documentații complete.",
-    "desc": "Documentații de atribuire, formulare și instrumente de lucru pentru achiziții publice. Verificate juridic, actualizate la fiecare modificare legislativă.",
+    "desc": "Documentații de atribuire, formulare și instrumente de lucru pentru achiziții publice, verificate juridic și construite pe legislația în vigoare.",
     "css": [
       "home",
       "art"
@@ -27,7 +27,7 @@
     "out": "despre-noi.html",
     "src": "despre-noi.html",
     "title": "Despre noi - INFORMS",
-    "desc": "INFORMS este brandul MILBAC MANAGEMENT S.R.L. din Târgu Mureș. Cincisprezece ani de practică în achiziții publice.",
+    "desc": "INFORMS este brandul MILBAC MANAGEMENT S.R.L. din Târgu Mureș. O echipă cu peste cincisprezece ani de practică în achiziții publice.",
     "css": [
       "art"
     ],
@@ -38,7 +38,7 @@
     "out": "contact.html",
     "src": "contact.html",
     "title": "Contact - INFORMS",
-    "desc": "Scrie-ne despre procedura pe care o pregătești. Răspundem în aceeași zi lucrătoare.",
+    "desc": "Scrie-ne despre procedura pe care o pregătești. Răspundem în cel mult o zi lucrătoare.",
     "css": [
       "art",
       "listing",

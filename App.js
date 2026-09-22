@@ -14,7 +14,7 @@ const PAGE_META = {
   },
   'despre-noi': {
     title: 'Despre noi | INFORMS',
-    desc: '15 ani de experiență în achiziții publice, consultanță și digitalizare pentru instituții publice și companii private.'
+    desc: 'Echipă cu peste 15 ani de experiență în achiziții publice, consultanță și digitalizare pentru instituții publice și companii private.'
   },
   'contact': {
     title: 'Contact | INFORMS',

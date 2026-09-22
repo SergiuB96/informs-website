@@ -708,7 +708,7 @@
       }).then(function (out) {
         // un 200 cu {ok:false} tot inseamna esec
         if (out && out.ok === false) throw new Error(out.error || 'respins de server');
-        say('ok', 'Mesajul a plecat. Îți răspundem în aceeași zi lucrătoare, pe ' + data.email + '.');
+        say('ok', 'Mesajul a plecat. Îți răspundem în cel mult o zi lucrătoare, pe ' + data.email + '.');
         form.reset();
       }).catch(function (err) {
         say('err', 'Mesajul nu a putut fi trimis (' + err.message + '). Scrie-ne direct la office@informs.ro și îți răspundem la fel de repede.');
