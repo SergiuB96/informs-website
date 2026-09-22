@@ -28,7 +28,7 @@
 <link rel="stylesheet" href="css/base.css?v=6444f0f7">
 <link rel="stylesheet" href="css/chrome.css?v=553aa7e1">
 <link rel="stylesheet" href="css/components.css?v=e2d736bd">
-<link rel="stylesheet" href="css/home.css?v=2381af67">
+<link rel="stylesheet" href="css/home.css?v=b0cc533d">
 <link rel="stylesheet" href="css/art.css?v=bd6c8bdd">
 <link rel="icon" href="assets/brand/logo-navy.svg">
 </head>
@@ -153,6 +153,12 @@
 
   <!-- ══ 1. Hero ══ -->
   <section class="hero">
+    <!-- fundalul: foi de hârtie în evantai, tonate în navy prin CSS -->
+    <picture class="hero__bg" aria-hidden="true">
+      <source media="(max-width: 640px)" srcset="assets/renders/hero-fundal-mobil.webp">
+      <img src="assets/renders/hero-fundal.webp" srcset="assets/renders/hero-fundal-1280.webp 1280w, assets/renders/hero-fundal.webp 1920w" sizes="100vw" width="1920" height="1080" alt="" fetchpriority="high" decoding="async">
+    </picture>
+
     <div class="container hero__grid">
       <div class="hero__main">
         <p class="kicker">Autoritate contractantă</p>
@@ -165,7 +171,6 @@
         <p class="hero__alt">Depui oferte? <a class="lnk" href="/servicii#pentru-cine">Ce pregătim pentru ofertanți <svg class="ico-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
       </div>
 
-      <img class="hero__art" src="assets/renders/hero-documente.webp" srcset="assets/renders/hero-documente-600.webp 600w, assets/renders/hero-documente.webp 1000w" sizes="(max-width: 1023px) 100vw, 500px" width="1000" height="1120" alt="" fetchpriority="high" decoding="async">
     </div>
   </section>
 
