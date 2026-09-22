@@ -104,26 +104,6 @@ const SHOP_PRODUCTS = [
     stats: { files: 1, pages: 0 },
     file: 'assets/produse/gratuite/pdf/Proces-verbal_receptie%20terminare%20lucrari_v1.0.pdf',
   },
-  {
-    id: 'test-plata',
-    sku: 'INF-TEST-10',
-    title: 'Test plată INFORMS',
-    shortDesc: 'Produs de test pentru verificarea plății cu cardul.',
-    longDesc: 'Produs intern, folosit pentru a verifica plata NETOPIA, livrarea documentului și emiterea facturii.',
-    category: 'achizitii',
-    mainCategories: ['companii'],
-    format: 'word',
-    cv: 'cv-word',
-    price: 10,
-    hidden: true,
-    featured: false,
-    isNew: false,
-    tags: ['Test'],
-    includes: [
-      'Document de test (DOCX)',
-    ],
-    stats: { files: 1, pages: 0 },
-  },
 ];
 
 const SHOW_HIDDEN = new URLSearchParams(window.location.search).get('test') === '1';
@@ -501,7 +481,7 @@ function ProductModal({ product, onClose, onNav }) {
   const hasFreeFile = isFree && product.file;
 
   const [email,       setEmail]       = useState('');
-  const [gdpr,        setGdpr]        = useState(false);
+  const [newsletter,  setNewsletter]  = useState(false);
   const [emailErr,    setEmailErr]    = useState('');
   const [downloading, setDownloading] = useState(false);
   const [downloaded,  setDownloaded]  = useState(false);
@@ -521,17 +501,20 @@ function ProductModal({ product, onClose, onNav }) {
 
   const handleDownload = async e => {
     e.preventDefault();
-    if (!validEmail(email)) { setEmailErr('Introdu o adresă de email validă.'); return; }
-    if (!gdpr) return;
+    if (newsletter && !validEmail(email)) { setEmailErr('Introdu o adresă de email validă.'); return; }
     setEmailErr('');
     setDownloading(true);
-    try {
-      await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), product: product.title }),
-      });
-    } catch (_) {}
+    /* Documentul gratuit nu cere date personale. Emailul ajunge în lista
+       de noutăți doar cu bifa separată, nebifată implicit (GDPR art. 7). */
+    if (newsletter) {
+      try {
+        await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email.trim(), product: product.title, consent: true }),
+        });
+      } catch (_) {}
+    }
     const a = document.createElement('a');
     a.href = product.file;
     a.download = '';
@@ -558,7 +541,7 @@ function ProductModal({ product, onClose, onNav }) {
     window.open('mailto:' + COMPANY.email + '?subject=' + subject + '&body=' + body);
   };
 
-  const canDownload = validEmail(email) && gdpr;
+  const canDownload = !newsletter || validEmail(email);
 
   return (
     <div className="shop-modal-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
@@ -625,27 +608,30 @@ function ProductModal({ product, onClose, onNav }) {
             ) : (
               <form onSubmit={handleDownload} noValidate className="sp-form">
                 <div className="shop-modal-lbl">Descarcă gratuit</div>
-                <div className="sp-field">
-                  <label className="sp-label">Adresă de email *</label>
-                  <input
-                    type="email"
-                    placeholder="exemplu@email.ro"
-                    value={email}
-                    onChange={e => { setEmail(e.target.value); setEmailErr(''); }}
-                    className={'sp-input' + (emailErr ? ' is-invalid' : '')}
-                  />
-                  {emailErr && <span className="sp-err-inline">{emailErr}</span>}
-                </div>
                 <label className="sp-check">
                   <input
                     type="checkbox"
-                    checked={gdpr}
-                    onChange={e => setGdpr(e.target.checked)}
+                    checked={newsletter}
+                    onChange={e => { setNewsletter(e.target.checked); setEmailErr(''); }}
                   />
                   <span>
-                    Am citit și accept <strong>Politica de confidențialitate</strong> și sunt de acord cu prelucrarea datelor cu caracter personal în scopul furnizării documentului solicitat, conform GDPR (Regulamentul UE 2016/679). *
+                    Opțional: vreau să primesc pe email noutăți despre modele și modificări legislative. Mă pot dezabona oricând.
+                    Detalii în <a href="/politica-confidentialitate" onClick={e => { e.preventDefault(); onClose(); onNav('politica-confidentialitate'); window.scrollTo({ top: 0, behavior: 'instant' }); }}>Politica de confidențialitate</a>.
                   </span>
                 </label>
+                {newsletter && (
+                  <div className="sp-field">
+                    <label className="sp-label">Adresă de email *</label>
+                    <input
+                      type="email"
+                      placeholder="exemplu@email.ro"
+                      value={email}
+                      onChange={e => { setEmail(e.target.value); setEmailErr(''); }}
+                      className={'sp-input' + (emailErr ? ' is-invalid' : '')}
+                    />
+                    {emailErr && <span className="sp-err-inline">{emailErr}</span>}
+                  </div>
+                )}
                 <button
                   type="submit"
                   className="btn btn-primary sp-btn-block"

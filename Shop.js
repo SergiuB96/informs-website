@@ -107,26 +107,6 @@ const SHOP_PRODUCTS = [{
     pages: 0
   },
   file: 'assets/produse/gratuite/pdf/Proces-verbal_receptie%20terminare%20lucrari_v1.0.pdf'
-}, {
-  id: 'test-plata',
-  sku: 'INF-TEST-10',
-  title: 'Test plată INFORMS',
-  shortDesc: 'Produs de test pentru verificarea plății cu cardul.',
-  longDesc: 'Produs intern, folosit pentru a verifica plata NETOPIA, livrarea documentului și emiterea facturii.',
-  category: 'achizitii',
-  mainCategories: ['companii'],
-  format: 'word',
-  cv: 'cv-word',
-  price: 10,
-  hidden: true,
-  featured: false,
-  isNew: false,
-  tags: ['Test'],
-  includes: ['Document de test (DOCX)'],
-  stats: {
-    files: 1,
-    pages: 0
-  }
 }];
 const SHOW_HIDDEN = new URLSearchParams(window.location.search).get('test') === '1';
 
@@ -787,7 +767,7 @@ function ProductModal({
   const isFree = product.price === 0;
   const hasFreeFile = isFree && product.file;
   const [email, setEmail] = useState('');
-  const [gdpr, setGdpr] = useState(false);
+  const [newsletter, setNewsletter] = useState(false);
   const [emailErr, setEmailErr] = useState('');
   const [downloading, setDownloading] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
@@ -806,25 +786,29 @@ function ProductModal({
   const validEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
   const handleDownload = async e => {
     e.preventDefault();
-    if (!validEmail(email)) {
+    if (newsletter && !validEmail(email)) {
       setEmailErr('Introdu o adresă de email validă.');
       return;
     }
-    if (!gdpr) return;
     setEmailErr('');
     setDownloading(true);
-    try {
-      await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: email.trim(),
-          product: product.title
-        })
-      });
-    } catch (_) {}
+    /* Documentul gratuit nu cere date personale. Emailul ajunge în lista
+       de noutăți doar cu bifa separată, nebifată implicit (GDPR art. 7). */
+    if (newsletter) {
+      try {
+        await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: email.trim(),
+            product: product.title,
+            consent: true
+          })
+        });
+      } catch (_) {}
+    }
     const a = document.createElement('a');
     a.href = product.file;
     a.download = '';
@@ -848,7 +832,7 @@ function ProductModal({
     const body = encodeURIComponent('Bună ziua,\n\nDoresc să primesc:\n' + product.title + '\n\nCu stimă,');
     window.open('mailto:' + COMPANY.email + '?subject=' + subject + '&body=' + body);
   };
-  const canDownload = validEmail(email) && gdpr;
+  const canDownload = !newsletter || validEmail(email);
   return /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-overlay",
     onClick: e => {
@@ -912,7 +896,27 @@ function ProductModal({
     className: "sp-form"
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-lbl"
-  }, "Descarc\u0103 gratuit"), /*#__PURE__*/React.createElement("div", {
+  }, "Descarc\u0103 gratuit"), /*#__PURE__*/React.createElement("label", {
+    className: "sp-check"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    checked: newsletter,
+    onChange: e => {
+      setNewsletter(e.target.checked);
+      setEmailErr('');
+    }
+  }), /*#__PURE__*/React.createElement("span", null, "Op\u021Bional: vreau s\u0103 primesc pe email nout\u0103\u021Bi despre modele \u0219i modific\u0103ri legislative. M\u0103 pot dezabona oric\xE2nd. Detalii \xEEn ", /*#__PURE__*/React.createElement("a", {
+    href: "/politica-confidentialitate",
+    onClick: e => {
+      e.preventDefault();
+      onClose();
+      onNav('politica-confidentialitate');
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant'
+      });
+    }
+  }, "Politica de confiden\u021Bialitate"), ".")), newsletter && /*#__PURE__*/React.createElement("div", {
     className: "sp-field"
   }, /*#__PURE__*/React.createElement("label", {
     className: "sp-label"
@@ -927,13 +931,7 @@ function ProductModal({
     className: 'sp-input' + (emailErr ? ' is-invalid' : '')
   }), emailErr && /*#__PURE__*/React.createElement("span", {
     className: "sp-err-inline"
-  }, emailErr)), /*#__PURE__*/React.createElement("label", {
-    className: "sp-check"
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    checked: gdpr,
-    onChange: e => setGdpr(e.target.checked)
-  }), /*#__PURE__*/React.createElement("span", null, "Am citit \u0219i accept ", /*#__PURE__*/React.createElement("strong", null, "Politica de confiden\u021Bialitate"), " \u0219i sunt de acord cu prelucrarea datelor cu caracter personal \xEEn scopul furniz\u0103rii documentului solicitat, conform GDPR (Regulamentul UE 2016/679). *")), /*#__PURE__*/React.createElement("button", {
+  }, emailErr)), /*#__PURE__*/React.createElement("button", {
     type: "submit",
     className: "btn btn-primary sp-btn-block",
     disabled: !canDownload || downloading

@@ -410,17 +410,6 @@ function Footer() {
     width: "398",
     height: "102",
     loading: "lazy"
-  })), /*#__PURE__*/React.createElement("a", {
-    className: "ftr__badge",
-    href: "https://ec.europa.eu/consumers/odr",
-    target: "_blank",
-    rel: "noopener noreferrer"
-  }, /*#__PURE__*/React.createElement("img", {
-    src: "uploads/anpc-sol-h102.webp",
-    alt: "ANPC SOL",
-    width: "366",
-    height: "102",
-    loading: "lazy"
   })))), /*#__PURE__*/React.createElement("div", {
     className: "ftr__legal"
   }, /*#__PURE__*/React.createElement("p", {

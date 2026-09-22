@@ -19,7 +19,6 @@ const S = LEGAL_STYLES;
 const UPDATED = '15 septembrie 2026';
 const ANPC_SAL = 'https://anpc.ro/ce-este-sal/';
 const ANPC_REC = 'https://anpc.ro/';
-const SOL_URL = 'https://ec.europa.eu/consumers/odr';
 
 /* ─── Cadru comun ───────────────────────────────── */
 function LegalShell({
@@ -233,9 +232,11 @@ function TermsPage({
     style: S.p
   }, "Prin achizi\u021Bie dob\xE2ndi\u021Bi un drept de utilizare neexclusiv, netransferabil \u0219i nelimitat \xEEn timp asupra documentelor cump\u0103rate, \xEEn activitatea proprie a persoanei sau a entit\u0103\u021Bii care apare pe factur\u0103."), /*#__PURE__*/React.createElement("p", {
     style: S.p
+  }, "Activitatea proprie include completarea \u0219i adaptarea documentelor, publicarea lor \xEEn SEAP/SICAP sau pe alte platforme de achizi\u021Bii, ca parte a unei proceduri a cump\u0103r\u0103torului, \u0219i transmiterea lor c\u0103tre autorit\u0103\u021Bi contractante, ofertan\u021Bi, operatori economici sau organe de control, \xEEn leg\u0103tur\u0103 cu o procedur\u0103, o ofert\u0103 sau un contract al cump\u0103r\u0103torului."), /*#__PURE__*/React.createElement("p", {
+    style: S.p
   }, "Nu sunt permise, f\u0103r\u0103 acordul scris prealabil al ", COMPANY.name, ":"), /*#__PURE__*/React.createElement("ul", {
     style: S.ul
-  }, /*#__PURE__*/React.createElement("li", null, "Rev\xE2nzarea, \xEEnchirierea sau sublicen\u021Bierea documentelor, \xEEn forma original\u0103 sau modificat\u0103"), /*#__PURE__*/React.createElement("li", null, "Publicarea sau distribuirea lor public\u0103, inclusiv pe alte platforme sau \xEEn grupuri deschise"), /*#__PURE__*/React.createElement("li", null, "Utilizarea lor pentru a crea produse concurente destinate comercializ\u0103rii"))), /*#__PURE__*/React.createElement(Sec, {
+  }, /*#__PURE__*/React.createElement("li", null, "Rev\xE2nzarea, \xEEnchirierea sau sublicen\u021Bierea documentelor, \xEEn forma original\u0103 sau modificat\u0103"), /*#__PURE__*/React.createElement("li", null, "Distribuirea modelelor ca atare, necompletate, \xEEn afara unei proceduri, oferte sau unui contract propriu, inclusiv pe alte platforme sau \xEEn grupuri deschise"), /*#__PURE__*/React.createElement("li", null, "Utilizarea lor pentru a crea produse concurente destinate comercializ\u0103rii"))), /*#__PURE__*/React.createElement(Sec, {
     n: "11",
     title: "Obliga\u021Biile utilizatorului"
   }, /*#__PURE__*/React.createElement("ul", {
@@ -282,9 +283,7 @@ function TermsPage({
     href: ANPC_REC
   }, "Autorit\u0103\u021Bii Na\u021Bionale pentru Protec\u021Bia Consumatorilor (ANPC)")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement(Ext, {
     href: ANPC_SAL
-  }, "Structurii de Solu\u021Bionare Alternativ\u0103 a Litigiilor (SAL) din cadrul ANPC")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement(Ext, {
-    href: SOL_URL
-  }, "Platformei europene de Solu\u021Bionare Online a Litigiilor (SOL)"))), /*#__PURE__*/React.createElement("p", {
+  }, "Structurii de Solu\u021Bionare Alternativ\u0103 a Litigiilor (SAL) din cadrul ANPC"))), /*#__PURE__*/React.createElement("p", {
     style: S.p
   }, "Prezentele condi\u021Bii sunt guvernate de legisla\u021Bia rom\xE2n\u0103. Litigiile nesolu\u021Bionate pe cale amiabil\u0103 sunt de competen\u021Ba instan\u021Belor judec\u0103tore\u0219ti din Rom\xE2nia.")), /*#__PURE__*/React.createElement(Sec, {
     n: "16",
@@ -316,7 +315,7 @@ function PrivacyPage({
     style: S.p
   }, "Colect\u0103m date cu caracter personal atunci c\xE2nd ni le furniza\u021Bi voluntar:"), /*#__PURE__*/React.createElement("ul", {
     style: S.ul
-  }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Prin formularul de contact"), " - nume \u0219i prenume, adres\u0103 de e-mail, telefon (op\u021Bional), subiect \u0219i mesaj"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "La desc\u0103rcarea materialelor gratuite"), " - adres\u0103 de e-mail"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "La plasarea unei comenzi"), " - nume \u0219i prenume sau denumirea firmei, adres\u0103 de e-mail, telefon, adres\u0103 de facturare \u0219i, pentru persoane juridice, CUI")), /*#__PURE__*/React.createElement("p", {
+  }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Prin formularul de contact"), " - nume \u0219i prenume, adres\u0103 de e-mail, telefon (op\u021Bional), subiect \u0219i mesaj"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "La desc\u0103rcarea materialelor gratuite"), " - nicio dat\u0103 obligatorie; adresa de e-mail doar dac\u0103 bifa\u021Bi, separat, abonarea la nout\u0103\u021Bi"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "La plasarea unei comenzi"), " - nume \u0219i prenume sau denumirea firmei, adres\u0103 de e-mail, telefon, adres\u0103 de facturare \u0219i, pentru persoane juridice, CUI")), /*#__PURE__*/React.createElement("p", {
     style: S.p
   }, "Serverul nostru web \xEEnregistreaz\u0103 automat \u0219i date tehnice (adres\u0103 IP, tip de browser, pagina accesat\u0103, data \u0219i ora accesului), \xEEn scopuri de securitate \u0219i de analiz\u0103 statistic\u0103 agregat\u0103."), /*#__PURE__*/React.createElement("p", {
     style: S.p
@@ -538,7 +537,7 @@ function CancellationPage({
     title: "Anularea dup\u0103 livrare"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Documentele digitale livrate nu pot fi returnate \xEEn sens material. Dac\u0103 ai acceptat expres livrarea imediat\u0103 \u0219i ai desc\u0103rcat documentul, dreptul de retragere nu mai poate fi exercitat, conform excep\u021Biei legale explicate \xEEn ", /*#__PURE__*/React.createElement(L, {
+  }, "Documentele digitale livrate nu pot fi returnate \xEEn sens material. Dac\u0103 ai acceptat expres livrarea imediat\u0103 \u0219i ai \xEEnceput desc\u0103rcarea documentului, dreptul de retragere nu mai poate fi exercitat, conform excep\u021Biei legale explicate \xEEn ", /*#__PURE__*/React.createElement(L, {
     to: "dreptul-de-retragere",
     onNav: onNav
   }, "Dreptul de retragere"), "."), /*#__PURE__*/React.createElement("p", {
@@ -555,7 +554,7 @@ function CancellationPage({
   }, "Ne scrii la ", /*#__PURE__*/React.createElement("a", {
     href: 'mailto:' + COMPANY.email,
     style: S.link
-  }, COMPANY.email), " \xEEn termen de 14 zile de la livrare, cu num\u0103rul comenzii \u0219i descrierea problemei. \xCEncerc\u0103m \xEEnt\xE2i remedierea, prin retrimiterea sau corectarea documentului. Dac\u0103 remedierea nu este posibil\u0103, ramburs\u0103m integral pre\u021Bul pl\u0103tit.")), /*#__PURE__*/React.createElement(Sec, {
+  }, COMPANY.email), " cu num\u0103rul comenzii \u0219i descrierea problemei. Dac\u0103 e\u0219ti consumator, r\u0103spundem pentru lipsa de conformitate care se manifest\u0103 \xEEn termen de doi ani de la livrare, conform OUG nr. 141/2021. \xCEncerc\u0103m \xEEnt\xE2i aducerea \xEEn conformitate, prin retrimiterea sau corectarea documentului. Dac\u0103 aceasta nu este posibil\u0103 sau nu o facem \xEEntr-un termen rezonabil, po\u021Bi alege o reducere propor\u021Bional\u0103 a pre\u021Bului sau rambursarea integral\u0103.")), /*#__PURE__*/React.createElement(Sec, {
     n: "4",
     title: "Modalitatea \u0219i termenul de rambursare"
   }, /*#__PURE__*/React.createElement("p", {
@@ -574,11 +573,9 @@ function CancellationPage({
     style: S.p
   }, "Dac\u0103 nu e\u0219ti mul\u021Bumit de solu\u021Bie, te po\u021Bi adresa ", /*#__PURE__*/React.createElement(Ext, {
     href: ANPC_REC
-  }, "ANPC"), ", structurii de ", /*#__PURE__*/React.createElement(Ext, {
+  }, "ANPC"), " sau structurii de ", /*#__PURE__*/React.createElement(Ext, {
     href: ANPC_SAL
-  }, "Solu\u021Bionare Alternativ\u0103 a Litigiilor"), " sau platformei europene ", /*#__PURE__*/React.createElement(Ext, {
-    href: SOL_URL
-  }, "SOL"), ".")));
+  }, "Solu\u021Bionare Alternativ\u0103 a Litigiilor"), ".")));
 }
 
 /* ══════════════════════════════════════
@@ -620,7 +617,9 @@ function WithdrawalForm() {
           email: form.email,
           telefon: form.telefon,
           subiect: 'Cerere de retragere - comanda ' + form.comanda,
-          mesaj
+          mesaj,
+          tip: 'retragere',
+          comanda: form.comanda
         })
       });
       const json = await res.json();
@@ -778,14 +777,19 @@ function WithdrawalPage({
     style: S.p
   }, "De aceea, la finalizarea comenzii \xEE\u021Bi cerem o ", /*#__PURE__*/React.createElement("strong", null, "bif\u0103 separat\u0103"), " prin care confirmi c\u0103 e\u0219ti de acord cu livrarea imediat\u0103 a documentului \u0219i c\u0103 \xEEn\u021Belegi c\u0103, odat\u0103 \xEEnceput\u0103 desc\u0103rcarea, nu te mai po\u021Bi retrage din contract."), /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, /*#__PURE__*/React.createElement("strong", null, "Dac\u0103 nu bifezi acest acord, dreptul de retragere de ", COMMERCE.withdrawalDays, " zile r\u0103m\xE2ne valabil integral"), ", iar livrarea are loc dup\u0103 expirarea termenului sau la solicitarea ta expres\u0103.")), /*#__PURE__*/React.createElement(Sec, {
+  }, "F\u0103r\u0103 acest acord comanda online nu poate fi finalizat\u0103, pentru c\u0103 documentul se livreaz\u0103 imediat dup\u0103 plat\u0103. Dac\u0103 vrei s\u0103 p\u0103strezi dreptul de retragere, scrie-ne la ", /*#__PURE__*/React.createElement("a", {
+    href: 'mailto:' + COMPANY.email,
+    style: S.link
+  }, COMPANY.email), " \xEEnainte de a comanda: \xEE\u021Bi trimitem documentul dup\u0103 expirarea celor ", COMMERCE.withdrawalDays, " zile."), /*#__PURE__*/React.createElement("p", {
+    style: S.p
+  }, "Chiar \u0219i cu acordul dat, dreptul de retragere se pierde abia \xEEn momentul \xEEn care ", /*#__PURE__*/React.createElement("strong", null, "\xEEncepi desc\u0103rcarea"), " documentului. P\xE2n\u0103 atunci te po\u021Bi retrage \xEEn continuare.")), /*#__PURE__*/React.createElement(Sec, {
     n: "3",
     title: "Situa\u021Bii \xEEn care te po\u021Bi retrage oricum"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
   }, "Excep\u021Bia de mai sus nu se aplic\u0103 \u0219i te po\u021Bi retrage dac\u0103:"), /*#__PURE__*/React.createElement("ul", {
     style: S.ul
-  }, /*#__PURE__*/React.createElement("li", null, "Nu ai bifat acordul pentru livrarea imediat\u0103"), /*#__PURE__*/React.createElement("li", null, "Documentul nu \u021Bi-a fost \xEEnc\u0103 livrat"), /*#__PURE__*/React.createElement("li", null, "Ai primit un produs neconform sau diferit de descriere, caz tratat \xEEn ", /*#__PURE__*/React.createElement(L, {
+  }, /*#__PURE__*/React.createElement("li", null, "Nu ai bifat acordul pentru livrarea imediat\u0103"), /*#__PURE__*/React.createElement("li", null, "Nu ai \xEEnceput \xEEnc\u0103 desc\u0103rcarea documentului"), /*#__PURE__*/React.createElement("li", null, "Ai primit un produs neconform sau diferit de descriere, caz tratat \xEEn ", /*#__PURE__*/React.createElement(L, {
     to: "politica-anulare",
     onNav: onNav
   }, "Politica de anulare \u0219i retur")))), /*#__PURE__*/React.createElement(Sec, {

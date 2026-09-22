@@ -3,7 +3,13 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { email, product } = req.body || {};
+  const { email, product, consent } = req.body || {};
+
+  /* Abonarea la noutăți cere consimțământ explicit, dat printr-o bifă
+     separată de descărcare. Fără el nu ajunge nimic în Brevo. */
+  if (consent !== true) {
+    return res.status(400).json({ error: 'Lipsește acordul pentru noutăți' });
+  }
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Email invalid' });

@@ -1,4 +1,4 @@
-import { get } from '@vercel/blob';
+import { get, put } from '@vercel/blob';
 import { verifyDownloadToken } from './_lib/netopia.js';
 import { getProduct } from './_lib/products.js';
 
@@ -11,6 +11,24 @@ import { getProduct } from './_lib/products.js';
  *
  * Fără bază de date nu putem limita numărul de descărcări sau revoca un
  * token înainte de expirare - de aceea durata de viață este scurtă. */
+
+/* Începerea descărcării este momentul în care consumatorul pierde
+   dreptul de retragere (art. 16 lit. m din OUG 34/2014), deci trebuie
+   să-l putem dovedi. Marcajul stă lângă cel de livrare din IPN. Dacă
+   scrierea eșuează, descărcarea merge înainte: clientul a plătit. */
+async function recordDownload(orderID, sku) {
+  const at = new Date().toISOString();
+  try {
+    await put('orders/' + orderID + '.downloads/' + at.replace(/[:.]/g, '-') + '.json',
+      JSON.stringify({ orderID, sku, downloadStartedAt: at }), {
+        access: 'private',
+        contentType: 'application/json',
+        addRandomSuffix: false,
+      });
+  } catch (err) {
+    console.error('download record failed', { orderID, sku, at, message: err.message });
+  }
+}
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store');
@@ -32,6 +50,8 @@ export default async function handler(req, res) {
     const result = await get(product.blobPath, { access: 'private', useCache: false });
     if (!result || result.statusCode !== 200) throw new Error('Blob not found: ' + product.blobPath);
     const blob = result.blob;
+
+    await recordDownload(claims.orderID, claims.sku);
 
     res.setHeader('Content-Type', blob.contentType || 'application/octet-stream');
     res.setHeader('Content-Disposition', 'attachment; filename="' + product.fileName + '"');

@@ -31,15 +31,8 @@ const PRODUCTS = {
     blobPath: 'produse/pachet-documentatie-servicii.zip',
     fileName: 'INFORMS - Pachet documentatie atribuire servicii.zip',
   },
-  /* Produs de test pentru fluxul de plată, ascuns în magazin (vezi
-     `hidden` în Shop.jsx). De scos după ce testul NETOPIA + Oblio trece. */
-  'INF-TEST-10': {
-    idx: 'd',
-    title: 'Test plată INFORMS',
-    price: 10,
-    blobPath: 'produse/studiu oportunitate Tarnaveni_old.docx',
-    fileName: 'INFORMS - Test plata.docx',
-  },
+  /* Pentru un nou test de plată: un SKU ascuns (`hidden` în Shop.jsx),
+     cu un fișier neutru în Blob, niciodată un document de client. */
 };
 
 /* Indexul scurt folosit în orderID, ca să încapă în cele 64 de caractere. */

@@ -18,7 +18,6 @@ const UPDATED = '15 septembrie 2026';
 
 const ANPC_SAL = 'https://anpc.ro/ce-este-sal/';
 const ANPC_REC = 'https://anpc.ro/';
-const SOL_URL  = 'https://ec.europa.eu/consumers/odr';
 
 /* ─── Cadru comun ───────────────────────────────── */
 function LegalShell({ title, subtitle, onNav, children }) {
@@ -200,10 +199,16 @@ function TermsPage({ onNav }) {
           Prin achiziție dobândiți un drept de utilizare neexclusiv, netransferabil și nelimitat în timp asupra documentelor cumpărate,
           în activitatea proprie a persoanei sau a entității care apare pe factură.
         </p>
+        <p style={S.p}>
+          Activitatea proprie include completarea și adaptarea documentelor, publicarea lor în SEAP/SICAP sau pe alte platforme de
+          achiziții, ca parte a unei proceduri a cumpărătorului, și transmiterea lor către autorități contractante, ofertanți, operatori
+          economici sau organe de control, în legătură cu o procedură, o ofertă sau un contract al cumpărătorului.
+        </p>
         <p style={S.p}>Nu sunt permise, fără acordul scris prealabil al {COMPANY.name}:</p>
         <ul style={S.ul}>
           <li>Revânzarea, închirierea sau sublicențierea documentelor, în forma originală sau modificată</li>
-          <li>Publicarea sau distribuirea lor publică, inclusiv pe alte platforme sau în grupuri deschise</li>
+          <li>Distribuirea modelelor ca atare, necompletate, în afara unei proceduri, oferte sau unui contract propriu, inclusiv pe alte
+            platforme sau în grupuri deschise</li>
           <li>Utilizarea lor pentru a crea produse concurente destinate comercializării</li>
         </ul>
       </Sec>
@@ -256,7 +261,6 @@ function TermsPage({ onNav }) {
         <ul style={S.ul}>
           <li><Ext href={ANPC_REC}>Autorității Naționale pentru Protecția Consumatorilor (ANPC)</Ext></li>
           <li><Ext href={ANPC_SAL}>Structurii de Soluționare Alternativă a Litigiilor (SAL) din cadrul ANPC</Ext></li>
-          <li><Ext href={SOL_URL}>Platformei europene de Soluționare Online a Litigiilor (SOL)</Ext></li>
         </ul>
         <p style={S.p}>
           Prezentele condiții sunt guvernate de legislația română. Litigiile nesoluționate pe cale amiabilă sunt de competența instanțelor
@@ -299,7 +303,8 @@ function PrivacyPage({ onNav }) {
         <p style={S.p}>Colectăm date cu caracter personal atunci când ni le furnizați voluntar:</p>
         <ul style={S.ul}>
           <li><strong>Prin formularul de contact</strong> - nume și prenume, adresă de e-mail, telefon (opțional), subiect și mesaj</li>
-          <li><strong>La descărcarea materialelor gratuite</strong> - adresă de e-mail</li>
+          <li><strong>La descărcarea materialelor gratuite</strong> - nicio dată obligatorie; adresa de e-mail doar dacă bifați, separat,
+            abonarea la noutăți</li>
           <li><strong>La plasarea unei comenzi</strong> - nume și prenume sau denumirea firmei, adresă de e-mail, telefon, adresă de facturare
             și, pentru persoane juridice, CUI</li>
         </ul>
@@ -589,8 +594,8 @@ function CancellationPage({ onNav }) {
 
       <Sec n="2" title="Anularea după livrare">
         <p style={S.p}>
-          Documentele digitale livrate nu pot fi returnate în sens material. Dacă ai acceptat expres livrarea imediată și ai descărcat
-          documentul, dreptul de retragere nu mai poate fi exercitat, conform excepției legale explicate
+          Documentele digitale livrate nu pot fi returnate în sens material. Dacă ai acceptat expres livrarea imediată și ai început
+          descărcarea documentului, dreptul de retragere nu mai poate fi exercitat, conform excepției legale explicate
           în <L to="dreptul-de-retragere" onNav={onNav}>Dreptul de retragere</L>.
         </p>
         <p style={S.p}>
@@ -606,9 +611,10 @@ function CancellationPage({ onNav }) {
           <li>Conținutul livrat nu corespunde descrierii publicate pe pagina produsului</li>
         </ul>
         <p style={S.p}>
-          Ne scrii la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a> în termen de 14 zile de la livrare, cu numărul
-          comenzii și descrierea problemei. Încercăm întâi remedierea, prin retrimiterea sau corectarea documentului. Dacă remedierea nu este
-          posibilă, rambursăm integral prețul plătit.
+          Ne scrii la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a> cu numărul comenzii și descrierea problemei.
+          Dacă ești consumator, răspundem pentru lipsa de conformitate care se manifestă în termen de doi ani de la livrare, conform
+          OUG nr. 141/2021. Încercăm întâi aducerea în conformitate, prin retrimiterea sau corectarea documentului. Dacă aceasta nu este
+          posibilă sau nu o facem într-un termen rezonabil, poți alege o reducere proporțională a prețului sau rambursarea integrală.
         </p>
       </Sec>
 
@@ -633,9 +639,8 @@ function CancellationPage({ onNav }) {
 
       <Sec n="6" title="Reclamații">
         <p style={S.p}>
-          Dacă nu ești mulțumit de soluție, te poți adresa <Ext href={ANPC_REC}>ANPC</Ext>, structurii
-          de <Ext href={ANPC_SAL}>Soluționare Alternativă a Litigiilor</Ext> sau platformei
-          europene <Ext href={SOL_URL}>SOL</Ext>.
+          Dacă nu ești mulțumit de soluție, te poți adresa <Ext href={ANPC_REC}>ANPC</Ext> sau structurii
+          de <Ext href={ANPC_SAL}>Soluționare Alternativă a Litigiilor</Ext>.
         </p>
       </Sec>
     </LegalShell>
@@ -680,6 +685,8 @@ function WithdrawalForm() {
           telefon: form.telefon,
           subiect: 'Cerere de retragere - comanda ' + form.comanda,
           mesaj,
+          tip: 'retragere',
+          comanda: form.comanda,
         }),
       });
       const json = await res.json();
@@ -780,8 +787,13 @@ function WithdrawalPage({ onNav }) {
           imediată a documentului și că înțelegi că, odată începută descărcarea, nu te mai poți retrage din contract.
         </p>
         <p style={S.p}>
-          <strong>Dacă nu bifezi acest acord, dreptul de retragere de {COMMERCE.withdrawalDays} zile rămâne valabil integral</strong>,
-          iar livrarea are loc după expirarea termenului sau la solicitarea ta expresă.
+          Fără acest acord comanda online nu poate fi finalizată, pentru că documentul se livrează imediat după plată. Dacă vrei să
+          păstrezi dreptul de retragere, scrie-ne la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a> înainte de
+          a comanda: îți trimitem documentul după expirarea celor {COMMERCE.withdrawalDays} zile.
+        </p>
+        <p style={S.p}>
+          Chiar și cu acordul dat, dreptul de retragere se pierde abia în momentul în care <strong>începi descărcarea</strong> documentului.
+          Până atunci te poți retrage în continuare.
         </p>
       </Sec>
 
@@ -789,7 +801,7 @@ function WithdrawalPage({ onNav }) {
         <p style={S.p}>Excepția de mai sus nu se aplică și te poți retrage dacă:</p>
         <ul style={S.ul}>
           <li>Nu ai bifat acordul pentru livrarea imediată</li>
-          <li>Documentul nu ți-a fost încă livrat</li>
+          <li>Nu ai început încă descărcarea documentului</li>
           <li>Ai primit un produs neconform sau diferit de descriere, caz tratat
             în <L to="politica-anulare" onNav={onNav}>Politica de anulare și retur</L></li>
         </ul>
