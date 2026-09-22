@@ -412,6 +412,10 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  /* Fara asta, fundalul se aseaza in interiorul chenarului de 1px si, cu
+     no-repeat, sub chenar ramane culoarea de baza a cardului: o linie
+     deschisa sus si jos, vizibila mai ales pe telefon. */
+  background-origin: border-box;
   transition: border-color .25s var(--ease), background-image .25s var(--ease), transform .25s var(--ease);
 }
 
