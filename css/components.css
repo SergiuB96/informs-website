@@ -403,6 +403,25 @@
   transition: border-color .25s var(--ease), background-color .25s var(--ease), transform .25s var(--ease);
 }
 
+/* Cardurile etapelor (acasa) au fotografie de fundal, colorata in paleta
+   site-ului. Stratul navy de deasupra se ingroasa spre partea de jos,
+   unde stau textul si linkul, ca sa ramana la fel de lizibile ca pe navy
+   plat. La hover stratul se subtiaza putin si imaginea iese mai tare. */
+.cap--art {
+  --cap-veil: linear-gradient(180deg, rgba(12, 0, 50, .62) 0%, rgba(12, 0, 50, .88) 45%, rgba(12, 0, 50, .94) 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: border-color .25s var(--ease), background-image .25s var(--ease), transform .25s var(--ease);
+}
+
+.cap--art:hover { --cap-veil: linear-gradient(180deg, rgba(12, 0, 50, .52) 0%, rgba(12, 0, 50, .84) 45%, rgba(12, 0, 50, .92) 100%); }
+
+.cap--art-planificare { background-image: var(--cap-veil), url("../assets/renders/card-planificare.webp"); }
+.cap--art-atribuire   { background-image: var(--cap-veil), url("../assets/renders/card-atribuire.webp"); }
+.cap--art-ofertare    { background-image: var(--cap-veil), url("../assets/renders/card-ofertare.webp"); }
+.cap--art-executie    { background-image: var(--cap-veil), url("../assets/renders/card-executie.webp"); }
+
 /* Butoanele de sub un set de carduri (Servicii: instrumente, digitalizare). */
 .caps__foot { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; }
 
