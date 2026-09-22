@@ -1168,6 +1168,7 @@ function ShopPage({
    Pagina e strict informativă: livrarea o face webhook-ul. */
 const ORDER_POLL_MS = 4000;
 const ORDER_POLL_MAX = 23; // ~90 de secunde
+const CANCEL_POLL_MAX = 4; // ~15 secunde după cancelUrl
 
 const ORDER_STATES = {
   checking: {
@@ -1208,7 +1209,11 @@ function OrderStatusPage({
 }) {
   const params = new URLSearchParams(window.location.search);
   const orderID = params.get('o') || pendingOrder();
-  const [key, setKey] = useState(params.get('s') || (orderID ? 'checking' : 'pending'));
+  /* v=1: am venit pe cancelUrl, care la NETOPIA înseamnă și „Înapoi la
+     magazin” după o plată reușită. Verificăm scurt comanda păstrată;
+     dacă nu e plătită, rămâne „nefinalizată”. */
+  const verifyCancel = params.get('v') === '1' && !!orderID;
+  const [key, setKey] = useState(verifyCancel ? 'checking' : params.get('s') || (orderID ? 'checking' : 'pending'));
   const go = p => {
     onNav(p);
     window.scrollTo({
@@ -1242,8 +1247,8 @@ function OrderStatusPage({
         }
       } catch {/* rețea: mai încercăm */}
       if (stopped) return;
-      if (tries < ORDER_POLL_MAX) timer = setTimeout(check, ORDER_POLL_MS);else {
-        setKey('pending');
+      if (tries < (verifyCancel ? CANCEL_POLL_MAX : ORDER_POLL_MAX)) timer = setTimeout(check, ORDER_POLL_MS);else {
+        setKey(verifyCancel ? 'fail' : 'pending');
         forgetOrder();
       }
     };

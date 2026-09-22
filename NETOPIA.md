@@ -133,6 +133,12 @@ singurul canal pe care îl poate falsifica un utilizator.
 9. **Butonul „Notifică” din admin nu retrimite IPN-ul original.** Trimite
    `{"action":0,"amount":0,"id":"<ntpID>"}`, fără `orderID`, pe care webhook-ul îl ignoră.
    După o notificare respinsă, testul se reia cu o plată nouă.
+11. **Butonul „Înapoi la magazin” din pagina de succes NETOPIA merge pe `cancelUrl`**, fără
+   `orderId` (verificat în sandbox, 22.09.2026). `redirectUrl` se folosește doar după
+   3-D Secure. De aceea `cancelUrl` nu înseamnă „plată eșuată”: magazinul ține orderID-ul
+   în `sessionStorage`, iar „Stare comandă” îl verifică prin
+   `/api/netopia-return?format=json`. Răspunsul „ok” vine întâi din marcajul de livrare
+   scris de IPN, apoi din `/operation/status`.
 10. **`X-Frame-Options: SAMEORIGIN`** din `vercel.json` nu deranjează: mergem pe redirect
    top-level către pagina găzduită NETOPIA, nu pe iframe.
 

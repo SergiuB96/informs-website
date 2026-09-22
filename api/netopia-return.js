@@ -63,10 +63,18 @@ export default async function handler(req, res) {
     ''
   ).slice(0, 64);
 
+  /* Atenție: NETOPIA trimite pe cancelUrl și butonul „Înapoi la magazin”
+     din pagina de succes, fără orderId. Deci cancelUrl NU înseamnă că
+     plata a eșuat. Fără orderId, pagina verifică ea comanda păstrată în
+     sessionStorage (v=1); cu orderId, verificăm aici. */
   const cancelled = req.query && req.query.c === '1';
-  if (cancelled) console.warn('netopia-return pe cancelUrl', { orderID, query: req.query });
+  if (cancelled && !orderID) {
+    res.writeHead(303, { Location: '/comanda-finalizata?s=fail&v=1' });
+    return res.end();
+  }
 
-  const state = cancelled ? 'fail' : await orderState(orderID);
+  let state = await orderState(orderID);
+  if (cancelled && state === 'pending') state = 'fail';
 
   if (req.query && req.query.format === 'json') {
     return res.status(200).json({ state });
