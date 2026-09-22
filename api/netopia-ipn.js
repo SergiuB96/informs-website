@@ -85,6 +85,13 @@ async function notifyStaff(subject, text) {
 async function invoiceOrder({ orderID, parsed, statusOrder, fallbackEmail }) {
   if (!oblioConfigured()) return;
 
+  /* O plată din sandbox nu e o vânzare: fără factură reală din seria MIL
+     și fără trimitere în SPV. Livrarea documentului merge normal. */
+  if (process.env.NETOPIA_LIVE !== '1') {
+    console.log('invoice skipped in sandbox', { orderID });
+    return;
+  }
+
   const billing = statusOrder?.billing || { email: fallbackEmail };
   const extra = statusOrder?.data || {};
 

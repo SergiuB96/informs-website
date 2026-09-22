@@ -232,6 +232,10 @@ cu toate datele necesare pentru emiterea manuală.
 Cât timp lipsesc `OBLIO_EMAIL`, `OBLIO_SECRET` sau `OBLIO_CIF`, modulul este inert:
 plățile și livrarea merg normal, doar factura nu se emite automat.
 
+În sandbox (`NETOPIA_LIVE` diferit de `1`) factura nu se emite niciodată, chiar dacă
+variabilele Oblio sunt setate: o plată de test nu consumă un număr din seria `MIL`.
+Prima factură automată apare la prima vânzare reală, după trecerea pe live.
+
 ### e-Factura / SPV
 
 Cel mai simplu este să activezi „Trimite automat e-Factura în SPV" în preferințele contului
