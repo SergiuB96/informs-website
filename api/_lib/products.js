@@ -10,28 +10,19 @@
  */
 
 const PRODUCTS = {
-  'INF-CS-PROD': {
-    idx: 'a',
-    title: 'Caiet de sarcini - achiziție de produse',
-    price: 249,
-    blobPath: 'produse/caiet-sarcini-produse.docx',
-    fileName: 'INFORMS - Caiet de sarcini - achizitie produse.docx',
-  },
-  'INF-STR-CTR': {
-    idx: 'b',
-    title: 'Strategia de contractare - model complet',
+  /* Gol: cele trei produse plătite de până acum erau doar de test și nu
+     au avut niciodată fișier în Blob. Un produs real se adaugă aici și
+     în SHOP_PRODUCTS (Shop.jsx), cu același sku și același preț:
+
+  'INF-XXX': {
+    idx: 'a',                        // o literă, unică; intră în orderID
+    title: 'Denumirea produsului',
     price: 199,
-    blobPath: 'produse/strategie-contractare.docx',
-    fileName: 'INFORMS - Strategia de contractare.docx',
+    blobPath: 'produse/fisier.docx',
+    fileName: 'INFORMS - Denumire.docx',
   },
-  'INF-PCK-SERV': {
-    idx: 'c',
-    title: 'Pachet documentație de atribuire - servicii',
-    price: 499,
-    blobPath: 'produse/pachet-documentatie-servicii.zip',
-    fileName: 'INFORMS - Pachet documentatie atribuire servicii.zip',
-  },
-  /* Pentru un nou test de plată: un SKU ascuns (`hidden` în Shop.jsx),
+
+     Pentru un nou test de plată: un SKU ascuns (`hidden` în Shop.jsx),
      cu un fișier neutru în Blob, niciodată un document de client. */
 };
 

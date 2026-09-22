@@ -45,8 +45,9 @@ Prețurile trăiesc în două locuri și trebuie ținute sincronizate:
 Serverul nu are încredere în prețul trimis de browser: îl citește după `sku` din
 `products.js`. Dacă cele două diferă, clientul plătește prețul din `products.js`.
 
-Cele trei produse cu preț adăugate acum sunt un punct de plecare. Înlocuiește titlurile,
-descrierile și prețurile cu cele reale.
+Deocamdată catalogul plătit e gol: cele trei produse de la început erau doar de test
+și au fost scoase (22.09.2026). Un produs real se adaugă în ambele fișiere, cu același
+`sku` și același preț.
 
 ### 3. Fișierele livrate
 
@@ -55,9 +56,7 @@ descărcate de cine ghicește URL-ul. Se încarcă în Vercel Blob privat, la c�
 `blobPath`:
 
 ```
-produse/caiet-sarcini-produse.docx
-produse/strategie-contractare.docx
-produse/pachet-documentatie-servicii.zip
+produse/<fisier>.docx
 ```
 
 Creează un store Blob în proiectul Vercel; `BLOB_READ_WRITE_TOKEN` se injectează automat.
