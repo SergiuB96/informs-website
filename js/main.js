@@ -138,14 +138,24 @@
   var VISIBLE_MARGIN = 0.9;   // cât din viewport trebuie atins
   var watchers = [];          // { el, hit }
 
+  /* Elementele care intră în ecran în același cadru apar pe rând,
+     nu toate deodată: fiecare cu REVEAL_STEP ms după precedentul. */
+  var REVEAL_STEP = 90;
+  var REVEAL_MAX_DELAY = 450;
+
   function sweep() {
     var limit = window.innerHeight * VISIBLE_MARGIN;
     var remaining = [];
+    var batch = 0;
 
     watchers.forEach(function (w) {
       var top = w.el.getBoundingClientRect().top;
-      if (top < limit) w.hit(w.el);
-      else remaining.push(w);
+      if (top < limit) {
+        w.hit(w.el, Math.min(batch * REVEAL_STEP, REVEAL_MAX_DELAY));
+        if (w.stagger) batch += 1;
+      } else {
+        remaining.push(w);
+      }
     });
 
     watchers = remaining;
@@ -178,8 +188,38 @@
     els.forEach(function (el) {
       watchers.push({
         el: el,
-        hit: function (node) { node.classList.add('is-in'); }
+        stagger: true,
+        hit: function (node, delay) {
+          if (delay) node.style.transitionDelay = delay + 'ms';
+          node.classList.add('is-in');
+          /* După apariție scoatem marcajul: întârzierea și tranziția lentă
+             nu au voie să rămână pe hover-ul cardurilor. */
+          setTimeout(function () {
+            node.style.transitionDelay = '';
+            node.removeAttribute('data-reveal');
+            node.classList.remove('is-in');
+          }, (delay || 0) + 800);
+        }
       });
+    });
+  }
+
+  /* Titlurile, etichetele și textele de introducere din secțiuni primesc
+     efectul automat, fără data-reveal scris în fiecare pagină. Doar cele
+     aflate sub primul ecran: cele deja vizibile ar clipi (apar, dispar,
+     reapar) pentru că scriptul rulează după prima randare. */
+  var AUTO_REVEAL = [
+    'main .sect .kicker', 'main .sect .h2', 'main .sect h2', 'main .sect .lead',
+    'main .band__head', 'main .sect .proc__step', 'main .sect .issue'
+  ].join(',');
+
+  function autoReveal() {
+    if (reduceMotion) return;
+    var fold = window.innerHeight;
+    Array.prototype.slice.call(document.querySelectorAll(AUTO_REVEAL)).forEach(function (el) {
+      if (el.hasAttribute('data-reveal') || el.closest('[data-reveal]')) return;
+      if (el.getBoundingClientRect().top < fold) return;
+      el.setAttribute('data-reveal', '');
     });
   }
 
@@ -687,6 +727,7 @@
     initDrawer();
     initMarquee();
     initCarousel();
+    autoReveal();
     initReveal();
     initCounters();
     initSweep();
