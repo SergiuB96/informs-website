@@ -1003,7 +1003,7 @@ function ShopPage({
     setQuery('');
   };
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "pg-hero"
+    className: "pg-hero pg-hero--shop"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {

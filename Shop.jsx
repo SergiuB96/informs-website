@@ -742,8 +742,8 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
 
   return (
     <>
-      {/* Hero: navy plat, ca paginile statice */}
-      <div className="pg-hero">
+      {/* Hero: navy, cu imaginea de documente pe fundal */}
+      <div className="pg-hero pg-hero--shop">
         <div className="container">
           <div className="tag-label">Produse digitale</div>
           <h1>Documente profesionale pentru sectorul public și privat</h1>

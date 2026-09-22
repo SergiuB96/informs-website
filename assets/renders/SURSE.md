@@ -19,6 +19,7 @@ Decupate la 4:5 și convertite în WebP (800×1000 și 480×600).
 | achizitii.webp | Servicii, Achiziții publice (4:3) | https://unsplash.com/photos/7ia2YXx0SH8 |
 | delegare-servicii.webp | Servicii, Delegarea serviciilor (4:3) | https://unsplash.com/photos/AMC_Xtz59fA |
 | hero-fundal.webp | Acasă, fundalul hero: 16:9 (1920, 1280) și portret mobil 4:5 (hero-fundal-mobil) | https://unsplash.com/photos/Djq59wpZAXM |
+| produse-fundal.webp | Magazin, fundalul antetului (1904 și 1000 px) | furnizată de client, 22.09.2026 |
 
 **Înlocuire:** `/assets/` are cache imutabil de un an (vercel.json), deci
 o imagine schimbată trebuie să primească un nume nou, altfel vizitatorii
