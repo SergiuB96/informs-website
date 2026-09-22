@@ -246,7 +246,9 @@ function TermsPage({
     title: "Proprietate intelectual\u0103"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "\xCEntregul con\u021Binut al website-ului, respectiv texte, grafic\u0103, logo-uri, instrumente, modele \u0219i structuri de documente, este proprietatea exclusiv\u0103 a ", COMPANY.name, " sau este utilizat \xEEn baza unor licen\u021Be valabile, fiind protejat de legisla\u021Bia rom\xE2n\u0103 \u0219i interna\u021Bional\u0103 privind drepturile de autor. Vizualizarea con\u021Binutului \xEEn scop personal este permis\u0103; orice alt\u0103 utilizare necesit\u0103 acord scris.")), /*#__PURE__*/React.createElement(Sec, {
+  }, "\xCEntregul con\u021Binut al website-ului, respectiv texte, grafic\u0103, logo-uri, instrumente, modele \u0219i structuri de documente, este proprietatea exclusiv\u0103 a ", COMPANY.name, " sau este utilizat \xEEn baza unor licen\u021Be valabile, fiind protejat de legisla\u021Bia rom\xE2n\u0103 \u0219i interna\u021Bional\u0103 privind drepturile de autor. Vizualizarea con\u021Binutului \xEEn scop personal este permis\u0103; orice alt\u0103 utilizare necesit\u0103 acord scris."), /*#__PURE__*/React.createElement("p", {
+    style: S.p
+  }, "Excep\u021Bie fac formularele oficiale, cum sunt cele din anexele actelor normative. Textul lor nu apar\u021Bine ", COMPANY.name, ": este preluat din sursele publice \u0219i, conform art. 9 din Legea nr. 8/1996, nu este protejat prin drept de autor. Contribu\u021Bia ", COMPANY.brand, "const\u0103 \xEEn transformarea lor \xEEn formulare PDF completabile (c\xE2mpuri, liste, verific\u0103ri). Pentru con\u021Binutul oficial, textul \xEEn vigoare este cel publicat de autoritatea emitent\u0103, iar utilizatorul verific\u0103 dac\u0103 folose\u0219te versiunea actual\u0103 a formularului.")), /*#__PURE__*/React.createElement(Sec, {
     n: "13",
     title: "Limitarea r\u0103spunderii"
   }, /*#__PURE__*/React.createElement("p", {

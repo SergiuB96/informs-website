@@ -229,6 +229,12 @@ function TermsPage({ onNav }) {
           internațională privind drepturile de autor. Vizualizarea conținutului în scop personal este permisă; orice altă utilizare necesită
           acord scris.
         </p>
+        <p style={S.p}>
+          Excepție fac formularele oficiale, cum sunt cele din anexele actelor normative. Textul lor nu aparține {COMPANY.name}: este preluat
+          din sursele publice și, conform art. 9 din Legea nr. 8/1996, nu este protejat prin drept de autor. Contribuția {COMPANY.brand}
+          constă în transformarea lor în formulare PDF completabile (câmpuri, liste, verificări). Pentru conținutul oficial, textul în vigoare
+          este cel publicat de autoritatea emitentă, iar utilizatorul verifică dacă folosește versiunea actuală a formularului.
+        </p>
       </Sec>
 
       <Sec n="13" title="Limitarea răspunderii">
