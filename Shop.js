@@ -13,9 +13,16 @@ const {
 
 /* ─── Date produse ───────────────────────────────
    format: 'word' | 'excel' | 'pdf' | 'pachet'
-   category: 'achizitii' | 'delegare' | 'management' | 'digitalizare' | 'gratuite'
-   mainCategories: array cu unul sau mai multe dintre:
-       'autoritati' | 'companii' | 'liber-profesionisti' | 'uz-zilnic'
+   category: 'achizitii' | 'delegare' | 'management' | 'monitorizare'
+       Opțional. Nu are filtru în pagină până la ~12 produse („Ce vrei
+       să faci”); acum servește doar linkurile din meniu (/magazin#achizitii).
+   audiences: publicul, pentru filtrul „Pentru cine”:
+       'autoritati' | 'ofertanti' | 'constructii'
+   shelf: 'uzuale' pune produsul pe raftul „Formulare uzuale”, sub
+       catalog, fără public și nepromovat.
+   forWhom: fraza „Pentru cine” din fereastra produsului.
+   version, updated: versiunea fișierului (ca în numele lui, _v1.0)
+       și luna în care a fost publicată.
    cv: clasă CSS pe antetul cardului (cv-word | cv-excel | cv-pdf | cv-atr).
        În css/shop.css toate au același antet navy; formatul se citește
        din eticheta DOC/XLS/PDF, nu din culoare.
@@ -36,8 +43,10 @@ const SHOP_PRODUCTS = [{
   title: 'Contract de înstrăinare-dobândire mijloc de transport',
   shortDesc: 'Model de contract pentru transferul dreptului de proprietate asupra unui mijloc de transport.',
   longDesc: 'Modelul oficial de contract pentru înstrăinarea și dobândirea unui mijloc de transport, preluat din sursa publică și transformat de INFORMS în formular PDF completabil. Înainte de folosire, verifică dacă autoritatea la care depui actele cere versiunea actuală a modelului.',
-  category: 'gratuite',
-  mainCategories: ['uz-zilnic', 'companii', 'liber-profesionisti'],
+  shelf: 'uzuale',
+  forWhom: 'Persoanele și firmele care vând sau cumpără un vehicul.',
+  version: '1.0',
+  updated: 'mai 2026',
   format: 'pdf',
   cv: 'cv-pdf',
   price: 0,
@@ -55,8 +64,10 @@ const SHOP_PRODUCTS = [{
   title: 'Fișă consultații medicale - permis conducere',
   shortDesc: 'Formular pentru înregistrarea consultațiilor medicale în vederea obținerii sau reînnoirii permisului de conducere.',
   longDesc: 'Fișa oficială pentru consultațiile medicale necesare obținerii sau reînnoirii permisului de conducere, preluată din sursa publică și transformată de INFORMS în formular PDF completabil.',
-  category: 'gratuite',
-  mainCategories: ['uz-zilnic'],
+  shelf: 'uzuale',
+  forWhom: 'Persoanele care obțin sau reînnoiesc permisul de conducere.',
+  version: '1.0',
+  updated: 'mai 2026',
   format: 'pdf',
   cv: 'cv-pdf',
   price: 0,
@@ -74,8 +85,10 @@ const SHOP_PRODUCTS = [{
   title: 'Formular F.14 - Comunicare începere execuție lucrări',
   shortDesc: 'Formular oficial pentru comunicarea datei de începere a execuției lucrărilor de construcții către Inspectoratul de Stat în Construcții.',
   longDesc: 'Formularul oficial prin care titularul autorizației de construire comunică Inspectoratului de Stat în Construcții data de începere a execuției lucrărilor, prevăzut de normele de aplicare ale Legii nr. 50/1991. Preluat din sursa publică și transformat de INFORMS în formular PDF completabil.',
-  category: 'gratuite',
-  mainCategories: ['autoritati', 'companii'],
+  audiences: ['constructii'],
+  forWhom: 'Titularul autorizației de construire, persoană, firmă sau autoritate, și cei care pregătesc actele în numele lui.',
+  version: '1.0',
+  updated: 'mai 2026',
   format: 'pdf',
   cv: 'cv-pdf',
   price: 0,
@@ -91,10 +104,12 @@ const SHOP_PRODUCTS = [{
 }, {
   id: 'proces-verbal-receptie-lucrari',
   title: 'Proces-verbal recepție la terminarea lucrărilor',
-  shortDesc: 'Model de proces-verbal pentru recepția la terminarea lucrărilor de construcții, conform normelor legale în vigoare.',
+  shortDesc: 'Model de proces-verbal pentru recepția la terminarea lucrărilor de construcții, după Regulamentul de recepție a construcțiilor.',
   longDesc: 'Modelul de proces-verbal de recepție la terminarea lucrărilor, din anexele HG nr. 343/2017 privind recepția construcțiilor. Preluat din sursa publică și transformat de INFORMS în formular PDF completabil.',
-  category: 'gratuite',
-  mainCategories: ['autoritati', 'companii'],
+  audiences: ['autoritati', 'constructii'],
+  forWhom: 'Comisiile de recepție, beneficiarii lucrărilor (inclusiv autoritățile contractante), executanții și diriginții de șantier.',
+  version: '1.0',
+  updated: 'mai 2026',
   format: 'pdf',
   cv: 'cv-pdf',
   price: 0,
@@ -110,50 +125,47 @@ const SHOP_PRODUCTS = [{
 }];
 const SHOW_HIDDEN = new URLSearchParams(window.location.search).get('test') === '1';
 
-/* ─── Configurare categorii și formate ──────────── */
-const SHOP_CATEGORIES = [{
-  id: 'all',
-  label: 'Toate produsele'
-}, {
-  id: 'achizitii',
-  label: 'Achiziții publice'
-}, {
-  id: 'delegare',
-  label: 'Delegare servicii'
-}, {
-  id: 'management',
-  label: 'Management proiect'
-}, {
-  id: 'digitalizare',
-  label: 'Digitalizare'
-}, {
-  id: 'gratuite',
-  label: 'Gratuite'
-}];
+/* ─── Filtre: public × format × „Doar gratuite” ──
+   Categoriile (ce vrei să faci) primesc filtru propriu de la ~12
+   produse. Până atunci le folosesc doar linkurile din meniu, care
+   ascund categoriile goale prin shopHasProducts. */
+const SHOP_CATEGORIES = ['achizitii', 'delegare', 'management', 'monitorizare'];
 
-/* Produsele pe care vizitatorul le vede. O categorie fără niciun produs
-   vizibil nu apare în filtre: un raft gol arată ca un magazin părăsit. */
+/* Produsele pe care vizitatorul le vede. Un filtru fără niciun produs
+   vizibil nu apare: un raft gol arată ca un magazin părăsit. */
 const VISIBLE_PRODUCTS = SHOP_PRODUCTS.filter(p => !p.hidden || SHOW_HIDDEN);
-const hasProducts = id => id === 'all' || VISIBLE_PRODUCTS.some(p => p.category === id);
+const hasProducts = id => id === 'all' || (id === 'gratuite' ? VISIBLE_PRODUCTS.some(p => p.price === 0) : VISIBLE_PRODUCTS.some(p => p.category === id));
 
 /* Paginile statice trimit la /magazin#gratuite etc. Aplicația nu vede
    ancora în cale, deci o citim aici; o ancoră necunoscută sau spre o
    categorie goală lasă magazinul pe „Toate produsele”. */
 function categoryFromHash(fallback) {
   const id = decodeURIComponent(window.location.hash.slice(1));
-  return SHOP_CATEGORIES.some(c => c.id === id) && hasProducts(id) ? id : fallback;
+  return (id === 'gratuite' || SHOP_CATEGORIES.includes(id)) && hasProducts(id) ? id : fallback;
 }
+const AUDIENCES = [{
+  id: 'autoritati',
+  label: 'Autorități'
+}, {
+  id: 'ofertanti',
+  label: 'Ofertanți'
+}, {
+  id: 'constructii',
+  label: 'Construcții și proiecte'
+}].filter(a => VISIBLE_PRODUCTS.some(p => (p.audiences || []).includes(a.id)));
+
+/* „Pachete” lipsește până există primul pachet. */
 const SHOP_FORMATS = [{
   id: 'all',
   label: 'Toate',
   cls: 'fmt-all'
 }, {
   id: 'word',
-  label: 'WORD',
+  label: 'Word',
   cls: 'fmt-word'
 }, {
   id: 'excel',
-  label: 'EXCEL',
+  label: 'Excel',
   cls: 'fmt-excel'
 }, {
   id: 'pdf',
@@ -163,34 +175,15 @@ const SHOP_FORMATS = [{
   id: 'pachet',
   label: 'Pachete',
   cls: 'fmt-pachet'
-}];
-
-/* ─── Categorii principale (profil utilizator) ──── */
-const MAIN_CATEGORIES = [{
-  id: 'autoritati',
-  label: 'Autorități',
-  subcategories: ['achizitii', 'delegare', 'management', 'digitalizare', 'gratuite']
-}, {
-  id: 'companii',
-  label: 'Companii',
-  subcategories: ['management', 'digitalizare', 'gratuite']
-}, {
-  id: 'liber-profesionisti',
-  label: 'Liber-profesioniști',
-  subcategories: ['management', 'gratuite']
-}, {
-  id: 'uz-zilnic',
-  label: 'Uz zilnic',
-  subcategories: ['gratuite']
-}];
+}].filter(f => f.id === 'all' || VISIBLE_PRODUCTS.some(p => p.format === f.id));
 const FORMAT_META = {
   word: {
     abbr: 'DOC',
-    label: 'WORD'
+    label: 'Word'
   },
   excel: {
     abbr: 'XLS',
-    label: 'EXCEL'
+    label: 'Excel'
   },
   pdf: {
     abbr: 'PDF',
@@ -198,7 +191,7 @@ const FORMAT_META = {
   },
   pachet: {
     abbr: 'PKG',
-    label: 'PACHET'
+    label: 'Pachet'
   }
 };
 
@@ -359,7 +352,7 @@ function ProductCard({
       e.stopPropagation();
       onClick(product);
     }
-  }, product.price === 0 ? 'Descarcă →' : 'Detalii →'))));
+  }, product.price === 0 ? 'Descarcă gratuit' : 'Vezi produsul'))));
 }
 
 /* ─── Formular de checkout (plată cu cardul) ─────
@@ -629,7 +622,8 @@ function CheckoutForm({
   const cuiValid = v => /^(RO)?\s?\d{2,10}$/i.test(v.trim());
   const obligatorii = entity === 'pj' ? REQUIRED_FIELDS.concat(['company', 'cui']) : REQUIRED_FIELDS;
   const complete = obligatorii.every(k => (form[k] || '').trim()) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()) && (entity !== 'pj' || cuiValid(form.cui));
-  const ready = complete && terms && waiver;
+  /* Renunțarea la dreptul de retragere privește doar consumatorul. */
+  const ready = complete && terms && (entity === 'pj' || waiver);
 
   /* In form.state tinem NUMELE judetului, nu codul: campul pleaca asa
      cum e catre Oblio si ajunge pe factura, unde „AB” ar fi gresit.
@@ -639,7 +633,7 @@ function CheckoutForm({
   const handleSubmit = async e => {
     e.preventDefault();
     if (!ready) {
-      setError('Completează toate câmpurile marcate cu * și bifează ambele acorduri.');
+      setError('Completează toate câmpurile marcate cu * și bifează acordurile.');
       return;
     }
     setError('');
@@ -654,7 +648,7 @@ function CheckoutForm({
           sku: product.sku,
           ...form,
           acceptTerms: terms,
-          acceptWaiver: waiver
+          acceptWaiver: entity === 'pf' && waiver
         })
       });
       const json = await res.json();
@@ -665,7 +659,7 @@ function CheckoutForm({
       }
       setError(json.error || 'Plata nu a putut fi inițiată. Încearcă din nou sau scrie-ne la ' + COMPANY.email + '.');
     } catch {
-      setError('Eroare de rețea. Încearcă din nou sau scrie-ne la ' + COMPANY.email + '.');
+      setError('Conexiunea s-a întrerupt. Verifică internetul și încearcă din nou sau scrie-ne la ' + COMPANY.email + '.');
     } finally {
       setLoading(false);
     }
@@ -742,13 +736,13 @@ function CheckoutForm({
       e.preventDefault();
       go('politica-confidentialitate');
     }
-  }, "Politica de confiden\u021Bialitate"), ". *")), /*#__PURE__*/React.createElement("label", {
+  }, "Politica de confiden\u021Bialitate"), ". *")), entity === 'pf' && /*#__PURE__*/React.createElement("label", {
     className: "sp-check"
   }, /*#__PURE__*/React.createElement("input", {
     type: "checkbox",
     checked: waiver,
     onChange: e => setWaiver(e.target.checked)
-  }), /*#__PURE__*/React.createElement("span", null, "Solicit expres livrarea imediat\u0103 a documentului digital \u0219i confirm c\u0103 am luat cuno\u0219tin\u021B\u0103 c\u0103, odat\u0103 \xEEnceput\u0103 desc\u0103rcarea, \xEEmi pierd ", /*#__PURE__*/React.createElement("a", {
+  }), /*#__PURE__*/React.createElement("span", null, "Solicit livrarea imediat\u0103 a documentului digital \u0219i confirm c\u0103, odat\u0103 \xEEnceput\u0103 livrarea, \xEEmi pierd ", /*#__PURE__*/React.createElement("a", {
     href: "/dreptul-de-retragere",
     onClick: e => {
       e.preventDefault();
@@ -875,7 +869,13 @@ function ProductModal({
     className: "shop-modal-lbl"
   }, "Descriere"), /*#__PURE__*/React.createElement("p", {
     className: "sp-modal-text"
-  }, product.longDesc)), /*#__PURE__*/React.createElement("div", {
+  }, product.longDesc)), product.forWhom && /*#__PURE__*/React.createElement("div", {
+    className: "shop-modal-sec"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "shop-modal-lbl"
+  }, "Pentru cine"), /*#__PURE__*/React.createElement("p", {
+    className: "sp-modal-text"
+  }, product.forWhom)), /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-sec"
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-lbl"
@@ -885,17 +885,30 @@ function ProductModal({
     key: i
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-check"
-  }, "\u2713"), /*#__PURE__*/React.createElement("span", null, item))))), (product.stats.files > 0 || product.stats.pages > 0) && /*#__PURE__*/React.createElement("div", {
+  }, "\u2713"), /*#__PURE__*/React.createElement("span", null, item))))), /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-sec"
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-lbl"
   }, "Detalii tehnice"), /*#__PURE__*/React.createElement("div", {
     className: "sp-modal-stats"
-  }, product.stats.files > 0 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IcoFile, {
+  }, product.version && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, "Versiunea ", /*#__PURE__*/React.createElement("strong", null, product.version), product.updated ? ', ' + product.updated : '')), product.stats.files > 0 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IcoFile, {
     size: 16
   }), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, product.stats.files), " ", product.stats.files === 1 ? 'fișier' : 'fișiere')), product.stats.pages > 0 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IcoPages, {
     size: 16
-  }), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, product.stats.pages), " pagini totale")))), hasFreeFile ? downloaded ? /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, product.stats.pages), " pagini totale"))), !isFree && /*#__PURE__*/React.createElement("p", {
+    className: "sp-modal-text sp-modal-text--note"
+  }, "Versiune fix\u0103: actualiz\u0103rile sunt incluse doar \xEEn contractele de servicii. Licen\u021Ba acoper\u0103 utilizarea \xEEn activitatea proprie a entit\u0103\u021Bii de pe factur\u0103 (", /*#__PURE__*/React.createElement("a", {
+    href: "/termeni-si-conditii",
+    onClick: e => {
+      e.preventDefault();
+      onClose();
+      onNav('termeni-si-conditii');
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant'
+      });
+    }
+  }, "Termeni \u0219i condi\u021Bii"), ").")), hasFreeFile ? downloaded ? /*#__PURE__*/React.createElement("div", {
     className: "sp-done"
   }, /*#__PURE__*/React.createElement("div", {
     className: "sp-done__ico"
@@ -952,7 +965,7 @@ function ProductModal({
     className: "shop-modal-price-box"
   }, /*#__PURE__*/React.createElement("div", null, isFree ? /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-price-note"
-  }, "F\u0103r\u0103 costuri. Trimite-ne un email \u0219i \xEE\u021Bi livr\u0103m documentul gratuit.") : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+  }, "Documentul este gratuit. Trimite-ne o cerere pe email \u0219i \xEEl prime\u0219ti \xEEn cel mult o zi lucr\u0103toare.") : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-price"
   }, product.price, " ", /*#__PURE__*/React.createElement("span", null, COMMERCE.currency)), /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-price-note"
@@ -961,21 +974,23 @@ function ProductModal({
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
     onClick: handleRequestFree
-  }, "Solicit\u0103 acces gratuit")), /*#__PURE__*/React.createElement("p", {
-    className: "sp-fine sp-fine--gap"
-  }, "Trimite-ne un email \u0219i \xEE\u021Bi livr\u0103m documentul gratuit \xEEn cel mult o zi lucr\u0103toare.")) : checkout ? /*#__PURE__*/React.createElement(CheckoutForm, {
+  }, "Cere documentul pe email"))) : /*#__PURE__*/React.createElement(React.Fragment, null, checkout ? /*#__PURE__*/React.createElement(CheckoutForm, {
     product: product,
     onNav: onNav
-  }) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+  }) : /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-actions"
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
     onClick: () => setCheckout(true)
-  }, "Cump\u0103r\u0103 cu cardul")), /*#__PURE__*/React.createElement("p", {
-    className: "sp-fine sp-fine--gap"
-  }, "Documentele se livreaz\u0103 prin email, \xEEn format editabil, imediat dup\u0103 confirmarea pl\u0103\u021Bii. Preferi transferul bancar? Scrie-ne la ", /*#__PURE__*/React.createElement("a", {
-    href: 'mailto:' + COMPANY.email
-  }, COMPANY.email), "."))))));
+  }, "Cump\u0103r\u0103 cu cardul")), /*#__PURE__*/React.createElement("div", {
+    className: "sp-inst"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "sp-inst__title"
+  }, "Cumperi pentru o institu\u021Bie?"), /*#__PURE__*/React.createElement("p", {
+    className: "sp-inst__text"
+  }, "Trimite-ne la ", /*#__PURE__*/React.createElement("a", {
+    href: 'mailto:' + COMPANY.email + '?subject=' + encodeURIComponent('Cerere de ofertă: ' + product.title)
+  }, COMPANY.email), " o cerere de ofert\u0103 sau o comand\u0103 ferm\u0103. Emitem factura prin e-Factura, pl\u0103te\u0219ti prin ordin de plat\u0103, iar documentul \xEEl prime\u0219ti pe email.")))))));
 }
 
 /* ─── Pagina principală Shop ────────────────────── */
@@ -1026,43 +1041,51 @@ function ShopPage({
       window.location.replace('/comanda-finalizata?o=' + encodeURIComponent(id));
     }
   }, []);
-  const [mainCat, setMainCat] = useState('all');
-  const [category, setCategory] = useState(() => categoryFromHash(hasProducts(initialCategory) ? initialCategory : 'all'));
+
+  /* #gratuite (din meniu și din paginile statice) pornește „Doar gratuite”;
+     o categorie din meniu filtrează în tăcere, până primește filtru propriu. */
+  const [startCat] = useState(() => categoryFromHash(hasProducts(initialCategory) ? initialCategory : 'all'));
+  const [audience, setAudience] = useState('all');
+  const [category, setCategory] = useState(startCat === 'gratuite' ? 'all' : startCat);
+  const [onlyFree, setOnlyFree] = useState(startCat === 'gratuite');
   const [format, setFormat] = useState('all');
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState(null);
-  const handleMainCat = id => {
-    setMainCat(id);
-    setCategory('all');
-  };
-  const activeSubs = React.useMemo(() => {
-    const withProducts = SHOP_CATEGORIES.filter(c => hasProducts(c.id));
-    const mc = MAIN_CATEGORIES.find(m => m.id === mainCat);
-    if (mainCat === 'all' || !mc) return withProducts;
-    return withProducts.filter(c => c.id === 'all' || mc.subcategories.includes(c.id));
-  }, [mainCat]);
-  const filtered = VISIBLE_PRODUCTS.filter(p => {
-    const matchMain = mainCat === 'all' || p.mainCategories.includes(mainCat);
-    const matchCat = category === 'all' || p.category === category;
-    const matchFmt = format === 'all' || p.format === format;
-    const q = query.trim().toLowerCase();
-    const matchQ = !q || p.title.toLowerCase().includes(q) || p.shortDesc.toLowerCase().includes(q) || p.tags.some(t => t.toLowerCase().includes(q));
-    return matchMain && matchCat && matchFmt && matchQ;
-  });
-  const hasFilters = mainCat !== 'all' || category !== 'all' || format !== 'all' || query.trim();
+  const q = query.trim().toLowerCase();
+  const matches = p => (category === 'all' || p.category === category) && (format === 'all' || p.format === format) && (!onlyFree || p.price === 0) && (!q || p.title.toLowerCase().includes(q) || p.shortDesc.toLowerCase().includes(q) || p.tags.some(t => t.toLowerCase().includes(q)));
+  const catalog = VISIBLE_PRODUCTS.filter(p => !p.shelf && matches(p) && (audience === 'all' || (p.audiences || []).includes(audience)));
+
+  /* Raftul „Formulare uzuale” nu are public, deci dispare când alegi unul. */
+  const shelf = audience === 'all' ? VISIBLE_PRODUCTS.filter(p => p.shelf === 'uzuale' && matches(p)) : [];
+  const total = catalog.length + shelf.length;
+  const hasFilters = audience !== 'all' || category !== 'all' || format !== 'all' || onlyFree || q;
   const resetFilters = () => {
-    setMainCat('all');
+    setAudience('all');
     setCategory('all');
     setFormat('all');
+    setOnlyFree(false);
     setQuery('');
   };
+  const grid = list => /*#__PURE__*/React.createElement("div", {
+    className: "shop-grid"
+  }, list.map((p, i) => /*#__PURE__*/React.createElement(FadeUp, {
+    key: p.id,
+    delay: Math.min(i, 5) * 70,
+    style: {
+      display: 'flex',
+      flexDirection: 'column'
+    }
+  }, /*#__PURE__*/React.createElement(ProductCard, {
+    product: p,
+    onClick: setSelected
+  }))));
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "pg-hero pg-hero--shop"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag-label"
-  }, "Produse digitale"), /*#__PURE__*/React.createElement("h1", null, "Documente profesionale pentru sectorul public \u0219i privat"), /*#__PURE__*/React.createElement("p", null, "Modele Word, Excel \u0219i PDF, gata de completat. O parte sunt gratuite."), /*#__PURE__*/React.createElement("div", {
+  }, "Magazin"), /*#__PURE__*/React.createElement("h1", null, "Instrumente Excel, Word \u0219i PDF pentru documentele pe care le completezi des"), /*#__PURE__*/React.createElement("p", null, "Fiecare model indic\u0103 formatul, versiunea \u0219i ce con\u021Bine. C\xE2teva formulare sunt gratuite."), /*#__PURE__*/React.createElement("div", {
     className: "shop-search-wrap"
   }, /*#__PURE__*/React.createElement("span", {
     className: "shop-search-ico"
@@ -1071,7 +1094,8 @@ function ShopPage({
   })), /*#__PURE__*/React.createElement("input", {
     className: "shop-search",
     type: "text",
-    placeholder: "Caut\u0103 (ex: licita\u021Bie, caiet de sarcini, SEAP, salubrizare...)",
+    placeholder: "Caut\u0103 dup\u0103 denumire (ex: recep\u021Bie, F.14, contract)",
+    "aria-label": "Caut\u0103 \xEEn magazin",
     value: query,
     onChange: e => setQuery(e.target.value)
   })))), /*#__PURE__*/React.createElement("div", {
@@ -1087,32 +1111,32 @@ function ShopPage({
     alt: "SEAP / SICAP",
     width: "250",
     height: "102"
-  })), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, "Suntem \u0219i pe SEAP."), " Produsele \u0219i serviciile INFORMS pot fi achizi\u021Bionate prin sistemul electronic de achizi\u021Bii publice."))), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, "Suntem \u0219i pe SEAP."), " Produsele \u0219i serviciile INFORMS pot fi achizi\u021Bionate prin sistemul electronic de achizi\u021Bii publice."))), AUDIENCES.length > 0 && /*#__PURE__*/React.createElement("div", {
     className: "sp-profile"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "sp-profile__lbl"
-  }, "Filtreaz\u0103 dup\u0103 profil"), /*#__PURE__*/React.createElement("div", {
+  }, "Pentru cine"), /*#__PURE__*/React.createElement("div", {
     className: "sp-profile__row"
-  }, MAIN_CATEGORIES.map(m => /*#__PURE__*/React.createElement("button", {
-    key: m.id,
+  }, AUDIENCES.map(a => /*#__PURE__*/React.createElement("button", {
+    key: a.id,
     type: "button",
-    "aria-pressed": mainCat === m.id,
-    onClick: () => handleMainCat(mainCat === m.id ? 'all' : m.id),
-    className: 'sp-chip' + (mainCat === m.id ? ' is-on' : '')
-  }, m.label))))), /*#__PURE__*/React.createElement("div", {
+    "aria-pressed": audience === a.id,
+    onClick: () => setAudience(audience === a.id ? 'all' : a.id),
+    className: 'sp-chip' + (audience === a.id ? ' is-on' : '')
+  }, a.label))))), /*#__PURE__*/React.createElement("div", {
     className: "shop-filter-bar",
     id: "shop-filter-bar"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "shop-tabs"
-  }, activeSubs.map(c => /*#__PURE__*/React.createElement("div", {
-    key: c.id,
-    className: `shop-tab${category === c.id ? ' active' : ''}`,
-    onClick: () => setCategory(c.id)
-  }, c.label))), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("label", {
+    className: "sp-free"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    checked: onlyFree,
+    onChange: e => setOnlyFree(e.target.checked)
+  }), /*#__PURE__*/React.createElement("span", null, "Doar gratuite")), /*#__PURE__*/React.createElement("div", {
     className: "shop-formats"
   }, /*#__PURE__*/React.createElement("span", {
     className: "shop-fmt-label"
@@ -1128,37 +1152,29 @@ function ShopPage({
     className: "shop-result-bar"
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-result-count"
-  }, /*#__PURE__*/React.createElement("strong", null, filtered.length), "\xA0", filtered.length === 1 ? 'produs găsit' : 'produse găsite', hasFilters && /*#__PURE__*/React.createElement("button", {
+  }, /*#__PURE__*/React.createElement("strong", null, total), "\xA0", total === 1 ? 'produs găsit' : 'produse găsite', hasFilters && /*#__PURE__*/React.createElement("button", {
     className: "shop-reset-btn",
     onClick: resetFilters
-  }, "\u2715 Reseteaz\u0103 filtrele"))), filtered.length > 0 ? /*#__PURE__*/React.createElement("div", {
-    className: "shop-grid"
-  }, filtered.map((p, i) => /*#__PURE__*/React.createElement(FadeUp, {
-    key: p.id,
-    delay: Math.min(i, 5) * 70,
-    style: {
-      display: 'flex',
-      flexDirection: 'column'
-    }
-  }, /*#__PURE__*/React.createElement(ProductCard, {
-    product: p,
-    onClick: setSelected
-  })))) : /*#__PURE__*/React.createElement("div", {
+  }, "\u2715 Reseteaz\u0103 filtrele"))), catalog.length > 0 && grid(catalog), total === 0 && /*#__PURE__*/React.createElement("div", {
     className: "shop-empty"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "shop-empty-icon"
-  }, "\uD83D\uDD0D"), /*#__PURE__*/React.createElement("h3", null, "Niciun produs g\u0103sit"), /*#__PURE__*/React.createElement("p", null, "\xCEncearc\u0103 s\u0103 modifici criteriile de filtrare sau c\u0103utare."), /*#__PURE__*/React.createElement("button", {
+  }, /*#__PURE__*/React.createElement("h3", null, "Niciun produs pentru filtrele alese"), /*#__PURE__*/React.createElement("p", null, "Unele categorii sunt \xEEnc\u0103 \xEEn lucru. Reseteaz\u0103 filtrele sau scrie-ne ce document cau\u021Bi."), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-outline",
     onClick: resetFilters
-  }, "Reseteaz\u0103 filtrele")), /*#__PURE__*/React.createElement("div", {
+  }, "Reseteaz\u0103 filtrele")), shelf.length > 0 && /*#__PURE__*/React.createElement("div", {
+    className: "sp-shelf"
+  }, /*#__PURE__*/React.createElement("h2", {
+    className: "sp-shelf__title"
+  }, "Formulare uzuale"), /*#__PURE__*/React.createElement("p", {
+    className: "sp-shelf__lead"
+  }, "Formulare oficiale de uz general, preluate din sursa public\u0103 \u0219i transformate de INFORMS \xEEn PDF completabil."), grid(shelf)), /*#__PURE__*/React.createElement("div", {
     className: "shop-cta-banner"
   }, /*#__PURE__*/React.createElement("div", {
     className: "sp-cta__k"
-  }, "Ai nevoie de ceva personalizat?"), /*#__PURE__*/React.createElement("h2", {
+  }, "Servicii"), /*#__PURE__*/React.createElement("h2", {
     className: "sp-cta__title"
   }, "Documenta\u021Bie la comand\u0103"), /*#__PURE__*/React.createElement("p", {
     className: "sp-cta__lead"
-  }, "Nu ai g\u0103sit ce c\u0103utai? Elabor\u0103m documenta\u021Bii personalizate, adaptate exact situa\u021Biei \u0219i nevoilor tale specifice."), /*#__PURE__*/React.createElement("button", {
+  }, "Nu ai g\u0103sit instrumentul potrivit? \xCEl putem elabora sau adapta pe procedura, proiectul sau fluxul t\u0103u de lucru."), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
     onClick: () => {
       onNav('contact');
@@ -1167,7 +1183,7 @@ function ShopPage({
         behavior: 'instant'
       });
     }
-  }, "Contacteaz\u0103-ne")))), selected && /*#__PURE__*/React.createElement(ProductModal, {
+  }, "Descrie ce \xEE\u021Bi trebuie")))), selected && /*#__PURE__*/React.createElement(ProductModal, {
     product: selected,
     onClose: () => setSelected(null),
     onNav: onNav
@@ -1197,7 +1213,7 @@ const ORDER_STATES = {
     border: '#86EFAC',
     icon: '✓',
     title: 'Plata a fost confirmată',
-    body: 'Îți mulțumim. Ai primit pe email confirmarea comenzii și linkul de descărcare. Dacă mesajul nu apare în câteva minute, verifică folderul Spam sau Promoții.'
+    body: 'Îți mulțumim. Îți trimitem pe email confirmarea comenzii și linkul de descărcare. Dacă mesajul nu apare în 10 minute, verifică folderul Spam sau Promoții, apoi scrie-ne la ' + COMPANY.email + '.'
   },
   pending: {
     color: '#B45309',
@@ -1213,7 +1229,7 @@ const ORDER_STATES = {
     border: '#FECACA',
     icon: '!',
     title: 'Plata nu a fost finalizată',
-    body: 'Tranzacția a fost respinsă sau anulată și nu ți s-a reținut nicio sumă. Poți relua comanda din magazin sau ne poți scrie pentru plata prin transfer bancar.'
+    body: 'Tranzacția a fost respinsă sau anulată. Dacă vezi totuși o sumă blocată pe card, banca o eliberează automat, de regulă în câteva zile lucrătoare. Poți relua comanda din magazin sau ne poți scrie pentru plata prin transfer bancar.'
   }
 };
 function OrderStatusPage({

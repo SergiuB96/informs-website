@@ -9,9 +9,16 @@
 
 /* ─── Date produse ───────────────────────────────
    format: 'word' | 'excel' | 'pdf' | 'pachet'
-   category: 'achizitii' | 'delegare' | 'management' | 'digitalizare' | 'gratuite'
-   mainCategories: array cu unul sau mai multe dintre:
-       'autoritati' | 'companii' | 'liber-profesionisti' | 'uz-zilnic'
+   category: 'achizitii' | 'delegare' | 'management' | 'monitorizare'
+       Opțional. Nu are filtru în pagină până la ~12 produse („Ce vrei
+       să faci”); acum servește doar linkurile din meniu (/magazin#achizitii).
+   audiences: publicul, pentru filtrul „Pentru cine”:
+       'autoritati' | 'ofertanti' | 'constructii'
+   shelf: 'uzuale' pune produsul pe raftul „Formulare uzuale”, sub
+       catalog, fără public și nepromovat.
+   forWhom: fraza „Pentru cine” din fereastra produsului.
+   version, updated: versiunea fișierului (ca în numele lui, _v1.0)
+       și luna în care a fost publicată.
    cv: clasă CSS pe antetul cardului (cv-word | cv-excel | cv-pdf | cv-atr).
        În css/shop.css toate au același antet navy; formatul se citește
        din eticheta DOC/XLS/PDF, nu din culoare.
@@ -33,8 +40,10 @@ const SHOP_PRODUCTS = [
     title: 'Contract de înstrăinare-dobândire mijloc de transport',
     shortDesc: 'Model de contract pentru transferul dreptului de proprietate asupra unui mijloc de transport.',
     longDesc: 'Modelul oficial de contract pentru înstrăinarea și dobândirea unui mijloc de transport, preluat din sursa publică și transformat de INFORMS în formular PDF completabil. Înainte de folosire, verifică dacă autoritatea la care depui actele cere versiunea actuală a modelului.',
-    category: 'gratuite',
-    mainCategories: ['uz-zilnic', 'companii', 'liber-profesionisti'],
+    shelf: 'uzuale',
+    forWhom: 'Persoanele și firmele care vând sau cumpără un vehicul.',
+    version: '1.0',
+    updated: 'mai 2026',
     format: 'pdf',
     cv: 'cv-pdf',
     price: 0,
@@ -52,8 +61,10 @@ const SHOP_PRODUCTS = [
     title: 'Fișă consultații medicale - permis conducere',
     shortDesc: 'Formular pentru înregistrarea consultațiilor medicale în vederea obținerii sau reînnoirii permisului de conducere.',
     longDesc: 'Fișa oficială pentru consultațiile medicale necesare obținerii sau reînnoirii permisului de conducere, preluată din sursa publică și transformată de INFORMS în formular PDF completabil.',
-    category: 'gratuite',
-    mainCategories: ['uz-zilnic'],
+    shelf: 'uzuale',
+    forWhom: 'Persoanele care obțin sau reînnoiesc permisul de conducere.',
+    version: '1.0',
+    updated: 'mai 2026',
     format: 'pdf',
     cv: 'cv-pdf',
     price: 0,
@@ -71,8 +82,10 @@ const SHOP_PRODUCTS = [
     title: 'Formular F.14 - Comunicare începere execuție lucrări',
     shortDesc: 'Formular oficial pentru comunicarea datei de începere a execuției lucrărilor de construcții către Inspectoratul de Stat în Construcții.',
     longDesc: 'Formularul oficial prin care titularul autorizației de construire comunică Inspectoratului de Stat în Construcții data de începere a execuției lucrărilor, prevăzut de normele de aplicare ale Legii nr. 50/1991. Preluat din sursa publică și transformat de INFORMS în formular PDF completabil.',
-    category: 'gratuite',
-    mainCategories: ['autoritati', 'companii'],
+    audiences: ['constructii'],
+    forWhom: 'Titularul autorizației de construire, persoană, firmă sau autoritate, și cei care pregătesc actele în numele lui.',
+    version: '1.0',
+    updated: 'mai 2026',
     format: 'pdf',
     cv: 'cv-pdf',
     price: 0,
@@ -88,10 +101,12 @@ const SHOP_PRODUCTS = [
   {
     id: 'proces-verbal-receptie-lucrari',
     title: 'Proces-verbal recepție la terminarea lucrărilor',
-    shortDesc: 'Model de proces-verbal pentru recepția la terminarea lucrărilor de construcții, conform normelor legale în vigoare.',
+    shortDesc: 'Model de proces-verbal pentru recepția la terminarea lucrărilor de construcții, după Regulamentul de recepție a construcțiilor.',
     longDesc: 'Modelul de proces-verbal de recepție la terminarea lucrărilor, din anexele HG nr. 343/2017 privind recepția construcțiilor. Preluat din sursa publică și transformat de INFORMS în formular PDF completabil.',
-    category: 'gratuite',
-    mainCategories: ['autoritati', 'companii'],
+    audiences: ['autoritati', 'constructii'],
+    forWhom: 'Comisiile de recepție, beneficiarii lucrărilor (inclusiv autoritățile contractante), executanții și diriginții de șantier.',
+    version: '1.0',
+    updated: 'mai 2026',
     format: 'pdf',
     cv: 'cv-pdf',
     price: 0,
@@ -108,50 +123,48 @@ const SHOP_PRODUCTS = [
 
 const SHOW_HIDDEN = new URLSearchParams(window.location.search).get('test') === '1';
 
-/* ─── Configurare categorii și formate ──────────── */
-const SHOP_CATEGORIES = [
-  { id: 'all',          label: 'Toate produsele' },
-  { id: 'achizitii',   label: 'Achiziții publice' },
-  { id: 'delegare',    label: 'Delegare servicii' },
-  { id: 'management',  label: 'Management proiect' },
-  { id: 'digitalizare',label: 'Digitalizare' },
-  { id: 'gratuite',    label: 'Gratuite' },
-];
+/* ─── Filtre: public × format × „Doar gratuite” ──
+   Categoriile (ce vrei să faci) primesc filtru propriu de la ~12
+   produse. Până atunci le folosesc doar linkurile din meniu, care
+   ascund categoriile goale prin shopHasProducts. */
+const SHOP_CATEGORIES = ['achizitii', 'delegare', 'management', 'monitorizare'];
 
-/* Produsele pe care vizitatorul le vede. O categorie fără niciun produs
-   vizibil nu apare în filtre: un raft gol arată ca un magazin părăsit. */
+/* Produsele pe care vizitatorul le vede. Un filtru fără niciun produs
+   vizibil nu apare: un raft gol arată ca un magazin părăsit. */
 const VISIBLE_PRODUCTS = SHOP_PRODUCTS.filter(p => !p.hidden || SHOW_HIDDEN);
-const hasProducts = id => id === 'all' || VISIBLE_PRODUCTS.some(p => p.category === id);
+const hasProducts = id =>
+  id === 'all' ||
+  (id === 'gratuite' ? VISIBLE_PRODUCTS.some(p => p.price === 0)
+                     : VISIBLE_PRODUCTS.some(p => p.category === id));
 
 /* Paginile statice trimit la /magazin#gratuite etc. Aplicația nu vede
    ancora în cale, deci o citim aici; o ancoră necunoscută sau spre o
    categorie goală lasă magazinul pe „Toate produsele”. */
 function categoryFromHash(fallback) {
   const id = decodeURIComponent(window.location.hash.slice(1));
-  return SHOP_CATEGORIES.some(c => c.id === id) && hasProducts(id) ? id : fallback;
+  return (id === 'gratuite' || SHOP_CATEGORIES.includes(id)) && hasProducts(id) ? id : fallback;
 }
 
-const SHOP_FORMATS = [
-  { id: 'all',    label: 'Toate',   cls: 'fmt-all' },
-  { id: 'word',   label: 'WORD',    cls: 'fmt-word' },
-  { id: 'excel',  label: 'EXCEL',   cls: 'fmt-excel' },
-  { id: 'pdf',    label: 'PDF',     cls: 'fmt-pdf' },
-  { id: 'pachet', label: 'Pachete', cls: 'fmt-pachet' },
-];
+const AUDIENCES = [
+  { id: 'autoritati',  label: 'Autorități' },
+  { id: 'ofertanti',   label: 'Ofertanți' },
+  { id: 'constructii', label: 'Construcții și proiecte' },
+].filter(a => VISIBLE_PRODUCTS.some(p => (p.audiences || []).includes(a.id)));
 
-/* ─── Categorii principale (profil utilizator) ──── */
-const MAIN_CATEGORIES = [
-  { id: 'autoritati',          label: 'Autorități',          subcategories: ['achizitii','delegare','management','digitalizare','gratuite'] },
-  { id: 'companii',            label: 'Companii',            subcategories: ['management','digitalizare','gratuite'] },
-  { id: 'liber-profesionisti', label: 'Liber-profesioniști', subcategories: ['management','gratuite'] },
-  { id: 'uz-zilnic',           label: 'Uz zilnic',           subcategories: ['gratuite'] },
-];
+/* „Pachete” lipsește până există primul pachet. */
+const SHOP_FORMATS = [
+  { id: 'all',    label: 'Toate',  cls: 'fmt-all' },
+  { id: 'word',   label: 'Word',   cls: 'fmt-word' },
+  { id: 'excel',  label: 'Excel',  cls: 'fmt-excel' },
+  { id: 'pdf',    label: 'PDF',    cls: 'fmt-pdf' },
+  { id: 'pachet', label: 'Pachete', cls: 'fmt-pachet' },
+].filter(f => f.id === 'all' || VISIBLE_PRODUCTS.some(p => p.format === f.id));
 
 const FORMAT_META = {
-  word:   { abbr: 'DOC',  label: 'WORD' },
-  excel:  { abbr: 'XLS',  label: 'EXCEL' },
+  word:   { abbr: 'DOC',  label: 'Word' },
+  excel:  { abbr: 'XLS',  label: 'Excel' },
   pdf:    { abbr: 'PDF',  label: 'PDF' },
-  pachet: { abbr: 'PKG',  label: 'PACHET' },
+  pachet: { abbr: 'PKG',  label: 'Pachet' },
 };
 
 /* ─── Icoane inline (folosite doar în Shop) ─────── */
@@ -234,7 +247,7 @@ function ProductCard({ product, onClick }) {
             className="btn btn-primary btn-sm"
             onClick={e => { e.stopPropagation(); onClick(product); }}
           >
-            {product.price === 0 ? 'Descarcă →' : 'Detalii →'}
+            {product.price === 0 ? 'Descarcă gratuit' : 'Vezi produsul'}
           </button>
         </div>
       </div>
@@ -363,7 +376,8 @@ function CheckoutForm({ product, onNav }) {
   const complete = obligatorii.every(k => (form[k] || '').trim())
     && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())
     && (entity !== 'pj' || cuiValid(form.cui));
-  const ready = complete && terms && waiver;
+  /* Renunțarea la dreptul de retragere privește doar consumatorul. */
+  const ready = complete && terms && (entity === 'pj' || waiver);
 
   /* In form.state tinem NUMELE judetului, nu codul: campul pleaca asa
      cum e catre Oblio si ajunge pe factura, unde „AB” ar fi gresit.
@@ -374,7 +388,7 @@ function CheckoutForm({ product, onNav }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!ready) {
-      setError('Completează toate câmpurile marcate cu * și bifează ambele acorduri.');
+      setError('Completează toate câmpurile marcate cu * și bifează acordurile.');
       return;
     }
     setError('');
@@ -383,7 +397,7 @@ function CheckoutForm({ product, onNav }) {
       const res = await fetch('/api/netopia-start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sku: product.sku, ...form, acceptTerms: terms, acceptWaiver: waiver }),
+        body: JSON.stringify({ sku: product.sku, ...form, acceptTerms: terms, acceptWaiver: entity === 'pf' && waiver }),
       });
       const json = await res.json();
       if (res.ok && json.paymentURL) {
@@ -393,7 +407,7 @@ function CheckoutForm({ product, onNav }) {
       }
       setError(json.error || 'Plata nu a putut fi inițiată. Încearcă din nou sau scrie-ne la ' + COMPANY.email + '.');
     } catch {
-      setError('Eroare de rețea. Încearcă din nou sau scrie-ne la ' + COMPANY.email + '.');
+      setError('Conexiunea s-a întrerupt. Verifică internetul și încearcă din nou sau scrie-ne la ' + COMPANY.email + '.');
     } finally {
       setLoading(false);
     }
@@ -463,13 +477,15 @@ function CheckoutForm({ product, onNav }) {
         </span>
       </label>
 
-      <label className="sp-check">
-        <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} />
-        <span>
-          Solicit expres livrarea imediată a documentului digital și confirm că am luat cunoștință că, odată începută descărcarea,
-          îmi pierd <a href="/dreptul-de-retragere" onClick={e => { e.preventDefault(); go('dreptul-de-retragere'); }}>dreptul de retragere</a> de {COMMERCE.withdrawalDays} zile. *
-        </span>
-      </label>
+      {entity === 'pf' && (
+        <label className="sp-check">
+          <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} />
+          <span>
+            Solicit livrarea imediată a documentului digital și confirm că, odată începută livrarea,
+            îmi pierd <a href="/dreptul-de-retragere" onClick={e => { e.preventDefault(); go('dreptul-de-retragere'); }}>dreptul de retragere</a> de {COMMERCE.withdrawalDays} zile. *
+          </span>
+        </label>
+      )}
 
       {error && <p className="sp-err">{error}</p>}
 
@@ -578,6 +594,13 @@ function ProductModal({ product, onClose, onNav }) {
             <p className="sp-modal-text">{product.longDesc}</p>
           </div>
 
+          {product.forWhom && (
+            <div className="shop-modal-sec">
+              <div className="shop-modal-lbl">Pentru cine</div>
+              <p className="sp-modal-text">{product.forWhom}</p>
+            </div>
+          )}
+
           <div className="shop-modal-sec">
             <div className="shop-modal-lbl">Ce include</div>
             <ul className="shop-modal-includes">
@@ -590,10 +613,14 @@ function ProductModal({ product, onClose, onNav }) {
             </ul>
           </div>
 
-          {(product.stats.files > 0 || product.stats.pages > 0) && (
-            <div className="shop-modal-sec">
-              <div className="shop-modal-lbl">Detalii tehnice</div>
-              <div className="sp-modal-stats">
+          <div className="shop-modal-sec">
+            <div className="shop-modal-lbl">Detalii tehnice</div>
+            <div className="sp-modal-stats">
+                {product.version && (
+                  <div>
+                    <span>Versiunea <strong>{product.version}</strong>{product.updated ? ', ' + product.updated : ''}</span>
+                  </div>
+                )}
                 {product.stats.files > 0 && (
                   <div>
                     <IcoFile size={16} />
@@ -606,9 +633,15 @@ function ProductModal({ product, onClose, onNav }) {
                     <span><strong>{product.stats.pages}</strong> pagini totale</span>
                   </div>
                 )}
-              </div>
             </div>
-          )}
+            {!isFree && (
+              <p className="sp-modal-text sp-modal-text--note">
+                Versiune fixă: actualizările sunt incluse doar în contractele de servicii.
+                Licența acoperă utilizarea în activitatea proprie a entității de pe factură
+                (<a href="/termeni-si-conditii" onClick={e => { e.preventDefault(); onClose(); onNav('termeni-si-conditii'); window.scrollTo({ top: 0, behavior: 'instant' }); }}>Termeni și condiții</a>).
+              </p>
+            )}
+          </div>
 
           {/* ── Descărcare gratuită cu email + GDPR ── */}
           {hasFreeFile ? (
@@ -660,7 +693,7 @@ function ProductModal({ product, onClose, onNav }) {
                 <div>
                   {isFree
                     ? <div className="shop-modal-price-note">
-                        Fără costuri. Trimite-ne un email și îți livrăm documentul gratuit.
+                        Documentul este gratuit. Trimite-ne o cerere pe email și îl primești în cel mult o zi lucrătoare.
                       </div>
                     : <>
                         <div className="shop-modal-price">
@@ -676,26 +709,28 @@ function ProductModal({ product, onClose, onNav }) {
                 <>
                   <div className="shop-modal-actions">
                     <button className="btn btn-primary" onClick={handleRequestFree}>
-                      Solicită acces gratuit
+                      Cere documentul pe email
                     </button>
                   </div>
-                  <p className="sp-fine sp-fine--gap">
-                    Trimite-ne un email și îți livrăm documentul gratuit în cel mult o zi lucrătoare.
-                  </p>
                 </>
-              ) : checkout ? (
-                <CheckoutForm product={product} onNav={onNav} />
               ) : (
                 <>
-                  <div className="shop-modal-actions">
-                    <button className="btn btn-primary" onClick={() => setCheckout(true)}>
-                      Cumpără cu cardul
-                    </button>
+                  {checkout
+                    ? <CheckoutForm product={product} onNav={onNav} />
+                    : <div className="shop-modal-actions">
+                        <button className="btn btn-primary" onClick={() => setCheckout(true)}>
+                          Cumpără cu cardul
+                        </button>
+                      </div>}
+                  {/* Traseul pentru instituții (D4): ofertă sau comandă fermă, e-Factura, OP. */}
+                  <div className="sp-inst">
+                    <div className="sp-inst__title">Cumperi pentru o instituție?</div>
+                    <p className="sp-inst__text">
+                      Trimite-ne la <a href={'mailto:' + COMPANY.email + '?subject=' + encodeURIComponent('Cerere de ofertă: ' + product.title)}>{COMPANY.email}</a> o
+                      cerere de ofertă sau o comandă fermă. Emitem factura prin e-Factura, plătești prin ordin de plată,
+                      iar documentul îl primești pe email.
+                    </p>
                   </div>
-                  <p className="sp-fine sp-fine--gap">
-                    Documentele se livrează prin email, în format editabil, imediat după confirmarea plății.
-                    Preferi transferul bancar? Scrie-ne la <a href={'mailto:' + COMPANY.email}>{COMPANY.email}</a>.
-                  </p>
                 </>
               )}
             </>
@@ -744,52 +779,67 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
     }
   }, []);
 
-  const [mainCat,  setMainCat]  = useState('all');
-  const [category, setCategory] = useState(() =>
+  /* #gratuite (din meniu și din paginile statice) pornește „Doar gratuite”;
+     o categorie din meniu filtrează în tăcere, până primește filtru propriu. */
+  const [startCat] = useState(() =>
     categoryFromHash(hasProducts(initialCategory) ? initialCategory : 'all'));
+  const [audience, setAudience] = useState('all');
+  const [category, setCategory] = useState(startCat === 'gratuite' ? 'all' : startCat);
+  const [onlyFree, setOnlyFree] = useState(startCat === 'gratuite');
   const [format,   setFormat]   = useState('all');
   const [query,    setQuery]    = useState('');
   const [selected, setSelected] = useState(null);
 
-  const handleMainCat = id => { setMainCat(id); setCategory('all'); };
-
-  const activeSubs = React.useMemo(() => {
-    const withProducts = SHOP_CATEGORIES.filter(c => hasProducts(c.id));
-    const mc = MAIN_CATEGORIES.find(m => m.id === mainCat);
-    if (mainCat === 'all' || !mc) return withProducts;
-    return withProducts.filter(c => c.id === 'all' || mc.subcategories.includes(c.id));
-  }, [mainCat]);
-
-  const filtered = VISIBLE_PRODUCTS.filter(p => {
-    const matchMain = mainCat === 'all' || p.mainCategories.includes(mainCat);
-    const matchCat  = category === 'all' || p.category === category;
-    const matchFmt  = format   === 'all' || p.format   === format;
-    const q = query.trim().toLowerCase();
-    const matchQ = !q ||
+  const q = query.trim().toLowerCase();
+  const matches = p =>
+    (category === 'all' || p.category === category) &&
+    (format === 'all' || p.format === format) &&
+    (!onlyFree || p.price === 0) &&
+    (!q ||
       p.title.toLowerCase().includes(q) ||
       p.shortDesc.toLowerCase().includes(q) ||
-      p.tags.some(t => t.toLowerCase().includes(q));
-    return matchMain && matchCat && matchFmt && matchQ;
-  });
+      p.tags.some(t => t.toLowerCase().includes(q)));
 
-  const hasFilters = mainCat !== 'all' || category !== 'all' || format !== 'all' || query.trim();
+  const catalog = VISIBLE_PRODUCTS.filter(p =>
+    !p.shelf && matches(p) && (audience === 'all' || (p.audiences || []).includes(audience)));
 
-  const resetFilters = () => { setMainCat('all'); setCategory('all'); setFormat('all'); setQuery(''); };
+  /* Raftul „Formulare uzuale” nu are public, deci dispare când alegi unul. */
+  const shelf = audience === 'all'
+    ? VISIBLE_PRODUCTS.filter(p => p.shelf === 'uzuale' && matches(p))
+    : [];
+
+  const total = catalog.length + shelf.length;
+  const hasFilters = audience !== 'all' || category !== 'all' || format !== 'all' || onlyFree || q;
+
+  const resetFilters = () => {
+    setAudience('all'); setCategory('all'); setFormat('all'); setOnlyFree(false); setQuery('');
+  };
+
+  const grid = list => (
+    <div className="shop-grid">
+      {list.map((p, i) => (
+        <FadeUp key={p.id} delay={Math.min(i, 5) * 70} style={{ display: 'flex', flexDirection: 'column' }}>
+          <ProductCard product={p} onClick={setSelected} />
+        </FadeUp>
+      ))}
+    </div>
+  );
 
   return (
     <>
       {/* Hero: navy, cu imaginea de documente pe fundal */}
       <div className="pg-hero pg-hero--shop">
         <div className="container">
-          <div className="tag-label">Produse digitale</div>
-          <h1>Documente profesionale pentru sectorul public și privat</h1>
-          <p>Modele Word, Excel și PDF, gata de completat. O parte sunt gratuite.</p>
+          <div className="tag-label">Magazin</div>
+          <h1>Instrumente Excel, Word și PDF pentru documentele pe care le completezi des</h1>
+          <p>Fiecare model indică formatul, versiunea și ce conține. Câteva formulare sunt gratuite.</p>
           <div className="shop-search-wrap">
             <span className="shop-search-ico"><IcoSearch size={18} /></span>
             <input
               className="shop-search"
               type="text"
-              placeholder="Caută (ex: licitație, caiet de sarcini, SEAP, salubrizare...)"
+              placeholder="Caută după denumire (ex: recepție, F.14, contract)"
+              aria-label="Caută în magazin"
               value={query}
               onChange={e => setQuery(e.target.value)}
             />
@@ -809,40 +859,35 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
         </div>
       </div>
 
-      {/* Main categories */}
-      <div className="sp-profile">
-        <div className="container">
-          <div className="sp-profile__lbl">Filtrează după profil</div>
-          <div className="sp-profile__row">
-            {MAIN_CATEGORIES.map(m => (
-              <button
-                key={m.id}
-                type="button"
-                aria-pressed={mainCat === m.id}
-                onClick={() => handleMainCat(mainCat === m.id ? 'all' : m.id)}
-                className={'sp-chip' + (mainCat === m.id ? ' is-on' : '')}
-              >
-                {m.label}
-              </button>
-            ))}
+      {/* Publicul */}
+      {AUDIENCES.length > 0 && (
+        <div className="sp-profile">
+          <div className="container">
+            <div className="sp-profile__lbl">Pentru cine</div>
+            <div className="sp-profile__row">
+              {AUDIENCES.map(a => (
+                <button
+                  key={a.id}
+                  type="button"
+                  aria-pressed={audience === a.id}
+                  onClick={() => setAudience(audience === a.id ? 'all' : a.id)}
+                  className={'sp-chip' + (audience === a.id ? ' is-on' : '')}
+                >
+                  {a.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
-      {/* Filter bar */}
+      {/* Format și „Doar gratuite” */}
       <div className="shop-filter-bar" id="shop-filter-bar">
         <div className="container">
-          <div className="shop-tabs">
-            {activeSubs.map(c => (
-              <div
-                key={c.id}
-                className={`shop-tab${category === c.id ? ' active' : ''}`}
-                onClick={() => setCategory(c.id)}
-              >
-                {c.label}
-              </div>
-            ))}
-          </div>
+          <label className="sp-free">
+            <input type="checkbox" checked={onlyFree} onChange={e => setOnlyFree(e.target.checked)} />
+            <span>Doar gratuite</span>
+          </label>
           <div className="shop-formats">
             <span className="shop-fmt-label">Format:</span>
             {SHOP_FORMATS.map(f => (
@@ -865,8 +910,8 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
           {/* Result bar */}
           <div className="shop-result-bar">
             <div className="shop-result-count">
-              <strong>{filtered.length}</strong>&nbsp;
-              {filtered.length === 1 ? 'produs găsit' : 'produse găsite'}
+              <strong>{total}</strong>&nbsp;
+              {total === 1 ? 'produs găsit' : 'produse găsite'}
               {hasFilters && (
                 <button className="shop-reset-btn" onClick={resetFilters}>
                   ✕ Resetează filtrele
@@ -875,35 +920,37 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
             </div>
           </div>
 
-          {filtered.length > 0 ? (
-            <div className="shop-grid">
-              {filtered.map((p, i) => (
-                <FadeUp key={p.id} delay={Math.min(i, 5) * 70} style={{ display: 'flex', flexDirection: 'column' }}>
-                  <ProductCard product={p} onClick={setSelected} />
-                </FadeUp>
-              ))}
-            </div>
-          ) : (
+          {catalog.length > 0 && grid(catalog)}
+
+          {total === 0 && (
             <div className="shop-empty">
-              <div className="shop-empty-icon">🔍</div>
-              <h3>Niciun produs găsit</h3>
-              <p>Încearcă să modifici criteriile de filtrare sau căutare.</p>
+              <h3>Niciun produs pentru filtrele alese</h3>
+              <p>Unele categorii sunt încă în lucru. Resetează filtrele sau scrie-ne ce document cauți.</p>
               <button className="btn btn-outline" onClick={resetFilters}>Resetează filtrele</button>
+            </div>
+          )}
+
+          {/* Raftul separat, fără promovare (decizia B5) */}
+          {shelf.length > 0 && (
+            <div className="sp-shelf">
+              <h2 className="sp-shelf__title">Formulare uzuale</h2>
+              <p className="sp-shelf__lead">Formulare oficiale de uz general, preluate din sursa publică și transformate de INFORMS în PDF completabil.</p>
+              {grid(shelf)}
             </div>
           )}
 
           {/* CTA banner */}
           <div className="shop-cta-banner">
-            <div className="sp-cta__k">Ai nevoie de ceva personalizat?</div>
+            <div className="sp-cta__k">Servicii</div>
             <h2 className="sp-cta__title">Documentație la comandă</h2>
             <p className="sp-cta__lead">
-              Nu ai găsit ce căutai? Elaborăm documentații personalizate, adaptate exact situației și nevoilor tale specifice.
+              Nu ai găsit instrumentul potrivit? Îl putem elabora sau adapta pe procedura, proiectul sau fluxul tău de lucru.
             </p>
             <button
               className="btn btn-primary"
               onClick={() => { onNav('contact'); window.scrollTo({ top: 0, behavior: 'instant' }); }}
             >
-              Contactează-ne
+              Descrie ce îți trebuie
             </button>
           </div>
 
@@ -939,7 +986,7 @@ const ORDER_STATES = {
   ok: {
     color: '#16A34A', bg: '#F0FDF4', border: '#86EFAC', icon: '✓',
     title: 'Plata a fost confirmată',
-    body: 'Îți mulțumim. Ai primit pe email confirmarea comenzii și linkul de descărcare. Dacă mesajul nu apare în câteva minute, verifică folderul Spam sau Promoții.',
+    body: 'Îți mulțumim. Îți trimitem pe email confirmarea comenzii și linkul de descărcare. Dacă mesajul nu apare în 10 minute, verifică folderul Spam sau Promoții, apoi scrie-ne la ' + COMPANY.email + '.',
   },
   pending: {
     color: '#B45309', bg: '#FFFBEB', border: '#FCD34D', icon: '⏳',
@@ -949,7 +996,7 @@ const ORDER_STATES = {
   fail: {
     color: '#DC2626', bg: '#FEF2F2', border: '#FECACA', icon: '!',
     title: 'Plata nu a fost finalizată',
-    body: 'Tranzacția a fost respinsă sau anulată și nu ți s-a reținut nicio sumă. Poți relua comanda din magazin sau ne poți scrie pentru plata prin transfer bancar.',
+    body: 'Tranzacția a fost respinsă sau anulată. Dacă vezi totuși o sumă blocată pe card, banca o eliberează automat, de regulă în câteva zile lucrătoare. Poți relua comanda din magazin sau ne poți scrie pentru plata prin transfer bancar.',
   },
 };
 

@@ -50,7 +50,7 @@ const PAGE_META = {
   },
   'magazin': {
     title: 'Produse digitale | INFORMS',
-    desc: 'Documente profesionale pentru achiziții publice și sectorul public: modele Word, Excel, PDF și pachete complete.'
+    desc: 'Modele Word, Excel și PDF pentru autorități contractante, ofertanți și profesioniști tehnici. Formulare gratuite și instrumente cu plată, livrate pe email.'
   },
   'comanda-finalizata': {
     title: 'Stare comandă | INFORMS',

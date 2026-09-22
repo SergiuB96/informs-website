@@ -70,10 +70,10 @@ const PROD_CATS = [{
   label: 'Delegare servicii'
 }, {
   cat: 'management',
-  label: 'Management proiect'
+  label: 'Management de proiect'
 }, {
-  cat: 'digitalizare',
-  label: 'Digitalizare'
+  cat: 'monitorizare',
+  label: 'Monitorizare și raportare'
 }, {
   cat: 'gratuite',
   label: 'Gratuite'
@@ -333,7 +333,7 @@ function Footer() {
     class: "ftr__h"
   }, "Navigare"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/"
-  }, "Pagina principal\u0103")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, "Acas\u0103")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/despre-noi"
   }, "Despre noi")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/servicii"
@@ -416,11 +416,22 @@ function Footer() {
     width: "398",
     height: "102",
     loading: "lazy"
+  })), /*#__PURE__*/React.createElement("a", {
+    className: "ftr__badge",
+    href: "https://ec.europa.eu/consumers/odr",
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "uploads/anpc-sol-h102.webp",
+    alt: "ANPC SOL",
+    width: "366",
+    height: "102",
+    loading: "lazy"
   })))), /*#__PURE__*/React.createElement("div", {
     className: "ftr__legal"
   }, /*#__PURE__*/React.createElement("p", {
     className: "ftr__copy"
-  }, "\xA9 ", new Date().getFullYear(), " ", COMPANY.brand, ". Parte a companiei ", COMPANY.name, ". Toate drepturile rezervate."))));
+  }, "\xA9 ", new Date().getFullYear(), " ", COMPANY.name, ". ", COMPANY.brand, " este un brand al ", COMPANY.name, ". Toate drepturile rezervate."))));
 }
 function fmtTitle(text) {
   const map = {

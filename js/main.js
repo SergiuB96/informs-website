@@ -615,7 +615,7 @@
       var ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail.value.trim());
       note.textContent = ok
         ? 'Machetă demonstrativă: adresa e validă, dar nu se trimite nimic.'
-        : 'Adresa nu pare validă. Verific-o și încearcă din nou.';
+        : 'Verifică adresa de email. Exemplu: nume@institutie.ro';
       note.style.color = ok ? 'var(--muted-2)' : '#FF7AA8';
     });
   }

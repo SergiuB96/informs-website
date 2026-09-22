@@ -45,7 +45,11 @@ export default async function handler(req, res) {
 
   const body = req.body || {};
 
-  if (!body.acceptTerms || !body.acceptWaiver) {
+  /* Dreptul de retragere (OUG 34/2014) e al consumatorului, deci renunțarea
+     se cere doar fără CUI: aceeași regulă după care factura iese pe
+     persoană fizică. */
+  const isCompany = Boolean(clean(body.cui, 20));
+  if (!body.acceptTerms || (!isCompany && !body.acceptWaiver)) {
     return res.status(400).json({ error: 'Trebuie să accepți termenii și livrarea imediată a documentului.' });
   }
 

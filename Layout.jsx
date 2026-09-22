@@ -41,8 +41,8 @@ const PROD_CATS = [
   { cat: 'all',          label: 'Toate produsele' },
   { cat: 'achizitii',    label: 'Achiziții publice' },
   { cat: 'delegare',     label: 'Delegare servicii' },
-  { cat: 'management',   label: 'Management proiect' },
-  { cat: 'digitalizare', label: 'Digitalizare' },
+  { cat: 'management',   label: 'Management de proiect' },
+  { cat: 'monitorizare', label: 'Monitorizare și raportare' },
   { cat: 'gratuite',     label: 'Gratuite' },
 ];
 
@@ -245,7 +245,7 @@ function Footer() {
             <div className="ftr__col">
               <h2 class="ftr__h">Navigare</h2>
               <ul>
-                <li><a href="/">Pagina principală</a></li>
+                <li><a href="/">Acasă</a></li>
                 <li><a href="/despre-noi">Despre noi</a></li>
                 <li><a href="/servicii">Servicii</a></li>
                 <li><a href="/magazin">Produse</a></li>
@@ -293,12 +293,15 @@ function Footer() {
             <a className="ftr__badge" href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener noreferrer">
               <img src="uploads/anpc-sal-h102.webp" alt="ANPC SAL" width="398" height="102" loading="lazy" />
             </a>
+            <a className="ftr__badge" href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">
+              <img src="uploads/anpc-sol-h102.webp" alt="ANPC SOL" width="366" height="102" loading="lazy" />
+            </a>
           </div>
         </div>
 
         <div className="ftr__legal">
           <p className="ftr__copy">
-            © {new Date().getFullYear()} {COMPANY.brand}. Parte a companiei {COMPANY.name}. Toate drepturile rezervate.
+            © {new Date().getFullYear()} {COMPANY.name}. {COMPANY.brand} este un brand al {COMPANY.name}. Toate drepturile rezervate.
           </p>
         </div>
       </div>

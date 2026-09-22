@@ -27,7 +27,7 @@
     "out": "despre-noi.html",
     "src": "despre-noi.html",
     "title": "Despre noi - INFORMS",
-    "desc": "INFORMS este brandul MILBAC MANAGEMENT S.R.L. din Târgu Mureș. O echipă cu peste cincisprezece ani de practică în achiziții publice.",
+    "desc": "INFORMS este brandul MILBAC MANAGEMENT S.R.L. din Târgu Mureș: documentații, instrumente digitale și consultanță, cu o echipă cu peste 15 ani de practică în achiziții publice.",
     "css": [
       "art"
     ],
@@ -38,7 +38,7 @@
     "out": "contact.html",
     "src": "contact.html",
     "title": "Contact - INFORMS",
-    "desc": "Scrie-ne despre procedura pe care o pregătești. Răspundem în cel mult o zi lucrătoare.",
+    "desc": "Scrie-ne ce ai de pregătit. Răspundem în cel mult o zi lucrătoare, iar prima discuție este fără obligații.",
     "css": [
       "art",
       "listing",
@@ -50,8 +50,8 @@
   {
     "out": "404.html",
     "src": "404.html",
-    "title": "Pagina nu a fost gasita - INFORMS",
-    "desc": "Adresa cautata nu exista. Vezi serviciile, catalogul de produse sau scrie-ne.",
+    "title": "Pagina nu a fost găsită - INFORMS",
+    "desc": "Adresa căutată nu există. Vezi serviciile, magazinul sau scrie-ne.",
     "css": [
       "art"
     ],

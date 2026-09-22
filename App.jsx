@@ -24,7 +24,7 @@ const PAGE_META = {
   'modele-excel':               { title: 'Modele de lucru EXCEL | INFORMS', desc: 'Instrumente avansate în format Excel pentru eficientizarea activității instituțiilor publice și companiilor private.' },
   'modele-word':                { title: 'Modele de lucru WORD | INFORMS', desc: 'Documente tipizate și formulare personalizabile în format Word pentru administrație publică și achiziții.' },
   'modele-pdf':                 { title: 'Modele PDF inteligent | INFORMS', desc: 'Formulare electronice interactive în format PDF standardizat, compatibile Adobe Acrobat.' },
-  'magazin':                    { title: 'Produse digitale | INFORMS', desc: 'Documente profesionale pentru achiziții publice și sectorul public: modele Word, Excel, PDF și pachete complete.' },
+  'magazin':                    { title: 'Produse digitale | INFORMS', desc: 'Modele Word, Excel și PDF pentru autorități contractante, ofertanți și profesioniști tehnici. Formulare gratuite și instrumente cu plată, livrate pe email.' },
   'comanda-finalizata':         { title: 'Stare comandă | INFORMS', desc: 'Rezultatul plății și pașii următori pentru comanda ta INFORMS.' },
   'politica-confidentialitate': { title: 'Politica de confidențialitate | INFORMS', desc: 'Informații privind modul în care INFORMS colectează, utilizează și protejează datele cu caracter personal.' },
   'termeni-si-conditii':        { title: 'Termeni și condiții | INFORMS', desc: 'Termenii și condițiile care guvernează achiziția produselor digitale INFORMS, comercializate de MILBAC MANAGEMENT S.R.L.' },
