@@ -48,6 +48,7 @@ function buildFields({ product, orderID, link, firstName, lastName, paidAt, expi
     orderID,
     link,
     termsUrl: siteUrl + '/termeni-si-conditii',
+    logoUrl: siteUrl + '/assets/brand/logo-email.png',
     withdrawal:
       'La plasarea comenzii ați solicitat expres livrarea imediată a documentului digital și ați ' +
       'confirmat că ați luat cunoștință că, odată începută descărcarea, vă pierdeți dreptul de ' +
@@ -116,8 +117,13 @@ function buildHtml(f) {
     '<tr><td align="center" style="padding:24px 12px;">' +
     '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#FFFFFF;border:1px solid ' + COLORS.line + ';border-radius:8px;">' +
 
-    '<tr><td style="padding:22px 32px;background:' + COLORS.navy + ';border-radius:8px 8px 0 0;">' +
-    '<span style="font-size:20px;font-weight:700;letter-spacing:.06em;color:#FFFFFF;">INFORMS</span></td></tr>' +
+    /* Logo PNG (SVG nu merge în Gmail/Outlook), alb pe navy, cu navy-ul
+       inclus în imagine: rămâne vizibil și dacă clientul ignoră fundalul
+       celulei. Dacă imaginile sunt blocate, alt-ul apare alb pe navy. */
+    '<tr><td bgcolor="' + COLORS.navy + '" style="padding:18px 28px;background:' + COLORS.navy + ';border-radius:8px 8px 0 0;">' +
+    '<img src="' + f.logoUrl + '" width="187" height="38" alt="INFORMS" ' +
+    'style="display:block;border:0;outline:none;text-decoration:none;width:187px;height:38px;' +
+    'background:' + COLORS.navy + ';color:#FFFFFF;font-size:20px;font-weight:700;letter-spacing:.06em;"></td></tr>' +
 
     '<tr><td style="padding:32px;">' +
     '<p style="' + p + '">' + escapeHtml(f.greeting) + '</p>' +
