@@ -42,7 +42,8 @@
 
 .anchors__cta { flex: none; }
 
-[id="capabilitati"], [id="proces"], [id="pachete"], [id="intrebari"], [id="pentru-cine"] {
+[id="capabilitati"], [id="proces"], [id="pachete"], [id="intrebari"], [id="pentru-cine"],
+[id="autoritati"], [id="ofertanti"] {
   scroll-margin-top: calc(var(--hdr-h) + 90px);
 }
 
@@ -275,3 +276,6 @@
   .ptable__for { display: inline; }
   .qa summary { font-size: 17px; line-height: 24px; padding: 20px 0; gap: 16px; }
 }
+
+/* cardul spre care duce butonul din hero se vede ales */
+.cap:target { border-color: var(--blue); box-shadow: 0 0 0 1px var(--blue); }

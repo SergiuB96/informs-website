@@ -61,11 +61,9 @@
   color: #E4DFF2;
 }
 
-.hero__cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+.hero__cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; }
 
-.hero__alt { margin-top: 28px; font-size: 15px; color: var(--muted-2); }
-
-.hero__alt .lnk { font-size: 15px; margin-left: 6px; }
+.hero__cta .btn:hover .ico-arrow { transform: translateX(4px); }
 
 .sect--intro { padding-top: 80px; }
 
@@ -355,8 +353,6 @@
 @media (max-width: 640px) {
   .hero { padding-top: calc(var(--hdr-h) + 36px); }
   .hero__cta { flex-direction: column; align-items: stretch; }
-  .hero__alt { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
-  .hero__alt .lnk { margin-left: 0; }
   .intro__title { font-size: 30px; line-height: 37px; letter-spacing: -.6px; }
   .intro__cta { flex-direction: column; align-items: stretch; }
   .intro__right { grid-template-columns: repeat(3, 1fr); gap: 8px; }
