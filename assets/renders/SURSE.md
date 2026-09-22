@@ -31,8 +31,8 @@ văd în continuare varianta veche.
 |---|---|---|
 | capitel-ionic.webp | Banda „Documente care stau pe lege” (acasă, despre noi), colțul din dreapta jos | Agostino Veneziano, *Capitel ionic*, 1528, din Speculum Romanae Magnificentiae, Metropolitan Museum of Art, **CC0**: https://commons.wikimedia.org/wiki/File:Speculum_Romanae_Magnificentiae-_Ionic_Capital_MET_DP870182.jpg . Decupat capitelul din dreapta, inscripția ștearsă, liniile convertite în alb-lavandă pe fundal transparent (900 px). |
 | banda-curbe.webp | Banda „Documente care stau pe lege” de pe acasă, fundal întreg | Unsplash, [Unsplash License](https://unsplash.com/license): https://unsplash.com/photos/abstract-dark-blue-and-white-curved-lines-Vj1pkbDfbWg . Decupat 1920×600, convertit în duoton navy (#0C0032) spre albastru (#4A5BC4). |
-| card-planificare.webp | Acasa, cardul etapei 01 Planificare (720x900) | Unsplash, [Unsplash License](https://unsplash.com/license): https://unsplash.com/photos/FoKO4DpXamQ (agenda lunara deschisa, fara text lizibil). |
-| card-atribuire.webp | Acasa, cardul etapei 02 Atribuire | Unsplash: https://unsplash.com/photos/aJTiW00qqtI (coli albe rasfirate, fara text). |
+| card-planificare-agenda.webp | Acasa, cardul etapei 01 Planificare (720x900). Numele vechi, card-planificare.webp, ramane in repo pentru paginile din cache. | Unsplash, [Unsplash License](https://unsplash.com/license): https://unsplash.com/photos/FoKO4DpXamQ (agenda lunara deschisa, fara text lizibil). |
+| card-atribuire-coli.webp | Acasa, cardul etapei 02 Atribuire. Vezi mai sus despre numele vechi. | Unsplash: https://unsplash.com/photos/aJTiW00qqtI (coli albe rasfirate, fara text). |
 | card-ofertare.webp | Acasa, cardul etapei 03 Ofertare | Unsplash: https://unsplash.com/photos/toQNPpuDuwI (plicuri deschise). |
 | card-executie.webp | Acasa, cardul etapei 04 Executie si receptie | Unsplash: https://unsplash.com/photos/nhCPOp4A2Xo (structura in lucru cu macara). |
 | (toate cele patru) | Decupate 720x900 si colorate in duoton navy (#0C0032), albastru (#2F4BD8), lavanda (#B9C4FF). Stratul navy de deasupra vine din CSS (.cap--art). |
