@@ -130,6 +130,12 @@
   margin-bottom: 16px;
 }
 
+/* Imagini Unsplash colorate navy-albastru; sursele în assets/renders/SURSE.md. */
+.mega__promo-art--servicii,
+.mega__promo-art--produse { background: var(--navy-800) center / cover no-repeat; }
+.mega__promo-art--servicii { background-image: url("../assets/renders/meniu-servicii.webp"); }
+.mega__promo-art--produse { background-image: url("../assets/renders/meniu-produse.webp"); }
+
 .mega__promo-kicker {
   font-size: 12px; font-weight: 700; letter-spacing: .12em;
   text-transform: uppercase; color: var(--muted-3); margin-bottom: 8px;

@@ -196,9 +196,8 @@ function Nav({
   }, l))))), /*#__PURE__*/React.createElement("div", {
     className: "mega__promo"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "mega__promo-art art",
-    "data-art": "grid",
-    "data-tint": "deep"
+    className: "mega__promo-art mega__promo-art--servicii",
+    "aria-hidden": "true"
   }), /*#__PURE__*/React.createElement("p", {
     className: "mega__promo-kicker"
   }, "Primul pas"), /*#__PURE__*/React.createElement("p", {
@@ -236,9 +235,8 @@ function Nav({
   }, label))))), /*#__PURE__*/React.createElement("div", {
     className: "mega__promo"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "mega__promo-art art",
-    "data-art": "bars",
-    "data-tint": "blue"
+    className: "mega__promo-art mega__promo-art--produse",
+    "aria-hidden": "true"
   }), /*#__PURE__*/React.createElement("p", {
     className: "mega__promo-kicker"
   }, "F\u0103r\u0103 cost"), /*#__PURE__*/React.createElement("p", {

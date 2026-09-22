@@ -134,7 +134,7 @@ function Nav({ onNav, page }) {
                       </ul>
                     </div>
                     <div className="mega__promo">
-                      <div className="mega__promo-art art" data-art="grid" data-tint="deep" />
+                      <div className="mega__promo-art mega__promo-art--servicii" aria-hidden="true" />
                       <p className="mega__promo-kicker">Primul pas</p>
                       <p className="mega__promo-title">Descrie procedura și îți spunem ce documente îți trebuie</p>
                       <a className="lnk" href="/contact">Scrie-ne <Arrow /></a>
@@ -163,7 +163,7 @@ function Nav({ onNav, page }) {
                       </ul>
                     </div>
                     <div className="mega__promo">
-                      <div className="mega__promo-art art" data-art="bars" data-tint="blue" />
+                      <div className="mega__promo-art mega__promo-art--produse" aria-hidden="true" />
                       <p className="mega__promo-kicker">Fără cost</p>
                       <p className="mega__promo-title">Modele gratuite, descărcabile imediat</p>
                       <a className="lnk" href="/magazin" onClick={(e) => goShop('gratuite', e)}>Vezi modelele <Arrow /></a>
