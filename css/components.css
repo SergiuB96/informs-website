@@ -513,3 +513,27 @@
   .cap { padding: 26px 22px; }
   .ed__title { font-size: 24px; line-height: 32px; }
 }
+
+/* ── Secțiune pe hârtie ───────────────────────────────────────
+   O secțiune crem pe pagină rupe navy-ul continuu, ca alternanța
+   închis/deschis din magazin și din fișa din hero. Nu rescrie
+   componentele: redefinește tokenii de culoare, iar titlurile,
+   textul, liniile și cardurile din interior urmează singure. */
+.sect--paper {
+  --white:    #0C0032;
+  --muted:    #3D3858;
+  --muted-2:  #5B5577;
+  --muted-3:  rgba(12, 0, 50, .5);
+  --line:     rgba(12, 0, 50, .12);
+  --line-str: rgba(12, 0, 50, .22);
+
+  background: #F3F1EA;
+  color: var(--muted);
+  padding-block: var(--sect-lg);
+}
+
+/* galbenul de focus dispare pe crem */
+.sect--paper :focus-visible { outline-color: var(--blue); }
+
+.sect--paper .cap { background: #FBFAF7; }
+.sect--paper .cap:hover { background: #FFFFFF; }

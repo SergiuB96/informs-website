@@ -12,7 +12,7 @@
 }
 
 .hdr.is-stuck {
-  background: rgba(12, 0, 50, .92);
+  background: rgba(12, 0, 50, .97);
   backdrop-filter: blur(14px);
   box-shadow: 0 1px 0 var(--line);
 }
@@ -210,9 +210,10 @@
 
 .drawer__group summary {
   list-style: none;
-  padding: 18px 0;
+  min-height: 64px;
+  padding: 16px 0;
   font-family: var(--f-body);
-  font-size: 18px; font-weight: 600; color: var(--white);
+  font-size: 22px; font-weight: 600; color: var(--white);
   display: flex; align-items: center; justify-content: space-between;
   cursor: pointer;
 }
@@ -229,17 +230,31 @@
 .drawer__group[open] summary::after { transform: rotate(-135deg) translateY(-2px); }
 
 .drawer__group a {
-  display: block; padding: 11px 0 11px 14px;
-  font-size: 16px; color: var(--muted);
+  display: flex; align-items: center;
+  min-height: 48px; padding: 10px 0 10px 16px;
+  font-size: 17px; color: var(--muted);
 }
 
 .drawer__group > a:last-child { padding-bottom: 18px; }
 
+/* elemente mari, cu zone de apăsat de cel puțin 56px; linkurile
+   directe primesc ›, grupurile păstrează săgeata de pliere */
 .drawer__solo {
-  padding: 18px 0;
-  font-size: 18px; font-weight: 600; color: var(--white);
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: 64px;
+  padding: 16px 0;
+  font-size: 22px; font-weight: 600; color: var(--white);
   border-bottom: 1px solid var(--line);
 }
+
+.drawer__solo::after {
+  content: "\203A";
+  font-size: 28px; font-weight: 400; line-height: 1;
+  color: var(--muted-2);
+  transition: transform .2s var(--ease), color .2s var(--ease);
+}
+
+.drawer__solo:hover::after { color: var(--white); transform: translateX(3px); }
 
 .drawer__cta { margin-top: 28px; width: 100%; }
 
@@ -376,7 +391,8 @@
 
 @media (max-width: 1023px) {
   .nav, .hdr__actions { display: none; }
-  .burger { display: flex; }
+  /* meniul ascuns lasă butonul lângă logo; îl împingem la margine */
+  .burger { display: flex; margin-left: auto; width: 48px; height: 48px; margin-right: -4px; }
   .ftr__top { grid-template-columns: 1fr; }
   .ftr__cols { grid-template-columns: repeat(2, 1fr); gap: 28px; }
 }
