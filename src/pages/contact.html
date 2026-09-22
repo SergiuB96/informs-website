@@ -15,12 +15,12 @@
         <div class="phero__main">
           <p class="kicker">Scrie-ne</p>
           <h1 class="phero__title">Spune-ne ce ai de pregătit</h1>
-          <p class="phero__lead">Cu cât descrii mai concret procedura, cu atât răspundem mai util. Termen, tip de contract, ce documente ai deja.</p>
+          <p class="phero__lead">Cu cât descrii mai concret situația, cu atât răspunsul e mai util: termenul, tipul de contract sau de lucrare, documentele pe care le ai deja.</p>
         </div>
 
         <aside class="phero__facts">
           <div class="fact"><span class="fact__num">1</span><span class="fact__lbl">zi lucrătoare, cel mult, până la răspuns</span></div>
-          <div class="fact"><span class="fact__num">0</span><span class="fact__lbl">cost pentru prima discuție</span></div>
+          <div class="fact"><span class="fact__num">0<span class="fact__unit"> lei</span></span><span class="fact__lbl">pentru prima discuție</span></div>
         </aside>
       </div>
     </div>
@@ -41,7 +41,7 @@
               <div class="field" data-field="nume">
                 <label class="field__label" for="f-nume">Nume și prenume <span class="req">*</span></label>
                 <input type="text" id="f-nume" name="nume" autocomplete="name" required>
-                <span class="field__err">Scrie-ne cum te cheamă.</span>
+                <span class="field__err">Completează numele și prenumele.</span>
               </div>
 
               <div class="field" data-field="organizatie">
@@ -52,13 +52,13 @@
               <div class="field" data-field="email">
                 <label class="field__label" for="f-email">Email <span class="req">*</span></label>
                 <input type="email" id="f-email" name="email" autocomplete="email" required>
-                <span class="field__err">Adresa nu pare validă.</span>
+                <span class="field__err">Verifică adresa de email. Exemplu: nume@institutie.ro</span>
               </div>
 
               <div class="field" data-field="telefon">
                 <label class="field__label" for="f-tel">Telefon</label>
                 <input type="tel" id="f-tel" name="telefon" autocomplete="tel">
-                <span class="field__err">Numărul nu pare valid.</span>
+                <span class="field__err">Verifică numărul de telefon. Exemplu: 0740 123 456</span>
               </div>
 
               <div class="field field--select fgrid__full" data-field="subiect">
@@ -68,8 +68,12 @@
                   <option>Documentație de atribuire</option>
                   <option>Delegare servicii de utilități publice</option>
                   <option>Pregătirea unei oferte</option>
-                  <option>Contestație</option>
+                  <option>Asistență la o contestație</option>
                   <option>Instrumente de lucru Excel, Word sau PDF</option>
+                  <option>Digitalizarea unui flux de lucru</option>
+                  <option>Formulare și evidențe pentru lucrări</option>
+                  <option>Cumpărare pentru o instituție publică</option>
+                  <option>Comandă din magazin sau factură</option>
                   <option>Instruirea personalului</option>
                   <option>Altceva</option>
                 </select>
@@ -78,7 +82,7 @@
 
               <div class="field fgrid__full" data-field="mesaj">
                 <label class="field__label" for="f-msg">Mesaj <span class="req">*</span></label>
-                <textarea id="f-msg" name="mesaj" required placeholder="Ce procedură pregătești, ce termen ai și ce documente există deja."></textarea>
+                <textarea id="f-msg" name="mesaj" required placeholder="Ce ai de pregătit, până când și ce documente există deja."></textarea>
                 <span class="field__hint">Minimum 20 de caractere.</span>
                 <span class="field__err">Scrie-ne câteva rânduri despre situație.</span>
               </div>
@@ -86,9 +90,9 @@
               <div class="field fgrid__full" data-field="acord">
                 <label class="check">
                   <input type="checkbox" id="f-acord" name="acord" required>
-                  <span>Sunt de acord cu prelucrarea datelor pentru a primi un răspuns, conform <a href="/politica-confidentialitate">politicii de confidențialitate</a>.<span class="req">&nbsp;*</span></span>
+                  <span>Am citit <a href="/politica-confidentialitate">Politica de confidențialitate</a> și înțeleg că datele mele sunt folosite doar pentru a răspunde acestui mesaj.<span class="req">&nbsp;*</span></span>
                 </label>
-                <span class="field__err">Avem nevoie de acordul tău ca să îți putem răspunde.</span>
+                <span class="field__err">Bifează confirmarea ca să putem trimite mesajul.</span>
               </div>
 
             </div>
@@ -115,15 +119,15 @@
 
           <div class="cbox">
             <h3>Cauți un model anume</h3>
-            <p>O parte din instrumente se descarcă direct din catalog, fără să ne scrii.</p>
-            <div class="cbox__row"><a href="/magazin">Vezi catalogul de produse</a></div>
-            <div class="cbox__row"><a href="/magazin#gratuite">Modele gratuite</a></div>
+            <p>Modelele din magazin se cumpără sau se descarcă direct, fără să ne scrii. Instituțiile care plătesc prin ordin de plată aleg subiectul „Cumpărare pentru o instituție publică”.</p>
+            <div class="cbox__row"><a href="/magazin">Vezi magazinul</a></div>
+            <div class="cbox__row"><a href="/magazin#gratuite">Formulare gratuite</a></div>
           </div>
 
           <div class="cbox">
-            <h3>Gestionezi tot programul</h3>
-            <p>Pentru programul anual de achiziții și fluxurile de avizare, aplicația soră acoperă partea de platformă.</p>
-            <div class="cbox__row"><a href="https://www.agathaplus.ro/" target="_blank" rel="noopener">Agatha Plus</a></div>
+            <h3>Gestionezi tot programul de achiziții</h3>
+            <p>Pentru programul anual și urmărirea contractelor există Agatha Plus, platforma dezvoltată de aceeași echipă.</p>
+            <div class="cbox__row"><a href="https://www.agathaplus.ro/" target="_blank" rel="noopener">Descoperă Agatha Plus</a></div>
           </div>
         </aside>
 

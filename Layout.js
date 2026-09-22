@@ -82,7 +82,7 @@ const PROD_CATS = [{
 /* Categoriile fără produse nu apar în meniu (vezi hasProducts în Shop.jsx).
    Shop.js se încarcă după Layout.js, deci funcția se citește la randare. */
 const prodCats = () => PROD_CATS.filter(c => !window.shopHasProducts || window.shopHasProducts(c.cat));
-const SVC_LINKS = [['/servicii#analiza', 'Analiză și soluții personalizate'], ['/servicii#achizitii', 'Achiziții publice'], ['/servicii#delegare', 'Delegare servicii de utilități publice'], ['/servicii#excel', 'Modele de lucru EXCEL'], ['/servicii#word', 'Modele de lucru WORD'], ['/servicii#pdf', 'Modele de lucru PDF inteligent']];
+const SVC_LINKS = [['/servicii#analiza', 'Analiză și consultanță'], ['/servicii#achizitii', 'Documentații de atribuire'], ['/servicii#delegare', 'Delegare servicii de utilități publice'], ['/servicii#digitalizare', 'Digitalizare la comandă'], ['/servicii#excel', 'Modele de lucru EXCEL'], ['/servicii#word', 'Modele de lucru WORD'], ['/servicii#pdf', 'Formulare PDF interactive']];
 function Nav({
   onNav,
   page
@@ -177,9 +177,9 @@ function Nav({
     className: "mega__col"
   }, /*#__PURE__*/React.createElement("p", {
     className: "mega__label"
-  }, "Consultan\u021B\u0103 \u0219i documenta\u021Bii"), /*#__PURE__*/React.createElement("ul", {
+  }, "Servicii"), /*#__PURE__*/React.createElement("ul", {
     className: "mega__links"
-  }, SVC_LINKS.slice(0, 3).map(([h, l]) => /*#__PURE__*/React.createElement("li", {
+  }, SVC_LINKS.slice(0, 4).map(([h, l]) => /*#__PURE__*/React.createElement("li", {
     key: h
   }, /*#__PURE__*/React.createElement("a", {
     href: h
@@ -189,7 +189,7 @@ function Nav({
     className: "mega__label"
   }, "Instrumente de lucru"), /*#__PURE__*/React.createElement("ul", {
     className: "mega__links"
-  }, SVC_LINKS.slice(3).map(([h, l]) => /*#__PURE__*/React.createElement("li", {
+  }, SVC_LINKS.slice(4).map(([h, l]) => /*#__PURE__*/React.createElement("li", {
     key: h
   }, /*#__PURE__*/React.createElement("a", {
     href: h
@@ -251,6 +251,13 @@ function Nav({
     className: "nav__item"
   }, /*#__PURE__*/React.createElement("a", {
     className: "nav__link",
+    href: "https://www.agathaplus.ro/",
+    target: "_blank",
+    rel: "noopener"
+  }, "Agatha Plus")), /*#__PURE__*/React.createElement("li", {
+    className: "nav__item"
+  }, /*#__PURE__*/React.createElement("a", {
+    className: "nav__link",
     href: "/contact"
   }, "Contact")))), /*#__PURE__*/React.createElement("button", {
     className: "burger",
@@ -286,6 +293,11 @@ function Nav({
     onClick: e => goShop(cat, e)
   }, label))), /*#__PURE__*/React.createElement("a", {
     className: "drawer__solo",
+    href: "https://www.agathaplus.ro/",
+    target: "_blank",
+    rel: "noopener"
+  }, "Agatha Plus"), /*#__PURE__*/React.createElement("a", {
+    className: "drawer__solo",
     href: "/contact"
   }, "Contact"))));
 }
@@ -315,12 +327,12 @@ function Footer() {
     height: "166"
   })), /*#__PURE__*/React.createElement("p", {
     className: "ftr__tag"
-  }, "Documenta\u021Bii complete, formulare \u0219i instrumente de lucru pentru achizi\u021Bii publice, \xEEntr-un format standard \u0219i u\u0219or de aplicat."), /*#__PURE__*/React.createElement("a", {
+  }, "Documenta\u021Bii de atribuire, instrumente Excel, Word \u0219i PDF \u0219i digitalizare la comand\u0103, pentru contractele publice, de la planificare la recep\u021Bie."), /*#__PURE__*/React.createElement("a", {
     className: "ftr__cross",
-    href: "https://agathaplus.ro/",
+    href: "https://www.agathaplus.ro/",
     target: "_blank",
     rel: "noopener noreferrer"
-  }, /*#__PURE__*/React.createElement("span", null, "Gestionezi tot programul de achizi\u021Bii? Vezi aplica\u021Bia ", /*#__PURE__*/React.createElement("strong", null, "Agatha Plus")), /*#__PURE__*/React.createElement(Arrow, null))), /*#__PURE__*/React.createElement("nav", {
+  }, /*#__PURE__*/React.createElement("span", null, "Planifici achizi\u021Biile \u0219i urm\u0103re\u0219ti contractele? Vezi platforma ", /*#__PURE__*/React.createElement("strong", null, "Agatha Plus")), /*#__PURE__*/React.createElement(Arrow, null))), /*#__PURE__*/React.createElement("nav", {
     className: "ftr__cols",
     "aria-label": "Navigare subsol"
   }, /*#__PURE__*/React.createElement("div", {
@@ -342,6 +354,10 @@ function Footer() {
   }, "Servicii")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/magazin"
   }, "Produse")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+    href: "https://www.agathaplus.ro/",
+    target: "_blank",
+    rel: "noopener"
+  }, "Agatha Plus")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/contact"
   }, "Contact")))), /*#__PURE__*/React.createElement("div", {
     className: "ftr__col"

@@ -2,8 +2,8 @@
   {
     "out": "index.html",
     "src": "index.html",
-    "title": "INFORMS - Formulare inteligente. Documentații complete.",
-    "desc": "Documentații de atribuire, formulare și instrumente de lucru pentru achiziții publice, verificate juridic și construite pe legislația în vigoare.",
+    "title": "INFORMS - Instrumente digitale pentru contractele publice",
+    "desc": "Documentații de atribuire, modele Excel, Word și PDF și aplicația Agatha Plus, pentru autorități, ofertanți și cei care execută lucrări.",
     "css": [
       "home",
       "art"
@@ -15,7 +15,7 @@
     "out": "servicii.html",
     "src": "servicii.html",
     "title": "Servicii - INFORMS",
-    "desc": "Consultanță, documentații de atribuire, delegare servicii de utilități publice și instrumente de lucru Excel, Word și PDF.",
+    "desc": "Documentații de atribuire, delegarea serviciilor de utilități publice, digitalizare la comandă și instrumente Excel, Word și PDF.",
     "css": [
       "art",
       "service"

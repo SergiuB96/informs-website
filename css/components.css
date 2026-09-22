@@ -350,6 +350,15 @@
    ar lăsa două locuri goale pe al doilea rând. */
 .caps--pair { grid-template-columns: repeat(2, 1fr); }
 
+/* Patru etape pe un rând când încap; altfel 2x2, ca .caps--pair.
+   Cardurile au link la final, aliniat jos ca să stea pe aceeași linie. */
+.caps--four { grid-template-columns: repeat(2, 1fr); }
+.caps--four .cap { display: flex; flex-direction: column; }
+.caps--four .cap .lnk { margin-top: auto; align-self: flex-start; }
+@media (min-width: 1201px) {
+  .caps--four { grid-template-columns: repeat(4, 1fr); }
+}
+
 .cap {
   position: relative;
   padding: 34px 30px;
@@ -358,6 +367,9 @@
   border: 1px solid var(--line);
   transition: border-color .25s var(--ease), background-color .25s var(--ease), transform .25s var(--ease);
 }
+
+/* Butoanele de sub un set de carduri (Servicii: instrumente, digitalizare). */
+.caps__foot { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; }
 
 .cap:hover { border-color: var(--line-str); background: rgba(255,255,255,.07); transform: translateY(-3px); }
 
@@ -532,6 +544,9 @@
 
 /* galbenul de focus dispare pe crem */
 .sect--paper :focus-visible { outline-color: var(--blue); }
+
+/* --white e navy aici; butonul albastru își păstrează textul alb. */
+.sect--paper .btn--blue { color: #FFFFFF; }
 
 .sect--paper .cap { background: #FBFAF7; }
 .sect--paper .cap:hover { background: #FFFFFF; }

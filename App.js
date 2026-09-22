@@ -9,8 +9,8 @@ const STATIC_PAGES = ['home', 'servicii', 'despre-noi', 'contact'];
 const POLICY_PAGES = ['politica-confidentialitate', 'termeni-si-conditii', 'politica-gdpr', 'politica-cookies', 'politica-livrare', 'politica-anulare', 'dreptul-de-retragere'];
 const PAGE_META = {
   'home': {
-    title: 'INFORMS - Formulare inteligente. Documentații complete.',
-    desc: 'Documentații complete, formulare și instrumente de lucru inteligente, într-un format intuitiv, standard și ușor de utilizat.'
+    title: 'INFORMS - Instrumente digitale pentru contractele publice',
+    desc: 'Documentații de atribuire, modele Excel, Word și PDF și aplicația Agatha Plus, pentru autorități, ofertanți și cei care execută lucrări.'
   },
   'despre-noi': {
     title: 'Despre noi | INFORMS',

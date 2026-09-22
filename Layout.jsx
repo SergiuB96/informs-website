@@ -51,12 +51,13 @@ const PROD_CATS = [
 const prodCats = () => PROD_CATS.filter(c => !window.shopHasProducts || window.shopHasProducts(c.cat));
 
 const SVC_LINKS = [
-  ['/servicii#analiza',  'Analiză și soluții personalizate'],
-  ['/servicii#achizitii', 'Achiziții publice'],
+  ['/servicii#analiza',  'Analiză și consultanță'],
+  ['/servicii#achizitii', 'Documentații de atribuire'],
   ['/servicii#delegare',  'Delegare servicii de utilități publice'],
+  ['/servicii#digitalizare', 'Digitalizare la comandă'],
   ['/servicii#excel',     'Modele de lucru EXCEL'],
   ['/servicii#word',      'Modele de lucru WORD'],
-  ['/servicii#pdf',       'Modele de lucru PDF inteligent'],
+  ['/servicii#pdf',       'Formulare PDF interactive'],
 ];
 
 function Nav({ onNav, page }) {
@@ -117,9 +118,9 @@ function Nav({ onNav, page }) {
                 <div className="mega">
                   <div className="mega__inner mega__inner--2">
                     <div className="mega__col">
-                      <p className="mega__label">Consultanță și documentații</p>
+                      <p className="mega__label">Servicii</p>
                       <ul className="mega__links">
-                        {SVC_LINKS.slice(0, 3).map(([h, l]) => (
+                        {SVC_LINKS.slice(0, 4).map(([h, l]) => (
                           <li key={h}><a href={h}>{l}</a></li>
                         ))}
                       </ul>
@@ -127,7 +128,7 @@ function Nav({ onNav, page }) {
                     <div className="mega__col">
                       <p className="mega__label">Instrumente de lucru</p>
                       <ul className="mega__links">
-                        {SVC_LINKS.slice(3).map(([h, l]) => (
+                        {SVC_LINKS.slice(4).map(([h, l]) => (
                           <li key={h}><a href={h}>{l}</a></li>
                         ))}
                       </ul>
@@ -171,6 +172,7 @@ function Nav({ onNav, page }) {
                 </div>
               </li>
 
+              <li className="nav__item"><a className="nav__link" href="https://www.agathaplus.ro/" target="_blank" rel="noopener">Agatha Plus</a></li>
               <li className="nav__item"><a className="nav__link" href="/contact">Contact</a></li>
             </ul>
           </nav>
@@ -201,6 +203,7 @@ function Nav({ onNav, page }) {
               ))}
             </details>
 
+            <a className="drawer__solo" href="https://www.agathaplus.ro/" target="_blank" rel="noopener">Agatha Plus</a>
             <a className="drawer__solo" href="/contact">Contact</a>
           </nav>
         </div>
@@ -226,11 +229,10 @@ function Footer() {
               <img className="logo__img" src="assets/brand/logo-white.svg" alt="INFORMS" width="1000" height="166" />
             </a>
             <p className="ftr__tag">
-              Documentații complete, formulare și instrumente de lucru pentru achiziții publice,
-              într-un format standard și ușor de aplicat.
+              Documentații de atribuire, instrumente Excel, Word și PDF și digitalizare la comandă, pentru contractele publice, de la planificare la recepție.
             </p>
-            <a className="ftr__cross" href="https://agathaplus.ro/" target="_blank" rel="noopener noreferrer">
-              <span>Gestionezi tot programul de achiziții? Vezi aplicația <strong>Agatha Plus</strong></span>
+            <a className="ftr__cross" href="https://www.agathaplus.ro/" target="_blank" rel="noopener noreferrer">
+              <span>Planifici achizițiile și urmărești contractele? Vezi platforma <strong>Agatha Plus</strong></span>
               <Arrow />
             </a>
           </div>
@@ -249,6 +251,7 @@ function Footer() {
                 <li><a href="/despre-noi">Despre noi</a></li>
                 <li><a href="/servicii">Servicii</a></li>
                 <li><a href="/magazin">Produse</a></li>
+                <li><a href="https://www.agathaplus.ro/" target="_blank" rel="noopener">Agatha Plus</a></li>
                 <li><a href="/contact">Contact</a></li>
               </ul>
             </div>
