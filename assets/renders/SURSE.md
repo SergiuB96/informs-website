@@ -24,3 +24,9 @@ Decupate la 4:5 și convertite în WebP (800×1000 și 480×600).
 **Înlocuire:** `/assets/` are cache imutabil de un an (vercel.json), deci
 o imagine schimbată trebuie să primească un nume nou, altfel vizitatorii
 văd în continuare varianta veche.
+
+## Gravuri (domeniu public)
+
+| Fișier | Unde | Sursa |
+|---|---|---|
+| capitel-ionic.webp | Banda „Documente care stau pe lege” (acasă, despre noi), colțul din dreapta jos | Agostino Veneziano, *Capitel ionic*, 1528, din Speculum Romanae Magnificentiae, Metropolitan Museum of Art, **CC0**: https://commons.wikimedia.org/wiki/File:Speculum_Romanae_Magnificentiae-_Ionic_Capital_MET_DP870182.jpg . Decupat capitelul din dreapta, inscripția ștearsă, liniile convertite în alb-lavandă pe fundal transparent (900 px). |

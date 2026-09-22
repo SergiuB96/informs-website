@@ -84,14 +84,36 @@
   .cta__row { flex-direction: column; align-items: stretch; }
 }
 
-/* ── Banda violet cu chip-uri derulante ──────────────────────
+/* ── Banda cu chip-uri derulante ─────────────────────────────
    Folosită pe acasă și pe despre-noi. Stătea în home.css, pe care
    despre-noi nu îl încarcă, deci acolo banda apărea fără fundal și
    cu chip-urile lipite într-un singur rând de text. */
 .band {
-  background: var(--purple);
+  position: relative;
+  isolation: isolate;
+  background: var(--navy-700);
   padding-block: var(--sect-md) var(--sect-sm);
   overflow: hidden;
+}
+
+/* Capitel ionic, gravură de Agostino Veneziano (1528), CC0, Metropolitan
+   Museum of Art. Sursa în assets/renders/SURSE.md. Stă în colțul din
+   dreapta jos, tăiat de marginea benzii, doar ca urmă în fundal. */
+.band::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -140px;
+  bottom: -200px;
+  width: 620px;
+  aspect-ratio: 900 / 535;
+  background: url("../assets/renders/capitel-ionic.webp") no-repeat center / contain;
+  opacity: .16;
+  pointer-events: none;
+}
+
+@media (max-width: 760px) {
+  .band::after { width: 340px; right: -70px; bottom: -70px; opacity: .12; }
 }
 
 .band__head { text-align: center; max-width: 900px; }
