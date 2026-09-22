@@ -240,6 +240,9 @@
   min-height: 300px;
 }
 
+/* aceeași ramă și pentru randările foto (assets/renders/) */
+img.artpanel { height: auto; object-fit: cover; background: #0E0138; }
+
 @media (max-width: 1023px) {
   .artpanel { aspect-ratio: 16 / 9; min-height: 0; }
 }

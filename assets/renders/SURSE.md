@@ -14,6 +14,7 @@ Decupate la 4:5 și convertite în WebP (800×1000 și 480×600).
 | ofertanti.webp | Oferta care trece de calificare | https://unsplash.com/photos/3G03lBTzjA8 |
 | instrumente.webp | Modele Excel, Word și PDF | https://unsplash.com/photos/prMn9KINLtI |
 | gratuit.webp | Modele descărcabile imediat | https://unsplash.com/photos/1A_dO4TFKgM |
+| consultanta.webp | Despre noi, secțiunea Consultanță (4:3) | https://unsplash.com/photos/Y5f0gUvVd18 |
 
 **Înlocuire:** `/assets/` are cache imutabil de un an (vercel.json), deci
 o imagine schimbată trebuie să primească un nume nou, altfel vizitatorii
