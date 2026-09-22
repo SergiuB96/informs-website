@@ -251,13 +251,6 @@ function Nav({
     className: "nav__item"
   }, /*#__PURE__*/React.createElement("a", {
     className: "nav__link",
-    href: "https://www.agathaplus.ro/",
-    target: "_blank",
-    rel: "noopener"
-  }, "Agatha Plus")), /*#__PURE__*/React.createElement("li", {
-    className: "nav__item"
-  }, /*#__PURE__*/React.createElement("a", {
-    className: "nav__link",
     href: "/contact"
   }, "Contact")))), /*#__PURE__*/React.createElement("button", {
     className: "burger",
@@ -292,11 +285,6 @@ function Nav({
     href: "/magazin",
     onClick: e => goShop(cat, e)
   }, label))), /*#__PURE__*/React.createElement("a", {
-    className: "drawer__solo",
-    href: "https://www.agathaplus.ro/",
-    target: "_blank",
-    rel: "noopener"
-  }, "Agatha Plus"), /*#__PURE__*/React.createElement("a", {
     className: "drawer__solo",
     href: "/contact"
   }, "Contact"))));

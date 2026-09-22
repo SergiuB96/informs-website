@@ -172,7 +172,6 @@ function Nav({ onNav, page }) {
                 </div>
               </li>
 
-              <li className="nav__item"><a className="nav__link" href="https://www.agathaplus.ro/" target="_blank" rel="noopener">Agatha Plus</a></li>
               <li className="nav__item"><a className="nav__link" href="/contact">Contact</a></li>
             </ul>
           </nav>
@@ -203,7 +202,6 @@ function Nav({ onNav, page }) {
               ))}
             </details>
 
-            <a className="drawer__solo" href="https://www.agathaplus.ro/" target="_blank" rel="noopener">Agatha Plus</a>
             <a className="drawer__solo" href="/contact">Contact</a>
           </nav>
         </div>
