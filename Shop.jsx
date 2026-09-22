@@ -202,7 +202,6 @@ function ProductCard({ product, onClick }) {
     <div className="shop-product-card" onClick={() => onClick(product)}>
       <div className={`shop-card-vis model-card-vis ${product.cv}`}>
         <div className="mc-pat" />
-        {product.price === 0 && <div className="shop-badge-free">Gratuit</div>}
         {product.isNew && product.price !== 0 && <div className="shop-badge-new">Nou</div>}
         <div className="mc-badge">{fmt.label}</div>
         <div className="mc-tag">{fmt.abbr}</div>

@@ -1,11 +1,10 @@
 /* ═════════════════════════════════════════════════════════
-   informs - Doar pagina principala: hero cu fisa de date, intro, piloni,
+   informs - Doar pagina principala: hero cu imagine, intro, piloni,
    lista de probleme, contoare, grila de instrumente.
    ═════════════════════════════════════════════════════════ */
 
-/* Hero: titlul în stânga, în dreapta o fișă de date completată,
-   desenată în CSS. Arată produsul în locul unei decorații; pagina
-   iese prin marginea de jos a secțiunii. Fundal plat, fără gradient. */
+/* Hero: titlul în stânga, în dreapta o imagine cu foi de hârtie
+   care iese prin marginea de jos a secțiunii. Fundal plat. */
 .hero {
   position: relative;
   margin-top: calc(var(--hdr-h) * -1);
@@ -17,8 +16,8 @@
 
 .hero__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 500px;
-  gap: 72px;
+  grid-template-columns: minmax(0, 1fr) 460px;
+  gap: 64px;
 }
 
 .hero__main { align-self: center; padding-bottom: 96px; }
@@ -27,7 +26,7 @@
   font-size: var(--fs-h1);
   line-height: var(--lh-h1);
   letter-spacing: var(--ls-h1);
-  max-width: 12ch;
+  max-width: none;
 }
 
 .hero__lead {
@@ -44,64 +43,16 @@
 
 .hero__alt .lnk { font-size: 15px; margin-left: 6px; }
 
-/* ── fișa de date ── */
-.sheet {
-  --paper: #FBFAF7;
-  --ink-1: #1E1B2E;
-  --ink-2: #6B6680;
-
+/* ── imaginea din dreapta: foi de hârtie în evantai, iese prin
+   marginea de jos a secțiunii ── */
+.hero__art {
   align-self: end;
+  width: 100%;
   height: 560px;
-  padding: 40px 42px;
-  background: var(--paper);
-  color: var(--ink-1);
+  object-fit: cover;
   border-radius: 6px 6px 0 0;
+  background: #1C0A55;
   box-shadow: 0 30px 80px rgba(4, 0, 30, .55);
-}
-
-.sheet__head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  padding-bottom: 16px;
-  border-bottom: 2px solid var(--ink-1);
-}
-
-.sheet__title { font-family: var(--f-display); font-size: 25px; line-height: 1.1; }
-
-.sheet__ver { font-size: 12px; color: var(--ink-2); white-space: nowrap; }
-
-.sheet__meta { margin-top: 8px; font-size: 13px; color: var(--ink-2); }
-
-.fld { margin-top: 20px; }
-
-.fld__lbl { display: flex; gap: 10px; font-size: 12px; color: var(--ink-2); }
-
-.fld__lbl b { color: var(--ink-1); font-weight: 600; }
-
-.fld__val {
-  margin-top: 6px;
-  padding: 7px 10px;
-  font-size: 14px;
-  line-height: 20px;
-  background: rgba(6, 90, 247, .08);
-  border-left: 2px solid var(--blue);
-}
-
-.fld__val--num { font-variant-numeric: tabular-nums; font-weight: 600; }
-
-.checks { margin-top: 8px; display: grid; gap: 6px; font-size: 13.5px; }
-
-.checks li { display: flex; align-items: center; gap: 10px; }
-
-.checks li::before {
-  content: "";
-  flex: none;
-  width: 14px; height: 14px;
-  border-radius: 3px;
-  background: var(--blue);
-  box-shadow: inset 0 0 0 3px var(--paper), 0 0 0 1px var(--blue);
 }
 
 .sect--intro { padding-top: 80px; }
@@ -380,7 +331,7 @@
   .hero { padding-top: calc(var(--hdr-h) + 48px); }
   .hero__grid { grid-template-columns: 1fr; gap: 0; }
   .hero__main { padding-bottom: 48px; }
-  .sheet { height: 360px; max-width: 500px; }
+  .hero__art { height: 360px; max-width: 500px; }
   .intro { grid-template-columns: 1fr; gap: 40px; }
   .intro__right { max-width: 420px; }
   .pillars { grid-template-columns: 1fr; gap: 36px; margin-top: 56px; }
@@ -396,8 +347,7 @@
   .hero__cta { flex-direction: column; align-items: stretch; }
   .hero__alt { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
   .hero__alt .lnk { margin-left: 0; }
-  .sheet { height: 300px; padding: 26px 24px; }
-  .sheet__title { font-size: 20px; }
+  .hero__art { height: 300px; }
   .intro__title { font-size: 30px; line-height: 37px; letter-spacing: -.6px; }
   .intro__cta { flex-direction: column; align-items: stretch; }
   .intro__right { grid-template-columns: repeat(3, 1fr); gap: 8px; }

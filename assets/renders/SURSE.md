@@ -18,6 +18,7 @@ Decupate la 4:5 și convertite în WebP (800×1000 și 480×600).
 | analiza.webp | Servicii, Analiză și soluții (4:3) | https://unsplash.com/photos/W4CTDtL2LQo |
 | achizitii.webp | Servicii, Achiziții publice (4:3) | https://unsplash.com/photos/7ia2YXx0SH8 |
 | delegare-servicii.webp | Servicii, Delegarea serviciilor (4:3) | https://unsplash.com/photos/AMC_Xtz59fA |
+| hero-documente.webp | Acasă, hero (500:560, 1000 și 600 px) | https://unsplash.com/photos/Djq59wpZAXM |
 
 **Înlocuire:** `/assets/` are cache imutabil de un an (vercel.json), deci
 o imagine schimbată trebuie să primească un nume nou, altfel vizitatorii

@@ -327,9 +327,7 @@ function ProductCard({
     className: `shop-card-vis model-card-vis ${product.cv}`
   }, /*#__PURE__*/React.createElement("div", {
     className: "mc-pat"
-  }), product.price === 0 && /*#__PURE__*/React.createElement("div", {
-    className: "shop-badge-free"
-  }, "Gratuit"), product.isNew && product.price !== 0 && /*#__PURE__*/React.createElement("div", {
+  }), product.isNew && product.price !== 0 && /*#__PURE__*/React.createElement("div", {
     className: "shop-badge-new"
   }, "Nou"), /*#__PURE__*/React.createElement("div", {
     className: "mc-badge"
