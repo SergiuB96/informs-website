@@ -1,0 +1,60 @@
+/* ═════════════════════════════════════════════════════════
+   informs - tema pentru bannerul de cookie (vanilla-cookieconsent v3)
+   Se încarcă după cookieconsent.css. Hârtie crem, text navy,
+   butoane în stilul site-ului. Nu am schimbat structura bibliotecii,
+   doar variabilele ei.
+   ═════════════════════════════════════════════════════════ */
+
+#cc-main {
+  --cc-font-family: "DM Sans", system-ui, sans-serif;
+  --cc-bg: #FBFAF7;
+  --cc-primary-color: #0C0032;
+  --cc-secondary-color: #4A4566;
+  --cc-link-color: #065AF7;
+
+  --cc-btn-border-radius: 28px;
+  --cc-btn-primary-bg: #065AF7;
+  --cc-btn-primary-color: #FFFFFF;
+  --cc-btn-primary-border-color: #065AF7;
+  --cc-btn-primary-hover-bg: #0A4FD6;
+  --cc-btn-primary-hover-color: #FFFFFF;
+  --cc-btn-primary-hover-border-color: #0A4FD6;
+  --cc-btn-secondary-bg: transparent;
+  --cc-btn-secondary-color: #0C0032;
+  --cc-btn-secondary-border-color: rgba(12, 0, 50, .28);
+  --cc-btn-secondary-hover-bg: rgba(12, 0, 50, .05);
+  --cc-btn-secondary-hover-color: #0C0032;
+  --cc-btn-secondary-hover-border-color: #0C0032;
+
+  --cc-separator-border-color: rgba(12, 0, 50, .12);
+  --cc-toggle-on-bg: #065AF7;
+  --cc-toggle-off-bg: #9A95AE;
+  --cc-toggle-readonly-bg: #D2CCE6;
+  --cc-cookie-category-block-bg: #F3F1EA;
+  --cc-cookie-category-block-border: rgba(12, 0, 50, .08);
+  --cc-cookie-category-block-hover-bg: #EEEBE2;
+  --cc-cookie-category-block-hover-border: rgba(12, 0, 50, .14);
+  --cc-cookie-category-expanded-block-bg: #F3F1EA;
+  --cc-cookie-category-expanded-block-hover-bg: #EEEBE2;
+  --cc-footer-bg: #F3F1EA;
+  --cc-footer-color: #4A4566;
+  --cc-footer-border-color: rgba(12, 0, 50, .1);
+  --cc-overlay-bg: rgba(12, 0, 50, .6);
+  --cc-modal-border-radius: 14px;
+}
+
+/* titlurile în serif, ca h1/h2 de pe site */
+#cc-main .cm__title,
+#cc-main .pm__title { font-family: "Newsreader", Georgia, serif; font-weight: 500; font-size: 1.35em; }
+
+#cc-main .cm,
+#cc-main .pm { box-shadow: 0 24px 60px rgba(4, 0, 30, .35); }
+
+/* butonul „Setări cookie” din subsol arată ca linkurile vecine */
+.cc-link {
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}

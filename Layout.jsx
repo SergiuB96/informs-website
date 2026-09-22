@@ -268,6 +268,7 @@ function Footer() {
                 <li><a href="/politica-confidentialitate">Politica de confidențialitate</a></li>
                 <li><a href="/politica-gdpr">Politica GDPR</a></li>
                 <li><a href="/politica-cookies">Politica de cookie-uri</a></li>
+                <li><button type="button" className="cc-link" data-cc="show-preferencesModal">Setări cookie</button></li>
                 <li><a href="/politica-livrare">Politica de livrare</a></li>
                 <li><a href="/politica-anulare">Anulare și retur</a></li>
                 <li><a href="/dreptul-de-retragere">Dreptul de retragere</a></li>

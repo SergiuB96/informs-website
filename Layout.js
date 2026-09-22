@@ -359,7 +359,11 @@ function Footer() {
     href: "/politica-gdpr"
   }, "Politica GDPR")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/politica-cookies"
-  }, "Politica de cookie-uri")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
+  }, "Politica de cookie-uri")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "cc-link",
+    "data-cc": "show-preferencesModal"
+  }, "Set\u0103ri cookie")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/politica-livrare"
   }, "Politica de livrare")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/politica-anulare"

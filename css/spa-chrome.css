@@ -644,13 +644,13 @@
 
 .ftr__col li { margin-bottom: 11px; }
 
-.ftr__col a, .ftr__col span {
+.ftr__col a, .ftr__col span, .ftr__col .cc-link {
   font-size: 14px;
   color: var(--muted-2);
   transition: color .2s;
 }
 
-.ftr__col a:hover { color: var(--white); }
+.ftr__col a:hover, .ftr__col .cc-link:hover { color: var(--white); }
 
 .ftr__legal {
   margin-top: 64px;
