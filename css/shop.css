@@ -526,3 +526,36 @@ main .card:hover { transform: none; box-shadow: none; }
   main .shop-cta-banner { padding: 40px 22px; }
   .sp-fields { grid-template-columns: 1fr; }
 }
+
+/* ── Apariție eșalonată (js/spa-reveal.js) ───────────────────
+   Același efect ca pe paginile statice. „html” ridică specificitatea
+   peste tranzițiile de hover ale cardurilor, care altfel ar anula
+   apariția; scriptul scoate data-sr după apariție. */
+html [data-sr] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s var(--ease-out, cubic-bezier(.16, 1, .3, 1)),
+              transform .7s var(--ease-out, cubic-bezier(.16, 1, .3, 1));
+}
+
+html [data-sr="in"] { opacity: 1; transform: none; }
+
+/* cardurile de produs apar acum la scroll; animația veche la montare
+   (FadeUp) le arăta chiar dacă erau sub ecran */
+main .shop-grid > .anim-fade-up { animation: none; opacity: 1; transform: none; }
+
+/* antetul paginii: eticheta, titlul, textul, căutarea, pe rând */
+@keyframes spRiseIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+main .pg-hero .container > * { animation: spRiseIn .8s cubic-bezier(.16, 1, .3, 1) both; }
+main .pg-hero .container > :nth-child(2) { animation-delay: .12s; }
+main .pg-hero .container > :nth-child(3) { animation-delay: .24s; }
+main .pg-hero .container > :nth-child(n+4) { animation-delay: .36s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html [data-sr] { opacity: 1; transform: none; transition: none; }
+  main .pg-hero .container > * { animation: none; }
+}
