@@ -164,31 +164,6 @@
 
 .pause[aria-pressed="true"] .pause__play { display: block; }
 
-/* ── Listă de date (datele firmei pe despre-noi) ──────────────
-   Date legale, nu argumente de vânzare: se citesc ca un registru,
-   etichetă în stânga și valoare în dreapta, nu în carduri. */
-.datalist { max-width: 980px; border-bottom: 1px solid var(--line-str); }
-
-.datalist__row {
-  display: grid;
-  grid-template-columns: 240px minmax(0, 1fr);
-  gap: 32px;
-  padding-block: 18px;
-  border-top: 1px solid var(--line-str);
-}
-
-.datalist dt { font-size: 15px; color: var(--muted-2); }
-
-.datalist dd { margin: 0; font-size: 17px; color: var(--white); }
-
-.datalist a { border-bottom: 1px solid var(--line-str); transition: border-color .2s var(--ease); }
-
-.datalist a:hover { border-color: var(--white); }
-
-@media (max-width: 640px) {
-  .datalist__row { grid-template-columns: 1fr; gap: 4px; padding-block: 14px; }
-}
-
 /* ── Intro editorial și secțiuni ed (acasă, despre-noi, servicii) ── */
 .pintro {
   display: grid;
