@@ -647,3 +647,128 @@ main .pg-hero .container > :nth-child(n+4) { animation-delay: .36s; }
   html [data-sr] { opacity: 1; transform: none; transition: none; }
   main .pg-hero .container > * { animation: none; }
 }
+
+/* ── Fereastra de produs ──
+   ProductDetails are propriul chenar pe pagina produsului; în
+   fereastră stă direct pe corpul ei. */
+.shop-modal .sp-detail { max-width: none; padding: 0; border: 0; background: transparent; }
+
+.shop-modal .sp-modal-title { font-size: 1.5rem; }
+
+/* ── Stare comandă ──
+   O fișă, nu un banner: numărul comenzii sus, ca pe un document,
+   eticheta de stare în chenar și pașii următori numerotați. Culoarea
+   stării apare doar în filetul de sus și în etichetă. */
+main .os-wrap { max-width: 680px; }
+
+.os-card {
+  --os-tone: var(--blue);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--os-tone);
+}
+
+.os-card--ok   { --os-tone: #15803D; }
+.os-card--wait { --os-tone: #B45309; }
+.os-card--fail { --os-tone: #B91C1C; }
+
+.os-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.os-meta__k {
+  margin-bottom: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.os-meta__v {
+  font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  color: var(--text);
+  word-break: break-all;
+}
+
+.os-tag {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border: 1px solid var(--os-tone);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--os-tone);
+  white-space: nowrap;
+}
+
+.os-body { padding: 30px 28px 8px; }
+
+main .os-title {
+  margin: 0 0 10px;
+  font-family: var(--f-display);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -.01em;
+  color: var(--navy);
+}
+
+.os-lead { margin: 0 0 24px; font-size: 16px; line-height: 1.65; color: var(--text); }
+
+.os-steps { margin: 0 0 24px; padding: 0; list-style: none; border-top: 1px solid var(--border); }
+
+.os-steps li {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.os-steps__n {
+  padding-top: 2px;
+  font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12.5px;
+  color: var(--os-tone);
+}
+
+/* „Se verifică”: o bară care curge, fără iconițe. */
+.os-progress { position: relative; height: 2px; margin-bottom: 26px; overflow: hidden; background: var(--border); }
+
+.os-progress span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 35%;
+  background: var(--os-tone);
+  animation: osFlow 1.2s ease-in-out infinite;
+}
+
+@keyframes osFlow { from { transform: translateX(-100%); } to { transform: translateX(290%); } }
+
+@media (prefers-reduced-motion: reduce) { .os-progress span { animation: none; width: 100%; } }
+
+.os-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px 28px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+
+@media (max-width: 640px) {
+  .os-meta, .os-actions { padding-inline: 18px; }
+  .os-body { padding: 24px 18px 4px; }
+  main .os-title { font-size: 1.65rem; }
+  .os-actions .btn { flex: 1 1 100%; }
+}

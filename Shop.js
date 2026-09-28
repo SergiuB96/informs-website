@@ -997,6 +997,61 @@ function ProductDetails({
   }, COMPANY.email), " o cerere de ofert\u0103 sau o comand\u0103 ferm\u0103. Emitem factura prin e-Factura, pl\u0103te\u0219ti prin ordin de plat\u0103, iar documentul \xEEl prime\u0219ti pe email.")))));
 }
 
+/* Fereastra de produs din magazin. Același conținut ca pagina
+   /magazin/<produs>, care rămâne pentru linkuri directe și crawlere. */
+function ProductModal({
+  product,
+  onClose,
+  onNav
+}) {
+  const fmt = FORMAT_META[product.format];
+  const closeRef = React.useRef(null);
+  useEffect(() => {
+    const onKey = e => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    if (closeRef.current) closeRef.current.focus();
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "shop-modal-overlay",
+    onClick: e => {
+      if (e.target === e.currentTarget) onClose();
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "shop-modal",
+    role: "dialog",
+    "aria-modal": "true",
+    "aria-labelledby": "sp-modal-title"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "shop-modal-hd"
+  }, /*#__PURE__*/React.createElement("button", {
+    ref: closeRef,
+    className: "shop-modal-close",
+    onClick: onClose,
+    "aria-label": "\xCEnchide"
+  }, "\xD7"), /*#__PURE__*/React.createElement("div", {
+    className: "sp-modal-fmt"
+  }, fmt.label, product.price === 0 ? ' · Gratuit' : ''), /*#__PURE__*/React.createElement("h2", {
+    id: "sp-modal-title",
+    className: "sp-modal-title"
+  }, product.title), /*#__PURE__*/React.createElement("div", {
+    className: "sp-modal-tags"
+  }, product.tags.map(t => /*#__PURE__*/React.createElement("span", {
+    key: t
+  }, t)))), /*#__PURE__*/React.createElement("div", {
+    className: "shop-modal-bd"
+  }, /*#__PURE__*/React.createElement(ProductDetails, {
+    product: product,
+    onNav: onNav
+  }))));
+}
+
 /* Pagina unui produs. Antetul reia identitatea magazinului, iar
    conținutul stă pe „hârtie”, ca fereastra de dinainte. */
 function ProductPage({
@@ -1112,13 +1167,13 @@ function ShopPage({
   const [onlyFree, setOnlyFree] = useState(startCat === 'gratuite');
   const [format, setFormat] = useState('all');
   const [query, setQuery] = useState('');
-  const openProduct = p => {
-    onNav('magazin/' + p.id);
-    window.scrollTo({
-      top: 0,
-      behavior: 'instant'
-    });
-  };
+
+  /* Clicul pe card deschide fereastra; Ctrl/Cmd+clic pe link deschide
+     tot pagina produsului, în tab nou. */
+  const [openId, setOpenId] = useState(null);
+  const openProduct = p => setOpenId(p.id);
+  const closeProduct = React.useCallback(() => setOpenId(null), []);
+  const openedProduct = openId ? productBySlug(openId) : null;
   const q = query.trim().toLowerCase();
   const matches = p => (category === 'all' || p.category === category) && (format === 'all' || p.format === format) && (!onlyFree || p.price === 0) && (!q || p.title.toLowerCase().includes(q) || p.shortDesc.toLowerCase().includes(q) || p.tags.some(t => t.toLowerCase().includes(q)));
   const catalog = VISIBLE_PRODUCTS.filter(p => !p.shelf && matches(p) && (audience === 'all' || (p.audiences || []).includes(audience)));
@@ -1251,7 +1306,11 @@ function ShopPage({
         behavior: 'instant'
       });
     }
-  }, "Descrie ce \xEE\u021Bi trebuie")))));
+  }, "Descrie ce \xEE\u021Bi trebuie")))), openedProduct && /*#__PURE__*/React.createElement(ProductModal, {
+    product: openedProduct,
+    onClose: closeProduct,
+    onNav: onNav
+  }));
 }
 
 /* ─── Pagina de întoarcere din plată ─────────────
@@ -1262,45 +1321,45 @@ const ORDER_POLL_MS = 4000;
 const ORDER_POLL_MAX = 23; // ~90 de secunde
 const CANCEL_POLL_MAX = 4; // ~15 secunde după cancelUrl
 
+/* Stările comenzii. `tone` alege culoarea etichetei și a filetului de
+   sus (css/shop.css, .os-card--*); `steps` sunt pașii următori, numerotați. */
 const ORDER_STATES = {
   checking: {
-    color: '#1C0A55',
-    bg: '#F3F1EA',
-    border: '#D2CCE6',
-    icon: '…',
+    tone: 'wait',
+    tag: 'Se verifică',
     title: 'Verificăm plata',
-    body: 'Durează doar câteva secunde. Nu închide pagina și nu relua plata.'
+    lead: 'Durează doar câteva secunde. Nu închide pagina și nu relua plata.',
+    steps: []
   },
   ok: {
-    color: '#16A34A',
-    bg: '#F0FDF4',
-    border: '#86EFAC',
-    icon: '✓',
+    tone: 'ok',
+    tag: 'Plătită',
     title: 'Plata a fost confirmată',
-    body: 'Îți mulțumim. Îți trimitem pe email confirmarea comenzii și linkul de descărcare. Dacă mesajul nu apare în 10 minute, verifică folderul Spam sau Promoții, apoi scrie-ne la ' + COMPANY.email + '.'
+    lead: 'Îți mulțumim. Îți trimitem documentul pe adresa de email din comandă.',
+    steps: ['Deschide emailul de la INFORMS și descarcă documentul. Linkul e valabil 72 de ore.', 'Nu îl găsești în 10 minute? Verifică folderele Spam și Promoții.', 'Tot nimic? Scrie-ne la ' + COMPANY.email + ' cu numărul comenzii de mai sus.']
   },
   pending: {
-    color: '#B45309',
-    bg: '#FFFBEB',
-    border: '#FCD34D',
-    icon: '⏳',
+    tone: 'wait',
+    tag: 'În procesare',
     title: 'Plata este în curs de procesare',
-    body: 'Banca verifică tranzacția. Imediat ce plata este confirmată, primești documentul pe email, automat. Nu relua plata până nu primești un răspuns.'
+    lead: 'Banca verifică tranzacția. Imediat ce plata e confirmată, primești documentul pe email, automat.',
+    steps: ['Nu relua plata până nu primești un răspuns.', 'Pagina se actualizează singură cât timp o ții deschisă.', 'Dacă nu primești nimic într-o oră, scrie-ne la ' + COMPANY.email + '.']
   },
   fail: {
-    color: '#DC2626',
-    bg: '#FEF2F2',
-    border: '#FECACA',
-    icon: '!',
+    tone: 'fail',
+    tag: 'Nefinalizată',
     title: 'Plata nu a fost finalizată',
-    body: 'Tranzacția a fost respinsă sau anulată. Dacă vezi totuși o sumă blocată pe card, banca o eliberează automat, de regulă în câteva zile lucrătoare. Poți relua comanda din magazin sau ne poți scrie pentru plata prin transfer bancar.'
+    lead: 'Tranzacția a fost respinsă sau anulată de bancă ori întreruptă înainte de final.',
+    steps: ['O sumă blocată pe card o eliberează banca automat, de regulă în câteva zile lucrătoare.', 'Poți relua comanda din magazin, cu același card sau cu altul.', 'Preferi transferul bancar? Scrie-ne și îți trimitem factura proforma.']
   }
 };
 function OrderStatusPage({
   onNav
 }) {
   const params = new URLSearchParams(window.location.search);
-  const orderID = params.get('o') || pendingOrder();
+  /* Fixat la prima randare: forgetOrder() golește sessionStorage, iar
+     numărul comenzii trebuie să rămână afișat. */
+  const [orderID] = useState(() => params.get('o') || pendingOrder());
   /* v=1: am venit pe cancelUrl, care la NETOPIA înseamnă și „Înapoi la
      magazin” după o plată reușită. Verificăm scurt comanda păstrată;
      dacă nu e plătită, rămâne „nefinalizată”. */
@@ -1361,48 +1420,39 @@ function OrderStatusPage({
   }, /*#__PURE__*/React.createElement("h1", null, "Stare comand\u0103"), /*#__PURE__*/React.createElement("p", null, "Rezultatul pl\u0103\u021Bii \u0219i pa\u0219ii urm\u0103tori."))), /*#__PURE__*/React.createElement("section", {
     className: "sec"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "container",
-    style: {
-      maxWidth: '640px'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      textAlign: 'center',
-      padding: '56px 40px',
-      background: st.bg,
-      border: '1px solid ' + st.border,
-      borderRadius: '20px'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: '2.4rem',
-      marginBottom: '14px',
-      color: st.color
-    }
-  }, st.icon), /*#__PURE__*/React.createElement("h3", {
-    style: {
-      marginBottom: '14px',
-      fontSize: '1.4rem',
-      color: st.color
-    }
+    className: "container os-wrap"
+  }, /*#__PURE__*/React.createElement("article", {
+    className: 'os-card os-card--' + st.tone,
+    "aria-live": "polite"
+  }, /*#__PURE__*/React.createElement("header", {
+    className: "os-meta"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "os-meta__k"
+  }, "Comanda"), /*#__PURE__*/React.createElement("div", {
+    className: "os-meta__v"
+  }, orderID || 'fără număr')), /*#__PURE__*/React.createElement("div", {
+    className: "os-tag"
+  }, st.tag)), /*#__PURE__*/React.createElement("div", {
+    className: "os-body"
+  }, /*#__PURE__*/React.createElement("h2", {
+    className: "os-title"
   }, st.title), /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: 'var(--text-muted)',
-      fontSize: '1.02rem',
-      lineHeight: '1.75',
-      marginBottom: '30px'
-    }
-  }, st.body), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      gap: '12px',
-      justifyContent: 'center',
-      flexWrap: 'wrap'
-    }
+    className: "os-lead"
+  }, st.lead), st.steps.length > 0 && /*#__PURE__*/React.createElement("ol", {
+    className: "os-steps"
+  }, st.steps.map((s, i) => /*#__PURE__*/React.createElement("li", {
+    key: i
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "os-steps__n"
+  }, String(i + 1).padStart(2, '0')), /*#__PURE__*/React.createElement("span", null, s)))), key === 'checking' && /*#__PURE__*/React.createElement("div", {
+    className: "os-progress",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("span", null))), /*#__PURE__*/React.createElement("footer", {
+    className: "os-actions"
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
     onClick: () => go('magazin')
-  }, "\xCEnapoi \xEEn magazin"), /*#__PURE__*/React.createElement("button", {
+  }, key === 'fail' ? 'Reia comanda' : 'Înapoi în magazin'), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-outline",
     onClick: () => go('contact')
   }, "Contacteaz\u0103-ne"))))));
