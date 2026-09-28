@@ -72,9 +72,10 @@ export default async function handler(req, res) {
   }
 
   const billing = {};
-  for (const k of REQUIRED) {
+  const required = isCompany ? REQUIRED.concat(REQUIRED_COMPANY) : REQUIRED;
+  for (const k of REQUIRED.concat(REQUIRED_COMPANY)) {
     billing[k] = clean(body[k]);
-    if (!billing[k]) {
+    if (!billing[k] && required.includes(k)) {
       return res.status(400).json({ error: 'Completează toate câmpurile obligatorii.' });
     }
   }
