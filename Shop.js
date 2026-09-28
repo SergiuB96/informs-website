@@ -328,9 +328,74 @@ function IcoPages({
 }
 
 /* ─── Card produs ───────────────────────────────── */
+/* ─── Vizualizări unice (api/views.js) ───────────
+   O singură cerere pentru toate produsele, reținută pe toată durata
+   vizitei. Serverul întoarce null sub prag, deci aici doar afișăm. */
+let viewsRequest = null;
+function loadViews() {
+  if (!viewsRequest) {
+    const ids = VISIBLE_PRODUCTS.map(p => p.id).join(',');
+    viewsRequest = fetch('/api/views?ids=' + encodeURIComponent(ids)).then(r => r.ok ? r.json() : {
+      counts: {}
+    }).then(j => j.counts || {}).catch(() => ({}));
+  }
+  return viewsRequest;
+}
+function useViews() {
+  const [counts, setCounts] = useState({});
+  useEffect(() => {
+    let alive = true;
+    loadViews().then(c => {
+      if (alive) setCounts(c);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+  return counts;
+}
+const recordedViews = new Set();
+function recordView(id) {
+  if (recordedViews.has(id)) return;
+  recordedViews.add(id);
+  fetch('/api/views', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id
+    }),
+    keepalive: true
+  }).catch(() => {/* numărătoarea nu are voie să deranjeze */});
+}
+const fmtViews = n => n.toLocaleString('ro-RO');
+function IcoEye({
+  size = 13
+}) {
+  return /*#__PURE__*/React.createElement("svg", {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z",
+    stroke: "currentColor",
+    strokeWidth: "1.8",
+    strokeLinejoin: "round"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "12",
+    cy: "12",
+    r: "3",
+    stroke: "currentColor",
+    strokeWidth: "1.8"
+  }));
+}
 function ProductCard({
   product,
-  onOpen
+  onOpen,
+  views
 }) {
   const fmt = FORMAT_META[product.format];
   const href = '/magazin/' + product.id;
@@ -354,7 +419,10 @@ function ProductCard({
     className: "mc-badge"
   }, fmt.label), /*#__PURE__*/React.createElement("div", {
     className: "mc-tag"
-  }, fmt.abbr)), /*#__PURE__*/React.createElement("div", {
+  }, fmt.abbr), views != null && /*#__PURE__*/React.createElement("div", {
+    className: "mc-views",
+    title: "Vizualiz\u0103ri unice"
+  }, /*#__PURE__*/React.createElement(IcoEye, null), " ", /*#__PURE__*/React.createElement("span", null, fmtViews(views)))), /*#__PURE__*/React.createElement("div", {
     className: "shop-card-body"
   }, /*#__PURE__*/React.createElement("a", {
     className: "shop-card-title",
@@ -999,10 +1067,14 @@ function ProductDetails({
 function ProductModal({
   product,
   onClose,
-  onNav
+  onNav,
+  views
 }) {
   const fmt = FORMAT_META[product.format];
   const closeRef = React.useRef(null);
+  useEffect(() => {
+    recordView(product.id);
+  }, [product.id]);
   useEffect(() => {
     const onKey = e => {
       if (e.key === 'Escape') onClose();
@@ -1034,7 +1106,11 @@ function ProductModal({
     "aria-label": "\xCEnchide"
   }, "\xD7"), /*#__PURE__*/React.createElement("div", {
     className: "sp-modal-fmt"
-  }, fmt.label, product.price === 0 ? ' · Gratuit' : ''), /*#__PURE__*/React.createElement("h2", {
+  }, fmt.label, product.price === 0 ? ' · Gratuit' : '', views != null && /*#__PURE__*/React.createElement("span", {
+    className: "sp-modal-views"
+  }, " \xB7 ", /*#__PURE__*/React.createElement(IcoEye, {
+    size: 12
+  }), " ", fmtViews(views), " vizualiz\u0103ri unice")), /*#__PURE__*/React.createElement("h2", {
     id: "sp-modal-title",
     className: "sp-modal-title"
   }, product.title), /*#__PURE__*/React.createElement("div", {
@@ -1056,6 +1132,9 @@ function ProductPage({
   onNav
 }) {
   const product = productBySlug(slug);
+  useEffect(() => {
+    if (product) recordView(product.id);
+  }, [slug]);
   const go = p => {
     onNav(p);
     window.scrollTo({
@@ -1168,6 +1247,7 @@ function ShopPage({
   /* Clicul pe card deschide fereastra; Ctrl/Cmd+clic pe link deschide
      tot pagina produsului, în tab nou. */
   const [openId, setOpenId] = useState(null);
+  const views = useViews();
   const openProduct = p => setOpenId(p.id);
   const closeProduct = React.useCallback(() => setOpenId(null), []);
   const openedProduct = openId ? productBySlug(openId) : null;
@@ -1197,7 +1277,8 @@ function ShopPage({
     }
   }, /*#__PURE__*/React.createElement(ProductCard, {
     product: p,
-    onOpen: openProduct
+    onOpen: openProduct,
+    views: views[p.id]
   }))));
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "pg-hero pg-hero--shop"
@@ -1306,7 +1387,8 @@ function ShopPage({
   }, "Descrie ce \xEE\u021Bi trebuie")))), openedProduct && /*#__PURE__*/React.createElement(ProductModal, {
     product: openedProduct,
     onClose: closeProduct,
-    onNav: onNav
+    onNav: onNav,
+    views: views[openedProduct.id]
   }));
 }
 

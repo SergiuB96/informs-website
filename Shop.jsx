@@ -229,7 +229,55 @@ function IcoPages({ size = 13 }) {
 }
 
 /* ─── Card produs ───────────────────────────────── */
-function ProductCard({ product, onOpen }) {
+/* ─── Vizualizări unice (api/views.js) ───────────
+   O singură cerere pentru toate produsele, reținută pe toată durata
+   vizitei. Serverul întoarce null sub prag, deci aici doar afișăm. */
+let viewsRequest = null;
+function loadViews() {
+  if (!viewsRequest) {
+    const ids = VISIBLE_PRODUCTS.map(p => p.id).join(',');
+    viewsRequest = fetch('/api/views?ids=' + encodeURIComponent(ids))
+      .then(r => (r.ok ? r.json() : { counts: {} }))
+      .then(j => j.counts || {})
+      .catch(() => ({}));
+  }
+  return viewsRequest;
+}
+
+function useViews() {
+  const [counts, setCounts] = useState({});
+  useEffect(() => {
+    let alive = true;
+    loadViews().then(c => { if (alive) setCounts(c); });
+    return () => { alive = false; };
+  }, []);
+  return counts;
+}
+
+const recordedViews = new Set();
+function recordView(id) {
+  if (recordedViews.has(id)) return;
+  recordedViews.add(id);
+  fetch('/api/views', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id }),
+    keepalive: true,
+  }).catch(() => { /* numărătoarea nu are voie să deranjeze */ });
+}
+
+const fmtViews = n => n.toLocaleString('ro-RO');
+
+function IcoEye({ size = 13 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.8" />
+    </svg>
+  );
+}
+
+function ProductCard({ product, onOpen, views }) {
   const fmt = FORMAT_META[product.format];
   const href = '/magazin/' + product.id;
   /* Link real, ca sa poata fi deschis in tab nou si urmat de crawlere;
@@ -246,6 +294,11 @@ function ProductCard({ product, onOpen }) {
         {product.isNew && product.price !== 0 && <div className="shop-badge-new">Nou</div>}
         <div className="mc-badge">{fmt.label}</div>
         <div className="mc-tag">{fmt.abbr}</div>
+        {views != null && (
+          <div className="mc-views" title="Vizualizări unice">
+            <IcoEye /> <span>{fmtViews(views)}</span>
+          </div>
+        )}
       </div>
 
       <div className="shop-card-body">
@@ -753,9 +806,11 @@ function ProductDetails({ product, onNav }) {
 
 /* Fereastra de produs din magazin. Același conținut ca pagina
    /magazin/<produs>, care rămâne pentru linkuri directe și crawlere. */
-function ProductModal({ product, onClose, onNav }) {
+function ProductModal({ product, onClose, onNav, views }) {
   const fmt = FORMAT_META[product.format];
   const closeRef = React.useRef(null);
+
+  useEffect(() => { recordView(product.id); }, [product.id]);
 
   useEffect(() => {
     const onKey = e => { if (e.key === 'Escape') onClose(); };
@@ -773,7 +828,10 @@ function ProductModal({ product, onClose, onNav }) {
       <div className="shop-modal" role="dialog" aria-modal="true" aria-labelledby="sp-modal-title">
         <div className="shop-modal-hd">
           <button ref={closeRef} className="shop-modal-close" onClick={onClose} aria-label="Închide">×</button>
-          <div className="sp-modal-fmt">{fmt.label}{product.price === 0 ? ' · Gratuit' : ''}</div>
+          <div className="sp-modal-fmt">
+            {fmt.label}{product.price === 0 ? ' · Gratuit' : ''}
+            {views != null && <span className="sp-modal-views"> · <IcoEye size={12} /> {fmtViews(views)} vizualizări unice</span>}
+          </div>
           <h2 id="sp-modal-title" className="sp-modal-title">{product.title}</h2>
           <div className="sp-modal-tags">
             {product.tags.map(t => <span key={t}>{t}</span>)}
@@ -791,6 +849,7 @@ function ProductModal({ product, onClose, onNav }) {
    conținutul stă pe „hârtie”, ca fereastra de dinainte. */
 function ProductPage({ slug, onNav }) {
   const product = productBySlug(slug);
+  useEffect(() => { if (product) recordView(product.id); }, [slug]);
   const go = (p) => { onNav(p); window.scrollTo({ top: 0, behavior: 'instant' }); };
 
   if (!product) {
@@ -888,6 +947,7 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
   /* Clicul pe card deschide fereastra; Ctrl/Cmd+clic pe link deschide
      tot pagina produsului, în tab nou. */
   const [openId, setOpenId] = useState(null);
+  const views = useViews();
   const openProduct = (p) => setOpenId(p.id);
   const closeProduct = React.useCallback(() => setOpenId(null), []);
   const openedProduct = openId ? productBySlug(openId) : null;
@@ -921,7 +981,7 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
     <div className="shop-grid">
       {list.map((p, i) => (
         <FadeUp key={p.id} delay={Math.min(i, 5) * 70} style={{ display: 'flex', flexDirection: 'column' }}>
-          <ProductCard product={p} onOpen={openProduct} />
+          <ProductCard product={p} onOpen={openProduct} views={views[p.id]} />
         </FadeUp>
       ))}
     </div>
@@ -1060,7 +1120,7 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
       </section>
 
       {openedProduct && (
-        <ProductModal product={openedProduct} onClose={closeProduct} onNav={onNav} />
+        <ProductModal product={openedProduct} onClose={closeProduct} onNav={onNav} views={views[openedProduct.id]} />
       )}
     </>
   );

@@ -7,6 +7,9 @@
  *
  * blobPath = calea fișierului în Vercel Blob privat. Fișierele se
  * încarcă separat, nu fac parte din repository.
+ *
+ * Foldere în Blob, pe domenii:
+ *   produse/constructii/proceduri-tehnice/   proceduri tehnice de execuție (.docx)
  */
 
 const PRODUCTS = {
