@@ -122,6 +122,27 @@ const SHOP_PRODUCTS = [{
     pages: 0
   },
   file: 'assets/produse/gratuite/pdf/Proces-verbal_receptie%20terminare%20lucrari_v1.0.pdf'
+}, {
+  id: 'proces-verbal-receptie-partiala',
+  title: 'Proces-verbal de recepție parțială',
+  shortDesc: 'Model de proces-verbal privind stadiul fizic de execuție a lucrărilor de construcții, pentru recepția unei etape sau a unei părți din investiție.',
+  longDesc: 'Modelul de proces-verbal prin care executantul și investitorul consemnează stadiul fizic de execuție a construcției la o anumită dată, în cadrul contractului de lucrări. Cuprinde identificarea imobilului și a autorizației de construire, participanții, dirigintele de șantier care asigură secretariatul, stadiul fizic constatat și mențiunile părților. Transformat de INFORMS în formular PDF completabil.',
+  audiences: ['autoritati', 'constructii'],
+  forWhom: 'Investitorii și beneficiarii lucrărilor (inclusiv autoritățile contractante), executanții și diriginții de șantier.',
+  version: '1.0',
+  updated: 'septembrie 2026',
+  format: 'pdf',
+  cv: 'cv-pdf',
+  price: 0,
+  featured: false,
+  isNew: true,
+  tags: ['Recepție parțială', 'Stadiu fizic', 'Construcții'],
+  includes: ['Proces-verbal de recepție parțială (PDF completabil, 2 pagini)'],
+  stats: {
+    files: 1,
+    pages: 2
+  },
+  file: 'assets/produse/gratuite/pdf/Proces_verbal_receptie_partiala_v1.0.pdf'
 }];
 const SHOW_HIDDEN = new URLSearchParams(window.location.search).get('test') === '1';
 
