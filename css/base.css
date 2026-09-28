@@ -61,6 +61,12 @@
 
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
+/* Cu Lenis activ (js/smooth-scroll.js), animația o face el: derularea
+   lină a browserului ar anima fiecare pas al lui încă o dată. */
+html.lenis { scroll-behavior: auto; }
+html.lenis, html.lenis body { height: auto; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+
 body {
   margin: 0;
   font-family: var(--f-body);

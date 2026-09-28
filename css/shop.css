@@ -792,3 +792,8 @@ main .shop-card-vis .mc-views {
 .sp-modal-views { white-space: nowrap; }
 
 .sp-modal-views svg { vertical-align: -1px; }
+
+/* Derulare lină (js/smooth-scroll.js): la fel ca în base.css */
+html.lenis { scroll-behavior: auto; }
+html.lenis, html.lenis body { height: auto; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
