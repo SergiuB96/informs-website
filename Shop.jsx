@@ -247,6 +247,33 @@ const SHOP_PRODUCTS = [
     ],
     stats: { files: 1, pages: 14 },
   },
+  {
+    id: 'pte-lucrari-pavaje-si-borduri',
+    sku: 'INF-PTE-PAV',
+    title: 'Procedură tehnică de execuție: pavaje și borduri',
+    shortDesc: 'Procedură tehnică de execuție (PTE) pentru pavaje din pavele de beton sau piatră naturală, borduri și rigole, la alei, trotuare, platforme de acces și parcări cu trafic redus.',
+    longDesc: 'Stabilește metodologia, cerințele de calitate și responsabilitățile pentru executarea pavajelor și montarea bordurilor și rigolelor, de la stratul de fundație și pozare la rostuire și compactare. Trimite la Legea nr. 10/1995, HG nr. 273/1994 cu modificările din HG nr. 343/2017, NP 116-2004, SR EN 1338, SR EN 1339, SR EN 1340 și SR 6978. Document Word editabil, de adaptat la datele concrete ale lucrării.',
+    audiences: ['constructii'],
+    forWhom: 'Executanții de lucrări de construcții (RTE, șef de șantier, șef de punct de lucru, responsabil control calitate) și diriginții de șantier.',
+    version: '1.0',
+    updated: 'septembrie 2026',
+    format: 'word',
+    cv: 'cv-word',
+    price: 49,
+    featured: false,
+    isNew: true,
+    tags: ['PTE', 'Pavaje', 'Borduri'],
+    includes: [
+      'Scop, domeniu de aplicare și documente de referință',
+      'Definiții și prescurtări (RTE, SPL, CQ, PVLA, RNC)',
+      'Responsabilități pe funcții, de la RTE la dirigintele de șantier',
+      'Resurse: personal, utilaje, materiale (pavele, borduri, agregate)',
+      'Straturi de fundație și pozare, montaj, rostuire și compactare',
+      'Toleranțe și controlul calității',
+      'Recepția pe faze determinante și înregistrările obligatorii',
+    ],
+    stats: { files: 1, pages: 10 },
+  },
 ];
 
 const SHOW_HIDDEN = new URLSearchParams(window.location.search).get('test') === '1';
