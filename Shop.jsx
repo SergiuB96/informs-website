@@ -163,7 +163,6 @@ const SHOP_PRODUCTS = [
       'Resurse: personal, echipamente topometrice, materiale',
       'Tehnologia de execuție, toleranțe și controlul calității',
       'Recepția pe faze determinante și înregistrările obligatorii',
-      'Tabel de semnături: elaborat, verificat, aprobat',
     ],
     stats: { files: 1, pages: 11 },
   },

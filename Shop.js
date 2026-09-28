@@ -159,7 +159,7 @@ const SHOP_PRODUCTS = [{
   featured: false,
   isNew: true,
   tags: ['PTE', 'Trasare', 'Construcții'],
-  includes: ['Scop, domeniu de aplicare și documente de referință', 'Definiții și prescurtări (RTE, SPL, CQ, PVLA, RNC)', 'Responsabilități pe funcții, de la RTE la dirigintele de șantier', 'Resurse: personal, echipamente topometrice, materiale', 'Tehnologia de execuție, toleranțe și controlul calității', 'Recepția pe faze determinante și înregistrările obligatorii', 'Tabel de semnături: elaborat, verificat, aprobat'],
+  includes: ['Scop, domeniu de aplicare și documente de referință', 'Definiții și prescurtări (RTE, SPL, CQ, PVLA, RNC)', 'Responsabilități pe funcții, de la RTE la dirigintele de șantier', 'Resurse: personal, echipamente topometrice, materiale', 'Tehnologia de execuție, toleranțe și controlul calității', 'Recepția pe faze determinante și înregistrările obligatorii'],
   stats: {
     files: 1,
     pages: 11
