@@ -71,7 +71,7 @@
 /* ── Bara de filtre ───────────────────────────────────────── */
 .lbar {
   position: sticky;
-  top: var(--hdr-h);
+  top: 0;
   z-index: 40;
   background: rgba(12, 0, 50, .9);
   backdrop-filter: blur(14px);

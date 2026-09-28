@@ -317,43 +317,14 @@
   padding-inline: var(--gutter);
 }
 
+/* Antetul stă doar sus, peste hero, și pleacă odată cu pagina la
+   derulare (decizie 28.09.2026). Nu mai e fix, deci nici barele
+   secundare lipicioase nu mai lasă loc pentru el (service.css,
+   listing.css). z-index rămâne pentru meniurile derulante. */
 .hdr {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 50;
   background: transparent;
-  transition: background-color .3s var(--ease), box-shadow .3s var(--ease);
-}
-
-.hdr.is-stuck {
-  background: rgba(12, 0, 50, .97);
-  box-shadow: 0 1px 0 var(--line);
-}
-
-/* Sticlă gri deschis, neutră, cu blur puternic. Pe fundal deschis,
-   meniul, logo-ul și butonul de meniu trec pe cerneală închisă.
-   --hdr-glass e opacitatea griului. Fără suport pentru backdrop-filter
-   rămâne antetul navy opac de mai sus, cu textul alb. */
-@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  /* .70: sub .55, peste secțiunile navy griul se închide la mov și
-     textul închis nu se mai citește (testat pe acasă, 28.09.2026). */
-  .hdr { --hdr-glass: .70; }
-
-  .hdr.is-stuck {
-    background: rgba(238, 238, 240, var(--hdr-glass));
-    -webkit-backdrop-filter: blur(22px) saturate(160%);
-    backdrop-filter: blur(22px) saturate(160%);
-    box-shadow: 0 1px 0 rgba(33, 33, 33, .10);
-  }
-
-  .hdr.is-stuck .logo__img { filter: brightness(0); }
-
-  .hdr.is-stuck .nav__link,
-  .hdr.is-stuck .nav__item.is-current > .nav__link { color: var(--ink); }
-
-  .hdr.is-stuck .nav__link:hover { color: var(--blue); }
-
-  .hdr.is-stuck .burger span { background: var(--ink); }
 }
 
 .hdr__inner {
