@@ -539,7 +539,7 @@ function ProductCard({
     className: "shop-card-cta",
     href: href,
     onClick: open
-  }, product.price === 0 ? 'Descarcă gratuit' : 'Vezi produsul', /*#__PURE__*/React.createElement("span", {
+  }, product.price === 0 ? 'Descarcă gratuit' : 'Comandă', /*#__PURE__*/React.createElement("span", {
     className: "shop-card-cta__arr",
     "aria-hidden": "true"
   }, "\u2192")))));
