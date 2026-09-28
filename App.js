@@ -49,7 +49,7 @@ const PAGE_META = {
     desc: 'Formulare electronice interactive în format PDF standardizat, compatibile Adobe Acrobat.'
   },
   'magazin': {
-    title: 'Produse digitale | INFORMS',
+    title: 'Modele Word, Excel și PDF pentru contracte publice | INFORMS',
     desc: 'Modele Word, Excel și PDF pentru autorități contractante, ofertanți și profesioniști tehnici. Formulare gratuite și instrumente cu plată, livrate pe email.'
   },
   'comanda-finalizata': {

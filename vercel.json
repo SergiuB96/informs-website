@@ -25,16 +25,16 @@
     { "source": "/despre-noi", "destination": "/despre-noi.html" },
     { "source": "/contact", "destination": "/contact.html" },
 
-    { "source": "/magazin", "destination": "/app.html" },
-    { "source": "/magazin/:produs", "destination": "/app.html" },
+    { "source": "/magazin", "destination": "/spa/magazin.html" },
+    { "source": "/magazin/:produs", "destination": "/spa/magazin/:produs.html" },
     { "source": "/comanda-finalizata", "destination": "/app.html" },
-    { "source": "/politica-confidentialitate", "destination": "/app.html" },
-    { "source": "/termeni-si-conditii", "destination": "/app.html" },
-    { "source": "/politica-gdpr", "destination": "/app.html" },
-    { "source": "/politica-cookies", "destination": "/app.html" },
-    { "source": "/politica-livrare", "destination": "/app.html" },
-    { "source": "/politica-anulare", "destination": "/app.html" },
-    { "source": "/dreptul-de-retragere", "destination": "/app.html" }
+    { "source": "/politica-confidentialitate", "destination": "/spa/politica-confidentialitate.html" },
+    { "source": "/termeni-si-conditii", "destination": "/spa/termeni-si-conditii.html" },
+    { "source": "/politica-gdpr", "destination": "/spa/politica-gdpr.html" },
+    { "source": "/politica-cookies", "destination": "/spa/politica-cookies.html" },
+    { "source": "/politica-livrare", "destination": "/spa/politica-livrare.html" },
+    { "source": "/politica-anulare", "destination": "/spa/politica-anulare.html" },
+    { "source": "/dreptul-de-retragere", "destination": "/spa/dreptul-de-retragere.html" }
   ],
   "headers": [
     {

@@ -9,7 +9,8 @@
    indexează corect și funcționează cu JavaScript dezactivat.
    ═══════════════════════════════════════════════════════════ */
 
-import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync, rmSync } from 'node:fs';
+import vm from 'node:vm';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
@@ -451,6 +452,214 @@ buildSpaChrome();
   console.log(`app.html: versiuni ${after !== before ? 'actualizate' : 'neschimbate'}.`);
 }
 
+/* ── Paginile aplicației, pre-randate ─────────────────────────
+   /magazin, paginile de produs și cele legale sunt randate de React.
+   Fără JavaScript (Bing, previzualizările din WhatsApp/LinkedIn,
+   crawlerele asistenților AI) vedeau doar shell-ul gol din app.html,
+   cu același titlu peste tot. Pentru fiecare generăm spa/<cale>.html:
+   app.html cu titlul, descrierea, canonica și JSON-LD-ul paginii, plus
+   antetul, conținutul și subsolul în HTML. vercel.json trimite adresa
+   curată la fișierul ei; React înlocuiește conținutul din #root la
+   pornire, deci pentru vizitatori nu se schimbă nimic.
+
+   Datele vin din aceleași surse ca aplicația: PAGE_META și CRUMB din
+   App.jsx, SHOP_PRODUCTS din Shop.jsx.
+   ───────────────────────────────────────────────────────────── */
+
+/* Literalul care începe la `marker` (obiect sau listă), evaluat izolat.
+   Sursele sunt ale noastre și conțin doar date. */
+function sourceLiteral(file, marker) {
+  const src = read(ROOT, file);
+  const at = src.indexOf(marker);
+  if (at < 0) throw new Error(`${file}: nu găsesc ${marker}`);
+  const start = src.slice(at).search(/[[{]/) + at;
+  let depth = 0;
+  let quote = null;
+  for (let i = start; i < src.length; i++) {
+    const ch = src[i];
+    if (quote) {
+      if (ch === '\\') i++;
+      else if (ch === quote) quote = null;
+      continue;
+    }
+    if (ch === "'" || ch === '"' || ch === '`') quote = ch;
+    else if (ch === '[' || ch === '{') depth++;
+    else if (ch === ']' || ch === '}') {
+      depth--;
+      if (depth === 0) return vm.runInNewContext('(' + src.slice(start, i + 1) + ')');
+    }
+  }
+  throw new Error(`${file}: literal neînchis după ${marker}`);
+}
+
+const esc = (s) => String(s ?? '')
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+const PAGE_META = sourceLiteral('App.jsx', 'const PAGE_META =');
+const CRUMB = sourceLiteral('App.jsx', 'const CRUMB =');
+const SHOP_PRODUCTS = sourceLiteral('Shop.jsx', 'const SHOP_PRODUCTS =');
+const FORMAT_LABEL = { word: 'Word', excel: 'Excel', pdf: 'PDF', pachet: 'Pachet' };
+const LEGAL_PAGES = Object.keys(PAGE_META).filter((k) =>
+  k.startsWith('politica-') || k === 'termeni-si-conditii' || k === 'dreptul-de-retragere');
+
+const fmtPrice = (p) => (p.price === 0 ? 'Gratuit' : `${p.price} lei`);
+
+/* Nodul paginii, identic cu setJsonLd() din App.jsx. Organizația și
+   site-ul sunt deja declarate static în app.html. */
+function spaJsonLd({ path, meta, crumb, product, collection }) {
+  const url = HOST + path;
+  const node = {
+    '@type': collection ? 'CollectionPage' : 'WebPage',
+    '@id': url + '#pagina',
+    url,
+    name: meta.title,
+    description: meta.desc,
+    inLanguage: 'ro-RO',
+    isPartOf: { '@id': HOST + '/#site' },
+    about: { '@id': HOST + '/#organizatie' },
+  };
+  const trail = [{ '@type': 'ListItem', position: 1, name: 'Acasă', item: HOST + '/' }];
+  if (product) {
+    trail.push({ '@type': 'ListItem', position: 2, name: 'Magazin', item: HOST + '/magazin' });
+    trail.push({ '@type': 'ListItem', position: 3, name: product.title, item: url });
+  } else {
+    trail.push({ '@type': 'ListItem', position: 2, name: crumb, item: url });
+  }
+  node.breadcrumb = { '@type': 'BreadcrumbList', itemListElement: trail };
+
+  const graph = [node];
+  if (product) {
+    node.mainEntity = { '@id': url + '#produs' };
+    graph.push({
+      '@type': 'Product',
+      '@id': url + '#produs',
+      name: product.title,
+      description: product.longDesc || product.shortDesc,
+      url,
+      brand: { '@id': HOST + '/#organizatie' },
+      inLanguage: 'ro-RO',
+      offers: {
+        '@type': 'Offer',
+        url,
+        price: String(product.price),
+        priceCurrency: 'RON',
+        availability: 'https://schema.org/InStock',
+        seller: { '@id': HOST + '/#organizatie' },
+      },
+    });
+  }
+  /* id-ul e cel pe care îl reia App.jsx, ca să nu apară de două ori */
+  return '<script type="application/ld+json" id="jsonld-pagina">' +
+    JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c') +
+    '</script>';
+}
+
+function heroHtml({ label, title, lead, crumbs, cls = 'pg-hero' }) {
+  const nav = crumbs
+    ? `<nav class="sp-crumbs" aria-label="Firimituri">${crumbs}</nav>`
+    : '';
+  return `<div class="${cls}"><div class="container">${nav}` +
+    (label ? `<div class="tag-label">${esc(label)}</div>` : '') +
+    `<h1>${esc(title)}</h1>` + (lead ? `<p>${esc(lead)}</p>` : '') +
+    '</div></div>';
+}
+
+function shopBody(products) {
+  const items = products.map((p) =>
+    `<li><h2><a href="/magazin/${p.id}">${esc(p.title)}</a></h2>` +
+    `<p>${esc(p.shortDesc)}</p>` +
+    `<p>${FORMAT_LABEL[p.format] || ''} · ${fmtPrice(p)}</p></li>`).join('');
+  return heroHtml({
+    cls: 'pg-hero pg-hero--shop',
+    label: 'Magazin',
+    title: 'Documente profesionale pentru sectorul public și privat',
+    lead: 'Fiecare model indică formatul, versiunea și ce conține. Câteva formulare sunt gratuite.',
+  }) + `<section class="sec"><div class="container"><ul class="sp-prerender">${items}</ul></div></section>`;
+}
+
+function productBody(p) {
+  const sec = (label, inner) => `<div class="shop-modal-sec"><div class="shop-modal-lbl">${label}</div>${inner}</div>`;
+  const details = [
+    p.version ? `Versiunea ${esc(p.version)}${p.updated ? ', ' + esc(p.updated) : ''}` : '',
+    p.stats && p.stats.pages ? `${p.stats.pages} pagini` : '',
+    FORMAT_LABEL[p.format] || '',
+  ].filter(Boolean).join(' · ');
+  return heroHtml({
+    crumbs: `<a href="/magazin">Magazin</a><span aria-hidden="true">/</span><span aria-current="page">${esc(p.title)}</span>`,
+    label: (FORMAT_LABEL[p.format] || '') + (p.price === 0 ? ' · Gratuit' : ''),
+    title: p.title,
+    lead: p.shortDesc,
+  }) +
+    '<section class="sec sp-detail-wrap"><div class="container"><div class="sp-detail">' +
+    sec('Descriere', `<p class="sp-modal-text">${esc(p.longDesc)}</p>`) +
+    (p.forWhom ? sec('Pentru cine', `<p class="sp-modal-text">${esc(p.forWhom)}</p>`) : '') +
+    sec('Ce include', `<ul class="shop-modal-includes">${(p.includes || []).map((i) => `<li>${esc(i)}</li>`).join('')}</ul>`) +
+    sec('Detalii tehnice', `<p class="sp-modal-text">${details}</p>`) +
+    sec('Preț', `<p class="sp-modal-text">${fmtPrice(p)}</p>`) +
+    '</div></div></section>';
+}
+
+/* app.html + meta-ul și conținutul paginii. */
+function spaPage({ path, meta, body, jsonld, noindex }) {
+  for (const k of ['title', 'desc']) {
+    if (/["<>]/.test(meta[k])) throw new Error(`${path}: ${k} conține caractere nepermise ("<>)`);
+  }
+  let chrome = ['header', 'footer'].map((n) => partials[n]);
+  chrome = chrome.map((h) => cleanUrls(h.replace('{{company}}', companyRowsHtml())));
+
+  const html = readFileSync(join(ROOT, 'app.html'), 'utf8')
+    .replace(/<title>[^<]*<\/title>/, `<title>${meta.title}</title>\n  <link rel="canonical" href="${HOST}${path}" />\n  <meta property="og:url" content="${HOST}${path}" />\n  ` +
+      (noindex ? '<meta name="robots" content="noindex, follow" />\n  ' : '') + jsonld)
+    .replace(/(<meta name="description" content=")[^"]*/, `$1${meta.desc}`)
+    .replace(/(<meta property="og:title" content=")[^"]*/, `$1${meta.title}`)
+    .replace(/(<meta property="og:description" content=")[^"]*/, `$1${meta.desc}`)
+    .replace('<div id="root"></div>',
+      `<div id="root">${chrome[0]}<main id="main" style="min-height:60vh">${body}</main>${chrome[1]}</div>`);
+
+  const left = html.match(/\{\{[^}]+\}\}/g);
+  if (left) throw new Error(`${path}: substituții nerezolvate ${left.join(', ')}`);
+  return html;
+}
+
+const visibleProducts = SHOP_PRODUCTS.filter((p) => !p.hidden);
+const SPA_DIR = join(ROOT, 'spa');
+rmSync(SPA_DIR, { recursive: true, force: true });
+mkdirSync(join(SPA_DIR, 'magazin'), { recursive: true });
+
+const spaOut = [
+  {
+    file: 'magazin.html',
+    path: '/magazin',
+    meta: PAGE_META.magazin,
+    body: shopBody(visibleProducts),
+    jsonld: spaJsonLd({ path: '/magazin', meta: PAGE_META.magazin, crumb: CRUMB.magazin, collection: true }),
+  },
+  /* Și cele ascunse: vercel.json nu are altă rută pentru ele, iar
+     /magazin/<produs>?test=1 trebuie să meargă. Ies din index. */
+  ...SHOP_PRODUCTS.map((p) => {
+    const path = '/magazin/' + p.id;
+    const meta = { title: p.title + ' | INFORMS', desc: p.shortDesc };
+    return {
+      file: `magazin/${p.id}.html`, path, meta, noindex: !!p.hidden,
+      body: productBody(p), jsonld: spaJsonLd({ path, meta, product: p }),
+    };
+  }),
+  ...LEGAL_PAGES.map((k) => {
+    const meta = PAGE_META[k];
+    const crumb = CRUMB[k] || meta.title.split(' | ')[0];
+    return {
+      file: k + '.html',
+      path: '/' + k,
+      meta,
+      body: heroHtml({ title: meta.title.split(' | ')[0], lead: meta.desc }),
+      jsonld: spaJsonLd({ path: '/' + k, meta, crumb }),
+    };
+  }),
+];
+
+for (const o of spaOut) writeFileSync(join(SPA_DIR, o.file), spaPage(o), 'utf8');
+console.log(`spa/: ${spaOut.length} pagini pre-randate (magazin, ${visibleProducts.length} produse, ${LEGAL_PAGES.length} legale).`);
+
 /* ── sitemap.xml + robots.txt ─────────────────────────────────
    Site-ul nu avea niciunul. Le generăm din aceeași sursă ca
    paginile, ca să nu ajungă să divergă de conținutul real.
@@ -525,9 +734,59 @@ const robots =
   'Allow: /\n' +
   'Disallow: /comanda-finalizata\n' +
   'Disallow: /app.html\n' +
+  'Disallow: /spa/\n' +
   'Disallow: /api/\n\n' +
   `Sitemap: ${HOST}/sitemap.xml\n`;
 
 writeFileSync(join(ROOT, 'robots.txt'), robots, 'utf8');
 
 console.log(`sitemap.xml scris cu ${urls.length} adrese, robots.txt scris.`);
+
+/* ── llms.txt ─────────────────────────────────────────────────
+   Rezumatul site-ului pentru asistenții AI (llmstxt.org): cine
+   suntem, paginile care contează și catalogul cu prețuri. Din
+   aceleași surse ca sitemap-ul, ca să nu rămână în urmă. */
+{
+  const c = companyData();
+  const staticLinks = pages
+    .filter((p) => !p.noindex && p.out !== 'index.html')
+    .map((p) => `- [${p.crumb || p.title}](${HOST}/${p.out.replace(/\.html$/, '')}): ${p.desc}`);
+  const productLinks = visibleProducts.map((p) =>
+    `- [${p.title}](${HOST}/magazin/${p.id}): ${p.shortDesc} ${FORMAT_LABEL[p.format] || ''}, ${fmtPrice(p)}.`);
+  const legalLinks = LEGAL_PAGES.map((k) =>
+    `- [${CRUMB[k] || PAGE_META[k].title.split(' | ')[0]}](${HOST}/${k})`);
+
+  const llms = [
+    '# INFORMS',
+    '',
+    `> ${c.brand} este brandul ${c.name} din Târgu Mureș. Pregătește documentații de atribuire, ` +
+      'modele Word, Excel și PDF și instrumente digitale pentru ciclul contractului public din România: ' +
+      'autorități contractante, ofertanți și executanți de lucrări.',
+    '',
+    'Produsele cu plată se cumpără online, cu cardul, și se livrează pe email ca link de descărcare. ' +
+      'Instituțiile pot cumpăra și pe bază de comandă, cu factură prin e-Factura și plată prin ordin de plată.',
+    '',
+    '## Pagini',
+    '',
+    ...staticLinks,
+    `- [Magazin](${HOST}/magazin): ${PAGE_META.magazin.desc}`,
+    '',
+    '## Produse',
+    '',
+    ...productLinks,
+    '',
+    '## Informații legale',
+    '',
+    ...legalLinks,
+    '',
+    '## Contact',
+    '',
+    `- Email: ${c.email}`,
+    `- Telefon: ${c.phone}`,
+    `- ${c.name}, CUI ${c.cui}, ${c.regCom}, ${c.address}`,
+    '',
+  ].join('\n');
+
+  writeFileSync(join(ROOT, 'llms.txt'), llms, 'utf8');
+  console.log(`llms.txt scris (${visibleProducts.length} produse).`);
+}

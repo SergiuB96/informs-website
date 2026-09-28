@@ -1,47 +1,90 @@
 <!DOCTYPE html>
-<!--
-  FIȘIER GENERAT - nu edita aici, modificările se pierd la următorul build.
-  Conținutul paginii: src/pages/   Chrome comun: src/partials/
-  Regenerezi cu: node build.mjs
--->
 <html lang="ro">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pagina nu a fost găsită | INFORMS</title>
-<meta name="description" content="Adresa căutată nu există. Vezi serviciile, magazinul sau scrie-ne.">
-<link rel="canonical" href="https://www.informs.ro/404">
-<meta name="robots" content="noindex, follow">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="INFORMS">
-<meta property="og:locale" content="ro_RO">
-<meta property="og:title" content="Pagina nu a fost găsită | INFORMS">
-<meta property="og:description" content="Adresa căutată nu există. Vezi serviciile, magazinul sau scrie-ne.">
-<meta property="og:url" content="https://www.informs.ro/404">
-<meta property="og:image" content="https://www.informs.ro/assets/brand/og-informs-v2.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="INFORMS - Formulare inteligente. Documentații complete">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="assets/fonts/dmsans.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/fonts.css?v=7cdcce6b">
-<link rel="stylesheet" href="css/base.css?v=cb566e5e">
-<link rel="stylesheet" href="css/chrome.css?v=9e87cbe3">
-<link rel="stylesheet" href="css/components.css?v=1e4bf3a4">
-<link rel="stylesheet" href="css/art.css?v=bd6c8bdd">
-<link rel="stylesheet" href="css/cookieconsent.css?v=c82270e3" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="css/consent.css?v=6d7b58cb" media="print" onload="this.media='all'">
-<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="assets/brand/favicon-32.png" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+  <meta charset="UTF-8" />
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Formular pentru înregistrarea consultațiilor medicale în vederea obținerii sau reînnoirii permisului de conducere." />
+  <meta property="og:title" content="Fișă consultații medicale - permis conducere | INFORMS" />
+  <meta property="og:description" content="Formular pentru înregistrarea consultațiilor medicale în vederea obținerii sau reînnoirii permisului de conducere." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="INFORMS" />
+  <meta property="og:locale" content="ro_RO" />
+  <meta property="og:image" content="https://www.informs.ro/assets/brand/og-informs-v2.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Fișă consultații medicale - permis conducere | INFORMS</title>
+  <link rel="canonical" href="https://www.informs.ro/magazin/fisa-consultatii-medicale-permis" />
+  <meta property="og:url" content="https://www.informs.ro/magazin/fisa-consultatii-medicale-permis" />
+  <script type="application/ld+json" id="jsonld-pagina">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://www.informs.ro/magazin/fisa-consultatii-medicale-permis#pagina","url":"https://www.informs.ro/magazin/fisa-consultatii-medicale-permis","name":"Fișă consultații medicale - permis conducere | INFORMS","description":"Formular pentru înregistrarea consultațiilor medicale în vederea obținerii sau reînnoirii permisului de conducere.","inLanguage":"ro-RO","isPartOf":{"@id":"https://www.informs.ro/#site"},"about":{"@id":"https://www.informs.ro/#organizatie"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Acasă","item":"https://www.informs.ro/"},{"@type":"ListItem","position":2,"name":"Magazin","item":"https://www.informs.ro/magazin"},{"@type":"ListItem","position":3,"name":"Fișă consultații medicale - permis conducere","item":"https://www.informs.ro/magazin/fisa-consultatii-medicale-permis"}]},"mainEntity":{"@id":"https://www.informs.ro/magazin/fisa-consultatii-medicale-permis#produs"}},{"@type":"Product","@id":"https://www.informs.ro/magazin/fisa-consultatii-medicale-permis#produs","name":"Fișă consultații medicale - permis conducere","description":"Fișa oficială pentru consultațiile medicale necesare obținerii sau reînnoirii permisului de conducere, preluată din sursa publică și transformată de INFORMS în formular PDF completabil.","url":"https://www.informs.ro/magazin/fisa-consultatii-medicale-permis","brand":{"@id":"https://www.informs.ro/#organizatie"},"inLanguage":"ro-RO","offers":{"@type":"Offer","url":"https://www.informs.ro/magazin/fisa-consultatii-medicale-permis","price":"0","priceCurrency":"RON","availability":"https://schema.org/InStock","seller":{"@id":"https://www.informs.ro/#organizatie"}}}]}</script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/brand/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
+
+  <!-- Firma si site-ul, declarate static: crawlerele care nu ruleaza
+       JavaScript le citesc si aici, nu doar pe paginile generate.
+       Nodul paginii curente il adauga App.jsx la navigare. -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"Organization","@id":"https://www.informs.ro/#organizatie","name":"MILBAC MANAGEMENT S.R.L.","alternateName":"INFORMS","legalName":"MILBAC MANAGEMENT S.R.L.","url":"https://www.informs.ro/","logo":{"@type":"ImageObject","url":"https://www.informs.ro/assets/brand/logo-email.png","width":374,"height":76},"email":"office@informs.ro","telephone":"+40 740 023 338","taxID":"44991231","vatID":"44991231","identifier":"J26/1603/2021","address":{"@type":"PostalAddress","streetAddress":"Bld. Pandurilor nr. 86, et. 3, ap. 11","addressLocality":"Târgu Mureș","addressRegion":"Mureș","postalCode":"540487","addressCountry":"RO"},"areaServed":{"@type":"Country","name":"România"},"knowsLanguage":"ro"},
+    {"@type":"WebSite","@id":"https://www.informs.ro/#site","url":"https://www.informs.ro/","name":"INFORMS","inLanguage":"ro-RO","publisher":{"@id":"https://www.informs.ro/#organizatie"}}
+  ]}
+  </script>
+
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+  <!-- Fonturi găzduite pe site; cele două din primul ecran, preîncărcate -->
+  <link rel="preload" href="assets/fonts/dmsans.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/fonts.css?v=7cdcce6b" />
+
+  <!-- Imaginea din antetul magazinului e fundal CSS, deci browserul ar
+       găsi-o târziu; o cerem devreme, doar pe /magazin. -->
+  <script>
+    if (location.pathname === '/magazin') {
+      [['assets/renders/produse-fundal-1000.webp', '(max-width: 640px)'],
+       ['assets/renders/produse-fundal.webp', '(min-width: 641px)']].forEach(function (x) {
+        var l = document.createElement('link');
+        l.rel = 'preload'; l.as = 'image'; l.href = x[0]; l.media = x[1];
+        l.setAttribute('fetchpriority', 'high');
+        document.head.appendChild(l);
+      });
+    }
+  </script>
+
+  <!-- CSS critic - blocking, necesar inainte de orice paint -->
+  <link rel="stylesheet" href="main.css?v=2f854b2f" />
+  <!-- Chrome-ul comun cu paginile statice. Generat de build.mjs,
+       cu tokenii limitati ca sa nu atinga tema magazinului. -->
+  <link rel="stylesheet" href="css/art.css?v=bd6c8bdd" />
+  <link rel="stylesheet" href="css/spa-chrome.css?v=2246dffa" />
+  <!-- Identitatea site-ului peste main.css: ultimul, ca sa castige. -->
+  <link rel="stylesheet" href="css/shop.css?v=56a86840" />
+  <!-- Bannerul de cookie apare după randare: stilurile lui nu blochează pagina -->
+  <link rel="stylesheet" href="css/cookieconsent.css?v=c82270e3" media="print" onload="this.media='all'" />
+  <link rel="stylesheet" href="css/consent.css?v=6d7b58cb" media="print" onload="this.media='all'" />
+
+  <!-- React self-hosted - defer elimină render blocking -->
+  <script defer src="vendor/react.production.min.js?v=aa77ae4c"></script>
+  <script defer src="vendor/react-dom.production.min.js?v=feb8ddc9"></script>
+
+  <!-- Aplicație - defer, se execută în ordine după parsarea HTML -->
+  <script defer src="Config.js?v=b58e0158"></script>
+  <script defer src="Layout.js?v=6d9c643b"></script>
+  <script defer src="Icons.js?v=d1a3406e"></script>
+  <script defer src="Pages.js?v=56cc0686"></script>
+  <script defer src="Legal.js?v=ee7771b0"></script>
+  <script defer src="Shop.js?v=79747770"></script>
+  <!-- înaintea App.js: observă elementele din prima randare -->
+  <script defer src="js/spa-reveal.js?v=0b37734c"></script>
+  <script defer src="App.js?v=2977dbd4"></script>
 
 </head>
 <body>
-
-<a class="skip-link" href="#main">Sari la conținut</a>
-
-<!-- ══ Header ══ -->
+  <div id="root"><!-- ══ Header ══ -->
 <header class="hdr" id="hdr">
   <div class="hdr__inner">
 
@@ -122,99 +165,7 @@
       <span></span><span></span><span></span>
     </button>
   </div>
-</header>
-
-<!-- ══ Mobile drawer ══ -->
-<div class="drawer" id="drawer" hidden>
-  <nav class="drawer__nav" aria-label="Navigare mobilă">
-    <a class="drawer__solo" href="/">Acasă</a>
-    <a class="drawer__solo" href="/despre-noi">Despre noi</a>
-
-    <details class="drawer__group" data-nav="servicii"><summary>Servicii</summary>
-      <a href="/servicii#analiza">Analiză și consultanță</a>
-      <a href="/servicii#achizitii">Documentații de atribuire</a>
-      <a href="/servicii#delegare">Delegare servicii de utilități publice</a>
-      <a href="/servicii#digitalizare">Digitalizare la comandă</a>
-      <a href="/servicii#excel">Modele de lucru EXCEL</a>
-      <a href="/servicii#word">Modele de lucru WORD</a>
-      <a href="/servicii#pdf">Formulare PDF interactive</a>
-    </details>
-
-    <details class="drawer__group" data-nav="produse"><summary>Produse</summary>
-      <a href="/magazin">Toate produsele</a>
-      <!-- Categoriile fără produse sunt ascunse; se repun odată cu primul produs:
-      <a href="/magazin#achizitii">Achiziții publice</a>
-      <a href="/magazin#delegare">Delegare servicii</a>
-      <a href="/magazin#management">Management de proiect</a>
-      <a href="/magazin#monitorizare">Monitorizare și raportare</a>
-      -->
-      <a href="/magazin#gratuite">Gratuite</a>
-    </details>
-
-    <a class="drawer__solo" href="/contact">Contact</a>
-  </nav>
-</div>
-
-<main id="main">
-
-  <section class="phero phero--compact">
-    <div class="container phero__inner">
-      <div class="phero__grid">
-        <div class="phero__main">
-          <p class="kicker">Eroare 404</p>
-          <h1 class="phero__title">Pagina asta nu există</h1>
-          <p class="phero__lead">Fie adresa a fost scrisă greșit, fie pagina a fost mutată. Mai jos sunt locurile în care ajung de obicei oamenii.</p>
-          <div class="phero__cta">
-            <a class="btn btn--light" href="/">Mergi la prima pagină</a>
-            <a class="btn btn--ghost" href="/contact">Scrie-ne</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sect">
-    <div class="container">
-      <div class="caps">
-        <article class="cap">
-          <span class="cap__idx">01</span>
-          <h3 class="cap__title">Cauți un serviciu</h3>
-          <p class="cap__text">Documentațiile de atribuire, delegarea serviciilor de utilități publice, digitalizarea la comandă și instrumentele de lucru stau toate pe o singură pagină.</p>
-          <ul class="cap__list">
-            <li><a href="/servicii#analiza">Analiză și consultanță</a></li>
-            <li><a href="/servicii#achizitii">Documentații de atribuire</a></li>
-            <li><a href="/servicii#digitalizare">Digitalizare la comandă</a></li>
-            <li><a href="/servicii#delegare">Delegare servicii de utilități publice</a></li>
-            <li><a href="/servicii#instrumente">Modele Excel, Word și PDF</a></li>
-          </ul>
-        </article>
-
-        <article class="cap">
-          <span class="cap__idx">02</span>
-          <h3 class="cap__title">Cauți un model de document</h3>
-          <p class="cap__text">Modelele care se cumpără sau se descarcă direct sunt în magazin. Câteva formulare sunt gratuite.</p>
-          <ul class="cap__list">
-            <li><a href="/magazin">Toate produsele</a></li>
-            <li><a href="/magazin#gratuite">Modele gratuite</a></li>
-          </ul>
-        </article>
-
-        <article class="cap">
-          <span class="cap__idx">03</span>
-          <h3 class="cap__title">Altceva</h3>
-          <p class="cap__text">Cine lucrează la INFORMS și cum ne scrii. Răspundem în cel mult o zi lucrătoare.</p>
-          <ul class="cap__list">
-            <li><a href="/despre-noi">Despre noi</a></li>
-            <li><a href="/contact">Contact</a></li>
-          </ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- ══ Footer ══ -->
+</header><main id="main" style="min-height:60vh"><div class="pg-hero"><div class="container"><nav class="sp-crumbs" aria-label="Firimituri"><a href="/magazin">Magazin</a><span aria-hidden="true">/</span><span aria-current="page">Fișă consultații medicale - permis conducere</span></nav><div class="tag-label">PDF · Gratuit</div><h1>Fișă consultații medicale - permis conducere</h1><p>Formular pentru înregistrarea consultațiilor medicale în vederea obținerii sau reînnoirii permisului de conducere.</p></div></div><section class="sec sp-detail-wrap"><div class="container"><div class="sp-detail"><div class="shop-modal-sec"><div class="shop-modal-lbl">Descriere</div><p class="sp-modal-text">Fișa oficială pentru consultațiile medicale necesare obținerii sau reînnoirii permisului de conducere, preluată din sursa publică și transformată de INFORMS în formular PDF completabil.</p></div><div class="shop-modal-sec"><div class="shop-modal-lbl">Pentru cine</div><p class="sp-modal-text">Persoanele care obțin sau reînnoiesc permisul de conducere.</p></div><div class="shop-modal-sec"><div class="shop-modal-lbl">Ce include</div><ul class="shop-modal-includes"><li>Fișă consultații medicale (PDF completabil)</li></ul></div><div class="shop-modal-sec"><div class="shop-modal-lbl">Detalii tehnice</div><p class="sp-modal-text">Versiunea 1.0, mai 2026 · PDF</p></div><div class="shop-modal-sec"><div class="shop-modal-lbl">Preț</div><p class="sp-modal-text">Gratuit</p></div></div></div></section></main><!-- ══ Footer ══ -->
 <footer class="ftr">
   <div class="container">
     <div class="ftr__top">
@@ -308,10 +259,9 @@
       <p class="ftr__copy">© 2026 MILBAC MANAGEMENT S.R.L. INFORMS este un brand al MILBAC MANAGEMENT S.R.L. Toate drepturile rezervate.</p>
     </div>
   </div>
-</footer>
+</footer></div>
 
-<script src="js/main.js?v=c8a133bc" defer></script>
-<script src="js/cookieconsent.js?v=6604b61f" defer></script>
-<script src="js/analytics.js?v=6b9c75a0" defer></script>
+  <script defer src="js/cookieconsent.js?v=6604b61f"></script>
+  <script defer src="js/analytics.js?v=6b9c75a0"></script>
 </body>
 </html>
