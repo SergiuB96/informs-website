@@ -122,6 +122,30 @@ const SHOP_PRODUCTS = [{
     pages: 0
   },
   file: 'assets/produse/gratuite/pdf/Proces-verbal_receptie%20terminare%20lucrari_v1.0.pdf'
+},
+/* Test de plată NETOPIA, vizibil doar cu /magazin?test=1. Aceleași
+   sku și preț ca în api/_lib/products.js. De scos după test. */
+{
+  id: 'test-plata',
+  sku: 'INF-TEST-010',
+  title: 'Test plată INFORMS',
+  shortDesc: 'Produs intern pentru verificarea plății cu cardul.',
+  longDesc: 'Produs intern, folosit pentru a verifica plata NETOPIA și livrarea documentului pe email. Fișierul livrat este un text de test.',
+  forWhom: 'Uz intern.',
+  version: '1.0',
+  updated: 'septembrie 2026',
+  format: 'pdf',
+  cv: 'cv-pdf',
+  price: 0.1,
+  hidden: true,
+  featured: false,
+  isNew: false,
+  tags: ['Test'],
+  includes: ['Fișier text de test'],
+  stats: {
+    files: 1,
+    pages: 0
+  }
 }];
 const SHOW_HIDDEN = new URLSearchParams(window.location.search).get('test') === '1';
 
@@ -142,6 +166,12 @@ const hasProducts = id => id === 'all' || (id === 'gratuite' ? VISIBLE_PRODUCTS.
 function categoryFromHash(fallback) {
   const id = decodeURIComponent(window.location.hash.slice(1));
   return (id === 'gratuite' || SHOP_CATEGORIES.includes(id)) && hasProducts(id) ? id : fallback;
+}
+
+/* Fiecare produs are adresa proprie, /magazin/<id>. Ascunsele raman
+   accesibile doar cu ?test=1, ca in lista. */
+function productBySlug(slug) {
+  return VISIBLE_PRODUCTS.find(p => p.id === slug) || null;
 }
 const AUDIENCES = [{
   id: 'autoritati',
@@ -303,12 +333,20 @@ function IcoPages({
 /* ─── Card produs ───────────────────────────────── */
 function ProductCard({
   product,
-  onClick
+  onOpen
 }) {
   const fmt = FORMAT_META[product.format];
+  const href = '/magazin/' + product.id;
+  /* Link real, ca sa poata fi deschis in tab nou si urmat de crawlere;
+     clicul obisnuit ramane navigare pe client. */
+  const open = e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+    e.preventDefault();
+    onOpen(product);
+  };
   return /*#__PURE__*/React.createElement("div", {
     className: "shop-product-card",
-    onClick: () => onClick(product)
+    onClick: open
   }, /*#__PURE__*/React.createElement("div", {
     className: `shop-card-vis model-card-vis ${product.cv}`
   }, /*#__PURE__*/React.createElement("div", {
@@ -321,8 +359,10 @@ function ProductCard({
     className: "mc-tag"
   }, fmt.abbr)), /*#__PURE__*/React.createElement("div", {
     className: "shop-card-body"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "shop-card-title"
+  }, /*#__PURE__*/React.createElement("a", {
+    className: "shop-card-title",
+    href: href,
+    onClick: open
   }, product.title), /*#__PURE__*/React.createElement("div", {
     className: "shop-card-desc"
   }, product.shortDesc), /*#__PURE__*/React.createElement("div", {
@@ -346,12 +386,10 @@ function ProductCard({
     className: "shop-card-price"
   }, "Gratuit") : /*#__PURE__*/React.createElement("div", {
     className: "shop-card-price"
-  }, product.price, " ", /*#__PURE__*/React.createElement("span", null, COMMERCE.currency)), /*#__PURE__*/React.createElement("button", {
+  }, product.price, " ", /*#__PURE__*/React.createElement("span", null, COMMERCE.currency)), /*#__PURE__*/React.createElement("a", {
     className: "btn btn-primary btn-sm",
-    onClick: e => {
-      e.stopPropagation();
-      onClick(product);
-    }
+    href: href,
+    onClick: open
   }, product.price === 0 ? 'Descarcă gratuit' : 'Vezi produsul'))));
 }
 
@@ -765,12 +803,13 @@ function CheckoutForm({
 }
 
 /* ─── Modal detalii produs ──────────────────────── */
-function ProductModal({
+/* Conținutul unui produs: descriere, detalii și modul de obținere.
+   Trăiește pe pagina produsului (/magazin/<produs>), care are adresă
+   proprie, deci poate fi trimisă prin link și indexată. */
+function ProductDetails({
   product,
-  onClose,
   onNav
 }) {
-  const fmt = FORMAT_META[product.format];
   const isFree = product.price === 0;
   const hasFreeFile = isFree && product.file;
   const [email, setEmail] = useState('');
@@ -779,17 +818,13 @@ function ProductModal({
   const [downloading, setDownloading] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
   const [checkout, setCheckout] = useState(false);
-  useEffect(() => {
-    const handleKey = e => {
-      if (e.key === 'Escape') onClose();
-    };
-    document.addEventListener('keydown', handleKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', handleKey);
-      document.body.style.overflow = '';
-    };
-  }, []);
+  const go = p => {
+    onNav(p);
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+  };
   const validEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
   const handleDownload = async e => {
     e.preventDefault();
@@ -841,28 +876,7 @@ function ProductModal({
   };
   const canDownload = !newsletter || validEmail(email);
   return /*#__PURE__*/React.createElement("div", {
-    className: "shop-modal-overlay",
-    onClick: e => {
-      if (e.target === e.currentTarget) onClose();
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "shop-modal"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "shop-modal-hd"
-  }, /*#__PURE__*/React.createElement("button", {
-    className: "shop-modal-close",
-    onClick: onClose,
-    "aria-label": "\xCEnchide"
-  }, "\xD7"), /*#__PURE__*/React.createElement("div", {
-    className: "sp-modal-fmt"
-  }, fmt.label), /*#__PURE__*/React.createElement("h3", {
-    className: "sp-modal-title"
-  }, product.title), /*#__PURE__*/React.createElement("div", {
-    className: "sp-modal-tags"
-  }, product.tags.map(t => /*#__PURE__*/React.createElement("span", {
-    key: t
-  }, t)))), /*#__PURE__*/React.createElement("div", {
-    className: "shop-modal-bd"
+    className: "sp-detail"
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-sec"
   }, /*#__PURE__*/React.createElement("div", {
@@ -901,12 +915,7 @@ function ProductModal({
     href: "/termeni-si-conditii",
     onClick: e => {
       e.preventDefault();
-      onClose();
-      onNav('termeni-si-conditii');
-      window.scrollTo({
-        top: 0,
-        behavior: 'instant'
-      });
+      go('termeni-si-conditii');
     }
   }, "Termeni \u0219i condi\u021Bii"), ").")), hasFreeFile ? downloaded ? /*#__PURE__*/React.createElement("div", {
     className: "sp-done"
@@ -935,12 +944,7 @@ function ProductModal({
     href: "/politica-confidentialitate",
     onClick: e => {
       e.preventDefault();
-      onClose();
-      onNav('politica-confidentialitate');
-      window.scrollTo({
-        top: 0,
-        behavior: 'instant'
-      });
+      go('politica-confidentialitate');
     }
   }, "Politica de confiden\u021Bialitate"), ".")), newsletter && /*#__PURE__*/React.createElement("div", {
     className: "sp-field"
@@ -990,7 +994,65 @@ function ProductModal({
     className: "sp-inst__text"
   }, "Trimite-ne la ", /*#__PURE__*/React.createElement("a", {
     href: 'mailto:' + COMPANY.email + '?subject=' + encodeURIComponent('Cerere de ofertă: ' + product.title)
-  }, COMPANY.email), " o cerere de ofert\u0103 sau o comand\u0103 ferm\u0103. Emitem factura prin e-Factura, pl\u0103te\u0219ti prin ordin de plat\u0103, iar documentul \xEEl prime\u0219ti pe email.")))))));
+  }, COMPANY.email), " o cerere de ofert\u0103 sau o comand\u0103 ferm\u0103. Emitem factura prin e-Factura, pl\u0103te\u0219ti prin ordin de plat\u0103, iar documentul \xEEl prime\u0219ti pe email.")))));
+}
+
+/* Pagina unui produs. Antetul reia identitatea magazinului, iar
+   conținutul stă pe „hârtie”, ca fereastra de dinainte. */
+function ProductPage({
+  slug,
+  onNav
+}) {
+  const product = productBySlug(slug);
+  const go = p => {
+    onNav(p);
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+  };
+  if (!product) {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+      className: "pg-hero"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "container"
+    }, /*#__PURE__*/React.createElement("h1", null, "Produsul nu a fost g\u0103sit"), /*#__PURE__*/React.createElement("p", null, "Adresa nu corespunde niciunui produs din magazin."))), /*#__PURE__*/React.createElement("section", {
+      className: "sec"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "container"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "btn btn-primary",
+      onClick: () => go('magazin')
+    }, "\xCEnapoi \xEEn magazin"))));
+  }
+  const fmt = FORMAT_META[product.format];
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "pg-hero"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "container"
+  }, /*#__PURE__*/React.createElement("nav", {
+    className: "sp-crumbs",
+    "aria-label": "Firimituri"
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "/magazin",
+    onClick: e => {
+      e.preventDefault();
+      go('magazin');
+    }
+  }, "Magazin"), /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true"
+  }, "/"), /*#__PURE__*/React.createElement("span", {
+    "aria-current": "page"
+  }, product.title)), /*#__PURE__*/React.createElement("div", {
+    className: "tag-label"
+  }, fmt.label, product.price === 0 ? ' · Gratuit' : ''), /*#__PURE__*/React.createElement("h1", null, product.title), /*#__PURE__*/React.createElement("p", null, product.shortDesc))), /*#__PURE__*/React.createElement("section", {
+    className: "sec sp-detail-wrap"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "container"
+  }, /*#__PURE__*/React.createElement(ProductDetails, {
+    product: product,
+    onNav: onNav
+  }))));
 }
 
 /* ─── Pagina principală Shop ────────────────────── */
@@ -1050,7 +1112,13 @@ function ShopPage({
   const [onlyFree, setOnlyFree] = useState(startCat === 'gratuite');
   const [format, setFormat] = useState('all');
   const [query, setQuery] = useState('');
-  const [selected, setSelected] = useState(null);
+  const openProduct = p => {
+    onNav('magazin/' + p.id);
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+  };
   const q = query.trim().toLowerCase();
   const matches = p => (category === 'all' || p.category === category) && (format === 'all' || p.format === format) && (!onlyFree || p.price === 0) && (!q || p.title.toLowerCase().includes(q) || p.shortDesc.toLowerCase().includes(q) || p.tags.some(t => t.toLowerCase().includes(q)));
   const catalog = VISIBLE_PRODUCTS.filter(p => !p.shelf && matches(p) && (audience === 'all' || (p.audiences || []).includes(audience)));
@@ -1077,7 +1145,7 @@ function ShopPage({
     }
   }, /*#__PURE__*/React.createElement(ProductCard, {
     product: p,
-    onClick: setSelected
+    onOpen: openProduct
   }))));
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "pg-hero pg-hero--shop"
@@ -1183,11 +1251,7 @@ function ShopPage({
         behavior: 'instant'
       });
     }
-  }, "Descrie ce \xEE\u021Bi trebuie")))), selected && /*#__PURE__*/React.createElement(ProductModal, {
-    product: selected,
-    onClose: () => setSelected(null),
-    onNav: onNav
-  }));
+  }, "Descrie ce \xEE\u021Bi trebuie")))));
 }
 
 /* ─── Pagina de întoarcere din plată ─────────────
@@ -1345,8 +1409,10 @@ function OrderStatusPage({
 }
 Object.assign(window, {
   ShopPage,
+  ProductPage,
   OrderStatusPage,
-  shopHasProducts: hasProducts
+  shopHasProducts: hasProducts,
+  shopProductBySlug: productBySlug
 });
 
 })();

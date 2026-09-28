@@ -91,10 +91,30 @@ const PAGE_META = {
    o cale proprie, ca să poată fi trimisă prin link și
    indexată. Rewrite-ul catch-all din vercel.json face
    ca orice cale să servească app.html (shell-ul SPA). */
+/* Paginile de produs au cale proprie, /magazin/<produs>, si nu pot fi
+   listate in PAGE_META: vin din catalogul magazinului. */
+function productSlug(page) {
+  return page.startsWith('magazin/') ? page.slice('magazin/'.length) : null;
+}
+
+/* Titlul si descrierea unei pagini de produs vin din catalog. */
+function pageMeta(page) {
+  const prod = productSlug(page);
+  const p = prod && window.shopProductBySlug ? window.shopProductBySlug(prod) : null;
+  if (p) return {
+    title: p.title + ' | INFORMS',
+    desc: p.shortDesc,
+    product: p
+  };
+  return PAGE_META[page] || PAGE_META['home'];
+}
 function pageFromPath(pathname) {
   const slug = String(pathname || '/').replace(/^\/+|\/+$/g, '');
   if (!slug) return 'home';
-  return PAGE_META[slug] ? slug : 'home';
+  if (PAGE_META[slug]) return slug;
+  const prod = productSlug(slug);
+  if (prod && window.shopProductBySlug && window.shopProductBySlug(prod)) return slug;
+  return 'home';
 }
 function pathFromPage(page) {
   return page === 'home' ? '/' : '/' + page;
@@ -126,7 +146,7 @@ const CRUMB = {
 /* Organizația și site-ul sunt declarate static în app.html. Aici
    adăugăm doar pagina curentă, legată de ele prin @id. */
 function setJsonLd(page) {
-  const meta = PAGE_META[page] || PAGE_META['home'];
+  const meta = pageMeta(page);
   const url = COMPANY.url + pathFromPage(page);
   const node = {
     '@type': page === 'magazin' ? 'CollectionPage' : 'WebPage',
@@ -143,20 +163,68 @@ function setJsonLd(page) {
     }
   };
   if (page !== 'home') {
-    node.breadcrumb = {
-      '@type': 'BreadcrumbList',
-      itemListElement: [{
+    const trail = [{
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Acasă',
+      item: COMPANY.url + '/'
+    }];
+    if (meta.product) {
+      trail.push({
         '@type': 'ListItem',
-        position: 1,
-        name: 'Acasă',
-        item: COMPANY.url + '/'
-      }, {
+        position: 2,
+        name: 'Magazin',
+        item: COMPANY.url + '/magazin'
+      });
+      trail.push({
+        '@type': 'ListItem',
+        position: 3,
+        name: meta.product.title,
+        item: url
+      });
+    } else {
+      trail.push({
         '@type': 'ListItem',
         position: 2,
         name: CRUMB[page] || meta.title.split(' | ')[0],
         item: url
-      }]
+      });
+    }
+    node.breadcrumb = {
+      '@type': 'BreadcrumbList',
+      itemListElement: trail
     };
+  }
+  const graph = [node];
+
+  /* Produsul, cu pretul si disponibilitatea. Pretul afisat vine din
+     catalogul magazinului; cel incasat il ia serverul din api/_lib. */
+  if (meta.product) {
+    const p = meta.product;
+    node.mainEntity = {
+      '@id': url + '#produs'
+    };
+    graph.push({
+      '@type': 'Product',
+      '@id': url + '#produs',
+      name: p.title,
+      description: p.longDesc || p.shortDesc,
+      url,
+      brand: {
+        '@id': COMPANY.url + '/#organizatie'
+      },
+      inLanguage: 'ro-RO',
+      offers: {
+        '@type': 'Offer',
+        url,
+        price: String(p.price),
+        priceCurrency: COMMERCE.currency,
+        availability: 'https://schema.org/InStock',
+        seller: {
+          '@id': COMPANY.url + '/#organizatie'
+        }
+      }
+    });
   }
   let tag = document.getElementById('jsonld-pagina');
   if (!tag) {
@@ -167,7 +235,7 @@ function setJsonLd(page) {
   }
   tag.textContent = JSON.stringify({
     '@context': 'https://schema.org',
-    '@graph': [node]
+    '@graph': graph
   });
 }
 function App() {
@@ -176,7 +244,7 @@ function App() {
   const [displayPage, setDisplayPage] = useState(initial);
   const [shopCategory, setShopCategory] = useState('all');
   useEffect(() => {
-    const meta = PAGE_META[displayPage] || PAGE_META['home'];
+    const meta = pageMeta(displayPage);
     document.title = meta.title;
     document.querySelector('meta[name="description"]')?.setAttribute('content', meta.desc);
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', meta.title);
@@ -232,6 +300,11 @@ function App() {
         type: displayPage
       });
     }
+    const prod = productSlug(displayPage);
+    if (prod) return /*#__PURE__*/React.createElement(ProductPage, {
+      slug: prod,
+      onNav: navigate
+    });
     switch (displayPage) {
       case 'magazin':
         return /*#__PURE__*/React.createElement(ShopPage, {

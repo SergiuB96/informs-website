@@ -388,6 +388,44 @@ main .shop-empty p { margin-bottom: 24px; }
 
 .shop-modal { background: var(--white); border-radius: 16px; }
 
+/* ── Pagina unui produs ──
+   Acelasi continut ca fereastra de dinainte, pe o pagina cu adresa
+   proprie: poate fi trimisa prin link si indexata. */
+.sp-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  font-size: 14px;
+  color: #BEB6D9;
+}
+
+.sp-crumbs a { color: #BEB6D9; }
+
+.sp-crumbs a:hover { color: #fff; }
+
+.sp-crumbs [aria-current] { color: #fff; font-weight: 600; }
+
+main .sp-detail-wrap { padding-block: 40px 64px; }
+
+.sp-detail {
+  max-width: 680px;
+  padding: 32px 34px;
+  background: var(--white);
+  border: 1px solid var(--border);
+}
+
+@media (max-width: 640px) {
+  .sp-detail { padding: 24px 20px; }
+  main .sp-detail-wrap { padding-block: 28px 44px; }
+}
+
+/* Titlul cardului e acum link, nu doar text. */
+main a.shop-card-title { display: block; text-decoration: none; }
+
+main a.shop-card-title:hover { color: var(--blue); }
+
 .shop-modal-hd { background: var(--navy); border-radius: 16px 16px 0 0; }
 
 .sp-modal-fmt { margin-bottom: 10px; font-size: 13px; letter-spacing: .04em; color: #BEB6D9; }

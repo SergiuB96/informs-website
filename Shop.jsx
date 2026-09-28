@@ -119,6 +119,29 @@ const SHOP_PRODUCTS = [
     stats: { files: 1, pages: 0 },
     file: 'assets/produse/gratuite/pdf/Proces-verbal_receptie%20terminare%20lucrari_v1.0.pdf',
   },
+  /* Test de plată NETOPIA, vizibil doar cu /magazin?test=1. Aceleași
+     sku și preț ca în api/_lib/products.js. De scos după test. */
+  {
+    id: 'test-plata',
+    sku: 'INF-TEST-010',
+    title: 'Test plată INFORMS',
+    shortDesc: 'Produs intern pentru verificarea plății cu cardul.',
+    longDesc: 'Produs intern, folosit pentru a verifica plata NETOPIA și livrarea documentului pe email. Fișierul livrat este un text de test.',
+    forWhom: 'Uz intern.',
+    version: '1.0',
+    updated: 'septembrie 2026',
+    format: 'pdf',
+    cv: 'cv-pdf',
+    price: 0.1,
+    hidden: true,
+    featured: false,
+    isNew: false,
+    tags: ['Test'],
+    includes: [
+      'Fișier text de test',
+    ],
+    stats: { files: 1, pages: 0 },
+  },
 ];
 
 const SHOW_HIDDEN = new URLSearchParams(window.location.search).get('test') === '1';
@@ -143,6 +166,12 @@ const hasProducts = id =>
 function categoryFromHash(fallback) {
   const id = decodeURIComponent(window.location.hash.slice(1));
   return (id === 'gratuite' || SHOP_CATEGORIES.includes(id)) && hasProducts(id) ? id : fallback;
+}
+
+/* Fiecare produs are adresa proprie, /magazin/<id>. Ascunsele raman
+   accesibile doar cu ?test=1, ca in lista. */
+function productBySlug(slug) {
+  return VISIBLE_PRODUCTS.find(p => p.id === slug) || null;
 }
 
 const AUDIENCES = [
@@ -202,10 +231,18 @@ function IcoPages({ size = 13 }) {
 }
 
 /* ─── Card produs ───────────────────────────────── */
-function ProductCard({ product, onClick }) {
+function ProductCard({ product, onOpen }) {
   const fmt = FORMAT_META[product.format];
+  const href = '/magazin/' + product.id;
+  /* Link real, ca sa poata fi deschis in tab nou si urmat de crawlere;
+     clicul obisnuit ramane navigare pe client. */
+  const open = e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+    e.preventDefault();
+    onOpen(product);
+  };
   return (
-    <div className="shop-product-card" onClick={() => onClick(product)}>
+    <div className="shop-product-card" onClick={open}>
       <div className={`shop-card-vis model-card-vis ${product.cv}`}>
         <div className="mc-pat" />
         {product.isNew && product.price !== 0 && <div className="shop-badge-new">Nou</div>}
@@ -214,7 +251,7 @@ function ProductCard({ product, onClick }) {
       </div>
 
       <div className="shop-card-body">
-        <div className="shop-card-title">{product.title}</div>
+        <a className="shop-card-title" href={href} onClick={open}>{product.title}</a>
         <div className="shop-card-desc">{product.shortDesc}</div>
 
         <div className="shop-card-tags">
@@ -243,12 +280,9 @@ function ProductCard({ product, onClick }) {
             ? <div className="shop-card-price">Gratuit</div>
             : <div className="shop-card-price">{product.price} <span>{COMMERCE.currency}</span></div>
           }
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={e => { e.stopPropagation(); onClick(product); }}
-          >
+          <a className="btn btn-primary btn-sm" href={href} onClick={open}>
             {product.price === 0 ? 'Descarcă gratuit' : 'Vezi produsul'}
-          </button>
+          </a>
         </div>
       </div>
     </div>
@@ -504,8 +538,10 @@ function CheckoutForm({ product, onNav }) {
 }
 
 /* ─── Modal detalii produs ──────────────────────── */
-function ProductModal({ product, onClose, onNav }) {
-  const fmt = FORMAT_META[product.format];
+/* Conținutul unui produs: descriere, detalii și modul de obținere.
+   Trăiește pe pagina produsului (/magazin/<produs>), care are adresă
+   proprie, deci poate fi trimisă prin link și indexată. */
+function ProductDetails({ product, onNav }) {
   const isFree = product.price === 0;
   const hasFreeFile = isFree && product.file;
 
@@ -516,15 +552,7 @@ function ProductModal({ product, onClose, onNav }) {
   const [downloaded,  setDownloaded]  = useState(false);
   const [checkout,    setCheckout]    = useState(false);
 
-  useEffect(() => {
-    const handleKey = e => { if (e.key === 'Escape') onClose(); };
-    document.addEventListener('keydown', handleKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', handleKey);
-      document.body.style.overflow = '';
-    };
-  }, []);
+  const go = (p) => { onNav(p); window.scrollTo({ top: 0, behavior: 'instant' }); };
 
   const validEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
@@ -573,21 +601,7 @@ function ProductModal({ product, onClose, onNav }) {
   const canDownload = !newsletter || validEmail(email);
 
   return (
-    <div className="shop-modal-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
-      <div className="shop-modal">
-
-        {/* Antet navy, același pentru toate formatele */}
-        <div className="shop-modal-hd">
-          <button className="shop-modal-close" onClick={onClose} aria-label="Închide">×</button>
-          <div className="sp-modal-fmt">{fmt.label}</div>
-          <h3 className="sp-modal-title">{product.title}</h3>
-          <div className="sp-modal-tags">
-            {product.tags.map(t => <span key={t}>{t}</span>)}
-          </div>
-        </div>
-
-        {/* Body */}
-        <div className="shop-modal-bd">
+    <div className="sp-detail">
 
           <div className="shop-modal-sec">
             <div className="shop-modal-lbl">Descriere</div>
@@ -638,7 +652,7 @@ function ProductModal({ product, onClose, onNav }) {
               <p className="sp-modal-text sp-modal-text--note">
                 Versiune fixă: actualizările sunt incluse doar în contractele de servicii.
                 Licența acoperă utilizarea în activitatea proprie a entității de pe factură
-                (<a href="/termeni-si-conditii" onClick={e => { e.preventDefault(); onClose(); onNav('termeni-si-conditii'); window.scrollTo({ top: 0, behavior: 'instant' }); }}>Termeni și condiții</a>).
+                (<a href="/termeni-si-conditii" onClick={e => { e.preventDefault(); go('termeni-si-conditii'); }}>Termeni și condiții</a>).
               </p>
             )}
           </div>
@@ -662,7 +676,7 @@ function ProductModal({ product, onClose, onNav }) {
                   />
                   <span>
                     Opțional: vreau să primesc pe email noutăți despre modele și modificări legislative. Mă pot dezabona oricând.
-                    Detalii în <a href="/politica-confidentialitate" onClick={e => { e.preventDefault(); onClose(); onNav('politica-confidentialitate'); window.scrollTo({ top: 0, behavior: 'instant' }); }}>Politica de confidențialitate</a>.
+                    Detalii în <a href="/politica-confidentialitate" onClick={e => { e.preventDefault(); go('politica-confidentialitate'); }}>Politica de confidențialitate</a>.
                   </span>
                 </label>
                 {newsletter && (
@@ -735,9 +749,57 @@ function ProductModal({ product, onClose, onNav }) {
               )}
             </>
           )}
+    </div>
+  );
+}
+
+/* Pagina unui produs. Antetul reia identitatea magazinului, iar
+   conținutul stă pe „hârtie”, ca fereastra de dinainte. */
+function ProductPage({ slug, onNav }) {
+  const product = productBySlug(slug);
+  const go = (p) => { onNav(p); window.scrollTo({ top: 0, behavior: 'instant' }); };
+
+  if (!product) {
+    return (
+      <>
+        <div className="pg-hero">
+          <div className="container">
+            <h1>Produsul nu a fost găsit</h1>
+            <p>Adresa nu corespunde niciunui produs din magazin.</p>
+          </div>
+        </div>
+        <section className="sec">
+          <div className="container">
+            <button className="btn btn-primary" onClick={() => go('magazin')}>Înapoi în magazin</button>
+          </div>
+        </section>
+      </>
+    );
+  }
+
+  const fmt = FORMAT_META[product.format];
+
+  return (
+    <>
+      <div className="pg-hero">
+        <div className="container">
+          <nav className="sp-crumbs" aria-label="Firimituri">
+            <a href="/magazin" onClick={e => { e.preventDefault(); go('magazin'); }}>Magazin</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{product.title}</span>
+          </nav>
+          <div className="tag-label">{fmt.label}{product.price === 0 ? ' · Gratuit' : ''}</div>
+          <h1>{product.title}</h1>
+          <p>{product.shortDesc}</p>
         </div>
       </div>
-    </div>
+
+      <section className="sec sp-detail-wrap">
+        <div className="container">
+          <ProductDetails product={product} onNav={onNav} />
+        </div>
+      </section>
+    </>
   );
 }
 
@@ -788,7 +850,11 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
   const [onlyFree, setOnlyFree] = useState(startCat === 'gratuite');
   const [format,   setFormat]   = useState('all');
   const [query,    setQuery]    = useState('');
-  const [selected, setSelected] = useState(null);
+
+  const openProduct = (p) => {
+    onNav('magazin/' + p.id);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
 
   const q = query.trim().toLowerCase();
   const matches = p =>
@@ -819,7 +885,7 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
     <div className="shop-grid">
       {list.map((p, i) => (
         <FadeUp key={p.id} delay={Math.min(i, 5) * 70} style={{ display: 'flex', flexDirection: 'column' }}>
-          <ProductCard product={p} onClick={setSelected} />
+          <ProductCard product={p} onOpen={openProduct} />
         </FadeUp>
       ))}
     </div>
@@ -957,14 +1023,6 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
         </div>
       </section>
 
-      {/* Modal */}
-      {selected && (
-        <ProductModal
-          product={selected}
-          onClose={() => setSelected(null)}
-          onNav={onNav}
-        />
-      )}
     </>
   );
 }
@@ -1063,4 +1121,10 @@ function OrderStatusPage({ onNav }) {
   );
 }
 
-Object.assign(window, { ShopPage, OrderStatusPage, shopHasProducts: hasProducts });
+Object.assign(window, {
+  ShopPage,
+  ProductPage,
+  OrderStatusPage,
+  shopHasProducts: hasProducts,
+  shopProductBySlug: productBySlug,
+});

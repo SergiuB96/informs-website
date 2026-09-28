@@ -480,7 +480,27 @@ const staticUrls = pages
     freq: 'monthly'
   }));
 
-const urls = [...staticUrls, ...SPA_ROUTES];
+/* Paginile de produs: adresele lor vin din catalogul magazinului
+   (Shop.jsx), ca sa nu fie nevoie sa le tinem in doua locuri. Produsele
+   ascunse sunt sarite, la fel ca in lista. */
+function productRoutes() {
+  const src = read(ROOT, 'Shop.jsx');
+  const start = src.indexOf('const SHOP_PRODUCTS = [');
+  const list = src.slice(start, src.indexOf('const SHOW_HIDDEN', start));
+  /* Un produs pe bloc: taiem la fiecare `id:` si citim ce urmeaza. */
+  return list
+    .split(/\bid:\s*'/)
+    .slice(1)
+    .map((chunk) => {
+      const id = chunk.slice(0, chunk.indexOf("'"));
+      const body = chunk.slice(0, chunk.indexOf('\n  },'));
+      return /hidden:\s*true/.test(body) ? null : id;
+    })
+    .filter(Boolean)
+    .map((id) => ({ path: '/magazin/' + id, priority: '0.7', freq: 'monthly' }));
+}
+
+const urls = [...staticUrls, ...SPA_ROUTES, ...productRoutes()];
 
 const sitemap =
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
