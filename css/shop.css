@@ -462,7 +462,8 @@ main a.shop-card-title:hover { color: var(--blue); }
 
 .sp-modal-text { font-size: 15px; line-height: 1.75; color: var(--text); }
 
-.shop-modal-check { background: var(--blue-lt); color: var(--blue); }
+/* Bifele din „Ce include”: verde, ca semn de „inclus” (decizie 28.09.2026) */
+.shop-modal-check { background: #E7F6EC; color: #15803D; }
 
 .sp-modal-stats { display: flex; gap: 24px; }
 
