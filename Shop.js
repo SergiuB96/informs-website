@@ -515,10 +515,13 @@ function ProductCard({
   }, "Gratuit") : /*#__PURE__*/React.createElement("div", {
     className: "shop-card-price"
   }, product.price, " ", /*#__PURE__*/React.createElement("span", null, COMMERCE.currency)), /*#__PURE__*/React.createElement("a", {
-    className: "btn btn-primary btn-sm",
+    className: "shop-card-cta",
     href: href,
     onClick: open
-  }, product.price === 0 ? 'Descarcă gratuit' : 'Vezi produsul'))));
+  }, product.price === 0 ? 'Descarcă gratuit' : 'Vezi produsul', /*#__PURE__*/React.createElement("span", {
+    className: "shop-card-cta__arr",
+    "aria-hidden": "true"
+  }, "\u2192")))));
 }
 
 /* ─── Formular de checkout (plată cu cardul) ─────

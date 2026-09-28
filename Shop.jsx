@@ -411,8 +411,9 @@ function ProductCard({ product, onOpen, views }) {
             ? <div className="shop-card-price">Gratuit</div>
             : <div className="shop-card-price">{product.price} <span>{COMMERCE.currency}</span></div>
           }
-          <a className="btn btn-primary btn-sm" href={href} onClick={open}>
+          <a className="shop-card-cta" href={href} onClick={open}>
             {product.price === 0 ? 'Descarcă gratuit' : 'Vezi produsul'}
+            <span className="shop-card-cta__arr" aria-hidden="true">→</span>
           </a>
         </div>
       </div>
