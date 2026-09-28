@@ -26,8 +26,10 @@ function baseUrl() {
     : 'https://secure.sandbox.netopia-payments.com';
 }
 
+/* Implicit cu www: apex-ul face 307 către www, iar NETOPIA nu urmează
+   redirectul unui POST de notificare, deci IPN-ul s-ar pierde. */
 function siteUrl() {
-  return (process.env.SITE_URL || 'https://informs.ro').replace(/\/+$/, '');
+  return (process.env.SITE_URL || 'https://www.informs.ro').replace(/\/+$/, '');
 }
 
 function requireEnv(name) {

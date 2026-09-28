@@ -24,6 +24,17 @@ const PRODUCTS = {
 
      Pentru un nou test de plată: un SKU ascuns (`hidden` în Shop.jsx),
      cu un fișier neutru în Blob, niciodată un document de client. */
+
+  /* Produs de test, ascuns în magazin (/magazin?test=1). De scos după
+     ce testul NETOPIA trece. idx 't' nu a fost folosit de niciun produs
+     vechi, deci un orderID de test mai vechi nu se poate potrivi aici. */
+  'INF-TEST-010': {
+    idx: 't',
+    title: 'Test plata INFORMS',
+    price: 0.1,
+    blobPath: 'produse/test-plata.txt',
+    fileName: 'INFORMS - Test plata.txt',
+  },
 };
 
 /* Indexul scurt folosit în orderID, ca să încapă în cele 64 de caractere. */
