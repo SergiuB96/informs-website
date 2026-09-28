@@ -524,6 +524,40 @@ function ProductCard({
   }, "\u2192")))));
 }
 
+/* ─── Grup de filtre din coloana stângă ───────────
+   O listă de opțiuni exclusive (ca butoane radio), cu numărul de
+   produse al fiecăreia. O opțiune fără produse nu apare. */
+function FilterGroup({
+  title,
+  options,
+  value,
+  onChange,
+  count
+}) {
+  const shown = options.filter(o => o.id === 'all' || count(o.id) > 0);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "shop-side__group",
+    role: "radiogroup",
+    "aria-label": title
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "shop-side__title"
+  }, title), shown.map(o => /*#__PURE__*/React.createElement("button", {
+    key: o.id,
+    type: "button",
+    role: "radio",
+    "aria-checked": value === o.id,
+    onClick: () => onChange(o.id),
+    className: 'shop-side__opt' + (value === o.id ? ' is-on' : '')
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "shop-side__mark",
+    "aria-hidden": "true"
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "shop-side__lbl"
+  }, o.label), /*#__PURE__*/React.createElement("span", {
+    className: "shop-side__n"
+  }, count(o.id)))));
+}
+
 /* ─── Formular de checkout (plată cu cardul) ─────
    Datele de facturare cerute de procesator + cele două
    acorduri obligatorii. Prețul NU se trimite de aici:
@@ -1385,51 +1419,51 @@ function ShopPage({
     alt: "SEAP / SICAP",
     width: "250",
     height: "102"
-  })), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, "Suntem \u0219i pe SEAP."), " Produsele \u0219i serviciile INFORMS pot fi achizi\u021Bionate prin sistemul electronic de achizi\u021Bii publice."))), AUDIENCES.length > 0 && /*#__PURE__*/React.createElement("div", {
-    className: "sp-profile"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "container"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "sp-profile__lbl"
-  }, "Pentru cine"), /*#__PURE__*/React.createElement("div", {
-    className: "sp-profile__row"
-  }, AUDIENCES.map(a => /*#__PURE__*/React.createElement("button", {
-    key: a.id,
-    type: "button",
-    "aria-pressed": audience === a.id,
-    onClick: () => setAudience(audience === a.id ? 'all' : a.id),
-    className: 'sp-chip' + (audience === a.id ? ' is-on' : '')
-  }, a.label))))), /*#__PURE__*/React.createElement("div", {
-    className: "shop-filter-bar",
-    id: "shop-filter-bar"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "container"
-  }, /*#__PURE__*/React.createElement("label", {
-    className: "sp-free"
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    checked: onlyFree,
-    onChange: e => setOnlyFree(e.target.checked)
-  }), /*#__PURE__*/React.createElement("span", null, "Doar gratuite")), /*#__PURE__*/React.createElement("div", {
-    className: "shop-formats"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "shop-fmt-label"
-  }, "Format:"), SHOP_FORMATS.map(f => /*#__PURE__*/React.createElement("div", {
-    key: f.id,
-    className: `shop-fmt ${f.cls}${format === f.id ? ' active' : ''}`,
-    onClick: () => setFormat(f.id)
-  }, f.label))))), /*#__PURE__*/React.createElement("section", {
+  })), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, "Suntem \u0219i pe SEAP."), " Produsele \u0219i serviciile INFORMS pot fi achizi\u021Bionate prin sistemul electronic de achizi\u021Bii publice."))), /*#__PURE__*/React.createElement("section", {
     className: "sec sp-catalog"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "shop-layout"
+  }, /*#__PURE__*/React.createElement("aside", {
+    className: "shop-side",
+    "aria-label": "Filtre"
+  }, AUDIENCES.length > 0 && /*#__PURE__*/React.createElement(FilterGroup, {
+    title: "Pentru cine",
+    options: [{
+      id: 'all',
+      label: 'Toate'
+    }].concat(AUDIENCES),
+    value: audience,
+    onChange: setAudience,
+    count: id => id === 'all' ? VISIBLE_PRODUCTS.length : VISIBLE_PRODUCTS.filter(p => (p.audiences || []).includes(id)).length
+  }), /*#__PURE__*/React.createElement(FilterGroup, {
+    title: "Format",
+    options: SHOP_FORMATS,
+    value: format,
+    onChange: setFormat,
+    count: id => id === 'all' ? VISIBLE_PRODUCTS.length : VISIBLE_PRODUCTS.filter(p => p.format === id).length
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "shop-side__group"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "shop-side__title"
+  }, "Pre\u021B"), /*#__PURE__*/React.createElement("label", {
+    className: "shop-side__check"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    checked: onlyFree,
+    onChange: e => setOnlyFree(e.target.checked)
+  }), /*#__PURE__*/React.createElement("span", null, "Doar gratuite"))), hasFilters && /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "shop-side__reset",
+    onClick: resetFilters
+  }, "Reseteaz\u0103 filtrele")), /*#__PURE__*/React.createElement("div", {
+    className: "shop-main"
+  }, /*#__PURE__*/React.createElement("div", {
     className: "shop-result-bar"
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-result-count"
-  }, /*#__PURE__*/React.createElement("strong", null, total), "\xA0", total === 1 ? 'produs găsit' : 'produse găsite', hasFilters && /*#__PURE__*/React.createElement("button", {
-    className: "shop-reset-btn",
-    onClick: resetFilters
-  }, "\u2715 Reseteaz\u0103 filtrele"))), catalog.length > 0 && grid(catalog), total === 0 && /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("strong", null, total), "\xA0", total === 1 ? 'produs găsit' : 'produse găsite')), catalog.length > 0 && grid(catalog), total === 0 && /*#__PURE__*/React.createElement("div", {
     className: "shop-empty"
   }, /*#__PURE__*/React.createElement("h3", null, "Niciun produs pentru filtrele alese"), /*#__PURE__*/React.createElement("p", null, "Unele categorii sunt \xEEnc\u0103 \xEEn lucru. Reseteaz\u0103 filtrele sau scrie-ne ce document cau\u021Bi."), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-outline",
@@ -1440,7 +1474,7 @@ function ShopPage({
     className: "sp-shelf__title"
   }, "Formulare uzuale"), /*#__PURE__*/React.createElement("p", {
     className: "sp-shelf__lead"
-  }, "Formulare oficiale de uz general, preluate din sursa public\u0103 \u0219i transformate de INFORMS \xEEn PDF completabil."), grid(shelf)), /*#__PURE__*/React.createElement("div", {
+  }, "Formulare oficiale de uz general, preluate din sursa public\u0103 \u0219i transformate de INFORMS \xEEn PDF completabil."), grid(shelf)))), /*#__PURE__*/React.createElement("div", {
     className: "shop-cta-banner"
   }, /*#__PURE__*/React.createElement("div", {
     className: "sp-cta__k"

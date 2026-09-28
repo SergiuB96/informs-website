@@ -421,6 +421,32 @@ function ProductCard({ product, onOpen, views }) {
   );
 }
 
+/* ─── Grup de filtre din coloana stângă ───────────
+   O listă de opțiuni exclusive (ca butoane radio), cu numărul de
+   produse al fiecăreia. O opțiune fără produse nu apare. */
+function FilterGroup({ title, options, value, onChange, count }) {
+  const shown = options.filter(o => o.id === 'all' || count(o.id) > 0);
+  return (
+    <div className="shop-side__group" role="radiogroup" aria-label={title}>
+      <div className="shop-side__title">{title}</div>
+      {shown.map(o => (
+        <button
+          key={o.id}
+          type="button"
+          role="radio"
+          aria-checked={value === o.id}
+          onClick={() => onChange(o.id)}
+          className={'shop-side__opt' + (value === o.id ? ' is-on' : '')}
+        >
+          <span className="shop-side__mark" aria-hidden="true" />
+          <span className="shop-side__lbl">{o.label}</span>
+          <span className="shop-side__n">{count(o.id)}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 /* ─── Formular de checkout (plată cu cardul) ─────
    Datele de facturare cerute de procesator + cele două
    acorduri obligatorii. Prețul NU se trimite de aici:
@@ -1106,64 +1132,56 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
         </div>
       </div>
 
-      {/* Publicul */}
-      {AUDIENCES.length > 0 && (
-        <div className="sp-profile">
-          <div className="container">
-            <div className="sp-profile__lbl">Pentru cine</div>
-            <div className="sp-profile__row">
-              {AUDIENCES.map(a => (
-                <button
-                  key={a.id}
-                  type="button"
-                  aria-pressed={audience === a.id}
-                  onClick={() => setAudience(audience === a.id ? 'all' : a.id)}
-                  className={'sp-chip' + (audience === a.id ? ' is-on' : '')}
-                >
-                  {a.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Format și „Doar gratuite” */}
-      <div className="shop-filter-bar" id="shop-filter-bar">
-        <div className="container">
-          <label className="sp-free">
-            <input type="checkbox" checked={onlyFree} onChange={e => setOnlyFree(e.target.checked)} />
-            <span>Doar gratuite</span>
-          </label>
-          <div className="shop-formats">
-            <span className="shop-fmt-label">Format:</span>
-            {SHOP_FORMATS.map(f => (
-              <div
-                key={f.id}
-                className={`shop-fmt ${f.cls}${format === f.id ? ' active' : ''}`}
-                onClick={() => setFormat(f.id)}
-              >
-                {f.label}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Grid */}
+      {/* Catalog: filtrele în coloana din stânga, produsele în dreapta */}
       <section className="sec sp-catalog">
         <div className="container">
+          <div className="shop-layout">
+
+          <aside className="shop-side" aria-label="Filtre">
+            {AUDIENCES.length > 0 && (
+              <FilterGroup
+                title="Pentru cine"
+                options={[{ id: 'all', label: 'Toate' }].concat(AUDIENCES)}
+                value={audience}
+                onChange={setAudience}
+                count={id => id === 'all'
+                  ? VISIBLE_PRODUCTS.length
+                  : VISIBLE_PRODUCTS.filter(p => (p.audiences || []).includes(id)).length}
+              />
+            )}
+
+            <FilterGroup
+              title="Format"
+              options={SHOP_FORMATS}
+              value={format}
+              onChange={setFormat}
+              count={id => id === 'all'
+                ? VISIBLE_PRODUCTS.length
+                : VISIBLE_PRODUCTS.filter(p => p.format === id).length}
+            />
+
+            <div className="shop-side__group">
+              <div className="shop-side__title">Preț</div>
+              <label className="shop-side__check">
+                <input type="checkbox" checked={onlyFree} onChange={e => setOnlyFree(e.target.checked)} />
+                <span>Doar gratuite</span>
+              </label>
+            </div>
+
+            {hasFilters && (
+              <button type="button" className="shop-side__reset" onClick={resetFilters}>
+                Resetează filtrele
+              </button>
+            )}
+          </aside>
+
+          <div className="shop-main">
 
           {/* Result bar */}
           <div className="shop-result-bar">
             <div className="shop-result-count">
               <strong>{total}</strong>&nbsp;
               {total === 1 ? 'produs găsit' : 'produse găsite'}
-              {hasFilters && (
-                <button className="shop-reset-btn" onClick={resetFilters}>
-                  ✕ Resetează filtrele
-                </button>
-              )}
             </div>
           </div>
 
@@ -1185,6 +1203,9 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
               {grid(shelf)}
             </div>
           )}
+
+          </div>
+          </div>
 
           {/* CTA banner */}
           <div className="shop-cta-banner">
