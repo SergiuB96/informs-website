@@ -800,15 +800,16 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ── Butonul de pe card ──
    Albastrul plin al site-ului era prea tare pe o grilă de carduri
-   (câte un buton strident pe fiecare). Acum: contur fin, text navy,
-   colțuri drepte ca fișa; se umple cu navy doar la hover pe card,
-   fiindcă tot cardul e clicabil. */
+   (câte un buton strident pe fiecare). Acum: pastilă transparentă cu
+   contur fin și text navy. Rămâne transparentă și la hover pe card
+   (tot cardul e clicabil): se închide doar conturul și se mișcă săgeata. */
 main .shop-card-cta {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
+  padding: 8px 16px;
   border: 1px solid var(--border-d);
+  border-radius: 999px;
   background: transparent;
   color: var(--navy);
   font-size: 13.5px;
@@ -823,9 +824,7 @@ main .shop-card-cta__arr { transition: transform .2s ease; }
 
 main .shop-product-card:hover .shop-card-cta,
 main .shop-card-cta:focus-visible {
-  background: var(--navy);
   border-color: var(--navy);
-  color: #fff;
 }
 
 main .shop-product-card:hover .shop-card-cta__arr { transform: translateX(3px); }
