@@ -530,7 +530,9 @@ const JUDETE = [
    (municipii, orase, comune) din SIRUTA 2025 (INS, data.gov.ro), plus
    Bucurestiul pe sectoare. Prea mult ca sa stea in pagina degeaba,
    destul de putin cat sa nu merite impartit pe judete. */
-const LOCALITATI_URL = 'assets/date/localitati.json';
+/* /assets/ e cache imutabil un an: la fiecare actualizare a listei se
+   schimbă ?v=, altfel browserele care au lista veche o păstrează. */
+const LOCALITATI_URL = 'assets/date/localitati.json?v=siruta-2025-s1';
 
 const CHECKOUT_FIELDS = [
   { k: 'lastName',   label: 'Nume *',        ph: 'Popescu',            w: 1 },
