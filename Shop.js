@@ -1191,7 +1191,20 @@ function ProductDetails({
     className: "sp-inst__text"
   }, "Trimite-ne la ", /*#__PURE__*/React.createElement("a", {
     href: 'mailto:' + COMPANY.email + '?subject=' + encodeURIComponent('Cerere de ofertă: ' + product.title)
-  }, COMPANY.email), " o cerere de ofert\u0103 sau o comand\u0103 ferm\u0103. Emitem factura prin e-Factura, pl\u0103te\u0219ti prin ordin de plat\u0103, iar documentul \xEEl prime\u0219ti pe email.")))));
+  }, COMPANY.email), " o cerere de ofert\u0103 sau o comand\u0103 ferm\u0103. Emitem factura prin e-Factura, pl\u0103te\u0219ti prin ordin de plat\u0103, iar documentul \xEEl prime\u0219ti pe email."), /*#__PURE__*/React.createElement("div", {
+    className: "sp-inst__seap"
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "https://www.e-licitatie.ro/pub",
+    target: "_blank",
+    rel: "noopener noreferrer",
+    "aria-label": "SEAP / SICAP, e-licitatie.ro"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "uploads/seap-sicap-logo-h102.webp",
+    alt: "SEAP / SICAP",
+    width: "250",
+    height: "102",
+    loading: "lazy"
+  })), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, "Suntem \u0219i pe SEAP."), " Produsele \u0219i serviciile INFORMS pot fi achizi\u021Bionate prin sistemul electronic de achizi\u021Bii publice."))))));
 }
 
 /* Fereastra de produs din magazin. Același conținut ca pagina

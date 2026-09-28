@@ -937,6 +937,14 @@ function ProductDetails({ product, onNav }) {
                       cerere de ofertă sau o comandă fermă. Emitem factura prin e-Factura, plătești prin ordin de plată,
                       iar documentul îl primești pe email.
                     </p>
+                    <div className="sp-inst__seap">
+                      <a href="https://www.e-licitatie.ro/pub" target="_blank" rel="noopener noreferrer" aria-label="SEAP / SICAP, e-licitatie.ro">
+                        <img src="uploads/seap-sicap-logo-h102.webp" alt="SEAP / SICAP" width="250" height="102" loading="lazy" />
+                      </a>
+                      <span>
+                        <strong>Suntem și pe SEAP.</strong> Produsele și serviciile INFORMS pot fi achiziționate prin sistemul electronic de achiziții publice.
+                      </span>
+                    </div>
                   </div>
                 </>
               )}

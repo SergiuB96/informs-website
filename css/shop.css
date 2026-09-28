@@ -958,3 +958,26 @@ main .shop-layout .shop-grid {
 @media (max-width: 560px) {
   main .shop-side__group { flex-basis: 100%; border-right: 0; border-bottom: 1px solid var(--border); }
 }
+
+/* SEAP în caseta pentru instituții: logo cu link spre e-licitatie.ro */
+.sp-inst__seap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.sp-inst__seap a { flex: none; display: block; }
+
+.sp-inst__seap img { display: block; height: 44px; width: auto; }
+
+.sp-inst__seap strong { color: var(--navy); }
+
+@media (max-width: 480px) {
+  .sp-inst__seap { flex-direction: column; align-items: flex-start; }
+}
