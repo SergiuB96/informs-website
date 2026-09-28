@@ -635,10 +635,11 @@ const CHECKOUT_FIELDS = [{
   type: 'email'
 }, {
   k: 'phone',
-  label: 'Telefon *',
+  label: 'Telefon',
   ph: '+40 7xx xxx xxx',
   w: 2,
-  type: 'tel'
+  type: 'tel',
+  pfOptional: true
 }, {
   k: 'address',
   label: 'Adresă *',
@@ -656,10 +657,15 @@ const CHECKOUT_FIELDS = [{
   kind: 'localitate'
 }, {
   k: 'postalCode',
-  label: 'Cod poștal *',
+  label: 'Cod poștal',
   ph: '010101',
-  w: 1
+  w: 1,
+  pfOptional: true
 }];
+
+/* Telefonul și codul poștal sunt opționale doar la persoana fizică;
+   pentru factura pe firmă rămân obligatorii (vezi și api/netopia-start.js). */
+const fieldLabel = (f, entity) => f.pfOptional ? f.label + (entity === 'pj' ? ' *' : ' (opțional)') : f.label;
 
 /* Doar pentru persoana juridica. Oblio decide dupa CUI daca factura
    se emite pe firma, deci la comutarea pe persoana fizica ambele se
@@ -675,7 +681,8 @@ const COMPANY_FIELDS = [{
   ph: 'RO12345678',
   w: 1
 }];
-const REQUIRED_FIELDS = ['lastName', 'firstName', 'email', 'phone', 'address', 'city', 'state', 'postalCode'];
+const REQUIRED_FIELDS = ['lastName', 'firstName', 'email', 'address', 'city', 'state'];
+const REQUIRED_FIELDS_PJ = REQUIRED_FIELDS.concat(['phone', 'postalCode', 'company', 'cui']);
 function CheckoutForm({
   product,
   onNav
@@ -744,7 +751,7 @@ function CheckoutForm({
     });
   };
   const cuiValid = v => /^(RO)?\s?\d{2,10}$/i.test(v.trim());
-  const obligatorii = entity === 'pj' ? REQUIRED_FIELDS.concat(['company', 'cui']) : REQUIRED_FIELDS;
+  const obligatorii = entity === 'pj' ? REQUIRED_FIELDS_PJ : REQUIRED_FIELDS;
   const complete = obligatorii.every(k => (form[k] || '').trim()) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()) && (entity !== 'pj' || cuiValid(form.cui));
   /* Renunțarea la dreptul de retragere privește doar consumatorul. */
   const ready = complete && terms && (entity === 'pj' || waiver);
@@ -815,7 +822,7 @@ function CheckoutForm({
     className: f.w === 2 ? 'sp-field sp-field--full' : 'sp-field'
   }, /*#__PURE__*/React.createElement("label", {
     className: "sp-label"
-  }, f.label), f.kind === 'judet' ? /*#__PURE__*/React.createElement("select", {
+  }, fieldLabel(f, entity)), f.kind === 'judet' ? /*#__PURE__*/React.createElement("select", {
     className: "sp-input",
     value: form.state,
     onChange: setJudet

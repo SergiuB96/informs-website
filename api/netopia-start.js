@@ -1,7 +1,10 @@
 import { getProduct } from './_lib/products.js';
 import { mintOrderID, buildStartPayload, startPayment, siteUrl, baseUrl } from './_lib/netopia.js';
 
-const REQUIRED = ['firstName', 'lastName', 'email', 'phone', 'address', 'city', 'state', 'postalCode'];
+/* Telefonul și codul poștal sunt cerute doar pentru factura pe firmă
+   (cu CUI); o persoană fizică le poate lăsa goale. */
+const REQUIRED = ['firstName', 'lastName', 'email', 'address', 'city', 'state'];
+const REQUIRED_COMPANY = ['phone', 'postalCode'];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /* Mesaje pentru codurile de eroare documentate de NETOPIA. */

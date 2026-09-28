@@ -427,12 +427,17 @@ const CHECKOUT_FIELDS = [
   { k: 'lastName',   label: 'Nume *',        ph: 'Popescu',            w: 1 },
   { k: 'firstName',  label: 'Prenume *',     ph: 'Ion',                w: 1 },
   { k: 'email',      label: 'Email *',       ph: 'ion@exemplu.ro',     w: 2, type: 'email' },
-  { k: 'phone',      label: 'Telefon *',     ph: '+40 7xx xxx xxx',    w: 2, type: 'tel' },
+  { k: 'phone',      label: 'Telefon',       ph: '+40 7xx xxx xxx',    w: 2, type: 'tel', pfOptional: true },
   { k: 'address',    label: 'Adresă *',      ph: 'Str. Exemplu nr. 1', w: 2 },
   { k: 'state',      label: 'Județ *',       w: 1, kind: 'judet' },
   { k: 'city',       label: 'Localitate *',  w: 1, kind: 'localitate' },
-  { k: 'postalCode', label: 'Cod poștal *',  ph: '010101',             w: 1 },
+  { k: 'postalCode', label: 'Cod poștal',    ph: '010101',             w: 1, pfOptional: true },
 ];
+
+/* Telefonul și codul poștal sunt opționale doar la persoana fizică;
+   pentru factura pe firmă rămân obligatorii (vezi și api/netopia-start.js). */
+const fieldLabel = (f, entity) =>
+  f.pfOptional ? f.label + (entity === 'pj' ? ' *' : ' (opțional)') : f.label;
 
 /* Doar pentru persoana juridica. Oblio decide dupa CUI daca factura
    se emite pe firma, deci la comutarea pe persoana fizica ambele se
@@ -442,7 +447,8 @@ const COMPANY_FIELDS = [
   { k: 'cui',     label: 'CUI *',            ph: 'RO12345678',     w: 1 },
 ];
 
-const REQUIRED_FIELDS = ['lastName', 'firstName', 'email', 'phone', 'address', 'city', 'state', 'postalCode'];
+const REQUIRED_FIELDS = ['lastName', 'firstName', 'email', 'address', 'city', 'state'];
+const REQUIRED_FIELDS_PJ = REQUIRED_FIELDS.concat(['phone', 'postalCode', 'company', 'cui']);
 
 function CheckoutForm({ product, onNav }) {
   const [form, setForm] = useState({ lastName: '', firstName: '', email: '', phone: '', address: '', city: '', state: '', postalCode: '', company: '', cui: '' });
@@ -481,9 +487,7 @@ function CheckoutForm({ product, onNav }) {
 
   const cuiValid = (v) => /^(RO)?\s?\d{2,10}$/i.test(v.trim());
 
-  const obligatorii = entity === 'pj'
-    ? REQUIRED_FIELDS.concat(['company', 'cui'])
-    : REQUIRED_FIELDS;
+  const obligatorii = entity === 'pj' ? REQUIRED_FIELDS_PJ : REQUIRED_FIELDS;
 
   const complete = obligatorii.every(k => (form[k] || '').trim())
     && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())
@@ -547,7 +551,7 @@ function CheckoutForm({ product, onNav }) {
       <div className="sp-fields">
         {(entity === 'pj' ? COMPANY_FIELDS.concat(CHECKOUT_FIELDS) : CHECKOUT_FIELDS).map(f => (
           <div key={f.k} className={f.w === 2 ? 'sp-field sp-field--full' : 'sp-field'}>
-            <label className="sp-label">{f.label}</label>
+            <label className="sp-label">{fieldLabel(f, entity)}</label>
 
             {f.kind === 'judet' ? (
               <select className="sp-input" value={form.state} onChange={setJudet}>
