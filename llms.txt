@@ -19,6 +19,7 @@ Produsele cu plată se cumpără online, cu cardul, și se livrează pe email ca
 - [Proces-verbal recepție la terminarea lucrărilor](https://www.informs.ro/magazin/proces-verbal-receptie-lucrari): Model de proces-verbal pentru recepția la terminarea lucrărilor de construcții, după Regulamentul de recepție a construcțiilor. PDF, Gratuit.
 - [Proces-verbal de recepție parțială](https://www.informs.ro/magazin/proces-verbal-receptie-partiala): Model de proces-verbal privind stadiul fizic de execuție a lucrărilor de construcții, pentru recepția unei etape sau a unei părți din investiție. PDF, Gratuit.
 - [Procedură tehnică de execuție: trasarea construcțiilor](https://www.informs.ro/magazin/pte-trasarea-constructiilor): Procedură tehnică de execuție (PTE) pentru trasarea pe teren a construcțiilor civile, industriale și agricole, de la rețeaua de trasare la trasarea de detaliu și recepția pe faze determinante. Word, 49 lei.
+- [Procedură tehnică de execuție: lucrări de șape de ciment](https://www.informs.ro/magazin/pte-lucrari-sape-de-ciment): Procedură tehnică de execuție (PTE) pentru șapele de ciment în aderență, glisante și flotante, de la pregătirea stratului suport la îngrijirea după turnare și recepția pe faze determinante. Word, 49 lei.
 
 ## Informații legale
 

@@ -164,6 +164,27 @@ const SHOP_PRODUCTS = [{
     files: 1,
     pages: 11
   }
+}, {
+  id: 'pte-lucrari-sape-de-ciment',
+  sku: 'INF-PTE-SAP',
+  title: 'Procedură tehnică de execuție: lucrări de șape de ciment',
+  shortDesc: 'Procedură tehnică de execuție (PTE) pentru șapele de ciment în aderență, glisante și flotante, de la pregătirea stratului suport la îngrijirea după turnare și recepția pe faze determinante.',
+  longDesc: 'Stabilește metodologia, cerințele de calitate și responsabilitățile pentru executarea șapelor de ciment ca strat de egalizare sau suport pentru pardoseli, în clădiri noi și la reabilitări, cu aplicare manuală sau mecanizată. Trimite la Legea nr. 10/1995, HG nr. 273/1994 cu modificările din HG nr. 343/2017, normativele GP 037/98 și C 35-82 și SR EN 13813. Document Word editabil, de adaptat la datele concrete ale lucrării.',
+  audiences: ['constructii'],
+  forWhom: 'Executanții de lucrări de construcții (RTE, șef de șantier, șef de punct de lucru, responsabil control calitate) și diriginții de șantier.',
+  version: '1.0',
+  updated: 'septembrie 2026',
+  format: 'word',
+  cv: 'cv-word',
+  price: 49,
+  featured: false,
+  isNew: true,
+  tags: ['PTE', 'Șape', 'Pardoseli'],
+  includes: ['Scop, domeniu de aplicare și documente de referință', 'Tipuri de șapă: în aderență, glisantă, flotantă', 'Definiții și prescurtări (RTE, SPL, CQ, PVLA, RNC)', 'Responsabilități pe funcții, de la RTE la dirigintele de șantier', 'Resurse: personal, utilaje, materiale', 'Tehnologia de execuție, toleranțe de planeitate și controlul calității', 'Recepția pe faze determinante și înregistrările obligatorii'],
+  stats: {
+    files: 1,
+    pages: 12
+  }
 }];
 const SHOW_HIDDEN = new URLSearchParams(window.location.search).get('test') === '1';
 
