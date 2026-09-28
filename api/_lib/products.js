@@ -15,26 +15,20 @@ const PRODUCTS = {
      în SHOP_PRODUCTS (Shop.jsx), cu același sku și același preț:
 
   'INF-XXX': {
-    idx: 'a',                        // o literă, unică; intră în orderID
+    idx: 'e',                        // o literă, unică; intră în orderID
     title: 'Denumirea produsului',
     price: 199,
     blobPath: 'produse/fisier.docx',
     fileName: 'INFORMS - Denumire.docx',
   },
 
-     Pentru un nou test de plată: un SKU ascuns (`hidden` în Shop.jsx),
-     cu un fișier neutru în Blob, niciodată un document de client. */
+     Indexuri deja folosite de produse scoase, a nu se refolosi:
+     a, b, c, d, t. Un orderID vechi s-ar potrivi altfel cu produsul nou.
 
-  /* Produs de test, ascuns în magazin (/magazin?test=1). De scos după
-     ce testul NETOPIA trece. idx 't' nu a fost folosit de niciun produs
-     vechi, deci un orderID de test mai vechi nu se poate potrivi aici. */
-  'INF-TEST-010': {
-    idx: 't',
-    title: 'Test plata INFORMS',
-    price: 0.1,
-    blobPath: 'produse/test-plata.txt',
-    fileName: 'INFORMS - Test plata.txt',
-  },
+     Pentru un nou test de plată: un SKU ascuns (`hidden` în Shop.jsx),
+     cu un fișier neutru în Blob, niciodată un document de client.
+     Testul din 28.09.2026 a folosit INF-TEST-010, 0,1 RON, idx 't',
+     produse/test-plata.txt. */
 };
 
 /* Indexul scurt folosit în orderID, ca să încapă în cele 64 de caractere. */

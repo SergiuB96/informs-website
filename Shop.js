@@ -122,30 +122,6 @@ const SHOP_PRODUCTS = [{
     pages: 0
   },
   file: 'assets/produse/gratuite/pdf/Proces-verbal_receptie%20terminare%20lucrari_v1.0.pdf'
-},
-/* Test de plată NETOPIA, vizibil doar cu /magazin?test=1. Aceleași
-   sku și preț ca în api/_lib/products.js. De scos după test. */
-{
-  id: 'test-plata',
-  sku: 'INF-TEST-010',
-  title: 'Test plată INFORMS',
-  shortDesc: 'Produs intern pentru verificarea plății cu cardul.',
-  longDesc: 'Produs intern, folosit pentru a verifica plata NETOPIA și livrarea documentului pe email. Fișierul livrat este un text de test.',
-  forWhom: 'Uz intern.',
-  version: '1.0',
-  updated: 'septembrie 2026',
-  format: 'pdf',
-  cv: 'cv-pdf',
-  price: 0.1,
-  hidden: true,
-  featured: false,
-  isNew: false,
-  tags: ['Test'],
-  includes: ['Fișier text de test'],
-  stats: {
-    files: 1,
-    pages: 0
-  }
 }];
 const SHOW_HIDDEN = new URLSearchParams(window.location.search).get('test') === '1';
 

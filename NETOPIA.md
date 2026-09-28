@@ -5,6 +5,22 @@ Integrare cu **Payment API v2** (JSON + API key + IPN semnat RSA). Nu confunda c
 `env_key` sau `sandboxsecure.mobilpay.ro` este v1 și nu se aplică aici. Atenție: pagina
 „Node.js SDK” de pe doc.netopia-payments.com documentează tot v1, deși e listată sub v2.
 
+## Stare la 28.09.2026
+
+- Punctul de vânzare a fost **aprobat** de NETOPIA.
+- Testul complet în sandbox a trecut pe 28.09.2026 cu un produs ascuns de 0,10 RON:
+  notificarea IPN a trecut de verificarea semnăturii, iar clientul a primit emailul de
+  confirmare de la NETOPIA și emailul de livrare INFORMS, cu link de descărcare funcțional.
+  Produsul de test a fost scos după aceea.
+- Toate variabilele de mediu de producție există, inclusiv SMTP și cele trei `OBLIO_*`.
+  Proiectul rulează încă pe cheile de sandbox (`NETOPIA_LIVE` diferit de `1`).
+- Rămâne: cheile de producție, `NETOPIA_LIVE=1`, produsele reale și prima factură Oblio.
+  Vezi „Trecerea pe live”, mai jos.
+
+În Vercel, variabilele de producție sunt de tip „Sensitive”: după salvare nu le mai
+poate citi nimeni, nici din dashboard. `vercel env ls` arată doar numele. O valoare
+nesigură se șterge și se adaugă din nou.
+
 ## Ce trebuie completat înainte de a merge live
 
 ### 1. Datele firmei
@@ -22,10 +38,10 @@ regCom:  'J26/1603/2021',
 address: 'Bld. Pandurilor nr. 86, et. 3, ap. 11, Târgu Mureș, jud. Mureș, 540487',
 ```
 
-Mai lipsește un singur câmp obligatoriu pentru NETOPIA:
+Telefonul, cerut de NETOPIA, e completat:
 
 ```js
-phone:   '+40 7xx xxx xxx',
+phone:   '+40 740 023 338',
 ```
 
 Opționale, utile în Termeni și condiții: `shareCapital`, `iban`, `bank`.
@@ -46,8 +62,9 @@ Serverul nu are încredere în prețul trimis de browser: îl citește după `sk
 `products.js`. Dacă cele două diferă, clientul plătește prețul din `products.js`.
 
 Deocamdată catalogul plătit e gol: cele trei produse de la început erau doar de test
-și au fost scoase (22.09.2026). Un produs real se adaugă în ambele fișiere, cu același
-`sku` și același preț.
+și au fost scoase (22.09.2026), la fel produsul de test din 28.09.2026. Un produs real se
+adaugă în ambele fișiere, cu același `sku` și același preț, și cu un `idx` nefolosit
+(lista e în comentariul din `products.js`).
 
 ### 3. Fișierele livrate
 
@@ -74,7 +91,7 @@ Creează un store Blob în proiectul Vercel; `BLOB_READ_WRITE_TOKEN` se injectea
 | `ORDER_SECRET` | 32 de octeți aleatori: `openssl rand -hex 32` |
 | `DOWNLOAD_SECRET` | alți 32 de octeți, diferiți de `ORDER_SECRET` |
 | `BLOB_READ_WRITE_TOKEN` | injectat automat de Vercel |
-| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` | ⚠️ **NU sunt setate în proiect.** Vezi secțiunea de mai jos. |
+| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` | contul de email din cPanel (Email Accounts → Connect Devices). Setate în producție; livrarea a mers la testul din 28.09.2026. |
 
 ## Cum funcționează
 
@@ -157,46 +174,48 @@ Titular `Test Test`, CVV `111`, expirare oricând în viitor.
 
 Admin sandbox: https://sandbox.netopia-payments.com · Admin producție: https://admin.netopia-payments.com
 
-## Ordinea recomandată
+## Trecerea pe live
 
-1. Completează `COMPANY` în `Config.jsx`, rulează `npm run build`, dă deploy.
-2. Bifează lista de condiții obligatorii din contul NETOPIA și cere validarea.
-3. Între timp, setează variabilele de sandbox și testează plata cu 0,10 RON.
-4. Verifică în logurile Vercel că IPN-ul trece de verificarea semnăturii și că emailul
-   de livrare ajunge.
-5. Setează variabilele Oblio și verifică prima factură emisă automat, în special cota de TVA.
-6. După aprobare, schimbă `NETOPIA_LIVE=1` și cele trei valori de producție
-   (API key, POS signature, public key).
+Pașii 1–5 de mai jos sunt făcuți (vezi „Stare la 28.09.2026”):
 
-## ⚠️ Blocant: SMTP nu este configurat
+1. ~~`COMPANY` completat în `Config.jsx`.~~
+2. ~~Punctul de vânzare validat de NETOPIA.~~
+3. ~~Plată de test de 0,10 RON în sandbox, IPN verificat, email de livrare primit.~~
+4. ~~SMTP setat în producție.~~
+5. ~~Variabilele Oblio setate în producție.~~
 
-Verificat cu `vercel env pull`: în proiect nu există `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`
-sau `SMTP_PASS`, în niciun mediu. `api/contact.js` le citește direct din `process.env`,
-deci **formularul de contact nu poate trimite niciun email în acest moment.** Commit-ul
-`6f69637` a trecut formularul pe SMTP cPanel, dar variabilele nu au fost adăugate niciodată.
+Rămân:
 
-Pentru plăți asta este blocant: livrarea documentului se face prin același transport. Fără
-SMTP, clientul plătește și nu primește nimic, iar notificarea de eroare către
-`office@informs.ro` ar eșua și ea, pentru că folosește tot SMTP. Singura urmă ar rămâne în
-logurile Vercel.
+6. **Cheile de producție.** Din admin.netopia-payments.com (nu din sandbox): cheia API
+   din Profile → Security și semnătura punctului de vânzare. Le înlocuiești în Vercel:
 
-Adaugă cele patru variabile înainte de primul test de plată:
+   ```
+   vercel env rm NETOPIA_API_KEY production
+   vercel env add NETOPIA_API_KEY production
+   vercel env rm NETOPIA_POS_SIGNATURE production
+   vercel env add NETOPIA_POS_SIGNATURE production
+   vercel env rm NETOPIA_LIVE production
+   vercel env add NETOPIA_LIVE production        (valoare: 1)
+   ```
 
-```
-vercel env add SMTP_HOST production <gitbranch> --value mail.informs.ro --yes
-vercel env add SMTP_PORT production <gitbranch> --value 465 --yes
-vercel env add SMTP_USER production <gitbranch> --value office@informs.ro --yes
-vercel env add SMTP_PASS production <gitbranch> --value '<parola>' --yes
-```
+   `NETOPIA_PUBLIC_KEY` nu trebuie schimbată: cheia IPN din cod e aceeași pe live.
+   Variabilele noi intră în vigoare doar după un deploy nou.
+7. **Produsele reale**, în `Shop.jsx` și `api/_lib/products.js`, cu fișierele în Blob
+   la `produse/`.
+8. **Prima vânzare reală**: verifică factura emisă automat în Oblio (seria `MIL`, cota de
+   TVA) și, dacă e cazul, trimiterea în SPV.
 
-Valorile exacte de host și port sunt în cPanel, la Email Accounts → Connect Devices.
+Cheile de sandbox și cele de producție nu se amestecă: o cheie API de sandbox cu
+`NETOPIA_LIVE=1` e respinsă la `/payment/card/start`, iar clientul vede
+„Plata nu a putut fi inițiată”.
 
-## De rezolvat înainte de a pune chei de plată în proiect
+## Rezolvate
 
-`api/key.js` returnează `GROQ_API_KEY` în clar oricui o cere. Antetul CORS restricționează
-doar JavaScript-ul din browser, nu și `curl`. Aceeași cheie este scrisă în clar și în
-`spete/chat.php`. Șterge endpoint-ul și rotește cheia înainte de a adăuga secrete de plată
-în același proiect.
+- **SMTP** lipsea din proiect până la jumătatea lui septembrie; acum e setat, iar livrarea
+  a fost verificată pe 28.09.2026.
+- **`api/key.js`**, care returna `GROQ_API_KEY` oricui îl cerea, a fost șters. Atenție:
+  modul semantic din `spete/search.html` încă apelează `/api/key`, deci în producție acel
+  mod nu mai funcționează. Cheia Groq trebuie rotită dacă nu s-a făcut deja.
 
 ## Facturare automată prin Oblio
 
