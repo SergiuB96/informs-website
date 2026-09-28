@@ -1,5 +1,5 @@
 import { getProduct } from './_lib/products.js';
-import { mintOrderID, buildStartPayload, startPayment, siteUrl } from './_lib/netopia.js';
+import { mintOrderID, buildStartPayload, startPayment, siteUrl, baseUrl } from './_lib/netopia.js';
 
 const REQUIRED = ['firstName', 'lastName', 'email', 'phone', 'address', 'city', 'state', 'postalCode'];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -103,7 +103,16 @@ export default async function handler(req, res) {
     const detail = json && json.error && Array.isArray(json.error.details)
       ? json.error.details.map(d => d.field).filter(Boolean).join(', ')
       : '';
-    console.error('netopia-start failed', { ok, status, code, detail, message: json && json.error && json.error.message });
+    /* Gazda și NETOPIA_LIVE nu sunt secrete și deosebesc un 401 din
+       cheie greșită de unul din cheie de sandbox trimisă la live (sau invers). */
+    console.error('netopia-start failed', {
+      ok, status, code, detail,
+      message: json && json.error && json.error.message,
+      host: new URL(baseUrl()).host,
+      live: process.env.NETOPIA_LIVE === '1',
+      keyLength: (process.env.NETOPIA_API_KEY || '').length,
+      keyTrimmed: (process.env.NETOPIA_API_KEY || '') === (process.env.NETOPIA_API_KEY || '').trim(),
+    });
 
     return res.status(502).json({
       error: ERROR_MESSAGES[code] || 'Plata nu a putut fi inițiată. Încearcă din nou sau contactează-ne.',
