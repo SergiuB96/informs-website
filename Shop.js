@@ -185,6 +185,27 @@ const SHOP_PRODUCTS = [{
     files: 1,
     pages: 12
   }
+}, {
+  id: 'pte-lucrari-imprejmuiri-si-porti',
+  sku: 'INF-PTE-IMP',
+  title: 'Procedură tehnică de execuție: împrejmuiri și porți',
+  shortDesc: 'Procedură tehnică de execuție (PTE) pentru împrejmuiri și porți: fundațiile stâlpilor, montarea stâlpilor și a panourilor, porți batante și glisante, recepția pe faze determinante.',
+  longDesc: 'Stabilește metodologia, cerințele de calitate și responsabilitățile pentru executarea împrejmuirilor perimetrale și interioare, cu stâlpi metalici sau din beton și panouri din plasă de sârmă, tablă, lemn sau PVC, inclusiv porțile batante și glisante cu accesoriile de închidere. Trimite la Legea nr. 10/1995, HG nr. 273/1994 cu modificările din HG nr. 343/2017, NP 112-2014, C 150-1999, SR EN 1090-2 și seria SR EN 10223. Document Word editabil, de adaptat la datele concrete ale lucrării.',
+  audiences: ['constructii'],
+  forWhom: 'Executanții de lucrări de construcții (RTE, șef de șantier, șef de punct de lucru, responsabil control calitate) și diriginții de șantier.',
+  version: '1.0',
+  updated: 'septembrie 2026',
+  format: 'word',
+  cv: 'cv-word',
+  price: 49,
+  featured: false,
+  isNew: true,
+  tags: ['PTE', 'Împrejmuiri', 'Porți'],
+  includes: ['Scop, domeniu de aplicare și documente de referință', 'Definiții și prescurtări (RTE, SPL, CQ, PVLA, RNC)', 'Responsabilități pe funcții, de la RTE la dirigintele de șantier', 'Resurse: personal, utilaje, materiale (stâlpi, panouri, beton, armătură)', 'Fundații izolate, montajul stâlpilor, panourilor și porților', 'Toleranțe, controlul calității și îmbinările sudate', 'Recepția pe faze determinante și înregistrările obligatorii'],
+  stats: {
+    files: 1,
+    pages: 13
+  }
 }];
 const SHOW_HIDDEN = new URLSearchParams(window.location.search).get('test') === '1';
 
