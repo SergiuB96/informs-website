@@ -26,6 +26,7 @@
     { "source": "/contact", "destination": "/contact.html" },
 
     { "source": "/magazin", "destination": "/app.html" },
+    { "source": "/magazin/:produs", "destination": "/app.html" },
     { "source": "/comanda-finalizata", "destination": "/app.html" },
     { "source": "/politica-confidentialitate", "destination": "/app.html" },
     { "source": "/termeni-si-conditii", "destination": "/app.html" },

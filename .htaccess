@@ -28,6 +28,7 @@
 
   # rutele ramase in aplicatia React
   RewriteRule ^(magazin|comanda-finalizata|politica-confidentialitate|termeni-si-conditii|politica-gdpr|politica-cookies|politica-livrare|politica-anulare|dreptul-de-retragere)/?$ app.html [L]
+  RewriteRule ^magazin/[a-z0-9-]+/?$ app.html [L]
 </IfModule>
 
 # orice altceva ajunge aici, ca in productie
