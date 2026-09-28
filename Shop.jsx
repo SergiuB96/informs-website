@@ -526,8 +526,10 @@ const JUDETE = [
 ];
 
 /* Localitatile se incarca o singura data, la deschiderea formularului:
-   34 KB pentru 2898 de unitati administrative, prea mult ca sa stea in
-   pagina degeaba, destul de putin cat sa nu merite impartit pe judete. */
+   ~38 KB pentru cele 3.180 de unitati administrativ-teritoriale
+   (municipii, orase, comune) din SIRUTA 2025 (INS, data.gov.ro), plus
+   Bucurestiul pe sectoare. Prea mult ca sa stea in pagina degeaba,
+   destul de putin cat sa nu merite impartit pe judete. */
 const LOCALITATI_URL = 'assets/date/localitati.json';
 
 const CHECKOUT_FIELDS = [
