@@ -42,7 +42,7 @@ const PRODUCTS = {
      în SHOP_PRODUCTS (Shop.jsx), cu același sku și același preț:
 
   'INF-XXX': {
-    idx: 'e',                        // o literă, unică; intră în orderID
+    idx: 'h',                        // o literă nefolosită (lista de mai jos)
     title: 'Denumirea produsului',
     price: 199,
     blobPath: 'produse/fisier.docx',
@@ -50,7 +50,9 @@ const PRODUCTS = {
   },
 
      Indexuri deja folosite, a nu se refolosi: a, b, c, d, t (produse
-     scoase), e (INF-PTE-TRS), f (INF-PTE-SAP), g (INF-PTE-IMP). Următorul liber: h. Un orderID vechi s-ar potrivi altfel cu produsul nou.
+     scoase), e (INF-PTE-TRS), f (INF-PTE-SAP), g (INF-PTE-IMP).
+     Următorul liber: h. Un orderID vechi s-ar potrivi altfel cu
+     produsul nou.
 
      Pentru un nou test de plată: un SKU ascuns (`hidden` în Shop.jsx),
      cu un fișier neutru în Blob, niciodată un document de client.
