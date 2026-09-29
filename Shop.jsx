@@ -81,7 +81,7 @@ const SHOP_PRODUCTS = [
     id: 'formular-f14-incepere-lucrari',
     title: 'Formular F.14 - Comunicare începere execuție lucrări',
     shortDesc: 'Formular oficial pentru comunicarea datei de începere a execuției lucrărilor de construcții către Inspectoratul de Stat în Construcții.',
-    longDesc: 'Formularul oficial prin care titularul autorizației de construire comunică Inspectoratului de Stat în Construcții data de începere a execuției lucrărilor, prevăzut de normele de aplicare ale Legii nr. 50/1991. Preluat din sursa publică și transformat de INFORMS în formular PDF completabil.',
+    longDesc: 'Formularul oficial prin care titularul autorizației de construire comunică Inspectoratului de Stat în Construcții data de începere a execuției lucrărilor, prevăzut de normele de aplicare ale Codului amenajării teritoriului, urbanismului și construcțiilor (Legea nr. 169/2026). Preluat din sursa publică și transformat de INFORMS în formular PDF completabil.',
     audiences: ['constructii'],
     forWhom: 'Titularul autorizației de construire, persoană, firmă sau autoritate, și cei care pregătesc actele în numele lui.',
     version: '1.0',
