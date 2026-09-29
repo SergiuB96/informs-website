@@ -864,17 +864,10 @@ function ProductDetails({ product, onNav }) {
                 {product.stats.pages > 0 && (
                   <div>
                     <IcoPages size={16} />
-                    <span><strong>{product.stats.pages}</strong> pagini totale</span>
+                    <span><strong>{product.stats.pages}</strong> pagini</span>
                   </div>
                 )}
             </div>
-            {!isFree && (
-              <p className="sp-modal-text sp-modal-text--note">
-                Versiune fixă: actualizările sunt incluse doar în contractele de servicii.
-                Licența acoperă utilizarea în activitatea proprie a entității de pe factură
-                (<a href="/termeni-si-conditii" onClick={e => { e.preventDefault(); go('termeni-si-conditii'); }}>Termeni și condiții</a>).
-              </p>
-            )}
           </div>
 
           {/* ── Descărcare gratuită cu email + GDPR ── */}

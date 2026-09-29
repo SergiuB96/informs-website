@@ -1127,15 +1127,7 @@ function ProductDetails({
     size: 16
   }), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, product.stats.files), " ", product.stats.files === 1 ? 'fișier' : 'fișiere')), product.stats.pages > 0 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IcoPages, {
     size: 16
-  }), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, product.stats.pages), " pagini totale"))), !isFree && /*#__PURE__*/React.createElement("p", {
-    className: "sp-modal-text sp-modal-text--note"
-  }, "Versiune fix\u0103: actualiz\u0103rile sunt incluse doar \xEEn contractele de servicii. Licen\u021Ba acoper\u0103 utilizarea \xEEn activitatea proprie a entit\u0103\u021Bii de pe factur\u0103 (", /*#__PURE__*/React.createElement("a", {
-    href: "/termeni-si-conditii",
-    onClick: e => {
-      e.preventDefault();
-      go('termeni-si-conditii');
-    }
-  }, "Termeni \u0219i condi\u021Bii"), ").")), hasFreeFile ? downloaded ? /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, product.stats.pages), " pagini")))), hasFreeFile ? downloaded ? /*#__PURE__*/React.createElement("div", {
     className: "sp-done"
   }, /*#__PURE__*/React.createElement("div", {
     className: "sp-done__ico"
