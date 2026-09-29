@@ -981,3 +981,161 @@ main .shop-layout .shop-grid {
 @media (max-width: 480px) {
   .sp-inst__seap { flex-direction: column; align-items: flex-start; }
 }
+
+/* ── Previzualizare ──
+   Butonul rotund de pe card (ochi), fereastra cu paginile și miniaturile
+   din fișa produsului. Aceeași pastilă transparentă ca „Comandă”. */
+main .shop-card-actions { display: flex; align-items: center; gap: 8px; }
+
+main .shop-card-pv {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid var(--border-d);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--navy);
+  cursor: pointer;
+  transition: border-color .2s ease, background-color .2s ease;
+}
+
+main .shop-card-pv:hover,
+main .shop-card-pv:focus-visible { border-color: var(--navy); background: rgba(12, 0, 50, .04); }
+
+.pv-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(12, 0, 50, .78);
+  animation: shopFadeIn .18s ease;
+}
+
+.pv {
+  display: flex;
+  flex-direction: column;
+  width: min(860px, 100%);
+  max-height: calc(100vh - 40px);
+  border-radius: 14px;
+  background: var(--white);
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .35);
+}
+
+.pv__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pv__title { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+
+.pv__k { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text-2); }
+
+.pv__name { font-size: 15px; font-weight: 600; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.pv__close {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border-d);
+  border-radius: 50%;
+  background: transparent;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.pv__stage {
+  flex: 1;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 20px;
+  background: var(--bg);
+  text-align: center;
+}
+
+.pv__img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(12, 0, 50, .08);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.pv__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.pv__nav { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-2); }
+
+.pv__count strong { color: var(--navy); }
+
+.pv__of { color: var(--text-2); }
+
+.pv__arrow {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border-d);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--navy);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.pv__arrow:disabled { opacity: .35; cursor: default; }
+
+.pv .pv__cta { cursor: pointer; font: inherit; font-size: 13.5px; font-weight: 600; }
+
+.pv .pv__cta:hover { border-color: var(--navy); }
+
+.pv-strip { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.pv-strip__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 104px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  font-size: 12px;
+  color: var(--text-2);
+  cursor: zoom-in;
+  transition: border-color .15s ease;
+}
+
+.pv-strip__item:hover { border-color: var(--navy); }
+
+.pv-strip__item img { display: block; width: 100%; height: auto; border: 1px solid var(--border); }
+
+@media (max-width: 640px) {
+  .pv-overlay { padding: 0; }
+  .pv { max-height: 100vh; height: 100%; border-radius: 0; }
+  .pv__stage { padding: 12px; }
+  .pv__of { display: none; }
+  .pv__foot .pv__cta { flex: 1 1 100%; justify-content: center; }
+}

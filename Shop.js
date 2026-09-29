@@ -497,13 +497,146 @@ function IcoEye({
     strokeWidth: "1.8"
   }));
 }
+
+/* ─── Previzualizare ────────────────────────────
+   Imagini cu câteva pagini din document, generate de
+   tools/previzualizari.py în previews.js (window.SHOP_PREVIEWS).
+   Niciodată fișierul real: la produsele cu plată imaginile au
+   filigran și acoperă cel mult 3 pagini. */
+const previewsOf = id => {
+  const p = (window.SHOP_PREVIEWS || {})[id];
+  return p && p.pages && p.pages.length ? p : null;
+};
+function PreviewViewer({
+  product,
+  start = 0,
+  onClose,
+  onOrder
+}) {
+  const pv = previewsOf(product.id);
+  const [i, setI] = useState(start);
+  const closeRef = React.useRef(null);
+  const n = pv ? pv.pages.length : 0;
+  const go = d => setI(x => Math.min(n - 1, Math.max(0, x + d)));
+  useEffect(() => {
+    const onKey = e => {
+      if (e.key === 'Escape') {
+        e.stopPropagation();
+        onClose();
+      } else if (e.key === 'ArrowRight') go(1);else if (e.key === 'ArrowLeft') go(-1);
+    };
+    document.addEventListener('keydown', onKey, true);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    if (closeRef.current) closeRef.current.focus();
+    return () => {
+      document.removeEventListener('keydown', onKey, true);
+      document.body.style.overflow = prev;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  if (!pv) return null;
+  const pg = pv.pages[i];
+  const isFree = product.price === 0;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "pv-overlay",
+    onClick: e => {
+      if (e.target === e.currentTarget) onClose();
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "pv",
+    role: "dialog",
+    "aria-modal": "true",
+    "aria-label": 'Previzualizare: ' + product.title
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "pv__bar"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "pv__title"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "pv__k"
+  }, "Previzualizare"), /*#__PURE__*/React.createElement("span", {
+    className: "pv__name"
+  }, product.title)), /*#__PURE__*/React.createElement("button", {
+    ref: closeRef,
+    type: "button",
+    className: "pv__close",
+    onClick: onClose,
+    "aria-label": "\xCEnchide"
+  }, "\xD7")), /*#__PURE__*/React.createElement("div", {
+    className: "pv__stage",
+    "data-lenis-prevent": true
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "pv__img",
+    src: pg.src,
+    width: pg.w,
+    height: pg.h,
+    alt: 'Pagina ' + pg.page + ' din ' + pv.total + ', ' + product.title
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "pv__foot"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "pv__nav"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "pv__arrow",
+    onClick: () => go(-1),
+    disabled: i === 0,
+    "aria-label": "Pagina anterioar\u0103"
+  }, "\u2190"), /*#__PURE__*/React.createElement("span", {
+    className: "pv__count"
+  }, "Pagina ", /*#__PURE__*/React.createElement("strong", null, pg.page), " din ", pv.total, n > 1 && /*#__PURE__*/React.createElement("span", {
+    className: "pv__of"
+  }, " \xB7 ", i + 1, "/", n, " \xEEn previzualizare")), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "pv__arrow",
+    onClick: () => go(1),
+    disabled: i === n - 1,
+    "aria-label": "Pagina urm\u0103toare"
+  }, "\u2192")), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "shop-card-cta pv__cta",
+    onClick: onOrder
+  }, isFree ? 'Descarcă gratuit' : 'Comandă documentul complet', /*#__PURE__*/React.createElement("span", {
+    className: "shop-card-cta__arr",
+    "aria-hidden": "true"
+  }, "\u2192")))));
+}
+
+/* Miniaturile din fișa produsului; deschid PreviewViewer. */
+function PreviewStrip({
+  product,
+  onOpen
+}) {
+  const pv = previewsOf(product.id);
+  if (!pv) return null;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "shop-modal-sec"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "shop-modal-lbl"
+  }, "Previzualizare"), /*#__PURE__*/React.createElement("div", {
+    className: "pv-strip"
+  }, pv.pages.map((pg, k) => /*#__PURE__*/React.createElement("button", {
+    key: pg.src,
+    type: "button",
+    className: "pv-strip__item",
+    onClick: () => onOpen(k),
+    "aria-label": 'Deschide pagina ' + pg.page + ' din ' + pv.total
+  }, /*#__PURE__*/React.createElement("img", {
+    src: pg.src,
+    width: pg.w,
+    height: pg.h,
+    alt: "",
+    loading: "lazy"
+  }), /*#__PURE__*/React.createElement("span", null, "Pag. ", pg.page)))));
+}
 function ProductCard({
   product,
   onOpen,
+  onPreview,
   views
 }) {
   const fmt = FORMAT_META[product.format];
   const href = '/magazin/' + product.id;
+  const hasPreview = !!previewsOf(product.id);
   /* Link real, ca sa poata fi deschis in tab nou si urmat de crawlere;
      clicul obisnuit ramane navigare pe client. */
   const open = e => {
@@ -556,14 +689,27 @@ function ProductCard({
     className: "shop-card-price"
   }, "Gratuit") : /*#__PURE__*/React.createElement("div", {
     className: "shop-card-price"
-  }, product.price, " ", /*#__PURE__*/React.createElement("span", null, COMMERCE.currency)), /*#__PURE__*/React.createElement("a", {
+  }, product.price, " ", /*#__PURE__*/React.createElement("span", null, COMMERCE.currency)), /*#__PURE__*/React.createElement("div", {
+    className: "shop-card-actions"
+  }, hasPreview && /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "shop-card-pv",
+    title: "Previzualizare",
+    "aria-label": 'Previzualizare: ' + product.title,
+    onClick: e => {
+      e.stopPropagation();
+      onPreview(product);
+    }
+  }, /*#__PURE__*/React.createElement(IcoEye, {
+    size: 16
+  })), /*#__PURE__*/React.createElement("a", {
     className: "shop-card-cta",
     href: href,
     onClick: open
   }, product.price === 0 ? 'Descarcă gratuit' : 'Comandă', /*#__PURE__*/React.createElement("span", {
     className: "shop-card-cta__arr",
     "aria-hidden": "true"
-  }, "\u2192")))));
+  }, "\u2192"))))));
 }
 
 /* ─── Grup de filtre din coloana stângă ───────────
@@ -1036,6 +1182,7 @@ function ProductDetails({
   const [downloading, setDownloading] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
   const [checkout, setCheckout] = useState(false);
+  const [previewAt, setPreviewAt] = useState(null);
   const go = p => {
     onNav(p);
     window.scrollTo({
@@ -1117,7 +1264,18 @@ function ProductDetails({
     key: i
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-check"
-  }, "\u2713"), /*#__PURE__*/React.createElement("span", null, item))))), /*#__PURE__*/React.createElement("div", {
+  }, "\u2713"), /*#__PURE__*/React.createElement("span", null, item))))), /*#__PURE__*/React.createElement(PreviewStrip, {
+    product: product,
+    onOpen: setPreviewAt
+  }), previewAt !== null && /*#__PURE__*/React.createElement(PreviewViewer, {
+    product: product,
+    start: previewAt,
+    onClose: () => setPreviewAt(null),
+    onOrder: () => {
+      setPreviewAt(null);
+      if (!isFree) setCheckout(true);
+    }
+  }), /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-sec"
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-lbl"
@@ -1405,6 +1563,8 @@ function ShopPage({
   /* Clicul pe card deschide fereastra; Ctrl/Cmd+clic pe link deschide
      tot pagina produsului, în tab nou. */
   const [openId, setOpenId] = useState(null);
+  const [previewId, setPreviewId] = useState(null);
+  const previewProduct = previewId ? productBySlug(previewId) : null;
   const views = useViews();
   const openProduct = p => setOpenId(p.id);
   const closeProduct = React.useCallback(() => setOpenId(null), []);
@@ -1436,6 +1596,7 @@ function ShopPage({
   }, /*#__PURE__*/React.createElement(ProductCard, {
     product: p,
     onOpen: openProduct,
+    onPreview: pr => setPreviewId(pr.id),
     views: views[p.id]
   }))));
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
@@ -1547,6 +1708,13 @@ function ShopPage({
     onClose: closeProduct,
     onNav: onNav,
     views: views[openedProduct.id]
+  }), previewProduct && /*#__PURE__*/React.createElement(PreviewViewer, {
+    product: previewProduct,
+    onClose: () => setPreviewId(null),
+    onOrder: () => {
+      setPreviewId(null);
+      setOpenId(previewProduct.id);
+    }
   }));
 }
 

@@ -18,3 +18,4 @@ spete/
 # eventuale foldere src/ imbricate.
 .agents/
 skills-lock.json
+tools/

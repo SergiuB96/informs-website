@@ -12,7 +12,7 @@
   if (typeof Lenis === 'undefined') return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  var SELF_SCROLLING = '.shop-modal-overlay, #cc-main, .drawer, [data-lenis-prevent]';
+  var SELF_SCROLLING = '.shop-modal-overlay, .pv-overlay, #cc-main, .drawer, [data-lenis-prevent]';
 
   window.lenis = new Lenis({
     lerp: 0.08,

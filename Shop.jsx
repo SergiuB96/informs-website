@@ -411,9 +411,108 @@ function IcoEye({ size = 13 }) {
   );
 }
 
-function ProductCard({ product, onOpen, views }) {
+/* ─── Previzualizare ────────────────────────────
+   Imagini cu câteva pagini din document, generate de
+   tools/previzualizari.py în previews.js (window.SHOP_PREVIEWS).
+   Niciodată fișierul real: la produsele cu plată imaginile au
+   filigran și acoperă cel mult 3 pagini. */
+const previewsOf = id => {
+  const p = (window.SHOP_PREVIEWS || {})[id];
+  return p && p.pages && p.pages.length ? p : null;
+};
+
+function PreviewViewer({ product, start = 0, onClose, onOrder }) {
+  const pv = previewsOf(product.id);
+  const [i, setI] = useState(start);
+  const closeRef = React.useRef(null);
+  const n = pv ? pv.pages.length : 0;
+  const go = d => setI(x => Math.min(n - 1, Math.max(0, x + d)));
+
+  useEffect(() => {
+    const onKey = e => {
+      if (e.key === 'Escape') { e.stopPropagation(); onClose(); }
+      else if (e.key === 'ArrowRight') go(1);
+      else if (e.key === 'ArrowLeft') go(-1);
+    };
+    document.addEventListener('keydown', onKey, true);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    if (closeRef.current) closeRef.current.focus();
+    return () => {
+      document.removeEventListener('keydown', onKey, true);
+      document.body.style.overflow = prev;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (!pv) return null;
+  const pg = pv.pages[i];
+  const isFree = product.price === 0;
+
+  return (
+    <div className="pv-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="pv" role="dialog" aria-modal="true" aria-label={'Previzualizare: ' + product.title}>
+        <div className="pv__bar">
+          <div className="pv__title">
+            <span className="pv__k">Previzualizare</span>
+            <span className="pv__name">{product.title}</span>
+          </div>
+          <button ref={closeRef} type="button" className="pv__close" onClick={onClose} aria-label="Închide">×</button>
+        </div>
+
+        <div className="pv__stage" data-lenis-prevent>
+          <img
+            className="pv__img"
+            src={pg.src}
+            width={pg.w}
+            height={pg.h}
+            alt={'Pagina ' + pg.page + ' din ' + pv.total + ', ' + product.title}
+          />
+        </div>
+
+        <div className="pv__foot">
+          <div className="pv__nav">
+            <button type="button" className="pv__arrow" onClick={() => go(-1)} disabled={i === 0} aria-label="Pagina anterioară">←</button>
+            <span className="pv__count">
+              Pagina <strong>{pg.page}</strong> din {pv.total}
+              {n > 1 && <span className="pv__of"> · {i + 1}/{n} în previzualizare</span>}
+            </span>
+            <button type="button" className="pv__arrow" onClick={() => go(1)} disabled={i === n - 1} aria-label="Pagina următoare">→</button>
+          </div>
+          <button type="button" className="shop-card-cta pv__cta" onClick={onOrder}>
+            {isFree ? 'Descarcă gratuit' : 'Comandă documentul complet'}
+            <span className="shop-card-cta__arr" aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* Miniaturile din fișa produsului; deschid PreviewViewer. */
+function PreviewStrip({ product, onOpen }) {
+  const pv = previewsOf(product.id);
+  if (!pv) return null;
+  return (
+    <div className="shop-modal-sec">
+      <div className="shop-modal-lbl">Previzualizare</div>
+      <div className="pv-strip">
+        {pv.pages.map((pg, k) => (
+          <button key={pg.src} type="button" className="pv-strip__item" onClick={() => onOpen(k)}
+            aria-label={'Deschide pagina ' + pg.page + ' din ' + pv.total}>
+            <img src={pg.src} width={pg.w} height={pg.h} alt="" loading="lazy" />
+            <span>Pag. {pg.page}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ProductCard({ product, onOpen, onPreview, views }) {
   const fmt = FORMAT_META[product.format];
   const href = '/magazin/' + product.id;
+  const hasPreview = !!previewsOf(product.id);
   /* Link real, ca sa poata fi deschis in tab nou si urmat de crawlere;
      clicul obisnuit ramane navigare pe client. */
   const open = e => {
@@ -465,10 +564,23 @@ function ProductCard({ product, onOpen, views }) {
             ? <div className="shop-card-price">Gratuit</div>
             : <div className="shop-card-price">{product.price} <span>{COMMERCE.currency}</span></div>
           }
-          <a className="shop-card-cta" href={href} onClick={open}>
-            {product.price === 0 ? 'Descarcă gratuit' : 'Comandă'}
-            <span className="shop-card-cta__arr" aria-hidden="true">→</span>
-          </a>
+          <div className="shop-card-actions">
+            {hasPreview && (
+              <button
+                type="button"
+                className="shop-card-pv"
+                title="Previzualizare"
+                aria-label={'Previzualizare: ' + product.title}
+                onClick={e => { e.stopPropagation(); onPreview(product); }}
+              >
+                <IcoEye size={16} />
+              </button>
+            )}
+            <a className="shop-card-cta" href={href} onClick={open}>
+              {product.price === 0 ? 'Descarcă gratuit' : 'Comandă'}
+              <span className="shop-card-cta__arr" aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -771,6 +883,7 @@ function ProductDetails({ product, onNav }) {
   const [downloading, setDownloading] = useState(false);
   const [downloaded,  setDownloaded]  = useState(false);
   const [checkout,    setCheckout]    = useState(false);
+  const [previewAt,   setPreviewAt]   = useState(null);
 
   const go = (p) => { onNav(p); window.scrollTo({ top: 0, behavior: 'instant' }); };
 
@@ -846,6 +959,16 @@ function ProductDetails({ product, onNav }) {
               ))}
             </ul>
           </div>
+
+          <PreviewStrip product={product} onOpen={setPreviewAt} />
+          {previewAt !== null && (
+            <PreviewViewer
+              product={product}
+              start={previewAt}
+              onClose={() => setPreviewAt(null)}
+              onOrder={() => { setPreviewAt(null); if (!isFree) setCheckout(true); }}
+            />
+          )}
 
           <div className="shop-modal-sec">
             <div className="shop-modal-lbl">Detalii tehnice</div>
@@ -1117,6 +1240,8 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
   /* Clicul pe card deschide fereastra; Ctrl/Cmd+clic pe link deschide
      tot pagina produsului, în tab nou. */
   const [openId, setOpenId] = useState(null);
+  const [previewId, setPreviewId] = useState(null);
+  const previewProduct = previewId ? productBySlug(previewId) : null;
   const views = useViews();
   const openProduct = (p) => setOpenId(p.id);
   const closeProduct = React.useCallback(() => setOpenId(null), []);
@@ -1151,7 +1276,7 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
     <div className="shop-grid">
       {list.map((p, i) => (
         <FadeUp key={p.id} delay={Math.min(i, 5) * 70} style={{ display: 'flex', flexDirection: 'column' }}>
-          <ProductCard product={p} onOpen={openProduct} views={views[p.id]} />
+          <ProductCard product={p} onOpen={openProduct} onPreview={pr => setPreviewId(pr.id)} views={views[p.id]} />
         </FadeUp>
       ))}
     </div>
@@ -1286,6 +1411,13 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
 
       {openedProduct && (
         <ProductModal product={openedProduct} onClose={closeProduct} onNav={onNav} views={views[openedProduct.id]} />
+      )}
+      {previewProduct && (
+        <PreviewViewer
+          product={previewProduct}
+          onClose={() => setPreviewId(null)}
+          onOrder={() => { setPreviewId(null); setOpenId(previewProduct.id); }}
+        />
       )}
     </>
   );
