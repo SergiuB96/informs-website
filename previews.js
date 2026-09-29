@@ -59,14 +59,14 @@ window.SHOP_PREVIEWS = {
   "total": 11,
   "pages": [
    {
-    "src": "assets/previzualizari/pte-trasarea-constructiilor/p2-da350e12.webp",
+    "src": "assets/previzualizari/pte-trasarea-constructiilor/p2-5c2f89c5.webp",
     "page": 2,
     "w": 1000,
     "h": 1415
    },
    {
-    "src": "assets/previzualizari/pte-trasarea-constructiilor/p4-19396560.webp",
-    "page": 4,
+    "src": "assets/previzualizari/pte-trasarea-constructiilor/p3-1f7da336.webp",
+    "page": 3,
     "w": 1000,
     "h": 1415
    },
@@ -82,19 +82,19 @@ window.SHOP_PREVIEWS = {
   "total": 12,
   "pages": [
    {
-    "src": "assets/previzualizari/pte-lucrari-sape-de-ciment/p2-f69c0218.webp",
+    "src": "assets/previzualizari/pte-lucrari-sape-de-ciment/p2-def59d81.webp",
     "page": 2,
     "w": 1000,
     "h": 1415
    },
    {
-    "src": "assets/previzualizari/pte-lucrari-sape-de-ciment/p4-331e9b65.webp",
+    "src": "assets/previzualizari/pte-lucrari-sape-de-ciment/p4-784b521e.webp",
     "page": 4,
     "w": 1000,
     "h": 1415
    },
    {
-    "src": "assets/previzualizari/pte-lucrari-sape-de-ciment/p7-eb78ad21.webp",
+    "src": "assets/previzualizari/pte-lucrari-sape-de-ciment/p7-16475637.webp",
     "page": 7,
     "w": 1000,
     "h": 1415
@@ -105,7 +105,7 @@ window.SHOP_PREVIEWS = {
   "total": 13,
   "pages": [
    {
-    "src": "assets/previzualizari/pte-lucrari-imprejmuiri-si-porti/p2-ce437d76.webp",
+    "src": "assets/previzualizari/pte-lucrari-imprejmuiri-si-porti/p2-a58bba29.webp",
     "page": 2,
     "w": 1000,
     "h": 1415
@@ -128,19 +128,19 @@ window.SHOP_PREVIEWS = {
   "total": 14,
   "pages": [
    {
-    "src": "assets/previzualizari/pte-lucrari-beton-armat/p2-10ac6bec.webp",
+    "src": "assets/previzualizari/pte-lucrari-beton-armat/p2-adf0dcb5.webp",
     "page": 2,
     "w": 1000,
     "h": 1415
    },
    {
-    "src": "assets/previzualizari/pte-lucrari-beton-armat/p4-f84627d8.webp",
+    "src": "assets/previzualizari/pte-lucrari-beton-armat/p4-427ffd18.webp",
     "page": 4,
     "w": 1000,
     "h": 1415
    },
    {
-    "src": "assets/previzualizari/pte-lucrari-beton-armat/p7-3401b498.webp",
+    "src": "assets/previzualizari/pte-lucrari-beton-armat/p7-e280d6f7.webp",
     "page": 7,
     "w": 1000,
     "h": 1415
@@ -151,7 +151,7 @@ window.SHOP_PREVIEWS = {
   "total": 10,
   "pages": [
    {
-    "src": "assets/previzualizari/pte-lucrari-pavaje-si-borduri/p2-732dce27.webp",
+    "src": "assets/previzualizari/pte-lucrari-pavaje-si-borduri/p2-28be7d9f.webp",
     "page": 2,
     "w": 1000,
     "h": 1415
