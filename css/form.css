@@ -133,8 +133,8 @@
 .cform {
   padding: 40px;
   border-radius: var(--card-r);
-  background: #FBFAF7;
-  border: 1px solid #E2DED3;
+  background: #FFFFFF;
+  border: 1px solid #E3E6ED;
 }
 .cform__title { font-size: 26px; line-height: 34px; font-weight: 500; margin-bottom: 8px; }
 .cform .btn { margin-top: 4px; }
@@ -156,7 +156,7 @@
 .cform .field input,
 .cform .field select,
 .cform .field textarea {
-  border-color: #CFCABB;
+  border-color: #C8CDD8;
   background: #FFFFFF;
   color: #1E1B2E;
 }

@@ -78,7 +78,7 @@ const PAGE_META = {
   },
   'politica-anulare': {
     title: 'Politica de anulare și retur | INFORMS',
-    desc: 'Condițiile de anulare a comenzii, de rambursare și de soluționare a reclamațiilor.'
+    desc: 'Comenzile plătite nu se anulează și nu se rambursează: documentele se vând ca atare, ca modele de lucru. Probleme tehnice și reclamații.'
   },
   'dreptul-de-retragere': {
     title: 'Dreptul de retragere | INFORMS',

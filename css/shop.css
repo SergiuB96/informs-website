@@ -5,7 +5,7 @@
    Se încarcă ULTIMUL în app.html, peste main.css. main.css rămâne
    neatins: aici îi redefinim tokenii și suprascriem doar ce se vede
    pe paginile servite de aplicație. Conținutul stă pe „hârtie”
-   (crem), ca fișa de date din hero-ul de pe acasă; antetul paginii
+   (gri deschis, #F5F6FA), cu carduri albe; antetul paginii
    e navy plat, cu titlu serif.
    ═════════════════════════════════════════════════════════ */
 
@@ -16,12 +16,12 @@
   --blue:    #065AF7;
   --blue-a:  #065AF7;
   --blue-lt: #E9EFFE;
-  --bg:      #F3F1EA;   /* pagina */
-  --white:   #FBFAF7;   /* hârtia: carduri, fereastra de produs */
+  --bg:      #F5F6FA;   /* pagina */
+  --white:   #FFFFFF;   /* hârtia: carduri, fereastra de produs */
   --text:    #1E1B2E;
   --text-2:  #5E5972;
-  --border:  #E2DED3;
-  --border-d:#CFCABB;
+  --border:  #E3E6ED;
+  --border-d:#C8CDD8;
   --font:    "DM Sans", system-ui, sans-serif;
 
   /* aceleași nume ca în base.css al site-ului static */
@@ -32,7 +32,7 @@
      nu vede tokenii de chrome, deci o repetam aici. */
   --hdr-h: 84px;
   --blue-hover:#0A4FD6;
-  --paper-2:   #ECE9DF;
+  --paper-2:   #ECEEF3;
   --sp-gutter: 40px;
 }
 

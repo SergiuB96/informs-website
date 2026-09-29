@@ -31,7 +31,7 @@ const PAGE_META = {
   'politica-gdpr':              { title: 'Politica GDPR | INFORMS', desc: 'Prelucrarea datelor cu caracter personal în contextul comenzilor, plăților și facturării.' },
   'politica-cookies':           { title: 'Politica de cookie-uri | INFORMS', desc: 'Ce cookie-uri folosește INFORMS și cum îți poți controla preferințele.' },
   'politica-livrare':           { title: 'Politica de livrare | INFORMS', desc: 'Cum și când sunt livrate documentele digitale comandate pe informs.ro.' },
-  'politica-anulare':           { title: 'Politica de anulare și retur | INFORMS', desc: 'Condițiile de anulare a comenzii, de rambursare și de soluționare a reclamațiilor.' },
+  'politica-anulare':           { title: 'Politica de anulare și retur | INFORMS', desc: 'Comenzile plătite nu se anulează și nu se rambursează: documentele se vând ca atare, ca modele de lucru. Probleme tehnice și reclamații.' },
   'dreptul-de-retragere':       { title: 'Dreptul de retragere | INFORMS', desc: 'Formular online de retragere din contract, conform OUG 34/2014.' },
 };
 

@@ -20,7 +20,8 @@ const ANPC_SAL = 'https://anpc.ro/ce-este-sal/';
 const ANPC_REC = 'https://anpc.ro/';
 
 /* ─── Cadru comun ───────────────────────────────── */
-function LegalShell({ title, subtitle, onNav, children }) {
+/* `updated` suprascrie data comună doar pe paginile modificate ulterior. */
+function LegalShell({ title, subtitle, onNav, children, updated = UPDATED }) {
   const go = (p) => { onNav(p); window.scrollTo({ top: 0, behavior: 'instant' }); };
   return (
     <>
@@ -33,7 +34,7 @@ function LegalShell({ title, subtitle, onNav, children }) {
       <section className="sec">
         <div className="container" style={{ maxWidth: '800px' }}>
           <div className="card" style={{ padding: '40px 44px' }}>
-            <p style={S.meta}>Ultima actualizare: {UPDATED}</p>
+            <p style={S.meta}>Ultima actualizare: {updated}</p>
             {children}
             <div style={S.divider} />
             <button className="btn btn-outline" onClick={() => go('contact')}>Întrebări? Contactează-ne</button>
@@ -582,70 +583,74 @@ function CancellationPage({ onNav }) {
   return (
     <LegalShell
       title="Politica de anulare și retur"
-      subtitle="Cum anulezi o comandă și în ce condiții primești banii înapoi."
+      subtitle="Comenzile plătite nu se anulează, nu se returnează și nu se rambursează. Documentele se vând ca atare."
+      updated="29 septembrie 2026"
       onNav={onNav}
     >
       <p style={S.p}>
         Prezenta politică se aplică tuturor comenzilor plasate pe {COMPANY.website} și se completează
-        cu <L to="dreptul-de-retragere" onNav={onNav}>Dreptul de retragere</L>.
+        cu <L to="dreptul-de-retragere" onNav={onNav}>Dreptul de retragere</L> și
+        cu <L to="termeni-si-conditii" onNav={onNav}>Termenii și condițiile</L>.
       </p>
 
-      <Sec n="1" title="Anularea comenzii înainte de livrare">
+      <Sec n="1" title="Nu există anulare, retur sau rambursare după plată">
         <p style={S.p}>
-          Poți anula o comandă oricând înainte de livrarea documentului, fără nicio justificare și fără costuri. Trimite un e-mail
-          la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a> cu numărul comenzii și mențiunea „anulare comandă”.
-          Dacă plata a fost deja procesată, suma se restituie integral.
+          Produsele {COMPANY.brand} sunt documente digitale. Livrarea se face automat, pe e-mail, imediat după confirmarea plății,
+          astfel că o comandă plătită <strong>nu mai poate fi anulată</strong>. Un document digital descărcat nu poate fi returnat,
+          iar suma plătită <strong>nu se rambursează</strong>.
+        </p>
+        <p style={S.p}>
+          La plasarea comenzii, consumatorul solicită expres livrarea imediată și confirmă că, odată începută descărcarea, pierde
+          dreptul de retragere, conform excepției legale explicate în <L to="dreptul-de-retragere" onNav={onNav}>Dreptul de retragere</L>.
+          Singura excepție prevăzută de lege: consumatorul care nu a început încă descărcarea se poate retrage, conform aceleiași pagini.
+          Pentru persoanele juridice dreptul de retragere nu se aplică.
+        </p>
+        <p style={S.p}>
+          Dacă nu dorești să finalizezi comanda, pur și simplu nu efectua plata: până la plată nu se creează nicio obligație.
         </p>
       </Sec>
 
-      <Sec n="2" title="Anularea după livrare">
+      <Sec n="2" title="Documentele se vând ca atare">
         <p style={S.p}>
-          Documentele digitale livrate nu pot fi returnate în sens material. Dacă ai acceptat expres livrarea imediată și ai început
-          descărcarea documentului, dreptul de retragere nu mai poate fi exercitat, conform excepției legale explicate
-          în <L to="dreptul-de-retragere" onNav={onNav}>Dreptul de retragere</L>.
+          Documentele sunt <strong>modele de lucru</strong>, livrate în forma și cu conținutul existent la data comenzii, așa cum sunt
+          descrise pe pagina produsului. Ele nu sunt soluții elaborate pentru o situație, o procedură sau o lucrare anume, iar adaptarea
+          lor la datele concrete ale fiecărui caz revine utilizatorului.
         </p>
-        <p style={S.p}>
-          Acest lucru nu îți afectează drepturile în cazul unui produs neconform, tratat la punctul 3.
-        </p>
-      </Sec>
-
-      <Sec n="3" title="Produs neconform, defect sau greșit livrat">
-        <p style={S.p}>Ai dreptul la remediere sau la rambursare integrală dacă:</p>
+        <p style={S.p}>Prin urmare, nu reprezintă defect sau lipsă de conformitate și nu dau dreptul la anulare sau rambursare:</p>
         <ul style={S.ul}>
-          <li>Ai primit un alt document decât cel comandat</li>
-          <li>Fișierul este corupt și nu poate fi deschis, iar problema nu poate fi remediată</li>
-          <li>Conținutul livrat nu corespunde descrierii publicate pe pagina produsului</li>
+          <li>faptul că documentul nu acoperă o situație particulară sau trebuie adaptat;</li>
+          <li>așteptări privind conținutul care nu rezultă din descrierea publicată a produsului;</li>
+          <li>modificarea legislației sau a normelor tehnice după data comenzii;</li>
+          <li>alegerea unui produs care nu se potrivește nevoii cumpărătorului;</li>
+          <li>deciziile luate și rezultatele obținute prin folosirea documentului.</li>
         </ul>
+      </Sec>
+
+      <Sec n="3" title="Probleme tehnice la livrare">
         <p style={S.p}>
-          Ne scrii la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a> cu numărul comenzii și descrierea problemei.
-          Dacă ești consumator, răspundem pentru lipsa de conformitate care se manifestă în termen de doi ani de la livrare, conform
-          OUG nr. 141/2021. Încercăm întâi aducerea în conformitate, prin retrimiterea sau corectarea documentului. Dacă aceasta nu este
-          posibilă sau nu o facem într-un termen rezonabil, poți alege o reducere proporțională a prețului sau rambursarea integrală.
+          Singura situație în care intervenim după plată este una tehnică: ai primit alt document decât cel comandat, fișierul nu se
+          deschide sau linkul de descărcare nu funcționează. Ne scrii
+          la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a> cu numărul comenzii, iar noi îți trimitem
+          documentul corect sau un link nou.
+        </p>
+        <p style={S.p}>
+          Pentru consumatori, această politică nu limitează drepturile care nu pot fi înlăturate prin contract, prevăzute de
+          OUG nr. 141/2021 privind conformitatea conținutului digital.
         </p>
       </Sec>
 
-      <Sec n="4" title="Modalitatea și termenul de rambursare">
-        <p style={S.p}>
-          Rambursarea se face folosind <strong>aceeași modalitate de plată</strong> utilizată la comandă, în termen de cel
-          mult <strong>{COMMERCE.refundDays} zile</strong> de la data la care am acceptat cererea. Nu percepem comisioane pentru rambursare.
-        </p>
-        <p style={S.p}>
-          Pentru plățile cu cardul, suma este returnată în contul cardului folosit la plată. Intervalul în care banii apar efectiv în cont
-          depinde de banca emitentă și poate fi de câteva zile lucrătoare după procesarea rambursării.
-        </p>
-      </Sec>
-
-      <Sec n="5" title="Comenzi anulate de vânzător">
+      <Sec n="4" title="Comenzi anulate de vânzător">
         <p style={S.p}>
           {COMPANY.name} poate anula o comandă în cazul unei erori evidente de preț, al suspiciunii întemeiate de fraudă sau al
-          imposibilității de a livra produsul. În aceste situații te anunțăm prin e-mail și rambursăm integral suma încasată, în același
-          termen de {COMMERCE.refundDays} zile.
+          imposibilității de a livra produsul. În aceste situații te anunțăm prin e-mail și rambursăm integral suma încasată, folosind
+          aceeași modalitate de plată, în cel mult {COMMERCE.refundDays} zile.
         </p>
       </Sec>
 
-      <Sec n="6" title="Reclamații">
+      <Sec n="5" title="Reclamații">
         <p style={S.p}>
-          Dacă nu ești mulțumit de soluție, te poți adresa <Ext href={ANPC_REC}>ANPC</Ext> sau structurii
+          Ne poți scrie oricând la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a>. Dacă nu ești mulțumit
+          de răspuns, te poți adresa <Ext href={ANPC_REC}>ANPC</Ext> sau structurii
           de <Ext href={ANPC_SAL}>Soluționare Alternativă a Litigiilor</Ext>.
         </p>
       </Sec>
@@ -762,6 +767,7 @@ function WithdrawalPage({ onNav }) {
     <LegalShell
       title="Dreptul de retragere"
       subtitle="Cum te retragi din contract, online, în 14 zile."
+      updated="29 septembrie 2026"
       onNav={onNav}
     >
       <p style={S.p}>
@@ -808,9 +814,11 @@ function WithdrawalPage({ onNav }) {
         <ul style={S.ul}>
           <li>Nu ai bifat acordul pentru livrarea imediată</li>
           <li>Nu ai început încă descărcarea documentului</li>
-          <li>Ai primit un produs neconform sau diferit de descriere, caz tratat
-            în <L to="politica-anulare" onNav={onNav}>Politica de anulare și retur</L></li>
         </ul>
+        <p style={S.p}>
+          Problemele tehnice de livrare (alt document, fișier care nu se deschide, link nefuncțional) nu țin de retragere: le rezolvăm
+          prin retrimiterea documentului, conform <L to="politica-anulare" onNav={onNav}>Politicii de anulare și retur</L>.
+        </p>
       </Sec>
 
       <Sec n="4" title="Formular online de retragere">

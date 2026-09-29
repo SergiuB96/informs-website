@@ -7,7 +7,7 @@
 
 #cc-main {
   --cc-font-family: "DM Sans", system-ui, sans-serif;
-  --cc-bg: #FBFAF7;
+  --cc-bg: #FFFFFF;
   --cc-primary-color: #0C0032;
   --cc-secondary-color: #4A4566;
   --cc-link-color: #065AF7;
@@ -30,13 +30,13 @@
   --cc-toggle-on-bg: #065AF7;
   --cc-toggle-off-bg: #9A95AE;
   --cc-toggle-readonly-bg: #D2CCE6;
-  --cc-cookie-category-block-bg: #F3F1EA;
+  --cc-cookie-category-block-bg: #F5F6FA;
   --cc-cookie-category-block-border: rgba(12, 0, 50, .08);
-  --cc-cookie-category-block-hover-bg: #EEEBE2;
+  --cc-cookie-category-block-hover-bg: #ECEEF3;
   --cc-cookie-category-block-hover-border: rgba(12, 0, 50, .14);
-  --cc-cookie-category-expanded-block-bg: #F3F1EA;
-  --cc-cookie-category-expanded-block-hover-bg: #EEEBE2;
-  --cc-footer-bg: #F3F1EA;
+  --cc-cookie-category-expanded-block-bg: #F5F6FA;
+  --cc-cookie-category-expanded-block-hover-bg: #ECEEF3;
+  --cc-footer-bg: #F5F6FA;
   --cc-footer-color: #4A4566;
   --cc-footer-border-color: rgba(12, 0, 50, .1);
   --cc-overlay-bg: rgba(12, 0, 50, .6);

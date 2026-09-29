@@ -21,11 +21,13 @@ const ANPC_SAL = 'https://anpc.ro/ce-este-sal/';
 const ANPC_REC = 'https://anpc.ro/';
 
 /* ─── Cadru comun ───────────────────────────────── */
+/* `updated` suprascrie data comună doar pe paginile modificate ulterior. */
 function LegalShell({
   title,
   subtitle,
   onNav,
-  children
+  children,
+  updated = UPDATED
 }) {
   const go = p => {
     onNav(p);
@@ -52,7 +54,7 @@ function LegalShell({
     }
   }, /*#__PURE__*/React.createElement("p", {
     style: S.meta
-  }, "Ultima actualizare: ", UPDATED), children, /*#__PURE__*/React.createElement("div", {
+  }, "Ultima actualizare: ", updated), children, /*#__PURE__*/React.createElement("div", {
     style: S.divider
   }), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-outline",
@@ -519,61 +521,62 @@ function CancellationPage({
 }) {
   return /*#__PURE__*/React.createElement(LegalShell, {
     title: "Politica de anulare \u0219i retur",
-    subtitle: "Cum anulezi o comand\u0103 \u0219i \xEEn ce condi\u021Bii prime\u0219ti banii \xEEnapoi.",
+    subtitle: "Comenzile pl\u0103tite nu se anuleaz\u0103, nu se returneaz\u0103 \u0219i nu se ramburseaz\u0103. Documentele se v\xE2nd ca atare.",
+    updated: "29 septembrie 2026",
     onNav: onNav
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
   }, "Prezenta politic\u0103 se aplic\u0103 tuturor comenzilor plasate pe ", COMPANY.website, " \u0219i se completeaz\u0103 cu ", /*#__PURE__*/React.createElement(L, {
     to: "dreptul-de-retragere",
     onNav: onNav
-  }, "Dreptul de retragere"), "."), /*#__PURE__*/React.createElement(Sec, {
+  }, "Dreptul de retragere"), " \u0219i cu ", /*#__PURE__*/React.createElement(L, {
+    to: "termeni-si-conditii",
+    onNav: onNav
+  }, "Termenii \u0219i condi\u021Biile"), "."), /*#__PURE__*/React.createElement(Sec, {
     n: "1",
-    title: "Anularea comenzii \xEEnainte de livrare"
+    title: "Nu exist\u0103 anulare, retur sau rambursare dup\u0103 plat\u0103"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Po\u021Bi anula o comand\u0103 oric\xE2nd \xEEnainte de livrarea documentului, f\u0103r\u0103 nicio justificare \u0219i f\u0103r\u0103 costuri. Trimite un e-mail la ", /*#__PURE__*/React.createElement("a", {
-    href: 'mailto:' + COMPANY.email,
-    style: S.link
-  }, COMPANY.email), " cu num\u0103rul comenzii \u0219i men\u021Biunea \u201Eanulare comand\u0103\u201D. Dac\u0103 plata a fost deja procesat\u0103, suma se restituie integral.")), /*#__PURE__*/React.createElement(Sec, {
-    n: "2",
-    title: "Anularea dup\u0103 livrare"
-  }, /*#__PURE__*/React.createElement("p", {
+  }, "Produsele ", COMPANY.brand, " sunt documente digitale. Livrarea se face automat, pe e-mail, imediat dup\u0103 confirmarea pl\u0103\u021Bii, astfel c\u0103 o comand\u0103 pl\u0103tit\u0103 ", /*#__PURE__*/React.createElement("strong", null, "nu mai poate fi anulat\u0103"), ". Un document digital desc\u0103rcat nu poate fi returnat, iar suma pl\u0103tit\u0103 ", /*#__PURE__*/React.createElement("strong", null, "nu se ramburseaz\u0103"), "."), /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Documentele digitale livrate nu pot fi returnate \xEEn sens material. Dac\u0103 ai acceptat expres livrarea imediat\u0103 \u0219i ai \xEEnceput desc\u0103rcarea documentului, dreptul de retragere nu mai poate fi exercitat, conform excep\u021Biei legale explicate \xEEn ", /*#__PURE__*/React.createElement(L, {
+  }, "La plasarea comenzii, consumatorul solicit\u0103 expres livrarea imediat\u0103 \u0219i confirm\u0103 c\u0103, odat\u0103 \xEEnceput\u0103 desc\u0103rcarea, pierde dreptul de retragere, conform excep\u021Biei legale explicate \xEEn ", /*#__PURE__*/React.createElement(L, {
     to: "dreptul-de-retragere",
     onNav: onNav
-  }, "Dreptul de retragere"), "."), /*#__PURE__*/React.createElement("p", {
+  }, "Dreptul de retragere"), ". Singura excep\u021Bie prev\u0103zut\u0103 de lege: consumatorul care nu a \xEEnceput \xEEnc\u0103 desc\u0103rcarea se poate retrage, conform aceleia\u0219i pagini. Pentru persoanele juridice dreptul de retragere nu se aplic\u0103."), /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Acest lucru nu \xEE\u021Bi afecteaz\u0103 drepturile \xEEn cazul unui produs neconform, tratat la punctul 3.")), /*#__PURE__*/React.createElement(Sec, {
-    n: "3",
-    title: "Produs neconform, defect sau gre\u0219it livrat"
+  }, "Dac\u0103 nu dore\u0219ti s\u0103 finalizezi comanda, pur \u0219i simplu nu efectua plata: p\xE2n\u0103 la plat\u0103 nu se creeaz\u0103 nicio obliga\u021Bie.")), /*#__PURE__*/React.createElement(Sec, {
+    n: "2",
+    title: "Documentele se v\xE2nd ca atare"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Ai dreptul la remediere sau la rambursare integral\u0103 dac\u0103:"), /*#__PURE__*/React.createElement("ul", {
-    style: S.ul
-  }, /*#__PURE__*/React.createElement("li", null, "Ai primit un alt document dec\xE2t cel comandat"), /*#__PURE__*/React.createElement("li", null, "Fi\u0219ierul este corupt \u0219i nu poate fi deschis, iar problema nu poate fi remediat\u0103"), /*#__PURE__*/React.createElement("li", null, "Con\u021Binutul livrat nu corespunde descrierii publicate pe pagina produsului")), /*#__PURE__*/React.createElement("p", {
+  }, "Documentele sunt ", /*#__PURE__*/React.createElement("strong", null, "modele de lucru"), ", livrate \xEEn forma \u0219i cu con\u021Binutul existent la data comenzii, a\u0219a cum sunt descrise pe pagina produsului. Ele nu sunt solu\u021Bii elaborate pentru o situa\u021Bie, o procedur\u0103 sau o lucrare anume, iar adaptarea lor la datele concrete ale fiec\u0103rui caz revine utilizatorului."), /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Ne scrii la ", /*#__PURE__*/React.createElement("a", {
+  }, "Prin urmare, nu reprezint\u0103 defect sau lips\u0103 de conformitate \u0219i nu dau dreptul la anulare sau rambursare:"), /*#__PURE__*/React.createElement("ul", {
+    style: S.ul
+  }, /*#__PURE__*/React.createElement("li", null, "faptul c\u0103 documentul nu acoper\u0103 o situa\u021Bie particular\u0103 sau trebuie adaptat;"), /*#__PURE__*/React.createElement("li", null, "a\u0219tept\u0103ri privind con\u021Binutul care nu rezult\u0103 din descrierea publicat\u0103 a produsului;"), /*#__PURE__*/React.createElement("li", null, "modificarea legisla\u021Biei sau a normelor tehnice dup\u0103 data comenzii;"), /*#__PURE__*/React.createElement("li", null, "alegerea unui produs care nu se potrive\u0219te nevoii cump\u0103r\u0103torului;"), /*#__PURE__*/React.createElement("li", null, "deciziile luate \u0219i rezultatele ob\u021Binute prin folosirea documentului."))), /*#__PURE__*/React.createElement(Sec, {
+    n: "3",
+    title: "Probleme tehnice la livrare"
+  }, /*#__PURE__*/React.createElement("p", {
+    style: S.p
+  }, "Singura situa\u021Bie \xEEn care intervenim dup\u0103 plat\u0103 este una tehnic\u0103: ai primit alt document dec\xE2t cel comandat, fi\u0219ierul nu se deschide sau linkul de desc\u0103rcare nu func\u021Bioneaz\u0103. Ne scrii la ", /*#__PURE__*/React.createElement("a", {
     href: 'mailto:' + COMPANY.email,
     style: S.link
-  }, COMPANY.email), " cu num\u0103rul comenzii \u0219i descrierea problemei. Dac\u0103 e\u0219ti consumator, r\u0103spundem pentru lipsa de conformitate care se manifest\u0103 \xEEn termen de doi ani de la livrare, conform OUG nr. 141/2021. \xCEncerc\u0103m \xEEnt\xE2i aducerea \xEEn conformitate, prin retrimiterea sau corectarea documentului. Dac\u0103 aceasta nu este posibil\u0103 sau nu o facem \xEEntr-un termen rezonabil, po\u021Bi alege o reducere propor\u021Bional\u0103 a pre\u021Bului sau rambursarea integral\u0103.")), /*#__PURE__*/React.createElement(Sec, {
+  }, COMPANY.email), " cu num\u0103rul comenzii, iar noi \xEE\u021Bi trimitem documentul corect sau un link nou."), /*#__PURE__*/React.createElement("p", {
+    style: S.p
+  }, "Pentru consumatori, aceast\u0103 politic\u0103 nu limiteaz\u0103 drepturile care nu pot fi \xEEnl\u0103turate prin contract, prev\u0103zute de OUG nr. 141/2021 privind conformitatea con\u021Binutului digital.")), /*#__PURE__*/React.createElement(Sec, {
     n: "4",
-    title: "Modalitatea \u0219i termenul de rambursare"
-  }, /*#__PURE__*/React.createElement("p", {
-    style: S.p
-  }, "Rambursarea se face folosind ", /*#__PURE__*/React.createElement("strong", null, "aceea\u0219i modalitate de plat\u0103"), " utilizat\u0103 la comand\u0103, \xEEn termen de cel mult ", /*#__PURE__*/React.createElement("strong", null, COMMERCE.refundDays, " zile"), " de la data la care am acceptat cererea. Nu percepem comisioane pentru rambursare."), /*#__PURE__*/React.createElement("p", {
-    style: S.p
-  }, "Pentru pl\u0103\u021Bile cu cardul, suma este returnat\u0103 \xEEn contul cardului folosit la plat\u0103. Intervalul \xEEn care banii apar efectiv \xEEn cont depinde de banca emitent\u0103 \u0219i poate fi de c\xE2teva zile lucr\u0103toare dup\u0103 procesarea ramburs\u0103rii.")), /*#__PURE__*/React.createElement(Sec, {
-    n: "5",
     title: "Comenzi anulate de v\xE2nz\u0103tor"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, COMPANY.name, " poate anula o comand\u0103 \xEEn cazul unei erori evidente de pre\u021B, al suspiciunii \xEEntemeiate de fraud\u0103 sau al imposibilit\u0103\u021Bii de a livra produsul. \xCEn aceste situa\u021Bii te anun\u021B\u0103m prin e-mail \u0219i ramburs\u0103m integral suma \xEEncasat\u0103, \xEEn acela\u0219i termen de ", COMMERCE.refundDays, " zile.")), /*#__PURE__*/React.createElement(Sec, {
-    n: "6",
+  }, COMPANY.name, " poate anula o comand\u0103 \xEEn cazul unei erori evidente de pre\u021B, al suspiciunii \xEEntemeiate de fraud\u0103 sau al imposibilit\u0103\u021Bii de a livra produsul. \xCEn aceste situa\u021Bii te anun\u021B\u0103m prin e-mail \u0219i ramburs\u0103m integral suma \xEEncasat\u0103, folosind aceea\u0219i modalitate de plat\u0103, \xEEn cel mult ", COMMERCE.refundDays, " zile.")), /*#__PURE__*/React.createElement(Sec, {
+    n: "5",
     title: "Reclama\u021Bii"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Dac\u0103 nu e\u0219ti mul\u021Bumit de solu\u021Bie, te po\u021Bi adresa ", /*#__PURE__*/React.createElement(Ext, {
+  }, "Ne po\u021Bi scrie oric\xE2nd la ", /*#__PURE__*/React.createElement("a", {
+    href: 'mailto:' + COMPANY.email,
+    style: S.link
+  }, COMPANY.email), ". Dac\u0103 nu e\u0219ti mul\u021Bumit de r\u0103spuns, te po\u021Bi adresa ", /*#__PURE__*/React.createElement(Ext, {
     href: ANPC_REC
   }, "ANPC"), " sau structurii de ", /*#__PURE__*/React.createElement(Ext, {
     href: ANPC_SAL
@@ -760,6 +763,7 @@ function WithdrawalPage({
   return /*#__PURE__*/React.createElement(LegalShell, {
     title: "Dreptul de retragere",
     subtitle: "Cum te retragi din contract, online, \xEEn 14 zile.",
+    updated: "29 septembrie 2026",
     onNav: onNav
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
@@ -791,10 +795,12 @@ function WithdrawalPage({
     style: S.p
   }, "Excep\u021Bia de mai sus nu se aplic\u0103 \u0219i te po\u021Bi retrage dac\u0103:"), /*#__PURE__*/React.createElement("ul", {
     style: S.ul
-  }, /*#__PURE__*/React.createElement("li", null, "Nu ai bifat acordul pentru livrarea imediat\u0103"), /*#__PURE__*/React.createElement("li", null, "Nu ai \xEEnceput \xEEnc\u0103 desc\u0103rcarea documentului"), /*#__PURE__*/React.createElement("li", null, "Ai primit un produs neconform sau diferit de descriere, caz tratat \xEEn ", /*#__PURE__*/React.createElement(L, {
+  }, /*#__PURE__*/React.createElement("li", null, "Nu ai bifat acordul pentru livrarea imediat\u0103"), /*#__PURE__*/React.createElement("li", null, "Nu ai \xEEnceput \xEEnc\u0103 desc\u0103rcarea documentului")), /*#__PURE__*/React.createElement("p", {
+    style: S.p
+  }, "Problemele tehnice de livrare (alt document, fi\u0219ier care nu se deschide, link nefunc\u021Bional) nu \u021Bin de retragere: le rezolv\u0103m prin retrimiterea documentului, conform ", /*#__PURE__*/React.createElement(L, {
     to: "politica-anulare",
     onNav: onNav
-  }, "Politica de anulare \u0219i retur")))), /*#__PURE__*/React.createElement(Sec, {
+  }, "Politicii de anulare \u0219i retur"), ".")), /*#__PURE__*/React.createElement(Sec, {
     n: "4",
     title: "Formular online de retragere"
   }, /*#__PURE__*/React.createElement("p", {
