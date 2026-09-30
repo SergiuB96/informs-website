@@ -2,12 +2,19 @@
 
 > INFORMS este brandul MILBAC MANAGEMENT S.R.L. din Târgu Mureș. Pregătește documentații de atribuire, modele Word, Excel și PDF și instrumente digitale pentru ciclul contractului public din România: autorități contractante, ofertanți și executanți de lucrări.
 
+Nu are legătură cu INFORMS (Institute for Operations Research and the Management Sciences, informs.org).
+
+Aceeași echipă dezvoltă Agatha Plus (https://www.agathaplus.ro/), platformă pentru planificarea achizițiilor și urmărirea contractelor.
+
 Produsele cu plată se cumpără online, cu cardul, și se livrează pe email ca link de descărcare. Instituțiile pot cumpăra și pe bază de comandă, cu factură prin e-Factura și plată prin ordin de plată.
 
 ## Pagini
 
 - [Servicii](https://www.informs.ro/servicii): Documentații de atribuire, delegarea serviciilor de utilități publice, digitalizare la comandă și instrumente Excel, Word și PDF.
-- [Despre noi](https://www.informs.ro/despre-noi): INFORMS este brandul MILBAC MANAGEMENT S.R.L. din Târgu Mureș: documentații, instrumente digitale și consultanță, cu o echipă cu peste 15 ani de practică în achiziții publice.
+- [Documentații de atribuire](https://www.informs.ro/documentatii-de-atribuire): Caiet de sarcini, fișă de date, criterii de calificare, model de contract și formulare, construite coerent pentru servicii, produse și lucrări.
+- [Delegarea serviciilor de utilități publice](https://www.informs.ro/delegare-servicii): Studii de oportunitate și documentații de delegare pentru salubrizare, transport public și iluminat, cu fundamentare economică și juridică.
+- [Digitalizare la comandă](https://www.informs.ro/digitalizare): Transformăm documentele pe care le completezi des în formulare, calculatoare și fluxuri standardizate. Pentru instituții publice și companii.
+- [Despre noi](https://www.informs.ro/despre-noi): INFORMS este brandul MILBAC MANAGEMENT S.R.L. din Târgu Mureș. Echipă cu peste 15 ani de practică în achiziții publice, documentații și instrumente.
 - [Contact](https://www.informs.ro/contact): Scrie-ne ce ai de pregătit. Răspundem în cel mult o zi lucrătoare, iar prima discuție este fără obligații.
 - [Magazin](https://www.informs.ro/magazin): Modele Word, Excel și PDF pentru autorități contractante, ofertanți și profesioniști tehnici. Formulare gratuite și instrumente cu plată, livrate pe email.
 

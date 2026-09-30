@@ -17,6 +17,9 @@
    shelf: 'uzuale' pune produsul pe raftul „Formulare uzuale”, sub
        catalog, fără public și nepromovat.
    forWhom: fraza „Pentru cine” din fereastra produsului.
+   metaDesc: opțional, descrierea din <meta name="description">, de cel
+       mult 155 de caractere. Fără el se folosește shortDesc, care la
+       unele produse e prea lung și apare trunchiat în rezultatele căutării.
    version, updated: versiunea fișierului (ca în numele lui, _v1.0)
        și luna în care a fost publicată.
    cv: clasă CSS pe antetul cardului (cv-word | cv-excel | cv-pdf | cv-atr).
@@ -145,6 +148,7 @@ const SHOP_PRODUCTS = [
     sku: 'INF-PTE-TRS',
     title: 'Procedură tehnică de execuție: trasarea construcțiilor',
     shortDesc: 'Procedură tehnică de execuție (PTE) pentru trasarea pe teren a construcțiilor civile, industriale și agricole, de la rețeaua de trasare la trasarea de detaliu și recepția pe faze determinante.',
+    metaDesc: 'Procedură tehnică de execuție (PTE) pentru trasarea construcțiilor: model Word editabil, 11 pagini, cu toleranțe și recepția pe faze determinante. 49 lei.',
     longDesc: 'Stabilește metodologia, cerințele de calitate și responsabilitățile pentru trasarea planimetrică și altimetrică a construcțiilor noi, a extinderilor și a consolidărilor, pe baza planului de trasare al proiectantului. Trimite la Legea nr. 10/1995, HG nr. 273/1994 cu modificările din HG nr. 343/2017, normativul C 83-75 și STAS 9824/0-74 și 9824/1-87. Document Word editabil, de adaptat la datele concrete ale lucrării.',
     audiences: ['constructii'],
     forWhom: 'Executanții de lucrări de construcții (RTE, șef de șantier, topometrist, responsabil control calitate) și diriginții de șantier.',
@@ -171,6 +175,7 @@ const SHOP_PRODUCTS = [
     sku: 'INF-PTE-SAP',
     title: 'Procedură tehnică de execuție: lucrări de șape de ciment',
     shortDesc: 'Procedură tehnică de execuție (PTE) pentru șapele de ciment în aderență, glisante și flotante, de la pregătirea stratului suport la îngrijirea după turnare și recepția pe faze determinante.',
+    metaDesc: 'Procedură tehnică de execuție (PTE) pentru șape de ciment: model Word editabil, 12 pagini, cu toleranțe și recepția pe faze determinante. 49 lei.',
     longDesc: 'Stabilește metodologia, cerințele de calitate și responsabilitățile pentru executarea șapelor de ciment ca strat de egalizare sau suport pentru pardoseli, în clădiri noi și la reabilitări, cu aplicare manuală sau mecanizată. Trimite la Legea nr. 10/1995, HG nr. 273/1994 cu modificările din HG nr. 343/2017, normativele GP 037/98 și C 35-82 și SR EN 13813. Document Word editabil, de adaptat la datele concrete ale lucrării.',
     audiences: ['constructii'],
     forWhom: 'Executanții de lucrări de construcții (RTE, șef de șantier, șef de punct de lucru, responsabil control calitate) și diriginții de șantier.',
@@ -198,6 +203,7 @@ const SHOP_PRODUCTS = [
     sku: 'INF-PTE-IMP',
     title: 'Procedură tehnică de execuție: împrejmuiri și porți',
     shortDesc: 'Procedură tehnică de execuție (PTE) pentru împrejmuiri și porți: fundațiile stâlpilor, montarea stâlpilor și a panourilor, porți batante și glisante, recepția pe faze determinante.',
+    metaDesc: 'Procedură tehnică de execuție (PTE) pentru împrejmuiri și porți: model Word editabil, 13 pagini, cu toleranțe și recepția pe faze determinante. 49 lei.',
     longDesc: 'Stabilește metodologia, cerințele de calitate și responsabilitățile pentru executarea împrejmuirilor perimetrale și interioare, cu stâlpi metalici sau din beton și panouri din plasă de sârmă, tablă, lemn sau PVC, inclusiv porțile batante și glisante cu accesoriile de închidere. Trimite la Legea nr. 10/1995, HG nr. 273/1994 cu modificările din HG nr. 343/2017, NP 112-2014, C 150-1999, SR EN 1090-2 și seria SR EN 10223. Document Word editabil, de adaptat la datele concrete ale lucrării.',
     audiences: ['constructii'],
     forWhom: 'Executanții de lucrări de construcții (RTE, șef de șantier, șef de punct de lucru, responsabil control calitate) și diriginții de șantier.',
@@ -225,6 +231,7 @@ const SHOP_PRODUCTS = [
     sku: 'INF-PTE-BA',
     title: 'Procedură tehnică de execuție: lucrări de beton armat',
     shortDesc: 'Procedură tehnică de execuție (PTE) pentru structuri din beton armat monolit: armare, cofrare, turnare, compactare, protecție și decofrare, cu recepția pe faze determinante.',
+    metaDesc: 'Procedură tehnică de execuție (PTE) pentru lucrări de beton armat: model Word editabil, 14 pagini, cu toleranțe și recepția pe faze determinante. 49 lei.',
     longDesc: 'Stabilește metodologia, cerințele de calitate și responsabilitățile pentru fundații, stâlpi, grinzi, plăci, pereți structurali și scări din beton armat monolit, în clasele C12/15 până la C40/50, cu beton de la stație autorizată sau preparat pe șantier. Trimite la Legea nr. 10/1995, HG nr. 273/1994 cu modificările din HG nr. 343/2017, NE 012/1-2007, NE 012/2-2010, SR EN 206 și SR EN 13670. Document Word editabil, de adaptat la datele concrete ale lucrării.',
     audiences: ['constructii'],
     forWhom: 'Executanții de lucrări de construcții (RTE, șef de șantier, șef de punct de lucru, responsabil control calitate) și diriginții de șantier.',
@@ -252,6 +259,7 @@ const SHOP_PRODUCTS = [
     sku: 'INF-PTE-PAV',
     title: 'Procedură tehnică de execuție: pavaje și borduri',
     shortDesc: 'Procedură tehnică de execuție (PTE) pentru pavaje din pavele de beton sau piatră naturală, borduri și rigole, la alei, trotuare, platforme de acces și parcări cu trafic redus.',
+    metaDesc: 'Procedură tehnică de execuție (PTE) pentru pavaje și borduri: model Word editabil, 10 pagini, cu toleranțe și recepția pe faze determinante. 49 lei.',
     longDesc: 'Stabilește metodologia, cerințele de calitate și responsabilitățile pentru executarea pavajelor și montarea bordurilor și rigolelor, de la stratul de fundație și pozare la rostuire și compactare. Trimite la Legea nr. 10/1995, HG nr. 273/1994 cu modificările din HG nr. 343/2017, NP 116-2004, SR EN 1338, SR EN 1339, SR EN 1340 și SR 6978. Document Word editabil, de adaptat la datele concrete ale lucrării.',
     audiences: ['constructii'],
     forWhom: 'Executanții de lucrări de construcții (RTE, șef de șantier, șef de punct de lucru, responsabil control calitate) și diriginții de șantier.',
@@ -320,6 +328,27 @@ const SHOP_FORMATS = [
   { id: 'pdf',    label: 'PDF',    cls: 'fmt-pdf' },
   { id: 'pachet', label: 'Pachete', cls: 'fmt-pachet' },
 ].filter(f => f.id === 'all' || VISIBLE_PRODUCTS.some(p => p.format === f.id));
+
+/* Titlul blocului de linkuri către celelalte produse, după publicul
+   sau raftul comun. Îl citește și build.mjs, pentru paginile pre-randate. */
+const RELATED_TITLES = {
+  autoritati:  'Alte documente pentru autorități',
+  ofertanti:   'Alte documente pentru ofertanți',
+  constructii: 'Alte documente pentru lucrări',
+  uzuale:      'Alte formulare uzuale',
+};
+
+/* Celelalte produse cu același public sau de pe același raft. Dintre
+   grupuri îl alegem pe cel mai bogat; la egalitate, primul public. */
+function relatedProducts(product) {
+  const others = VISIBLE_PRODUCTS.filter(o => o.id !== product.id);
+  const groups = (product.audiences || []).map(a => ({
+    title: RELATED_TITLES[a],
+    items: others.filter(o => (o.audiences || []).includes(a)),
+  }));
+  if (product.shelf) groups.push({ title: RELATED_TITLES[product.shelf], items: others.filter(o => o.shelf === product.shelf) });
+  return groups.filter(g => g.title && g.items.length).sort((a, b) => b.items.length - a.items.length)[0] || null;
+}
 
 const FORMAT_META = {
   word:   { abbr: 'DOC',  label: 'Word' },
@@ -421,6 +450,23 @@ const previewsOf = id => {
   return p && p.pages && p.pages.length ? p : null;
 };
 
+/* Textul alternativ al miniaturilor; același în paginile pre-randate. */
+const previewAlt = (product, pg, k) => (k === 0
+  ? 'Prima pagină din previzualizarea documentului ' + product.title
+  : 'Pagina ' + pg.page + ' din documentul ' + product.title);
+
+/* Eticheta unei secțiuni din fișa produsului. E titlu (h2 pe pagina
+   produsului, h3 în fereastră, sub titlul ei), ca documentul să aibă
+   structură pentru cititoare de ecran și crawlere. Fontul și interlinia
+   se moștenesc, altfel regulile globale pentru titluri i-ar schimba
+   aspectul; restul vine din .shop-modal-lbl. */
+const SEC_LABEL_STYLE = { fontFamily: 'inherit', lineHeight: 'inherit' };
+
+function SecLabel({ inModal, children }) {
+  const Tag = inModal ? 'h3' : 'h2';
+  return <Tag className="shop-modal-lbl" style={SEC_LABEL_STYLE}>{children}</Tag>;
+}
+
 function PreviewViewer({ product, start = 0, onClose, onOrder }) {
   const pv = previewsOf(product.id);
   const [i, setI] = useState(start);
@@ -490,17 +536,17 @@ function PreviewViewer({ product, start = 0, onClose, onOrder }) {
 }
 
 /* Miniaturile din fișa produsului; deschid PreviewViewer. */
-function PreviewStrip({ product, onOpen }) {
+function PreviewStrip({ product, onOpen, inModal }) {
   const pv = previewsOf(product.id);
   if (!pv) return null;
   return (
     <div className="shop-modal-sec">
-      <div className="shop-modal-lbl">Previzualizare</div>
+      <SecLabel inModal={inModal}>Previzualizare</SecLabel>
       <div className="pv-strip">
         {pv.pages.map((pg, k) => (
           <button key={pg.src} type="button" className="pv-strip__item" onClick={() => onOpen(k)}
             aria-label={'Deschide pagina ' + pg.page + ' din ' + pv.total}>
-            <img src={pg.src} width={pg.w} height={pg.h} alt="" loading="lazy" />
+            <img src={pg.src} width={pg.w} height={pg.h} alt={previewAlt(product, pg, k)} loading="lazy" />
             <span>Pag. {pg.page}</span>
           </button>
         ))}
@@ -873,8 +919,9 @@ function CheckoutForm({ product, onNav }) {
 /* Conținutul unui produs: descriere, detalii și modul de obținere.
    Trăiește pe pagina produsului (/magazin/<produs>), care are adresă
    proprie, deci poate fi trimisă prin link și indexată. */
-function ProductDetails({ product, onNav }) {
+function ProductDetails({ product, onNav, inModal }) {
   const isFree = product.price === 0;
+  const related = inModal ? null : relatedProducts(product);
   const hasFreeFile = isFree && product.file;
 
   const [email,       setEmail]       = useState('');
@@ -937,19 +984,19 @@ function ProductDetails({ product, onNav }) {
     <div className="sp-detail">
 
           <div className="shop-modal-sec">
-            <div className="shop-modal-lbl">Descriere</div>
+            <SecLabel inModal={inModal}>Descriere</SecLabel>
             <p className="sp-modal-text">{product.longDesc}</p>
           </div>
 
           {product.forWhom && (
             <div className="shop-modal-sec">
-              <div className="shop-modal-lbl">Pentru cine</div>
+              <SecLabel inModal={inModal}>Pentru cine</SecLabel>
               <p className="sp-modal-text">{product.forWhom}</p>
             </div>
           )}
 
           <div className="shop-modal-sec">
-            <div className="shop-modal-lbl">Ce include</div>
+            <SecLabel inModal={inModal}>Ce include</SecLabel>
             <ul className="shop-modal-includes">
               {product.includes.map((item, i) => (
                 <li key={i}>
@@ -960,7 +1007,7 @@ function ProductDetails({ product, onNav }) {
             </ul>
           </div>
 
-          <PreviewStrip product={product} onOpen={setPreviewAt} />
+          <PreviewStrip product={product} onOpen={setPreviewAt} inModal={inModal} />
           {previewAt !== null && (
             <PreviewViewer
               product={product}
@@ -971,7 +1018,7 @@ function ProductDetails({ product, onNav }) {
           )}
 
           <div className="shop-modal-sec">
-            <div className="shop-modal-lbl">Detalii tehnice</div>
+            <SecLabel inModal={inModal}>Detalii tehnice</SecLabel>
             <div className="sp-modal-stats">
                 {product.version && (
                   <div>
@@ -1093,6 +1140,31 @@ function ProductDetails({ product, onNav }) {
               )}
             </>
           )}
+
+          {/* Doar pe pagina produsului: legături către produsele înrudite și
+              către contact, aceleași ca în HTML-ul pre-randat de build.mjs. */}
+          {related && (
+            <div className="shop-modal-sec" style={{ marginTop: '28px', marginBottom: 0 }}>
+              <SecLabel>{related.title}</SecLabel>
+              <ul className="shop-modal-includes">
+                {related.items.map(o => (
+                  <li key={o.id}>
+                    <a href={'/magazin/' + o.id} style={{ color: 'var(--blue)' }}
+                      onClick={e => {
+                        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+                        e.preventDefault();
+                        go('magazin/' + o.id);
+                      }}>{o.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {!inModal && (
+            <p className="sp-modal-text--note">
+              Ai nevoie de documentul adaptat pe firma ta? <a href="/contact">Scrie-ne.</a>
+            </p>
+          )}
     </div>
   );
 }
@@ -1131,7 +1203,7 @@ function ProductModal({ product, onClose, onNav, views }) {
           </div>
         </div>
         <div className="shop-modal-bd">
-          <ProductDetails product={product} onNav={onNav} />
+          <ProductDetails product={product} onNav={onNav} inModal />
         </div>
       </div>
     </div>
@@ -1182,7 +1254,9 @@ function ProductPage({ slug, onNav }) {
 
       <section className="sec sp-detail-wrap">
         <div className="container">
-          <ProductDetails product={product} onNav={onNav} />
+          {/* key: la trecerea pe alt produs, formularul de plată și
+              previzualizarea deschise nu rămân de la cel dinainte */}
+          <ProductDetails key={product.id} product={product} onNav={onNav} />
         </div>
       </section>
     </>

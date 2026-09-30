@@ -15,14 +15,16 @@
 
   # sub-paginile de servicii, consolidate in /servicii
   RewriteRule ^analiza-si-solutii/?$ /servicii#analiza    [R=301,L]
-  RewriteRule ^achizitii-publice/?$  /servicii#achizitii  [R=301,L]
-  RewriteRule ^delegare-servicii/?$  /servicii#delegare   [R=301,L]
+  RewriteRule ^achizitii-publice/?$  /documentatii-de-atribuire [R=301,L]
   RewriteRule ^modele-excel/?$       /servicii#excel      [R=301,L]
   RewriteRule ^modele-word/?$        /servicii#word       [R=301,L]
   RewriteRule ^modele-pdf/?$         /servicii#pdf        [R=301,L]
 
   # paginile statice
   RewriteRule ^servicii/?$    servicii.html    [L]
+  RewriteRule ^documentatii-de-atribuire/?$ documentatii-de-atribuire.html [L]
+  RewriteRule ^delegare-servicii/?$         delegare-servicii.html         [L]
+  RewriteRule ^digitalizare/?$              digitalizare.html              [L]
   RewriteRule ^despre-noi/?$  despre-noi.html  [L]
   RewriteRule ^contact/?$     contact.html     [L]
 

@@ -12,8 +12,7 @@
     { "source": "/app.html", "destination": "/", "permanent": false },
 
     { "source": "/analiza-si-solutii", "destination": "/servicii#analiza", "permanent": true },
-    { "source": "/achizitii-publice", "destination": "/servicii#achizitii", "permanent": true },
-    { "source": "/delegare-servicii", "destination": "/servicii#delegare", "permanent": true },
+    { "source": "/achizitii-publice", "destination": "/documentatii-de-atribuire", "permanent": true },
     { "source": "/modele-excel", "destination": "/servicii#excel", "permanent": true },
     { "source": "/modele-word", "destination": "/servicii#word", "permanent": true },
     { "source": "/modele-pdf", "destination": "/servicii#pdf", "permanent": true }
@@ -22,6 +21,9 @@
 
     { "source": "/", "destination": "/index.html" },
     { "source": "/servicii", "destination": "/servicii.html" },
+    { "source": "/documentatii-de-atribuire", "destination": "/documentatii-de-atribuire.html" },
+    { "source": "/delegare-servicii", "destination": "/delegare-servicii.html" },
+    { "source": "/digitalizare", "destination": "/digitalizare.html" },
     { "source": "/despre-noi", "destination": "/despre-noi.html" },
     { "source": "/contact", "destination": "/contact.html" },
 

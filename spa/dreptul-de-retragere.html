@@ -13,6 +13,7 @@
   <meta property="og:image" content="https://www.informs.ro/assets/brand/og-informs-v2.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="INFORMS - Formulare inteligente. Documentații complete" />
   <meta name="twitter:card" content="summary_large_image" />
   <title>Dreptul de retragere | INFORMS</title>
   <link rel="canonical" href="https://www.informs.ro/dreptul-de-retragere" />
@@ -26,11 +27,12 @@
 
   <!-- Firma si site-ul, declarate static: crawlerele care nu ruleaza
        JavaScript le citesc si aici, nu doar pe paginile generate.
+       Blocul e scris de build.mjs (orgNodes), nu se editeaza de mana.
        Nodul paginii curente il adauga App.jsx la navigare. -->
   <script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[
-    {"@type":"Organization","@id":"https://www.informs.ro/#organizatie","name":"MILBAC MANAGEMENT S.R.L.","alternateName":"INFORMS","legalName":"MILBAC MANAGEMENT S.R.L.","url":"https://www.informs.ro/","logo":{"@type":"ImageObject","url":"https://www.informs.ro/assets/brand/logo-email.png","width":374,"height":76},"email":"office@informs.ro","telephone":"+40 740 023 338","taxID":"44991231","vatID":"44991231","identifier":"J26/1603/2021","address":{"@type":"PostalAddress","streetAddress":"Bld. Pandurilor nr. 86, et. 3, ap. 11","addressLocality":"Târgu Mureș","addressRegion":"Mureș","postalCode":"540487","addressCountry":"RO"},"areaServed":{"@type":"Country","name":"România"},"knowsLanguage":"ro"},
-    {"@type":"WebSite","@id":"https://www.informs.ro/#site","url":"https://www.informs.ro/","name":"INFORMS","inLanguage":"ro-RO","publisher":{"@id":"https://www.informs.ro/#organizatie"}}
+    {"@type":"Organization","@id":"https://www.informs.ro/#organizatie","name":"INFORMS","legalName":"MILBAC MANAGEMENT S.R.L.","alternateName":["INFORMS România","informs.ro","MILBAC MANAGEMENT S.R.L."],"description":"INFORMS este brandul sub care MILBAC MANAGEMENT S.R.L. din Târgu Mureș oferă consultanță în achiziții publice în România: documentații de atribuire, delegarea serviciilor de utilități publice, sprijin pentru ofertanți și modele Word, Excel și PDF.","url":"https://www.informs.ro/","logo":{"@type":"ImageObject","url":"https://www.informs.ro/assets/brand/apple-touch-icon.png","width":180,"height":180},"email":"office@informs.ro","telephone":"+40 740 023 338","taxID":"44991231","identifier":"J26/1603/2021","address":{"@type":"PostalAddress","streetAddress":"Bld. Pandurilor nr. 86, et. 3, ap. 11","addressLocality":"Târgu Mureș","addressRegion":"Mureș","postalCode":"540487","addressCountry":"RO"},"areaServed":{"@type":"Country","name":"România"},"knowsLanguage":"ro"},
+    {"@type":"WebSite","@id":"https://www.informs.ro/#site","url":"https://www.informs.ro/","name":"INFORMS","alternateName":"informs.ro","inLanguage":"ro-RO","publisher":{"@id":"https://www.informs.ro/#organizatie"}}
   ]}
   </script>
 
@@ -60,7 +62,7 @@
   <!-- Chrome-ul comun cu paginile statice. Generat de build.mjs,
        cu tokenii limitati ca sa nu atinga tema magazinului. -->
   <link rel="stylesheet" href="css/art.css?v=bd6c8bdd" />
-  <link rel="stylesheet" href="css/spa-chrome.css?v=2246dffa" />
+  <link rel="stylesheet" href="css/spa-chrome.css?v=3ed6d3bb" />
   <!-- Identitatea site-ului peste main.css: ultimul, ca sa castige. -->
   <link rel="stylesheet" href="css/shop.css?v=a2e09e63" />
   <!-- Bannerul de cookie apare după randare: stilurile lui nu blochează pagina -->
@@ -73,19 +75,19 @@
 
   <!-- Aplicație - defer, se execută în ordine după parsarea HTML -->
   <script defer src="Config.js?v=b58e0158"></script>
-  <script defer src="Layout.js?v=6d9c643b"></script>
+  <script defer src="Layout.js?v=ac001845"></script>
   <script defer src="Icons.js?v=d1a3406e"></script>
   <script defer src="Pages.js?v=56cc0686"></script>
   <script defer src="Legal.js?v=46a53733"></script>
   <!-- Previzualizările (generat de tools/previzualizari.py), înaintea magazinului -->
   <script defer src="previews.js?v=810c84c2"></script>
-  <script defer src="Shop.js?v=a3af0c0c"></script>
+  <script defer src="Shop.js?v=3a28b95c"></script>
   <!-- înaintea App.js: observă elementele din prima randare -->
   <script defer src="js/spa-reveal.js?v=0b37734c"></script>
   <!-- Derulare lină la rotiță; aceeași ca pe paginile statice -->
   <script defer src="vendor/lenis.min.js?v=daec1872"></script>
   <script defer src="js/smooth-scroll.js?v=fe1532a7"></script>
-  <script defer src="App.js?v=5bbf2d24"></script>
+  <script defer src="App.js?v=e44ec986"></script>
 
 </head>
 <body>
@@ -112,9 +114,9 @@
                 <p class="mega__label">Servicii</p>
                 <ul class="mega__links">
                   <li><a data-navlink="analiza" href="/servicii#analiza">Analiză și consultanță</a></li>
-                  <li><a data-navlink="achizitii" href="/servicii#achizitii">Documentații de atribuire</a></li>
-                  <li><a data-navlink="delegare" href="/servicii#delegare">Delegare servicii de utilități publice</a></li>
-                  <li><a data-navlink="digitalizare" href="/servicii#digitalizare">Digitalizare la comandă</a></li>
+                  <li><a data-navlink="achizitii" href="/documentatii-de-atribuire">Documentații de atribuire</a></li>
+                  <li><a data-navlink="delegare" href="/delegare-servicii">Delegare servicii de utilități publice</a></li>
+                  <li><a data-navlink="digitalizare" href="/digitalizare">Digitalizare la comandă</a></li>
                 </ul>
               </div>
               <div class="mega__col">
@@ -170,7 +172,7 @@
       <span></span><span></span><span></span>
     </button>
   </div>
-</header><main id="main" style="min-height:60vh"><div class="pg-hero"><div class="container"><h1>Dreptul de retragere</h1><p>Formular online de retragere din contract, conform OUG 34/2014.</p></div></div></main><!-- ══ Footer ══ -->
+</header><main id="main" style="min-height:60vh"><div class="pg-hero"><div class="container"><h1>Dreptul de retragere</h1><p>Cum te retragi din contract, online, în 14 zile.</p></div></div><section class="sec"><div class="container" style="max-width:800px"><div class="card" style="padding:40px 44px"><p style="font-size:0.82rem;color:var(--text-2);margin-bottom:32px">Ultima actualizare: 29 septembrie 2026</p><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">În calitate de consumator ai dreptul de a te retrage dintr-un contract încheiat la distanță în termen de <strong>14 zile calendaristice</strong>, fără a fi nevoit să justifici decizia și fără a suporta penalități, conform Ordonanței de urgență a Guvernului nr. 34/2014 privind drepturile consumatorilor în cadrul contractelor încheiate cu profesioniștii.</p><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">MILBAC MANAGEMENT S.R.L. pune la dispoziție, conform art. 11<sup>1</sup> din OUG 34/2014, o modalitate online, clară și ușor accesibilă de exercitare a acestui drept: formularul de la punctul 4 al acestei pagini.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">1. Termenul de retragere</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Termenul de 14 zile curge de la data încheierii contractului, respectiv de la data confirmării comenzii. Este suficient ca cererea să fie transmisă înainte de expirarea termenului.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">2. Excepția pentru conținut digital livrat imediat</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Toate produsele din magazinul INFORMS sunt conținut digital care nu este livrat pe un suport material. Pentru astfel de produse, art. 16 lit. m din OUG 34/2014 prevede că dreptul de retragere se pierde dacă executarea contractului a început cu <strong>acordul prealabil expres al consumatorului</strong> și cu confirmarea că acesta ia cunoștință de pierderea dreptului.</p><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">De aceea, la finalizarea comenzii îți cerem o <strong>bifă separată</strong> prin care confirmi că ești de acord cu livrarea imediată a documentului și că înțelegi că, odată începută descărcarea, nu te mai poți retrage din contract.</p><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Fără acest acord comanda online nu poate fi finalizată, pentru că documentul se livrează imediat după plată. Dacă vrei să păstrezi dreptul de retragere, scrie-ne la <a href="mailto:office@informs.ro" style="color:var(--blue-a)">office@informs.ro</a> înainte de a comanda: îți trimitem documentul după expirarea celor 14 zile.</p><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Chiar și cu acordul dat, dreptul de retragere se pierde abia în momentul în care <strong>începi descărcarea</strong> documentului. Până atunci te poți retrage în continuare.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">3. Situații în care te poți retrage oricum</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Excepția de mai sus nu se aplică și te poți retrage dacă:</p><ul style="color:var(--text-2);font-size:0.97rem;line-height:1.82;padding-left:22px;margin-bottom:14px"><li>Nu ai bifat acordul pentru livrarea imediată</li><li>Nu ai început încă descărcarea documentului</li></ul><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Problemele tehnice de livrare (alt document, fișier care nu se deschide, link nefuncțional) nu țin de retragere: le rezolvăm prin retrimiterea documentului, conform <a href="/politica-anulare" style="color:var(--blue-a)">Politicii de anulare și retur</a>.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">4. Formular online de retragere</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Completează formularul de mai jos. Primești confirmarea pe email, iar soluția în cel mult 14 zile. Alternativ, poți trimite aceeași cerere la <a href="mailto:office@informs.ro" style="color:var(--blue-a)">office@informs.ro</a>.</p><form novalidate="" style="display:flex;flex-direction:column;gap:16px;padding:26px;background:var(--bg);border:1px solid var(--border);border-radius:12px"><div><label style="font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:5px;display:block">Nume și prenume *</label><input type="text" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:6px;font-size:15px;font-family:var(--font);color:var(--text);background:#fff;outline:none;width:100%" placeholder="Ion Popescu" value=""/></div><div><label style="font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:5px;display:block">Adresă de email folosită la comandă *</label><input type="email" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:6px;font-size:15px;font-family:var(--font);color:var(--text);background:#fff;outline:none;width:100%" placeholder="ion@exemplu.ro" value=""/></div><div><label style="font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:5px;display:block">Număr comandă *</label><input type="text" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:6px;font-size:15px;font-family:var(--font);color:var(--text);background:#fff;outline:none;width:100%" placeholder="INF..." value=""/></div><div><label style="font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:5px;display:block">Produs</label><input type="text" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:6px;font-size:15px;font-family:var(--font);color:var(--text);background:#fff;outline:none;width:100%" placeholder="Denumirea produsului comandat" value=""/></div><div><label style="font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:5px;display:block">Telefon</label><input type="tel" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:6px;font-size:15px;font-family:var(--font);color:var(--text);background:#fff;outline:none;width:100%" placeholder="+40 7xx xxx xxx" value=""/></div><div><label style="font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:5px;display:block">Motiv (opțional)</label><textarea style="padding:10px 14px;border:1.5px solid var(--border);border-radius:6px;font-size:15px;font-family:var(--font);color:var(--text);background:#fff;outline:none;width:100%;min-height:90px;resize:vertical" placeholder="Nu ești obligat să indici un motiv."></textarea></div><button type="submit" class="btn btn-primary" style="align-self:flex-start">Trimite cererea de retragere</button></form><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">5. Efectele retragerii</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Dacă te retragi valabil, rambursăm integral suma încasată, folosind aceeași modalitate de plată, în termen de cel mult <strong>14 zile</strong> de la data la care am fost informați. Nu percepem comisioane pentru rambursare.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">6. Model de declarație de retragere</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Dacă preferi să redactezi singur cererea, poți folosi textul următor:</p><div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:20px 24px;font-size:0.95rem;line-height:1.85;color:var(--text-2)">Către MILBAC MANAGEMENT S.R.L., office@informs.ro<br/><br/>Prin prezenta notific retragerea mea din contractul de vânzare având ca obiect următorul produs: ................................<br/>Comandat în data de: .....................   Număr comandă: .....................<br/>Numele consumatorului: .....................<br/>Adresa de email: .....................<br/>Data: .....................   Semnătura (doar pentru cererea pe hârtie): .....................</div><div style="border-top:1px solid var(--border);margin:32px 0"></div><button class="btn btn-outline">Întrebări? Contactează-ne</button></div></div></section></main><!-- ══ Footer ══ -->
 <footer class="ftr">
   <div class="container">
     <div class="ftr__top">
@@ -187,7 +189,7 @@
 
       <nav class="ftr__cols" aria-label="Navigare subsol">
         <div class="ftr__col">
-          <h2 class="ftr__h">Date firmă</h2>
+          <p class="ftr__h">Date firmă</p>
           <ul>
             <li><span>MILBAC MANAGEMENT S.R.L.</span></li>
             <li><span>CUI 44991231</span></li>
@@ -199,7 +201,7 @@
           </ul>
         </div>
         <div class="ftr__col">
-          <h2 class="ftr__h">Navigare</h2>
+          <p class="ftr__h">Navigare</p>
           <ul>
             <li><a href="/">Acasă</a></li>
             <li><a href="/despre-noi">Despre noi</a></li>
@@ -210,19 +212,19 @@
           </ul>
         </div>
         <div class="ftr__col">
-          <h2 class="ftr__h">Servicii</h2>
+          <p class="ftr__h">Servicii</p>
           <ul>
             <li><a href="/servicii#analiza">Analiză și consultanță</a></li>
-            <li><a href="/servicii#achizitii">Documentații de atribuire</a></li>
-            <li><a href="/servicii#delegare">Delegare servicii</a></li>
-            <li><a href="/servicii#digitalizare">Digitalizare la comandă</a></li>
+            <li><a href="/documentatii-de-atribuire">Documentații de atribuire</a></li>
+            <li><a href="/delegare-servicii">Delegare servicii</a></li>
+            <li><a href="/digitalizare">Digitalizare la comandă</a></li>
             <li><a href="/servicii#excel">Modele EXCEL</a></li>
             <li><a href="/servicii#word">Modele WORD</a></li>
             <li><a href="/servicii#pdf">Formulare PDF</a></li>
           </ul>
         </div>
         <div class="ftr__col">
-          <h2 class="ftr__h">Politici</h2>
+          <p class="ftr__h">Politici</p>
           <ul>
             <li><a href="/termeni-si-conditii">Termeni și condiții</a></li>
             <li><a href="/politica-confidentialitate">Politica de confidențialitate</a></li>

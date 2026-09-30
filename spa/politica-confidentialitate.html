@@ -13,6 +13,7 @@
   <meta property="og:image" content="https://www.informs.ro/assets/brand/og-informs-v2.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="INFORMS - Formulare inteligente. Documentații complete" />
   <meta name="twitter:card" content="summary_large_image" />
   <title>Politica de confidențialitate | INFORMS</title>
   <link rel="canonical" href="https://www.informs.ro/politica-confidentialitate" />
@@ -26,11 +27,12 @@
 
   <!-- Firma si site-ul, declarate static: crawlerele care nu ruleaza
        JavaScript le citesc si aici, nu doar pe paginile generate.
+       Blocul e scris de build.mjs (orgNodes), nu se editeaza de mana.
        Nodul paginii curente il adauga App.jsx la navigare. -->
   <script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[
-    {"@type":"Organization","@id":"https://www.informs.ro/#organizatie","name":"MILBAC MANAGEMENT S.R.L.","alternateName":"INFORMS","legalName":"MILBAC MANAGEMENT S.R.L.","url":"https://www.informs.ro/","logo":{"@type":"ImageObject","url":"https://www.informs.ro/assets/brand/logo-email.png","width":374,"height":76},"email":"office@informs.ro","telephone":"+40 740 023 338","taxID":"44991231","vatID":"44991231","identifier":"J26/1603/2021","address":{"@type":"PostalAddress","streetAddress":"Bld. Pandurilor nr. 86, et. 3, ap. 11","addressLocality":"Târgu Mureș","addressRegion":"Mureș","postalCode":"540487","addressCountry":"RO"},"areaServed":{"@type":"Country","name":"România"},"knowsLanguage":"ro"},
-    {"@type":"WebSite","@id":"https://www.informs.ro/#site","url":"https://www.informs.ro/","name":"INFORMS","inLanguage":"ro-RO","publisher":{"@id":"https://www.informs.ro/#organizatie"}}
+    {"@type":"Organization","@id":"https://www.informs.ro/#organizatie","name":"INFORMS","legalName":"MILBAC MANAGEMENT S.R.L.","alternateName":["INFORMS România","informs.ro","MILBAC MANAGEMENT S.R.L."],"description":"INFORMS este brandul sub care MILBAC MANAGEMENT S.R.L. din Târgu Mureș oferă consultanță în achiziții publice în România: documentații de atribuire, delegarea serviciilor de utilități publice, sprijin pentru ofertanți și modele Word, Excel și PDF.","url":"https://www.informs.ro/","logo":{"@type":"ImageObject","url":"https://www.informs.ro/assets/brand/apple-touch-icon.png","width":180,"height":180},"email":"office@informs.ro","telephone":"+40 740 023 338","taxID":"44991231","identifier":"J26/1603/2021","address":{"@type":"PostalAddress","streetAddress":"Bld. Pandurilor nr. 86, et. 3, ap. 11","addressLocality":"Târgu Mureș","addressRegion":"Mureș","postalCode":"540487","addressCountry":"RO"},"areaServed":{"@type":"Country","name":"România"},"knowsLanguage":"ro"},
+    {"@type":"WebSite","@id":"https://www.informs.ro/#site","url":"https://www.informs.ro/","name":"INFORMS","alternateName":"informs.ro","inLanguage":"ro-RO","publisher":{"@id":"https://www.informs.ro/#organizatie"}}
   ]}
   </script>
 
@@ -60,7 +62,7 @@
   <!-- Chrome-ul comun cu paginile statice. Generat de build.mjs,
        cu tokenii limitati ca sa nu atinga tema magazinului. -->
   <link rel="stylesheet" href="css/art.css?v=bd6c8bdd" />
-  <link rel="stylesheet" href="css/spa-chrome.css?v=2246dffa" />
+  <link rel="stylesheet" href="css/spa-chrome.css?v=3ed6d3bb" />
   <!-- Identitatea site-ului peste main.css: ultimul, ca sa castige. -->
   <link rel="stylesheet" href="css/shop.css?v=a2e09e63" />
   <!-- Bannerul de cookie apare după randare: stilurile lui nu blochează pagina -->
@@ -73,19 +75,19 @@
 
   <!-- Aplicație - defer, se execută în ordine după parsarea HTML -->
   <script defer src="Config.js?v=b58e0158"></script>
-  <script defer src="Layout.js?v=6d9c643b"></script>
+  <script defer src="Layout.js?v=ac001845"></script>
   <script defer src="Icons.js?v=d1a3406e"></script>
   <script defer src="Pages.js?v=56cc0686"></script>
   <script defer src="Legal.js?v=46a53733"></script>
   <!-- Previzualizările (generat de tools/previzualizari.py), înaintea magazinului -->
   <script defer src="previews.js?v=810c84c2"></script>
-  <script defer src="Shop.js?v=a3af0c0c"></script>
+  <script defer src="Shop.js?v=3a28b95c"></script>
   <!-- înaintea App.js: observă elementele din prima randare -->
   <script defer src="js/spa-reveal.js?v=0b37734c"></script>
   <!-- Derulare lină la rotiță; aceeași ca pe paginile statice -->
   <script defer src="vendor/lenis.min.js?v=daec1872"></script>
   <script defer src="js/smooth-scroll.js?v=fe1532a7"></script>
-  <script defer src="App.js?v=5bbf2d24"></script>
+  <script defer src="App.js?v=e44ec986"></script>
 
 </head>
 <body>
@@ -112,9 +114,9 @@
                 <p class="mega__label">Servicii</p>
                 <ul class="mega__links">
                   <li><a data-navlink="analiza" href="/servicii#analiza">Analiză și consultanță</a></li>
-                  <li><a data-navlink="achizitii" href="/servicii#achizitii">Documentații de atribuire</a></li>
-                  <li><a data-navlink="delegare" href="/servicii#delegare">Delegare servicii de utilități publice</a></li>
-                  <li><a data-navlink="digitalizare" href="/servicii#digitalizare">Digitalizare la comandă</a></li>
+                  <li><a data-navlink="achizitii" href="/documentatii-de-atribuire">Documentații de atribuire</a></li>
+                  <li><a data-navlink="delegare" href="/delegare-servicii">Delegare servicii de utilități publice</a></li>
+                  <li><a data-navlink="digitalizare" href="/digitalizare">Digitalizare la comandă</a></li>
                 </ul>
               </div>
               <div class="mega__col">
@@ -170,7 +172,7 @@
       <span></span><span></span><span></span>
     </button>
   </div>
-</header><main id="main" style="min-height:60vh"><div class="pg-hero"><div class="container"><h1>Politica de confidențialitate</h1><p>Informații privind modul în care INFORMS colectează, utilizează și protejează datele cu caracter personal.</p></div></div></main><!-- ══ Footer ══ -->
+</header><main id="main" style="min-height:60vh"><div class="pg-hero"><div class="container"><h1>Politica de confidențialitate</h1><p>Informații privind prelucrarea datelor cu caracter personal.</p></div></div><section class="sec"><div class="container" style="max-width:800px"><div class="card" style="padding:40px 44px"><p style="font-size:0.82rem;color:var(--text-2);margin-bottom:32px">Ultima actualizare: 15 septembrie 2026</p><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">MILBAC MANAGEMENT S.R.L., operator al platformei <strong>INFORMS</strong> (www.informs.ro), se angajează să protejeze confidențialitatea și securitatea datelor cu caracter personal ale utilizatorilor săi. Prezenta politică descrie ce date colectăm, în ce scop le utilizăm și care sunt drepturile dumneavoastră, în conformitate cu Regulamentul (UE) 2016/679 (GDPR) și cu Legea nr. 190/2018.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">1. Operatorul de date</h2><div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:14px"><div style="display:flex;gap:12px;padding:5px 0;font-size:0.95rem;line-height:1.7;flex-wrap:wrap"><span style="min-width:170px;color:var(--text-2);font-weight:600">Denumire</span><span style="color:var(--text)">MILBAC MANAGEMENT S.R.L.</span></div><div style="display:flex;gap:12px;padding:5px 0;font-size:0.95rem;line-height:1.7;flex-wrap:wrap"><span style="min-width:170px;color:var(--text-2);font-weight:600">CUI</span><span style="color:var(--text)">44991231</span></div><div style="display:flex;gap:12px;padding:5px 0;font-size:0.95rem;line-height:1.7;flex-wrap:wrap"><span style="min-width:170px;color:var(--text-2);font-weight:600">Nr. Reg. Comerțului</span><span style="color:var(--text)">J26/1603/2021</span></div><div style="display:flex;gap:12px;padding:5px 0;font-size:0.95rem;line-height:1.7;flex-wrap:wrap"><span style="min-width:170px;color:var(--text-2);font-weight:600">Sediul social</span><span style="color:var(--text)">Bld. Pandurilor nr. 86, et. 3, ap. 11, Târgu Mureș, jud. Mureș, 540487</span></div><div style="display:flex;gap:12px;padding:5px 0;font-size:0.95rem;line-height:1.7;flex-wrap:wrap"><span style="min-width:170px;color:var(--text-2);font-weight:600">Telefon</span><a href="tel:+40740023338" style="color:var(--blue-a)">+40 740 023 338</a></div><div style="display:flex;gap:12px;padding:5px 0;font-size:0.95rem;line-height:1.7;flex-wrap:wrap"><span style="min-width:170px;color:var(--text-2);font-weight:600">Email</span><a href="mailto:office@informs.ro" style="color:var(--blue-a)">office@informs.ro</a></div><div style="display:flex;gap:12px;padding:5px 0;font-size:0.95rem;line-height:1.7;flex-wrap:wrap"><span style="min-width:170px;color:var(--text-2);font-weight:600">Program</span><span style="color:var(--text)">Luni - Vineri, 09:00 - 17:00</span></div></div><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">2. Datele pe care le colectăm</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Colectăm date cu caracter personal atunci când ni le furnizați voluntar:</p><ul style="color:var(--text-2);font-size:0.97rem;line-height:1.82;padding-left:22px;margin-bottom:14px"><li><strong>Prin formularul de contact</strong> - nume și prenume, adresă de e-mail, telefon (opțional), subiect și mesaj</li><li><strong>La descărcarea materialelor gratuite</strong> - nicio dată obligatorie; adresa de e-mail doar dacă bifați, separat, abonarea la noutăți</li><li><strong>La plasarea unei comenzi</strong> - nume și prenume sau denumirea firmei, adresă de e-mail, telefon, adresă de facturare și, pentru persoane juridice, CUI</li></ul><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Serverul nostru web înregistrează automat și date tehnice (adresă IP, tip de browser, pagina accesată, data și ora accesului), în scopuri de securitate și de analiză statistică agregată.</p><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px"><strong>Nu colectăm și nu avem acces la datele cardului dumneavoastră.</strong> Acestea sunt introduse direct în pagina securizată a procesatorului de plăți.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">3. Scopurile și temeiurile juridice ale prelucrării</h2><ul style="color:var(--text-2);font-size:0.97rem;line-height:1.82;padding-left:22px;margin-bottom:14px"><li><strong>Procesarea comenzilor și livrarea produselor</strong> - executarea contractului (art. 6 alin. 1 lit. b GDPR)</li><li><strong>Răspuns la solicitări</strong> - executarea unui contract sau măsuri precontractuale (art. 6 alin. 1 lit. b GDPR)</li><li><strong>Facturare, contabilitate și raportare fiscală</strong> - obligație legală (art. 6 alin. 1 lit. c GDPR)</li><li><strong>Comunicări comerciale</strong> - consimțământul dumneavoastră explicit (art. 6 alin. 1 lit. a GDPR), retractabil oricând</li><li><strong>Prevenirea fraudei și securitatea sistemelor</strong> - interesul legitim al operatorului (art. 6 alin. 1 lit. f GDPR)</li></ul><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">4. Durata stocării datelor</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Datele transmise prin formularul de contact se păstrează pe durata necesară soluționării solicitării, iar ulterior maximum<strong> 3 ani</strong> în scopuri de evidență internă. Documentele contabile, inclusiv facturile, se păstrează<strong> 10 ani</strong>, conform legislației fiscale. Datele pentru care v-ați retras consimțământul se șterg în termen de 30 de zile.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">5. Destinatarii datelor</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Datele dumneavoastră nu sunt vândute și nu sunt cedate terților în scopuri de marketing. Le divulgăm exclusiv:</p><ul style="color:var(--text-2);font-size:0.97rem;line-height:1.82;padding-left:22px;margin-bottom:14px"><li><strong>NETOPIA Payments</strong>, procesator de plăți, pentru efectuarea tranzacțiilor cu cardul</li><li>Prestatorilor de servicii IT (găzduire, e-mail, livrare newsletter), care acționează ca <strong>persoane împuternicite</strong> și sunt obligați contractual să respecte GDPR</li><li>Contabilului și autorităților fiscale, în limitele obligațiilor legale</li><li>Autorităților publice, atunci când legea o impune</li></ul><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Nu transferăm date în afara Spațiului Economic European fără garanții adecvate.</p><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Detalii suplimentare privind prelucrarea în context comercial se găsesc în <a href="/politica-gdpr" style="color:var(--blue-a)">Politica GDPR</a>.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">6. Cookie-uri și tehnologii similare</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Website-ul utilizează cookie-uri strict necesare pentru funcționare și, doar cu acordul dumneavoastră, cookie-uri de analiză. Detaliile complete se află în <a href="/politica-cookies" style="color:var(--blue-a)">Politica de cookie-uri</a>.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">7. Drepturile dumneavoastră</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">În conformitate cu GDPR, beneficiați de următoarele drepturi:</p><ul style="color:var(--text-2);font-size:0.97rem;line-height:1.82;padding-left:22px;margin-bottom:14px"><li><strong>Dreptul de acces</strong> - confirmarea prelucrării și o copie a datelor</li><li><strong>Dreptul la rectificare</strong> - corectarea datelor inexacte sau completarea celor incomplete</li><li><strong>Dreptul la ștergere</strong> - ștergerea datelor atunci când nu mai sunt necesare</li><li><strong>Dreptul la restricționarea prelucrării</strong> - în situațiile prevăzute de lege</li><li><strong>Dreptul la portabilitate</strong> - primirea datelor într-un format structurat și transferul lor</li><li><strong>Dreptul la opoziție</strong> - față de prelucrarea bazată pe interesul legitim</li><li><strong>Dreptul de a retrage consimțământul</strong> - oricând, fără a afecta legalitatea prelucrării anterioare</li></ul><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Pentru exercitarea oricărui drept, trimiteți o cerere la <a href="mailto:office@informs.ro" style="color:var(--blue-a)">office@informs.ro</a>. Răspundem în cel mult <strong>30 de zile calendaristice</strong>.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">8. Dreptul de a depune o plângere</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Dacă apreciați că drepturile dumneavoastră au fost încălcate, puteți depune o plângere la <strong>Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal (ANSPDCP)</strong>, Bd. G-ral Gheorghe Magheru 28-30, sector 1, București,<a href="https://www.dataprotection.ro" target="_blank" rel="noopener noreferrer" style="color:var(--blue-a)"> www.dataprotection.ro</a>.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">9. Securitatea datelor</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Implementăm măsuri tehnice și organizatorice adecvate pentru a proteja datele împotriva accesului neautorizat, divulgării, alterării sau distrugerii, inclusiv criptarea transmisiilor prin HTTPS, restricționarea accesului la sistemele de procesare și livrarea documentelor achiziționate prin linkuri semnate, cu durată de valabilitate limitată.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">10. Modificări ale politicii</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Ne rezervăm dreptul de a actualiza prezenta politică pentru a reflecta modificările legislative sau operaționale. Versiunea actualizată se publică pe această pagină, împreună cu data revizuirii.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><button class="btn btn-outline">Întrebări? Contactează-ne</button></div></div></section></main><!-- ══ Footer ══ -->
 <footer class="ftr">
   <div class="container">
     <div class="ftr__top">
@@ -187,7 +189,7 @@
 
       <nav class="ftr__cols" aria-label="Navigare subsol">
         <div class="ftr__col">
-          <h2 class="ftr__h">Date firmă</h2>
+          <p class="ftr__h">Date firmă</p>
           <ul>
             <li><span>MILBAC MANAGEMENT S.R.L.</span></li>
             <li><span>CUI 44991231</span></li>
@@ -199,7 +201,7 @@
           </ul>
         </div>
         <div class="ftr__col">
-          <h2 class="ftr__h">Navigare</h2>
+          <p class="ftr__h">Navigare</p>
           <ul>
             <li><a href="/">Acasă</a></li>
             <li><a href="/despre-noi">Despre noi</a></li>
@@ -210,19 +212,19 @@
           </ul>
         </div>
         <div class="ftr__col">
-          <h2 class="ftr__h">Servicii</h2>
+          <p class="ftr__h">Servicii</p>
           <ul>
             <li><a href="/servicii#analiza">Analiză și consultanță</a></li>
-            <li><a href="/servicii#achizitii">Documentații de atribuire</a></li>
-            <li><a href="/servicii#delegare">Delegare servicii</a></li>
-            <li><a href="/servicii#digitalizare">Digitalizare la comandă</a></li>
+            <li><a href="/documentatii-de-atribuire">Documentații de atribuire</a></li>
+            <li><a href="/delegare-servicii">Delegare servicii</a></li>
+            <li><a href="/digitalizare">Digitalizare la comandă</a></li>
             <li><a href="/servicii#excel">Modele EXCEL</a></li>
             <li><a href="/servicii#word">Modele WORD</a></li>
             <li><a href="/servicii#pdf">Formulare PDF</a></li>
           </ul>
         </div>
         <div class="ftr__col">
-          <h2 class="ftr__h">Politici</h2>
+          <p class="ftr__h">Politici</p>
           <ul>
             <li><a href="/termeni-si-conditii">Termeni și condiții</a></li>
             <li><a href="/politica-confidentialitate">Politica de confidențialitate</a></li>

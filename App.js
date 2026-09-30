@@ -97,13 +97,14 @@ function productSlug(page) {
   return page.startsWith('magazin/') ? page.slice('magazin/'.length) : null;
 }
 
-/* Titlul si descrierea unei pagini de produs vin din catalog. */
+/* Titlul si descrierea unei pagini de produs vin din catalog. Descrierea
+   e `metaDesc` cand produsul o are, altfel cea scurta (ca in build.mjs). */
 function pageMeta(page) {
   const prod = productSlug(page);
   const p = prod && window.shopProductBySlug ? window.shopProductBySlug(prod) : null;
   if (p) return {
     title: p.title + ' | INFORMS',
-    desc: p.shortDesc,
+    desc: p.metaDesc || p.shortDesc,
     product: p
   };
   return PAGE_META[page] || PAGE_META['home'];
@@ -201,6 +202,9 @@ function setJsonLd(page) {
      catalogul magazinului; cel incasat il ia serverul din api/_lib. */
   if (meta.product) {
     const p = meta.product;
+    /* imaginea: prima pagina din previzualizare (previews.js) */
+    const pv = (window.SHOP_PREVIEWS || {})[p.id];
+    const img = pv && pv.pages && pv.pages[0];
     node.mainEntity = {
       '@id': url + '#produs'
     };
@@ -210,10 +214,16 @@ function setJsonLd(page) {
       name: p.title,
       description: p.longDesc || p.shortDesc,
       url,
+      ...(img ? {
+        image: COMPANY.url + '/' + img.src
+      } : {}),
+      ...(p.sku ? {
+        sku: p.sku
+      } : {}),
+      category: 'Documente digitale',
       brand: {
         '@id': COMPANY.url + '/#organizatie'
       },
-      inLanguage: 'ro-RO',
       offers: {
         '@type': 'Offer',
         url,

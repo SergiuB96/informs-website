@@ -82,7 +82,7 @@ const PROD_CATS = [{
 /* Categoriile fără produse nu apar în meniu (vezi hasProducts în Shop.jsx).
    Shop.js se încarcă după Layout.js, deci funcția se citește la randare. */
 const prodCats = () => PROD_CATS.filter(c => !window.shopHasProducts || window.shopHasProducts(c.cat));
-const SVC_LINKS = [['/servicii#analiza', 'Analiză și consultanță'], ['/servicii#achizitii', 'Documentații de atribuire'], ['/servicii#delegare', 'Delegare servicii de utilități publice'], ['/servicii#digitalizare', 'Digitalizare la comandă'], ['/servicii#excel', 'Modele de lucru EXCEL'], ['/servicii#word', 'Modele de lucru WORD'], ['/servicii#pdf', 'Formulare PDF interactive']];
+const SVC_LINKS = [['/servicii#analiza', 'Analiză și consultanță'], ['/documentatii-de-atribuire', 'Documentații de atribuire'], ['/delegare-servicii', 'Delegare servicii de utilități publice'], ['/digitalizare', 'Digitalizare la comandă'], ['/servicii#excel', 'Modele de lucru EXCEL'], ['/servicii#word', 'Modele de lucru WORD'], ['/servicii#pdf', 'Formulare PDF interactive']];
 function Nav({
   onNav,
   page
@@ -323,14 +323,14 @@ function Footer() {
     "aria-label": "Navigare subsol"
   }, /*#__PURE__*/React.createElement("div", {
     className: "ftr__col"
-  }, /*#__PURE__*/React.createElement("h2", {
-    class: "ftr__h"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "ftr__h"
   }, "Date firm\u0103"), /*#__PURE__*/React.createElement("ul", null, rows.map((r, i) => /*#__PURE__*/React.createElement("li", {
     key: i
   }, link(r))))), /*#__PURE__*/React.createElement("div", {
     className: "ftr__col"
-  }, /*#__PURE__*/React.createElement("h2", {
-    class: "ftr__h"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "ftr__h"
   }, "Navigare"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/"
   }, "Acas\u0103")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
@@ -347,16 +347,16 @@ function Footer() {
     href: "/contact"
   }, "Contact")))), /*#__PURE__*/React.createElement("div", {
     className: "ftr__col"
-  }, /*#__PURE__*/React.createElement("h2", {
-    class: "ftr__h"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "ftr__h"
   }, "Servicii"), /*#__PURE__*/React.createElement("ul", null, SVC_LINKS.map(([h, l]) => /*#__PURE__*/React.createElement("li", {
     key: h
   }, /*#__PURE__*/React.createElement("a", {
     href: h
   }, l.replace('Modele de lucru ', 'Modele ').replace(' personalizate', '')))))), /*#__PURE__*/React.createElement("div", {
     className: "ftr__col"
-  }, /*#__PURE__*/React.createElement("h2", {
-    class: "ftr__h"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "ftr__h"
   }, "Politici"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/termeni-si-conditii"
   }, "Termeni \u0219i condi\u021Bii")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {

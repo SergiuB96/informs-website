@@ -25,10 +25,52 @@
     "crumb": "Servicii"
   },
   {
+    "out": "documentatii-de-atribuire.html",
+    "src": "documentatii-de-atribuire.html",
+    "title": "Elaborare documentații de atribuire | INFORMS",
+    "desc": "Caiet de sarcini, fișă de date, criterii de calificare, model de contract și formulare, construite coerent pentru servicii, produse și lucrări.",
+    "css": [
+      "art",
+      "service"
+    ],
+    "nav": "servicii",
+    "navlink": "achizitii",
+    "crumb": "Documentații de atribuire",
+    "parent": "servicii.html"
+  },
+  {
+    "out": "delegare-servicii.html",
+    "src": "delegare-servicii.html",
+    "title": "Delegarea serviciilor de utilități publice | INFORMS",
+    "desc": "Studii de oportunitate și documentații de delegare pentru salubrizare, transport public și iluminat, cu fundamentare economică și juridică.",
+    "css": [
+      "art",
+      "service"
+    ],
+    "nav": "servicii",
+    "navlink": "delegare",
+    "crumb": "Delegarea serviciilor de utilități publice",
+    "parent": "servicii.html"
+  },
+  {
+    "out": "digitalizare.html",
+    "src": "digitalizare.html",
+    "title": "Digitalizarea documentelor și proceselor de lucru | INFORMS",
+    "desc": "Transformăm documentele pe care le completezi des în formulare, calculatoare și fluxuri standardizate. Pentru instituții publice și companii.",
+    "css": [
+      "art",
+      "service"
+    ],
+    "nav": "servicii",
+    "navlink": "digitalizare",
+    "crumb": "Digitalizare la comandă",
+    "parent": "servicii.html"
+  },
+  {
     "out": "despre-noi.html",
     "src": "despre-noi.html",
     "title": "Despre noi: echipa INFORMS din Târgu Mureș | INFORMS",
-    "desc": "INFORMS este brandul MILBAC MANAGEMENT S.R.L. din Târgu Mureș: documentații, instrumente digitale și consultanță, cu o echipă cu peste 15 ani de practică în achiziții publice.",
+    "desc": "INFORMS este brandul MILBAC MANAGEMENT S.R.L. din Târgu Mureș. Echipă cu peste 15 ani de practică în achiziții publice, documentații și instrumente.",
     "css": [
       "art"
     ],

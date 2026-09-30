@@ -664,7 +664,8 @@
   gap: 32px;
 }
 
-/* h2 pentru ordinea titlurilor (cititoare de ecran); arată ca înainte */
+/* Etichetele coloanelor: <p> pe paginile statice (fără patru h2 repetate
+   pe fiecare pagină). Regula e pe clasă, deci arată la fel pe orice tag. */
 .ftr__col .ftr__h {
   font-family: var(--f-body);
   font-size: 15px;

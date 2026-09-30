@@ -52,9 +52,9 @@ const prodCats = () => PROD_CATS.filter(c => !window.shopHasProducts || window.s
 
 const SVC_LINKS = [
   ['/servicii#analiza',  'Analiză și consultanță'],
-  ['/servicii#achizitii', 'Documentații de atribuire'],
-  ['/servicii#delegare',  'Delegare servicii de utilități publice'],
-  ['/servicii#digitalizare', 'Digitalizare la comandă'],
+  ['/documentatii-de-atribuire', 'Documentații de atribuire'],
+  ['/delegare-servicii',  'Delegare servicii de utilități publice'],
+  ['/digitalizare', 'Digitalizare la comandă'],
   ['/servicii#excel',     'Modele de lucru EXCEL'],
   ['/servicii#word',      'Modele de lucru WORD'],
   ['/servicii#pdf',       'Formulare PDF interactive'],
@@ -237,13 +237,13 @@ function Footer() {
 
           <nav className="ftr__cols" aria-label="Navigare subsol">
             <div className="ftr__col">
-              <h2 class="ftr__h">Date firmă</h2>
+              <p className="ftr__h">Date firmă</p>
               <ul>
                 {rows.map((r, i) => <li key={i}>{link(r)}</li>)}
               </ul>
             </div>
             <div className="ftr__col">
-              <h2 class="ftr__h">Navigare</h2>
+              <p className="ftr__h">Navigare</p>
               <ul>
                 <li><a href="/">Acasă</a></li>
                 <li><a href="/despre-noi">Despre noi</a></li>
@@ -254,7 +254,7 @@ function Footer() {
               </ul>
             </div>
             <div className="ftr__col">
-              <h2 class="ftr__h">Servicii</h2>
+              <p className="ftr__h">Servicii</p>
               <ul>
                 {SVC_LINKS.map(([h, l]) => (
                   <li key={h}><a href={h}>{l.replace('Modele de lucru ', 'Modele ').replace(' personalizate', '')}</a></li>
@@ -262,7 +262,7 @@ function Footer() {
               </ul>
             </div>
             <div className="ftr__col">
-              <h2 class="ftr__h">Politici</h2>
+              <p className="ftr__h">Politici</p>
               <ul>
                 <li><a href="/termeni-si-conditii">Termeni și condiții</a></li>
                 <li><a href="/politica-confidentialitate">Politica de confidențialitate</a></li>

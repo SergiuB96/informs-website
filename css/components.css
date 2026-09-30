@@ -385,6 +385,10 @@
    ar lăsa două locuri goale pe al doilea rând. */
 .caps--pair { grid-template-columns: repeat(2, 1fr); }
 
+/* Două seturi de carduri unul sub altul (Servicii: „Pentru cine” și
+   documentele pentru lucrări): aceeași distanță ca între carduri. */
+.caps + .caps { margin-top: 24px; }
+
 /* Patru etape pe un rând când încap; altfel 2x2, ca .caps--pair.
    Cardurile au link la final, aliniat jos ca să stea pe aceeași linie. */
 .caps--four { grid-template-columns: repeat(2, 1fr); }
@@ -560,9 +564,13 @@
 
 .ed__body .lnk { margin-top: 26px; align-self: flex-start; }
 
+/* Două linkuri unul sub altul (Servicii: pagina serviciului, apoi oferta). */
+.ed__body .lnk + .lnk { margin-top: 14px; }
+
 @media (max-width: 1200px) {
   .caps__head { grid-template-columns: minmax(0, 1fr) 340px; gap: 40px; }
   .caps { gap: 20px; }
+  .caps + .caps { margin-top: 20px; }
 }
 
 @media (max-width: 1023px) {

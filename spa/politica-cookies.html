@@ -13,6 +13,7 @@
   <meta property="og:image" content="https://www.informs.ro/assets/brand/og-informs-v2.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="INFORMS - Formulare inteligente. Documentații complete" />
   <meta name="twitter:card" content="summary_large_image" />
   <title>Politica de cookie-uri | INFORMS</title>
   <link rel="canonical" href="https://www.informs.ro/politica-cookies" />
@@ -26,11 +27,12 @@
 
   <!-- Firma si site-ul, declarate static: crawlerele care nu ruleaza
        JavaScript le citesc si aici, nu doar pe paginile generate.
+       Blocul e scris de build.mjs (orgNodes), nu se editeaza de mana.
        Nodul paginii curente il adauga App.jsx la navigare. -->
   <script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[
-    {"@type":"Organization","@id":"https://www.informs.ro/#organizatie","name":"MILBAC MANAGEMENT S.R.L.","alternateName":"INFORMS","legalName":"MILBAC MANAGEMENT S.R.L.","url":"https://www.informs.ro/","logo":{"@type":"ImageObject","url":"https://www.informs.ro/assets/brand/logo-email.png","width":374,"height":76},"email":"office@informs.ro","telephone":"+40 740 023 338","taxID":"44991231","vatID":"44991231","identifier":"J26/1603/2021","address":{"@type":"PostalAddress","streetAddress":"Bld. Pandurilor nr. 86, et. 3, ap. 11","addressLocality":"Târgu Mureș","addressRegion":"Mureș","postalCode":"540487","addressCountry":"RO"},"areaServed":{"@type":"Country","name":"România"},"knowsLanguage":"ro"},
-    {"@type":"WebSite","@id":"https://www.informs.ro/#site","url":"https://www.informs.ro/","name":"INFORMS","inLanguage":"ro-RO","publisher":{"@id":"https://www.informs.ro/#organizatie"}}
+    {"@type":"Organization","@id":"https://www.informs.ro/#organizatie","name":"INFORMS","legalName":"MILBAC MANAGEMENT S.R.L.","alternateName":["INFORMS România","informs.ro","MILBAC MANAGEMENT S.R.L."],"description":"INFORMS este brandul sub care MILBAC MANAGEMENT S.R.L. din Târgu Mureș oferă consultanță în achiziții publice în România: documentații de atribuire, delegarea serviciilor de utilități publice, sprijin pentru ofertanți și modele Word, Excel și PDF.","url":"https://www.informs.ro/","logo":{"@type":"ImageObject","url":"https://www.informs.ro/assets/brand/apple-touch-icon.png","width":180,"height":180},"email":"office@informs.ro","telephone":"+40 740 023 338","taxID":"44991231","identifier":"J26/1603/2021","address":{"@type":"PostalAddress","streetAddress":"Bld. Pandurilor nr. 86, et. 3, ap. 11","addressLocality":"Târgu Mureș","addressRegion":"Mureș","postalCode":"540487","addressCountry":"RO"},"areaServed":{"@type":"Country","name":"România"},"knowsLanguage":"ro"},
+    {"@type":"WebSite","@id":"https://www.informs.ro/#site","url":"https://www.informs.ro/","name":"INFORMS","alternateName":"informs.ro","inLanguage":"ro-RO","publisher":{"@id":"https://www.informs.ro/#organizatie"}}
   ]}
   </script>
 
@@ -60,7 +62,7 @@
   <!-- Chrome-ul comun cu paginile statice. Generat de build.mjs,
        cu tokenii limitati ca sa nu atinga tema magazinului. -->
   <link rel="stylesheet" href="css/art.css?v=bd6c8bdd" />
-  <link rel="stylesheet" href="css/spa-chrome.css?v=2246dffa" />
+  <link rel="stylesheet" href="css/spa-chrome.css?v=3ed6d3bb" />
   <!-- Identitatea site-ului peste main.css: ultimul, ca sa castige. -->
   <link rel="stylesheet" href="css/shop.css?v=a2e09e63" />
   <!-- Bannerul de cookie apare după randare: stilurile lui nu blochează pagina -->
@@ -73,19 +75,19 @@
 
   <!-- Aplicație - defer, se execută în ordine după parsarea HTML -->
   <script defer src="Config.js?v=b58e0158"></script>
-  <script defer src="Layout.js?v=6d9c643b"></script>
+  <script defer src="Layout.js?v=ac001845"></script>
   <script defer src="Icons.js?v=d1a3406e"></script>
   <script defer src="Pages.js?v=56cc0686"></script>
   <script defer src="Legal.js?v=46a53733"></script>
   <!-- Previzualizările (generat de tools/previzualizari.py), înaintea magazinului -->
   <script defer src="previews.js?v=810c84c2"></script>
-  <script defer src="Shop.js?v=a3af0c0c"></script>
+  <script defer src="Shop.js?v=3a28b95c"></script>
   <!-- înaintea App.js: observă elementele din prima randare -->
   <script defer src="js/spa-reveal.js?v=0b37734c"></script>
   <!-- Derulare lină la rotiță; aceeași ca pe paginile statice -->
   <script defer src="vendor/lenis.min.js?v=daec1872"></script>
   <script defer src="js/smooth-scroll.js?v=fe1532a7"></script>
-  <script defer src="App.js?v=5bbf2d24"></script>
+  <script defer src="App.js?v=e44ec986"></script>
 
 </head>
 <body>
@@ -112,9 +114,9 @@
                 <p class="mega__label">Servicii</p>
                 <ul class="mega__links">
                   <li><a data-navlink="analiza" href="/servicii#analiza">Analiză și consultanță</a></li>
-                  <li><a data-navlink="achizitii" href="/servicii#achizitii">Documentații de atribuire</a></li>
-                  <li><a data-navlink="delegare" href="/servicii#delegare">Delegare servicii de utilități publice</a></li>
-                  <li><a data-navlink="digitalizare" href="/servicii#digitalizare">Digitalizare la comandă</a></li>
+                  <li><a data-navlink="achizitii" href="/documentatii-de-atribuire">Documentații de atribuire</a></li>
+                  <li><a data-navlink="delegare" href="/delegare-servicii">Delegare servicii de utilități publice</a></li>
+                  <li><a data-navlink="digitalizare" href="/digitalizare">Digitalizare la comandă</a></li>
                 </ul>
               </div>
               <div class="mega__col">
@@ -170,7 +172,7 @@
       <span></span><span></span><span></span>
     </button>
   </div>
-</header><main id="main" style="min-height:60vh"><div class="pg-hero"><div class="container"><h1>Politica de cookie-uri</h1><p>Ce cookie-uri folosește INFORMS și cum îți poți controla preferințele.</p></div></div></main><!-- ══ Footer ══ -->
+</header><main id="main" style="min-height:60vh"><div class="pg-hero"><div class="container"><h1>Politica de cookie-uri</h1><p>Ce cookie-uri folosim și cum îți controlezi preferințele.</p></div></div><section class="sec"><div class="container" style="max-width:800px"><div class="card" style="padding:40px 44px"><p style="font-size:0.82rem;color:var(--text-2);margin-bottom:32px">Ultima actualizare: 15 septembrie 2026</p><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Cookie-urile sunt fișiere text de mici dimensiuni pe care un website le stochează în browserul tău. Ele permit site-ului să funcționeze corect și, cu acordul tău, să înțelegem cum este folosit.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">1. Categoriile pe care le folosim</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px"><strong>Cookie-uri strict necesare.</strong> Asigură funcționarea corectă a site-ului, inclusiv memorarea alegerii tale privind cookie-urile. Nu pot fi dezactivate și nu necesită consimțământ.</p><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px"><strong>Cookie-uri de analiză.</strong> Folosim Google Analytics 4 pentru a înțelege ce pagini sunt vizitate, cât durează o sesiune și de pe ce tip de dispozitiv se accesează site-ul. Datele sunt agregate și anonimizate. Aceste cookie-uri se activează <strong>doar după acordul tău explicit</strong>.</p><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Nu folosim cookie-uri de publicitate și nu vindem date de navigare către terți.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">2. Cum îți exprimi și cum îți retragi acordul</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">La prima vizită primești un banner cu opțiunile „Acceptă toate”, „Doar necesare” și „Setări”. Alegerea se memorează, iar preferințele pot fi schimbate oricând.</p><button class="btn btn-outline" style="margin-bottom:14px">Modifică preferințele cookie</button><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Poți de asemenea șterge sau bloca cookie-urile din setările browserului. Blocarea celor strict necesare poate afecta funcționarea site-ului.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">3. Durata de viață</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Cookie-ul de consimțământ se păstrează 6 luni, după care banerul reapare. Cookie-urile Google Analytics au durate stabilite de furnizor, de regulă până la 24 de luni pentru identificatorul de vizitator.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">4. Cookie-uri ale terților</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Google Analytics este furnizat de Google Ireland Limited. Serviciul plasează cookie-uri proprii, guvernate de politica de confidențialitate a furnizorului. În timpul procesului de plată ești redirecționat către pagina securizată a procesatorului de plăți, care folosește propriile cookie-uri, necesare tranzacției.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><h2 style="font-family:var(--f-display);font-size:1.45rem;font-weight:400;letter-spacing:-.01em;color:var(--navy);margin-top:36px;margin-bottom:10px">5. Legătura cu prelucrarea datelor</h2><p style="color:var(--text-2);font-size:0.97rem;line-height:1.82;margin-bottom:14px">Modul în care prelucrăm datele cu caracter personal este descris în <a href="/politica-confidentialitate" style="color:var(--blue-a)">Politica de confidențialitate</a>.</p><div style="border-top:1px solid var(--border);margin:32px 0"></div><button class="btn btn-outline">Întrebări? Contactează-ne</button></div></div></section></main><!-- ══ Footer ══ -->
 <footer class="ftr">
   <div class="container">
     <div class="ftr__top">
@@ -187,7 +189,7 @@
 
       <nav class="ftr__cols" aria-label="Navigare subsol">
         <div class="ftr__col">
-          <h2 class="ftr__h">Date firmă</h2>
+          <p class="ftr__h">Date firmă</p>
           <ul>
             <li><span>MILBAC MANAGEMENT S.R.L.</span></li>
             <li><span>CUI 44991231</span></li>
@@ -199,7 +201,7 @@
           </ul>
         </div>
         <div class="ftr__col">
-          <h2 class="ftr__h">Navigare</h2>
+          <p class="ftr__h">Navigare</p>
           <ul>
             <li><a href="/">Acasă</a></li>
             <li><a href="/despre-noi">Despre noi</a></li>
@@ -210,19 +212,19 @@
           </ul>
         </div>
         <div class="ftr__col">
-          <h2 class="ftr__h">Servicii</h2>
+          <p class="ftr__h">Servicii</p>
           <ul>
             <li><a href="/servicii#analiza">Analiză și consultanță</a></li>
-            <li><a href="/servicii#achizitii">Documentații de atribuire</a></li>
-            <li><a href="/servicii#delegare">Delegare servicii</a></li>
-            <li><a href="/servicii#digitalizare">Digitalizare la comandă</a></li>
+            <li><a href="/documentatii-de-atribuire">Documentații de atribuire</a></li>
+            <li><a href="/delegare-servicii">Delegare servicii</a></li>
+            <li><a href="/digitalizare">Digitalizare la comandă</a></li>
             <li><a href="/servicii#excel">Modele EXCEL</a></li>
             <li><a href="/servicii#word">Modele WORD</a></li>
             <li><a href="/servicii#pdf">Formulare PDF</a></li>
           </ul>
         </div>
         <div class="ftr__col">
-          <h2 class="ftr__h">Politici</h2>
+          <p class="ftr__h">Politici</p>
           <ul>
             <li><a href="/termeni-si-conditii">Termeni și condiții</a></li>
             <li><a href="/politica-confidentialitate">Politica de confidențialitate</a></li>

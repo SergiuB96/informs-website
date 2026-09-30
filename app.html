@@ -13,6 +13,7 @@
   <meta property="og:image" content="https://www.informs.ro/assets/brand/og-informs-v2.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="INFORMS - Formulare inteligente. Documentații complete" />
   <meta name="twitter:card" content="summary_large_image" />
   <title>INFORMS - Formulare inteligente. Documentații complete.</title>
 
@@ -23,11 +24,12 @@
 
   <!-- Firma si site-ul, declarate static: crawlerele care nu ruleaza
        JavaScript le citesc si aici, nu doar pe paginile generate.
+       Blocul e scris de build.mjs (orgNodes), nu se editeaza de mana.
        Nodul paginii curente il adauga App.jsx la navigare. -->
   <script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[
-    {"@type":"Organization","@id":"https://www.informs.ro/#organizatie","name":"MILBAC MANAGEMENT S.R.L.","alternateName":"INFORMS","legalName":"MILBAC MANAGEMENT S.R.L.","url":"https://www.informs.ro/","logo":{"@type":"ImageObject","url":"https://www.informs.ro/assets/brand/logo-email.png","width":374,"height":76},"email":"office@informs.ro","telephone":"+40 740 023 338","taxID":"44991231","vatID":"44991231","identifier":"J26/1603/2021","address":{"@type":"PostalAddress","streetAddress":"Bld. Pandurilor nr. 86, et. 3, ap. 11","addressLocality":"Târgu Mureș","addressRegion":"Mureș","postalCode":"540487","addressCountry":"RO"},"areaServed":{"@type":"Country","name":"România"},"knowsLanguage":"ro"},
-    {"@type":"WebSite","@id":"https://www.informs.ro/#site","url":"https://www.informs.ro/","name":"INFORMS","inLanguage":"ro-RO","publisher":{"@id":"https://www.informs.ro/#organizatie"}}
+    {"@type":"Organization","@id":"https://www.informs.ro/#organizatie","name":"INFORMS","legalName":"MILBAC MANAGEMENT S.R.L.","alternateName":["INFORMS România","informs.ro","MILBAC MANAGEMENT S.R.L."],"description":"INFORMS este brandul sub care MILBAC MANAGEMENT S.R.L. din Târgu Mureș oferă consultanță în achiziții publice în România: documentații de atribuire, delegarea serviciilor de utilități publice, sprijin pentru ofertanți și modele Word, Excel și PDF.","url":"https://www.informs.ro/","logo":{"@type":"ImageObject","url":"https://www.informs.ro/assets/brand/apple-touch-icon.png","width":180,"height":180},"email":"office@informs.ro","telephone":"+40 740 023 338","taxID":"44991231","identifier":"J26/1603/2021","address":{"@type":"PostalAddress","streetAddress":"Bld. Pandurilor nr. 86, et. 3, ap. 11","addressLocality":"Târgu Mureș","addressRegion":"Mureș","postalCode":"540487","addressCountry":"RO"},"areaServed":{"@type":"Country","name":"România"},"knowsLanguage":"ro"},
+    {"@type":"WebSite","@id":"https://www.informs.ro/#site","url":"https://www.informs.ro/","name":"INFORMS","alternateName":"informs.ro","inLanguage":"ro-RO","publisher":{"@id":"https://www.informs.ro/#organizatie"}}
   ]}
   </script>
 
@@ -57,7 +59,7 @@
   <!-- Chrome-ul comun cu paginile statice. Generat de build.mjs,
        cu tokenii limitati ca sa nu atinga tema magazinului. -->
   <link rel="stylesheet" href="css/art.css?v=bd6c8bdd" />
-  <link rel="stylesheet" href="css/spa-chrome.css?v=2246dffa" />
+  <link rel="stylesheet" href="css/spa-chrome.css?v=3ed6d3bb" />
   <!-- Identitatea site-ului peste main.css: ultimul, ca sa castige. -->
   <link rel="stylesheet" href="css/shop.css?v=a2e09e63" />
   <!-- Bannerul de cookie apare după randare: stilurile lui nu blochează pagina -->
@@ -70,19 +72,19 @@
 
   <!-- Aplicație - defer, se execută în ordine după parsarea HTML -->
   <script defer src="Config.js?v=b58e0158"></script>
-  <script defer src="Layout.js?v=6d9c643b"></script>
+  <script defer src="Layout.js?v=ac001845"></script>
   <script defer src="Icons.js?v=d1a3406e"></script>
   <script defer src="Pages.js?v=56cc0686"></script>
   <script defer src="Legal.js?v=46a53733"></script>
   <!-- Previzualizările (generat de tools/previzualizari.py), înaintea magazinului -->
   <script defer src="previews.js?v=810c84c2"></script>
-  <script defer src="Shop.js?v=a3af0c0c"></script>
+  <script defer src="Shop.js?v=3a28b95c"></script>
   <!-- înaintea App.js: observă elementele din prima randare -->
   <script defer src="js/spa-reveal.js?v=0b37734c"></script>
   <!-- Derulare lină la rotiță; aceeași ca pe paginile statice -->
   <script defer src="vendor/lenis.min.js?v=daec1872"></script>
   <script defer src="js/smooth-scroll.js?v=fe1532a7"></script>
-  <script defer src="App.js?v=5bbf2d24"></script>
+  <script defer src="App.js?v=e44ec986"></script>
 
 </head>
 <body>

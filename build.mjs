@@ -2,7 +2,8 @@
    informs - build static
 
    Asamblează paginile din src/ în HTML static la rădăcină.
-   Fără dependențe: rulezi `node build.mjs`.
+   Rulezi `node build.mjs`. Singura dependență e de dezvoltare:
+   react și react-dom, pentru pre-randarea paginilor legale.
 
    De ce un build și nu include-uri PHP sau injecție din JS:
    ieșirea rămâne HTML pur, deci merge pe orice găzduire, se
@@ -11,6 +12,8 @@
 
 import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync, rmSync } from 'node:fs';
 import vm from 'node:vm';
+import { execFileSync } from 'node:child_process';
+import { createRequire } from 'node:module';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
@@ -236,17 +239,37 @@ function companyData() {
   };
 }
 
+/* Serviciile cu pagină proprie trimit la ea; celelalte, la secțiunea
+   lor din /servicii. */
 const SERVICES = [
   ['Analiză și consultanță în achiziții publice', '/servicii#analiza'],
-  ['Documentații de atribuire', '/servicii#achizitii'],
-  ['Delegarea serviciilor de utilități publice', '/servicii#delegare'],
-  ['Digitalizare la comandă', '/servicii#digitalizare'],
+  ['Documentații de atribuire', '/documentatii-de-atribuire'],
+  ['Delegarea serviciilor de utilități publice', '/delegare-servicii'],
+  ['Digitalizare la comandă', '/digitalizare'],
   ['Instrumente de lucru Excel, Word și PDF', '/servicii#instrumente'],
 ];
 
-function jsonLd(page, path) {
+/* Nodul unui serviciu. Același @id pe /servicii și pe pagina proprie a
+   serviciului, ca să fie o singură entitate. Adresa unei pagini poartă
+   deja nodul paginii (#pagina), deci serviciul primește #serviciu. */
+const serviceId = (href) => HOST + href + (href.includes('#') ? '' : '#serviciu');
+
+function serviceNode([name, href]) {
+  return {
+    '@type': 'Service',
+    '@id': serviceId(href),
+    name,
+    url: HOST + href,
+    serviceType: name,
+    provider: { '@id': HOST + '/#organizatie' },
+    areaServed: { '@type': 'Country', name: 'România' },
+  };
+}
+
+/* Firma și site-ul. Aceleași două noduri ajung pe paginile statice
+   și în app.html (scrise de build, mai jos), deci nu pot diverge. */
+function orgNodes() {
   const c = companyData();
-  const url = HOST + path;
   const site = HOST + '/#site';
   const org = HOST + '/#organizatie';
 
@@ -262,24 +285,30 @@ function jsonLd(page, path) {
     addressCountry: 'RO',
   };
 
-  const graph = [
+  /* `name` e brandul, cum e căutată firma; denumirea societății stă în
+     legalName. Fără vatID: societatea nu e înregistrată în scopuri de
+     TVA (Config.jsx), deci CUI-ul e doar cod fiscal. Logo-ul e simbolul
+     pătrat; Google cere cel puțin 112x112. */
+  return [
     {
       '@type': 'Organization',
       '@id': org,
-      name: c.name,
-      alternateName: c.brand,
+      name: c.brand,
       legalName: c.name,
+      alternateName: [c.brand + ' România', 'informs.ro', c.name],
+      description: `${c.brand} este brandul sub care ${c.name} din Târgu Mureș oferă consultanță în ` +
+        'achiziții publice în România: documentații de atribuire, delegarea serviciilor de utilități ' +
+        'publice, sprijin pentru ofertanți și modele Word, Excel și PDF.',
       url: HOST + '/',
       logo: {
         '@type': 'ImageObject',
-        url: HOST + '/assets/brand/logo-email.png',
-        width: 374,
-        height: 76,
+        url: HOST + '/assets/brand/apple-touch-icon.png',
+        width: 180,
+        height: 180,
       },
       email: c.email,
       telephone: c.phone,
       taxID: c.cui,
-      vatID: c.cui,
       identifier: c.regCom,
       address: postal,
       areaServed: { '@type': 'Country', name: 'România' },
@@ -290,9 +319,33 @@ function jsonLd(page, path) {
       '@id': site,
       url: HOST + '/',
       name: c.brand,
+      alternateName: 'informs.ro',
       inLanguage: 'ro-RO',
       publisher: { '@id': org },
     },
+  ];
+}
+
+function jsonLd(page, path) {
+  const url = HOST + path;
+  const site = HOST + '/#site';
+  const org = HOST + '/#organizatie';
+
+  /* Pagina-părinte din firimituri (`parent` în pages.json), pentru
+     paginile de sub Servicii: Acasă, Servicii, pagina. */
+  const parent = page.parent ? pages.find((p) => p.out === page.parent) : null;
+  if (page.parent && !parent) throw new Error(`${page.out}: parent necunoscut ${page.parent}`);
+  const trail = [
+    { name: 'Acasă', item: HOST + '/' },
+    ...(parent ? [{ name: parent.crumb || parent.title, item: HOST + '/' + parent.out.replace(/\.html$/, '') }] : []),
+    { name: page.crumb || page.title, item: url },
+  ];
+
+  /* Serviciul descris de pagină, dacă are pagină proprie. */
+  const ownService = SERVICES.find(([, href]) => href === path);
+
+  const graph = [
+    ...orgNodes(),
     {
       '@type': page.schemaType || 'WebPage',
       '@id': url + '#pagina',
@@ -302,29 +355,19 @@ function jsonLd(page, path) {
       inLanguage: 'ro-RO',
       isPartOf: { '@id': site },
       about: { '@id': org },
+      ...(ownService ? { mainEntity: { '@id': serviceId(ownService[1]) } } : {}),
       ...(path === '/' ? {} : {
         breadcrumb: {
           '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Acasă', item: HOST + '/' },
-            { '@type': 'ListItem', position: 2, name: page.crumb || page.title, item: url },
-          ],
+          itemListElement: trail.map((t, i) => ({ '@type': 'ListItem', position: i + 1, ...t })),
         },
       }),
     },
   ];
 
   /* Serviciile sunt oferta reala a firmei, enumerate pe pagina Servicii. */
-  if (page.out === 'servicii.html') {
-    graph.push(...SERVICES.map(([name, href]) => ({
-      '@type': 'Service',
-      '@id': HOST + href,
-      name,
-      serviceType: name,
-      provider: { '@id': org },
-      areaServed: { '@type': 'Country', name: 'România' },
-    })));
-  }
+  if (page.out === 'servicii.html') graph.push(...SERVICES.map(serviceNode));
+  if (ownService) graph.push(serviceNode(ownService));
 
   return '<script type="application/ld+json">' +
     JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }) +
@@ -425,6 +468,13 @@ for (const page of pages) {
   // dupa injectarea partialelor, ca {{company}} din footer sa fie prins
   html = html.replace('{{company}}', companyRowsHtml());
 
+  /* O pagină scoasă din index nu are adresă canonică de declarat. */
+  if (page.noindex) {
+    html = html
+      .replace(/\n<link rel="canonical"[^>]*>/, '')
+      .replace(/\n<meta property="og:url"[^>]*>/, '');
+  }
+
   html = applyActive(html, page);
   html = cleanUrls(html);
   html = stampAssets(html);
@@ -443,13 +493,20 @@ buildSpaChrome();
 
 /* app.html nu e generat, dar își ia versiunile tot de aici. Rulează
    după buildSpaChrome() și după babel (npm run build), ca hash-urile
-   să fie ale fișierelor finale. Idempotent: rescrie doar ?v=. */
+   să fie ale fișierelor finale. Tot aici primește firma și site-ul din
+   orgNodes(), ca blocul lui static să fie același cu al paginilor
+   generate. Idempotent: rescrie doar ?v= și acel bloc JSON-LD. */
 {
   const appPath = join(ROOT, 'app.html');
   const before = readFileSync(appPath, 'utf8');
-  const after = stampAssets(before);
+  const ORG_BLOCK = /(<script type="application\/ld\+json">)[\s\S]*?(<\/script>)/;
+  if (!ORG_BLOCK.test(before)) throw new Error('app.html: nu găsesc blocul JSON-LD al firmei');
+  const eol = before.includes('\r\n') ? '\r\n' : '\n';
+  const nodes = orgNodes().map((n) => '    ' + JSON.stringify(n)).join(',' + eol);
+  const block = `${eol}  {"@context":"https://schema.org","@graph":[${eol}${nodes}${eol}  ]}${eol}  `;
+  const after = stampAssets(before.replace(ORG_BLOCK, (m, open, close) => open + block + close));
   if (after !== before) writeFileSync(appPath, after, 'utf8');
-  console.log(`app.html: versiuni ${after !== before ? 'actualizate' : 'neschimbate'}.`);
+  console.log(`app.html: ${after !== before ? 'actualizat' : 'neschimbat'} (versiuni, date structurate).`);
 }
 
 /* ── Paginile aplicației, pre-randate ─────────────────────────
@@ -504,6 +561,41 @@ const LEGAL_PAGES = Object.keys(PAGE_META).filter((k) =>
 
 const fmtPrice = (p) => (p.price === 0 ? 'Gratuit' : `${p.price} lei`);
 
+/* Descrierea din <meta>: cea scurtă a produsului, sau `metaDesc` când
+   cea scurtă trece de lungimea pe care o afișează motoarele de căutare. */
+const productDesc = (p) => p.metaDesc || p.shortDesc;
+
+/* Previzualizările, din același previews.js pe care îl încarcă
+   aplicația (generat de tools/previzualizari.py). */
+const SHOP_PREVIEWS = (() => {
+  const file = join(ROOT, 'previews.js');
+  if (!existsSync(file)) return {};
+  const ctx = { window: {} };
+  vm.runInNewContext(readFileSync(file, 'utf8'), ctx);
+  return ctx.window.SHOP_PREVIEWS || {};
+})();
+const previewPages = (p) => (SHOP_PREVIEWS[p.id] && SHOP_PREVIEWS[p.id].pages) || [];
+
+/* Textul alternativ al miniaturilor, identic cu previewAlt() din Shop.jsx. */
+const previewAlt = (p, pg, k) => (k === 0
+  ? `Prima pagină din previzualizarea documentului ${p.title}`
+  : `Pagina ${pg.page} din documentul ${p.title}`);
+
+/* „Alte documente…”: celelalte produse vizibile cu același public sau
+   de pe același raft. Aceeași regulă ca relatedProducts() din Shop.jsx,
+   cu titlurile citite de acolo. */
+const RELATED_TITLES = sourceLiteral('Shop.jsx', 'const RELATED_TITLES =');
+function relatedProducts(p) {
+  const others = SHOP_PRODUCTS.filter((o) => !o.hidden && o.id !== p.id);
+  const groups = (p.audiences || []).map((a) => ({
+    title: RELATED_TITLES[a],
+    items: others.filter((o) => (o.audiences || []).includes(a)),
+  }));
+  if (p.shelf) groups.push({ title: RELATED_TITLES[p.shelf], items: others.filter((o) => o.shelf === p.shelf) });
+  /* grupul cel mai bogat; la egalitate, primul public al produsului */
+  return groups.filter((g) => g.title && g.items.length).sort((a, b) => b.items.length - a.items.length)[0] || null;
+}
+
 /* Nodul paginii, identic cu setJsonLd() din App.jsx. Organizația și
    site-ul sunt deja declarate static în app.html. */
 function spaJsonLd({ path, meta, crumb, product, collection }) {
@@ -529,6 +621,7 @@ function spaJsonLd({ path, meta, crumb, product, collection }) {
 
   const graph = [node];
   if (product) {
+    const img = previewPages(product)[0];
     node.mainEntity = { '@id': url + '#produs' };
     graph.push({
       '@type': 'Product',
@@ -536,8 +629,10 @@ function spaJsonLd({ path, meta, crumb, product, collection }) {
       name: product.title,
       description: product.longDesc || product.shortDesc,
       url,
+      ...(img ? { image: HOST + '/' + img.src } : {}),
+      ...(product.sku ? { sku: product.sku } : {}),
+      category: 'Documente digitale',
       brand: { '@id': HOST + '/#organizatie' },
-      inLanguage: 'ro-RO',
       offers: {
         '@type': 'Offer',
         url,
@@ -577,8 +672,16 @@ function shopBody(products) {
   }) + `<section class="sec"><div class="container"><ul class="sp-prerender">${items}</ul></div></section>`;
 }
 
+/* Același marcaj ca ProductDetails din Shop.jsx: etichetele de secțiune
+   sunt titluri h2, cu fontul și interlinia moștenite, ca să arate ca
+   înainte (SEC_LABEL_STYLE în Shop.jsx). */
 function productBody(p) {
-  const sec = (label, inner) => `<div class="shop-modal-sec"><div class="shop-modal-lbl">${label}</div>${inner}</div>`;
+  const sec = (label, inner, style = '') =>
+    `<div class="shop-modal-sec"${style}><h2 class="shop-modal-lbl" style="font-family:inherit;line-height:inherit">${label}</h2>${inner}</div>`;
+  const thumbs = previewPages(p).map((pg, k) =>
+    `<span class="pv-strip__item"><img src="${esc(pg.src)}" width="${pg.w}" height="${pg.h}" ` +
+    `alt="${esc(previewAlt(p, pg, k))}" loading="lazy"><span>Pag. ${pg.page}</span></span>`).join('');
+  const related = relatedProducts(p);
   const details = [
     p.version ? `Versiunea ${esc(p.version)}${p.updated ? ', ' + esc(p.updated) : ''}` : '',
     p.stats && p.stats.pages ? `${p.stats.pages} pagini` : '',
@@ -594,27 +697,80 @@ function productBody(p) {
     sec('Descriere', `<p class="sp-modal-text">${esc(p.longDesc)}</p>`) +
     (p.forWhom ? sec('Pentru cine', `<p class="sp-modal-text">${esc(p.forWhom)}</p>`) : '') +
     sec('Ce include', `<ul class="shop-modal-includes">${(p.includes || []).map((i) => `<li>${esc(i)}</li>`).join('')}</ul>`) +
+    (thumbs ? sec('Previzualizare', `<div class="pv-strip">${thumbs}</div>`) : '') +
     sec('Detalii tehnice', `<p class="sp-modal-text">${details}</p>`) +
     sec('Preț', `<p class="sp-modal-text">${fmtPrice(p)}</p>`) +
+    (related ? sec(esc(related.title), '<ul class="shop-modal-includes">' +
+      related.items.map((o) => `<li><a href="/magazin/${o.id}" style="color:var(--blue)">${esc(o.title)}</a></li>`).join('') +
+      '</ul>', ' style="margin-top:28px;margin-bottom:0"') : '') +
+    '<p class="sp-modal-text--note">Ai nevoie de documentul adaptat pe firma ta? <a href="/contact">Scrie-ne.</a></p>' +
     '</div></div></section>';
 }
 
+/* ── Textul paginilor legale ──────────────────────────────────
+   Fără JavaScript, paginile legale aveau doar titlul și o frază. Aici
+   randăm componentele reale din Legal.js (cel compilat, pe care îl
+   încarcă și browserul) cu react-dom/server, într-un context izolat în
+   care Config.js își pune datele pe `window`, ca în pagină. Rezultatul
+   e HTML simplu; în browser, createRoot().render() din App.jsx
+   înlocuiește conținutul din #root, deci textul nu apare de două ori. */
+const legalHtml = (() => {
+  const require = createRequire(import.meta.url);
+  let React, renderToStaticMarkup;
+  try {
+    React = require('react');
+    ({ renderToStaticMarkup } = require('react-dom/server'));
+  } catch (e) {
+    throw new Error('Lipsesc react și react-dom (devDependencies). Rulează `npm install`. ' + e.message);
+  }
+  const ctx = { React };
+  ctx.window = ctx;
+  vm.createContext(ctx);
+  for (const f of ['Config.js', 'Legal.js']) vm.runInContext(read(ROOT, f), ctx, { filename: f });
+  return (type) => {
+    if (!ctx.LEGAL_PAGES || !ctx.LEGAL_PAGES[type]) throw new Error(`Legal.js: nu există pagina ${type}`);
+    return renderToStaticMarkup(React.createElement(ctx.PolicyPage, { type, onNav() {} }));
+  };
+})();
+
+/* Imaginea din linkurile distribuite: cea a site-ului, iar la produse
+   prima pagină din previzualizare. */
+const OG_DEFAULT = { type: 'website' };
+
 /* app.html + meta-ul și conținutul paginii. */
-function spaPage({ path, meta, body, jsonld, noindex }) {
+function spaPage({ path, meta, body, jsonld, noindex, og = OG_DEFAULT }) {
   for (const k of ['title', 'desc']) {
     if (/["<>]/.test(meta[k])) throw new Error(`${path}: ${k} conține caractere nepermise ("<>)`);
   }
   let chrome = ['header', 'footer'].map((n) => partials[n]);
   chrome = chrome.map((h) => cleanUrls(h.replace('{{company}}', companyRowsHtml())));
 
-  const html = readFileSync(join(ROOT, 'app.html'), 'utf8')
-    .replace(/<title>[^<]*<\/title>/, `<title>${meta.title}</title>\n  <link rel="canonical" href="${HOST}${path}" />\n  <meta property="og:url" content="${HOST}${path}" />\n  ` +
-      (noindex ? '<meta name="robots" content="noindex, follow" />\n  ' : '') + jsonld)
-    .replace(/(<meta name="description" content=")[^"]*/, `$1${meta.desc}`)
-    .replace(/(<meta property="og:title" content=")[^"]*/, `$1${meta.title}`)
-    .replace(/(<meta property="og:description" content=")[^"]*/, `$1${meta.desc}`)
-    .replace('<div id="root"></div>',
+  /* O pagină scoasă din index nu primește canonică și nici og:url. */
+  const address = noindex
+    ? '<meta name="robots" content="noindex, follow" />\n  '
+    : `<link rel="canonical" href="${HOST}${path}" />\n  <meta property="og:url" content="${HOST}${path}" />\n  `;
+  const setMeta = (html, attr, value) => {
+    const re = new RegExp(`(<meta ${attr} content=")[^"]*`);
+    if (!re.test(html)) throw new Error(`app.html: lipsește <meta ${attr}>`);
+    return html.replace(re, (m, open) => open + value);
+  };
+
+  /* Înlocuirile se fac prin funcții: un `$` din text ar fi altfel citit
+     ca referință la grupul capturat. */
+  let html = readFileSync(join(ROOT, 'app.html'), 'utf8')
+    .replace(/<title>[^<]*<\/title>/, () => `<title>${meta.title}</title>\n  ${address}${jsonld}`)
+    .replace('<div id="root"></div>', () =>
       `<div id="root">${chrome[0]}<main id="main" style="min-height:60vh">${body}</main>${chrome[1]}</div>`);
+  html = setMeta(html, 'name="description"', meta.desc);
+  html = setMeta(html, 'property="og:title"', meta.title);
+  html = setMeta(html, 'property="og:description"', meta.desc);
+  html = setMeta(html, 'property="og:type"', og.type);
+  if (og.image) {
+    html = setMeta(html, 'property="og:image"', og.image);
+    html = setMeta(html, 'property="og:image:width"', og.width);
+    html = setMeta(html, 'property="og:image:height"', og.height);
+    html = setMeta(html, 'property="og:image:alt"', esc(og.alt));
+  }
 
   const left = html.match(/\{\{[^}]+\}\}/g);
   if (left) throw new Error(`${path}: substituții nerezolvate ${left.join(', ')}`);
@@ -638,10 +794,15 @@ const spaOut = [
      /magazin/<produs>?test=1 trebuie să meargă. Ies din index. */
   ...SHOP_PRODUCTS.map((p) => {
     const path = '/magazin/' + p.id;
-    const meta = { title: p.title + ' | INFORMS', desc: p.shortDesc };
+    const meta = { title: p.title + ' | INFORMS', desc: productDesc(p) };
+    const img = previewPages(p)[0];
     return {
       file: `magazin/${p.id}.html`, path, meta, noindex: !!p.hidden,
       body: productBody(p), jsonld: spaJsonLd({ path, meta, product: p }),
+      og: {
+        type: 'product',
+        ...(img ? { image: HOST + '/' + img.src, width: img.w, height: img.h, alt: previewAlt(p, img, 0) } : {}),
+      },
     };
   }),
   ...LEGAL_PAGES.map((k) => {
@@ -651,7 +812,7 @@ const spaOut = [
       file: k + '.html',
       path: '/' + k,
       meta,
-      body: heroHtml({ title: meta.title.split(' | ')[0], lead: meta.desc }),
+      body: legalHtml(k),
       jsonld: spaJsonLd({ path: '/' + k, meta, crumb }),
     };
   }),
@@ -668,25 +829,61 @@ console.log(`spa/: ${spaOut.length} pagini pre-randate (magazin, ${visibleProduc
    nu pot fi descoperite citind fișiere de pe disc.
    ───────────────────────────────────────────────────────────── */
 // rute servite în continuare de aplicația React
+/* `src` e fișierul din care vine conținutul paginii; de la el luăm lastmod. */
 const SPA_ROUTES = [
-  { path: '/magazin', priority: '0.9', freq: 'weekly' },
-  { path: '/politica-confidentialitate', priority: '0.3', freq: 'yearly' },
-  { path: '/termeni-si-conditii', priority: '0.3', freq: 'yearly' },
-  { path: '/politica-gdpr', priority: '0.3', freq: 'yearly' },
-  { path: '/politica-cookies', priority: '0.3', freq: 'yearly' },
-  { path: '/politica-livrare', priority: '0.3', freq: 'yearly' },
-  { path: '/politica-anulare', priority: '0.3', freq: 'yearly' },
-  { path: '/dreptul-de-retragere', priority: '0.3', freq: 'yearly' }
+  { path: '/magazin', priority: '0.9', freq: 'weekly', src: 'Shop.jsx' },
+  { path: '/politica-confidentialitate', priority: '0.3', freq: 'yearly', src: 'Legal.jsx' },
+  { path: '/termeni-si-conditii', priority: '0.3', freq: 'yearly', src: 'Legal.jsx' },
+  { path: '/politica-gdpr', priority: '0.3', freq: 'yearly', src: 'Legal.jsx' },
+  { path: '/politica-cookies', priority: '0.3', freq: 'yearly', src: 'Legal.jsx' },
+  { path: '/politica-livrare', priority: '0.3', freq: 'yearly', src: 'Legal.jsx' },
+  { path: '/politica-anulare', priority: '0.3', freq: 'yearly', src: 'Legal.jsx' },
+  { path: '/dreptul-de-retragere', priority: '0.3', freq: 'yearly', src: 'Legal.jsx' }
 ];
 
 const today = new Date().toISOString().slice(0, 10);
+
+/* ── lastmod ──────────────────────────────────────────────────
+   Data build-ului pe toate adresele spunea „totul s-a schimbat azi” la
+   fiecare deploy, iar motoarele de căutare ignoră un lastmod în care nu
+   se pot încrede. Luăm data ultimului commit al fișierului sursă; un
+   fișier cu modificări necomise contează ca schimbat azi.
+
+   Într-o clonă superficială (cum face un build la găzduire) sau fără
+   git, istoricul nu e de încredere: păstrăm data din sitemap.xml-ul
+   deja urcat în repo, iar în lipsa ei cădem pe data build-ului. */
+const git = (...args) => {
+  try {
+    return execFileSync('git', args, { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  } catch {
+    return '';
+  }
+};
+const gitUsable = git('rev-parse', '--is-shallow-repository') === 'false';
+const prevSitemap = existsSync(join(ROOT, 'sitemap.xml')) ? read(ROOT, 'sitemap.xml') : '';
+const fileDates = new Map();
+
+function lastmod(u) {
+  const date = (s) => (/^\d{4}-\d{2}-\d{2}$/.test(s) ? s : '');
+  if (gitUsable) {
+    if (!fileDates.has(u.src)) {
+      const dirty = git('status', '--porcelain', '--', u.src) !== '';
+      fileDates.set(u.src, dirty ? today : date(git('log', '-1', '--format=%cs', '--', u.src)));
+    }
+    return fileDates.get(u.src) || today;
+  }
+  const at = prevSitemap.indexOf(`<loc>${HOST}${u.path}</loc>`);
+  const prev = at < 0 ? null : /^<loc>[^<]*<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/.exec(prevSitemap.slice(at));
+  return (prev && date(prev[1])) || today;
+}
 
 const staticUrls = pages
   .filter((p) => !p.noindex)
   .map((p) => ({
     path: p.out === 'index.html' ? '/' : '/' + p.out.replace(/\.html$/, ''),
     priority: p.out === 'index.html' ? '1.0' : '0.8',
-    freq: 'monthly'
+    freq: 'monthly',
+    src: 'src/pages/' + p.src
   }));
 
 /* Paginile de produs: adresele lor vin din catalogul magazinului
@@ -706,7 +903,7 @@ function productRoutes() {
       return /hidden:\s*true/.test(body) ? null : id;
     })
     .filter(Boolean)
-    .map((id) => ({ path: '/magazin/' + id, priority: '0.7', freq: 'monthly' }));
+    .map((id) => ({ path: '/magazin/' + id, priority: '0.7', freq: 'monthly', src: 'Shop.jsx' }));
 }
 
 const urls = [...staticUrls, ...SPA_ROUTES, ...productRoutes()];
@@ -718,7 +915,7 @@ const sitemap =
     .map(
       (u) =>
         `  <url>\n    <loc>${HOST}${u.path}</loc>\n` +
-        `    <lastmod>${today}</lastmod>\n` +
+        `    <lastmod>${lastmod(u)}</lastmod>\n` +
         `    <changefreq>${u.freq}</changefreq>\n` +
         `    <priority>${u.priority}</priority>\n  </url>`
     )
@@ -762,6 +959,11 @@ console.log(`sitemap.xml scris cu ${urls.length} adrese, robots.txt scris.`);
     `> ${c.brand} este brandul ${c.name} din Târgu Mureș. Pregătește documentații de atribuire, ` +
       'modele Word, Excel și PDF și instrumente digitale pentru ciclul contractului public din România: ' +
       'autorități contractante, ofertanți și executanți de lucrări.',
+    '',
+    /* Numele coincide cu al unei asociații americane; asistenții le confundă. */
+    'Nu are legătură cu INFORMS (Institute for Operations Research and the Management Sciences, informs.org).',
+    '',
+    'Aceeași echipă dezvoltă Agatha Plus (https://www.agathaplus.ro/), platformă pentru planificarea achizițiilor și urmărirea contractelor.',
     '',
     'Produsele cu plată se cumpără online, cu cardul, și se livrează pe email ca link de descărcare. ' +
       'Instituțiile pot cumpăra și pe bază de comandă, cu factură prin e-Factura și plată prin ordin de plată.',
