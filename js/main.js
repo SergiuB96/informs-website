@@ -372,16 +372,20 @@
 
     if (!targets.length) return;
 
-    function offset() {
-      // înălțimea header-ului plus a barei de ancore, amândouă lipite
-      return bar.getBoundingClientRect().bottom + 8;
-    }
+    /* Linia de citire trebuie să cadă sub locul unde se oprește un click
+       pe ancoră (scroll-margin-top din service.css), altfel secțiunea
+       tocmai deschisă nu e încă „atinsă” și rămâne aprins butonul
+       precedent. Marginea se citește din CSS, nu se repetă aici. */
+    targets.forEach(function (t) {
+      t.margin = parseFloat(window.getComputedStyle(t.el).scrollMarginTop) || 0;
+    });
 
     function update() {
-      var line = offset();
+      var barBottom = bar.getBoundingClientRect().bottom + 8;
       var current = null;
 
       targets.forEach(function (t) {
+        var line = Math.max(barBottom, t.margin + 8);
         if (t.el.getBoundingClientRect().top <= line) current = t;
       });
 
