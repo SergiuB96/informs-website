@@ -169,5 +169,28 @@ window.SHOP_PREVIEWS = {
     "h": 1415
    }
   ]
+ },
+ "pte-lucrari-hidroizolatii-membrane": {
+  "total": 14,
+  "pages": [
+   {
+    "src": "assets/previzualizari/pte-lucrari-hidroizolatii-membrane/p3-3f2fd7a6.webp",
+    "page": 3,
+    "w": 1000,
+    "h": 1415
+   },
+   {
+    "src": "assets/previzualizari/pte-lucrari-hidroizolatii-membrane/p5-0a843c77.webp",
+    "page": 5,
+    "w": 1000,
+    "h": 1415
+   },
+   {
+    "src": "assets/previzualizari/pte-lucrari-hidroizolatii-membrane/p7-eaac6634.webp",
+    "page": 7,
+    "w": 1000,
+    "h": 1415
+   }
+  ]
  }
 };

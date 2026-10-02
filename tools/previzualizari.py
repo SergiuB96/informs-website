@@ -37,6 +37,8 @@ FONT = 'C:/Windows/Fonts/arialbd.ttf'
 # arată. Pentru responsabilități căutăm capul de tabel, nu titlul
 # secțiunii, care poate cădea în josul paginii anterioare.
 PTE_SECTIONS = ['2. DOCUMENTE DE REFERIN', 'RESPONSABILITATE SPECIFIC', '6.2. TEHNOLOGIA']
+# Titluri de capitol folosite când PTE_SECTIONS nu dă destule pagini (alt document din serie).
+PTE_SECTIONS_FALLBACK = ['2. DOCUMENTE DE REFERIN', '4. RESPONSABILIT', '6. DESCRIEREA LUCR', '7. CONTROLUL CALIT']
 
 
 def fold(s):
@@ -65,7 +67,10 @@ def word_to_pdf(docx, pdf):
     ps = (f"$w=New-Object -ComObject Word.Application;$w.Visible=$false;"
           f"try{{$d=$w.Documents.Open('{docx}',$false,$true);$d.ExportAsFixedFormat('{pdf}',17);$d.Close($false)}}"
           f"finally{{$w.Quit()}}")
-    subprocess.run(['powershell', '-NoProfile', '-Command', ps], check=True, capture_output=True)
+    res = subprocess.run(['powershell', '-NoProfile', '-Command', ps], capture_output=True)
+    # Word COM aruncă uneori RPC_E_DISCONNECTED după ce PDF-ul e deja scris; contează fișierul.
+    if res.returncode != 0 and not (os.path.exists(pdf) and os.path.getsize(pdf) > 0):
+        raise subprocess.CalledProcessError(res.returncode, 'word_to_pdf', res.stdout, res.stderr)
 
 
 def find_paid_source(blob_path):
@@ -79,12 +84,15 @@ def pick_pages(doc, paid):
         return [0]
     texts = [fold(p.get_text()) for p in doc]
     pages = []
-    for sec in PTE_SECTIONS:
-        for i, t in enumerate(texts):
-            if i > 0 and re.search(r'(^|\n)\s*' + re.escape(fold(sec)), t):
-                if i not in pages:
-                    pages.append(i)
-                break
+    for sections in (PTE_SECTIONS, PTE_SECTIONS_FALLBACK):
+        if len(pages) >= MAX_PAGES:
+            break
+        for sec in sections:
+            for i, t in enumerate(texts):
+                if i > 0 and re.search(r'(^|\n)\s*' + re.escape(fold(sec)), t):
+                    if i not in pages:
+                        pages.append(i)
+                    break
     if not pages:                                  # alt tip de document
         pages = [i for i in range(1, min(len(doc), 1 + MAX_PAGES))]
     return sorted(pages)[:MAX_PAGES]

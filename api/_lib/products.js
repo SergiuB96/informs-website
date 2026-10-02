@@ -53,6 +53,14 @@ const PRODUCTS = {
     fileName: 'INFORMS - PTE Lucrari de pavaje si borduri v1.0.docx',
   },
 
+  'INF-PTE-HID': {
+    idx: 'j',
+    title: 'PTE Lucrari de hidroizolatii cu membrane',
+    price: 49,
+    blobPath: 'produse/constructii/proceduri-tehnice/PTE_Lucrari_hidroizolatii-membrane_v1.0.docx',
+    fileName: 'INFORMS - PTE Lucrari de hidroizolatii cu membrane v1.0.docx',
+  },
+
   /* Cele trei produse plătite de la început erau doar de test și nu
      au avut niciodată fișier în Blob. Un produs real se adaugă aici și
      în SHOP_PRODUCTS (Shop.jsx), cu același sku și același preț:
@@ -67,8 +75,8 @@ const PRODUCTS = {
 
      Indexuri deja folosite, a nu se refolosi: a, b, c, d, t (produse
      scoase), e (INF-PTE-TRS), f (INF-PTE-SAP), g (INF-PTE-IMP),
-     h (INF-PTE-BA), i (INF-PTE-PAV).
-     Următorul liber: j. Un orderID vechi s-ar potrivi altfel cu
+     h (INF-PTE-BA), i (INF-PTE-PAV), j (INF-PTE-HID).
+     Următorul liber: k. Un orderID vechi s-ar potrivi altfel cu
      produsul nou.
 
      Pentru un nou test de plată: un SKU ascuns (`hidden` în Shop.jsx),
