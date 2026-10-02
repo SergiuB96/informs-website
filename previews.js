@@ -215,5 +215,28 @@ window.SHOP_PREVIEWS = {
     "h": 1415
    }
   ]
+ },
+ "pte-instalatii-sanitare-interioare": {
+  "total": 15,
+  "pages": [
+   {
+    "src": "assets/previzualizari/pte-instalatii-sanitare-interioare/p3-c84edcd0.webp",
+    "page": 3,
+    "w": 1000,
+    "h": 1415
+   },
+   {
+    "src": "assets/previzualizari/pte-instalatii-sanitare-interioare/p4-8b2df981.webp",
+    "page": 4,
+    "w": 1000,
+    "h": 1415
+   },
+   {
+    "src": "assets/previzualizari/pte-instalatii-sanitare-interioare/p6-4db031c7.webp",
+    "page": 6,
+    "w": 1000,
+    "h": 1415
+   }
+  ]
  }
 };

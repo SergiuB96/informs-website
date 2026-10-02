@@ -300,6 +300,28 @@ const SHOP_PRODUCTS = [{
     files: 1,
     pages: 15
   }
+}, {
+  id: 'pte-instalatii-sanitare-interioare',
+  sku: 'INF-PTE-ISN',
+  title: 'Procedură tehnică de execuție: instalații sanitare interioare',
+  shortDesc: 'Procedură tehnică de execuție (PTE) pentru instalații sanitare interioare: conducte de apă rece și caldă, canalizare, armături, obiecte sanitare, probe, reglare hidraulică și recepție.',
+  metaDesc: 'Procedură tehnică de execuție (PTE) pentru instalații sanitare interioare: model Word editabil, 15 pagini, cu probele instalației și recepția. 49 lei.',
+  longDesc: 'Stabilește succesiunea operațiilor, verificările de calitate și responsabilitățile pentru montajul, probele, reglarea și recepția instalațiilor sanitare interioare: conducte de apă rece, caldă și recirculare, canalizare menajeră și meteorică, ventilarea canalizării, armături și obiecte sanitare. Trimite la Legea nr. 10/1995, HG nr. 273/1994, I 9-2022, C 56-2002, SR EN 806 și SR EN 12056. Document Word editabil, de adaptat la datele concrete ale lucrării.',
+  audiences: ['constructii'],
+  forWhom: 'Executanții de lucrări de construcții și instalații (RTE, șef de șantier, șef de punct de lucru, responsabil control calitate) și diriginții de șantier.',
+  version: '1.0',
+  updated: 'octombrie 2026',
+  format: 'word',
+  cv: 'cv-word',
+  price: 49,
+  featured: false,
+  isNew: true,
+  tags: ['PTE', 'Instalații sanitare', 'Canalizare'],
+  includes: ['Scop, domeniu de aplicare și documente de referință', 'Definiții și prescurtări (RTE, CQ, PV, PVLA și altele)', 'Responsabilități pe funcții, de la RTE la dirigintele de șantier', 'Resurse: personal, aparate de măsură, materiale, depozitare', 'Conducte de apă și canalizare, armături, ventilare și obiecte sanitare', 'Izolare, protecție fonică, probe și reglare hidraulică', 'Controlul calității, recepția și înregistrările obligatorii'],
+  stats: {
+    files: 1,
+    pages: 15
+  }
 }];
 const SHOW_HIDDEN = new URLSearchParams(window.location.search).get('test') === '1';
 
