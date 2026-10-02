@@ -278,6 +278,28 @@ const SHOP_PRODUCTS = [{
     files: 1,
     pages: 14
   }
+}, {
+  id: 'pte-instalatii-electrice-joasa-tensiune',
+  sku: 'INF-PTE-IEL',
+  title: 'Procedură tehnică de execuție: instalații electrice de joasă tensiune',
+  shortDesc: 'Procedură tehnică de execuție (PTE) pentru instalații electrice interioare de joasă tensiune: tuburi și jgheaburi, conductoare, aparate, tablouri, legare la pământ, verificare inițială și recepție.',
+  metaDesc: 'Procedură tehnică de execuție (PTE) pentru instalații electrice de joasă tensiune: model Word editabil, 15 pagini, cu verificarea inițială și recepția. 49 lei.',
+  longDesc: 'Stabilește succesiunea operațiilor, verificările de calitate și responsabilitățile pentru montajul, verificarea inițială și recepția instalațiilor electrice interioare de joasă tensiune, de la tuburi și conductoare la prize, tablouri, legare la pământ și echipotențializare. Trimite la Legea nr. 10/1995, HG nr. 273/1994, I 7-2011, C 56-2002 și SR HD 60364-6. Document Word editabil, de adaptat la datele concrete ale lucrării.',
+  audiences: ['constructii'],
+  forWhom: 'Executanții de lucrări de construcții și instalații (RTE, șef de șantier, șef de punct de lucru, responsabil control calitate) și diriginții de șantier.',
+  version: '1.0',
+  updated: 'octombrie 2026',
+  format: 'word',
+  cv: 'cv-word',
+  price: 49,
+  featured: false,
+  isNew: true,
+  tags: ['PTE', 'Instalații electrice', 'Joasă tensiune'],
+  includes: ['Scop, domeniu de aplicare și documente de referință', 'Definiții și prescurtări (RTE, CQ, PV, PVLA și altele)', 'Responsabilități pe funcții, de la RTE la dirigintele de șantier', 'Resurse: personal, aparate de măsură, materiale', 'Tuburi, jgheaburi, conductoare, conexiuni, aparate și tablouri', 'Încăperi cu cadă sau duș, legare la pământ și echipotențializare', 'Verificarea inițială, controlul calității și recepția'],
+  stats: {
+    files: 1,
+    pages: 15
+  }
 }];
 const SHOW_HIDDEN = new URLSearchParams(window.location.search).get('test') === '1';
 

@@ -192,5 +192,28 @@ window.SHOP_PREVIEWS = {
     "h": 1415
    }
   ]
+ },
+ "pte-instalatii-electrice-joasa-tensiune": {
+  "total": 15,
+  "pages": [
+   {
+    "src": "assets/previzualizari/pte-instalatii-electrice-joasa-tensiune/p2-2b5c67fd.webp",
+    "page": 2,
+    "w": 1000,
+    "h": 1415
+   },
+   {
+    "src": "assets/previzualizari/pte-instalatii-electrice-joasa-tensiune/p4-6f7b2d78.webp",
+    "page": 4,
+    "w": 1000,
+    "h": 1415
+   },
+   {
+    "src": "assets/previzualizari/pte-instalatii-electrice-joasa-tensiune/p6-c91ae542.webp",
+    "page": 6,
+    "w": 1000,
+    "h": 1415
+   }
+  ]
  }
 };
