@@ -108,7 +108,7 @@
 
     function setOpen(open) {
       burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      burger.setAttribute('aria-label', open ? 'Închide meniul' : 'Deschide meniul');
+      burger.setAttribute('aria-label', open ? 'Închideți meniul' : 'Deschideți meniul');
       drawer.hidden = !open;
       document.body.style.overflow = open ? 'hidden' : '';
     }
@@ -271,7 +271,7 @@
     btn.addEventListener('click', function () {
       var paused = marquee.classList.toggle('is-paused');
       btn.setAttribute('aria-pressed', paused ? 'true' : 'false');
-      btn.setAttribute('aria-label', paused ? 'Pornește derularea benzii' : 'Oprește derularea benzii');
+      btn.setAttribute('aria-label', paused ? 'Porniți derularea benzii' : 'Opriți derularea benzii');
     });
   }
 
@@ -514,7 +514,7 @@
         var rest = list.length - visible.length;
         more.hidden = rest <= 0;
         if (moreBtn && rest > 0) {
-          moreBtn.textContent = 'Încarcă încă ' + Math.min(PAGE_STEP, rest);
+          moreBtn.textContent = 'Încărcați încă ' + Math.min(PAGE_STEP, rest);
         }
       }
 
@@ -619,7 +619,7 @@
       var ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail.value.trim());
       note.textContent = ok
         ? 'Machetă demonstrativă: adresa e validă, dar nu se trimite nimic.'
-        : 'Verifică adresa de email. Exemplu: nume@institutie.ro';
+        : 'Verificați adresa de email. Exemplu: nume@institutie.ro';
       note.style.color = ok ? 'var(--muted-2)' : '#FF7AA8';
     });
   }
@@ -712,10 +712,10 @@
       }).then(function (out) {
         // un 200 cu {ok:false} tot inseamna esec
         if (out && out.ok === false) throw new Error(out.error || 'respins de server');
-        say('ok', 'Mesajul a fost trimis. Îți răspundem în cel mult o zi lucrătoare, la ' + data.email + '.');
+        say('ok', 'Mesajul a fost trimis. Vă răspundem în cel mult o zi lucrătoare, la ' + data.email + '.');
         form.reset();
       }).catch(function (err) {
-        say('err', 'Mesajul nu a putut fi trimis (' + err.message + '). Scrie-ne direct la office@informs.ro și îți răspundem la fel de repede.');
+        say('err', 'Mesajul nu a putut fi trimis (' + err.message + '). Scrieți-ne direct la office@informs.ro și vă răspundem la fel de repede.');
       }).then(function () {
         submit.disabled = false;
         submit.textContent = original;

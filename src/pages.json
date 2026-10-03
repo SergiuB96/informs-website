@@ -56,7 +56,7 @@
     "out": "digitalizare.html",
     "src": "digitalizare.html",
     "title": "Digitalizarea documentelor și proceselor de lucru | INFORMS",
-    "desc": "Transformăm documentele pe care le completezi des în formulare, calculatoare și fluxuri standardizate. Pentru instituții publice și companii.",
+    "desc": "Transformăm documentele pe care le completați des în formulare, calculatoare și fluxuri standardizate. Pentru instituții publice și companii.",
     "css": [
       "art",
       "service"
@@ -82,8 +82,8 @@
   {
     "out": "contact.html",
     "src": "contact.html",
-    "title": "Contact: cere o ofertă pentru documentații | INFORMS",
-    "desc": "Scrie-ne ce ai de pregătit. Răspundem în cel mult o zi lucrătoare, iar prima discuție este fără obligații.",
+    "title": "Contact: solicitați o ofertă pentru documentații | INFORMS",
+    "desc": "Scrieți-ne ce aveți de pregătit. Răspundem în cel mult o zi lucrătoare, iar prima discuție este fără obligații.",
     "css": [
       "art",
       "listing",
@@ -98,7 +98,7 @@
     "out": "404.html",
     "src": "404.html",
     "title": "Pagina nu a fost găsită | INFORMS",
-    "desc": "Adresa căutată nu există. Vezi serviciile, magazinul sau scrie-ne.",
+    "desc": "Adresa căutată nu există. Vedeți serviciile, magazinul sau scrieți-ne.",
     "css": [
       "art"
     ],

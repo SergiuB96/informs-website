@@ -59,7 +59,7 @@ function LegalShell({
   }), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-outline",
     onClick: () => go('contact')
-  }, "\xCEntreb\u0103ri? Contacteaz\u0103-ne")))));
+  }, "\xCEntreb\u0103ri? Contacta\u021Bi-ne")))));
 }
 function Sec({
   n,
@@ -463,7 +463,7 @@ function DeliveryPage({
 }) {
   return /*#__PURE__*/React.createElement(LegalShell, {
     title: "Politica de livrare",
-    subtitle: "Cum \u0219i c\xE2nd prime\u0219ti documentele comandate.",
+    subtitle: "Cum \u0219i c\xE2nd primi\u021Bi documentele comandate.",
     onNav: onNav
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
@@ -492,12 +492,12 @@ function DeliveryPage({
     style: S.link
   }, COMPANY.email), ", men\u021Bion\xE2nd num\u0103rul comenzii, \u0219i primi\u021Bi unul nou, f\u0103r\u0103 costuri.")), /*#__PURE__*/React.createElement(Sec, {
     n: "5",
-    title: "Dac\u0103 nu prime\u0219ti e-mailul"
+    title: "Dac\u0103 nu primi\u021Bi e-mailul"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Dac\u0103 \xEEn 30 de minute de la confirmarea pl\u0103\u021Bii nu ai primit e-mailul:"), /*#__PURE__*/React.createElement("ul", {
+  }, "Dac\u0103 \xEEn 30 de minute de la confirmarea pl\u0103\u021Bii nu a\u021Bi primit e-mailul:"), /*#__PURE__*/React.createElement("ul", {
     style: S.ul
-  }, /*#__PURE__*/React.createElement("li", null, "Verific\u0103 folderul Spam sau Promo\u021Bii din c\u0103su\u021Ba de e-mail"), /*#__PURE__*/React.createElement("li", null, "Verific\u0103 dac\u0103 adresa introdus\u0103 la comand\u0103 este scris\u0103 corect"), /*#__PURE__*/React.createElement("li", null, "Scrie-ne la ", /*#__PURE__*/React.createElement("a", {
+  }, /*#__PURE__*/React.createElement("li", null, "Verifica\u021Bi folderul Spam sau Promo\u021Bii din c\u0103su\u021Ba de e-mail"), /*#__PURE__*/React.createElement("li", null, "Verifica\u021Bi dac\u0103 adresa introdus\u0103 la comand\u0103 este scris\u0103 corect"), /*#__PURE__*/React.createElement("li", null, "Scrie\u021Bi-ne la ", /*#__PURE__*/React.createElement("a", {
     href: 'mailto:' + COMPANY.email,
     style: S.link
   }, COMPANY.email), " cu num\u0103rul comenzii; retrimitem documentul \xEEn cel mult o zi lucr\u0103toare"))), /*#__PURE__*/React.createElement(Sec, {
@@ -544,7 +544,7 @@ function CancellationPage({
     onNav: onNav
   }, "Dreptul de retragere"), ". Singura excep\u021Bie prev\u0103zut\u0103 de lege: consumatorul care nu a \xEEnceput \xEEnc\u0103 desc\u0103rcarea se poate retrage, conform aceleia\u0219i pagini. Pentru persoanele juridice dreptul de retragere nu se aplic\u0103."), /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Dac\u0103 nu dore\u0219ti s\u0103 finalizezi comanda, pur \u0219i simplu nu efectua plata: p\xE2n\u0103 la plat\u0103 nu se creeaz\u0103 nicio obliga\u021Bie.")), /*#__PURE__*/React.createElement(Sec, {
+  }, "Dac\u0103 nu dori\u021Bi s\u0103 finaliza\u021Bi comanda, pur \u0219i simplu nu efectua\u021Bi plata: p\xE2n\u0103 la plat\u0103 nu se creeaz\u0103 nicio obliga\u021Bie.")), /*#__PURE__*/React.createElement(Sec, {
     n: "2",
     title: "Documentele se v\xE2nd ca atare"
   }, /*#__PURE__*/React.createElement("p", {
@@ -558,25 +558,25 @@ function CancellationPage({
     title: "Probleme tehnice la livrare"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Singura situa\u021Bie \xEEn care intervenim dup\u0103 plat\u0103 este una tehnic\u0103: ai primit alt document dec\xE2t cel comandat, fi\u0219ierul nu se deschide sau linkul de desc\u0103rcare nu func\u021Bioneaz\u0103. Ne scrii la ", /*#__PURE__*/React.createElement("a", {
+  }, "Singura situa\u021Bie \xEEn care intervenim dup\u0103 plat\u0103 este una tehnic\u0103: a\u021Bi primit alt document dec\xE2t cel comandat, fi\u0219ierul nu se deschide sau linkul de desc\u0103rcare nu func\u021Bioneaz\u0103. Ne scrie\u021Bi la ", /*#__PURE__*/React.createElement("a", {
     href: 'mailto:' + COMPANY.email,
     style: S.link
-  }, COMPANY.email), " cu num\u0103rul comenzii, iar noi \xEE\u021Bi trimitem documentul corect sau un link nou."), /*#__PURE__*/React.createElement("p", {
+  }, COMPANY.email), " cu num\u0103rul comenzii, iar noi v\u0103 trimitem documentul corect sau un link nou."), /*#__PURE__*/React.createElement("p", {
     style: S.p
   }, "Pentru consumatori, aceast\u0103 politic\u0103 nu limiteaz\u0103 drepturile care nu pot fi \xEEnl\u0103turate prin contract, prev\u0103zute de OUG nr. 141/2021 privind conformitatea con\u021Binutului digital.")), /*#__PURE__*/React.createElement(Sec, {
     n: "4",
     title: "Comenzi anulate de v\xE2nz\u0103tor"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, COMPANY.name, " poate anula o comand\u0103 \xEEn cazul unei erori evidente de pre\u021B, al suspiciunii \xEEntemeiate de fraud\u0103 sau al imposibilit\u0103\u021Bii de a livra produsul. \xCEn aceste situa\u021Bii te anun\u021B\u0103m prin e-mail \u0219i ramburs\u0103m integral suma \xEEncasat\u0103, folosind aceea\u0219i modalitate de plat\u0103, \xEEn cel mult ", COMMERCE.refundDays, " zile.")), /*#__PURE__*/React.createElement(Sec, {
+  }, COMPANY.name, " poate anula o comand\u0103 \xEEn cazul unei erori evidente de pre\u021B, al suspiciunii \xEEntemeiate de fraud\u0103 sau al imposibilit\u0103\u021Bii de a livra produsul. \xCEn aceste situa\u021Bii v\u0103 anun\u021B\u0103m prin e-mail \u0219i ramburs\u0103m integral suma \xEEncasat\u0103, folosind aceea\u0219i modalitate de plat\u0103, \xEEn cel mult ", COMMERCE.refundDays, " zile.")), /*#__PURE__*/React.createElement(Sec, {
     n: "5",
     title: "Reclama\u021Bii"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Ne po\u021Bi scrie oric\xE2nd la ", /*#__PURE__*/React.createElement("a", {
+  }, "Ne pute\u021Bi scrie oric\xE2nd la ", /*#__PURE__*/React.createElement("a", {
     href: 'mailto:' + COMPANY.email,
     style: S.link
-  }, COMPANY.email), ". Dac\u0103 nu e\u0219ti mul\u021Bumit de r\u0103spuns, te po\u021Bi adresa ", /*#__PURE__*/React.createElement(Ext, {
+  }, COMPANY.email), ". Dac\u0103 nu sunte\u021Bi mul\u021Bumit de r\u0103spuns, v\u0103 pute\u021Bi adresa ", /*#__PURE__*/React.createElement(Ext, {
     href: ANPC_REC
   }, "ANPC"), " sau structurii de ", /*#__PURE__*/React.createElement(Ext, {
     href: ANPC_SAL
@@ -605,7 +605,7 @@ function WithdrawalForm() {
   const handleSubmit = async e => {
     e.preventDefault();
     if (!form.nume.trim() || !form.email.trim() || !form.comanda.trim()) {
-      setError('Completează numele, adresa de email și numărul comenzii.');
+      setError('Completați numele, adresa de email și numărul comenzii.');
       return;
     }
     setError('');
@@ -628,9 +628,9 @@ function WithdrawalForm() {
         })
       });
       const json = await res.json();
-      if (json.ok) setSent(true);else setError('Cererea nu a putut fi trimisă. Încearcă din nou sau scrie-ne direct la ' + COMPANY.email + '.');
+      if (json.ok) setSent(true);else setError('Cererea nu a putut fi trimisă. Încercați din nou sau scrieți-ne direct la ' + COMPANY.email + '.');
     } catch {
-      setError('Eroare de rețea. Încearcă din nou sau scrie-ne direct la ' + COMPANY.email + '.');
+      setError('Eroare de rețea. Încercați din nou sau scrieți-ne direct la ' + COMPANY.email + '.');
     } finally {
       setLoading(false);
     }
@@ -655,7 +655,7 @@ function WithdrawalForm() {
         ...S.p,
         marginBottom: 0
       }
-    }, "Am primit cererea ta de retragere. \xCE\u021Bi confirm\u0103m primirea pe email \u0219i \xEE\u021Bi comunic\u0103m solu\u021Bia \xEEn cel mult 14 zile."));
+    }, "Am primit cererea dumneavoastr\u0103 de retragere. V\u0103 confirm\u0103m primirea pe email \u0219i v\u0103 comunic\u0103m solu\u021Bia \xEEn cel mult 14 zile."));
   }
   const field = {
     padding: '10px 14px',
@@ -737,7 +737,7 @@ function WithdrawalForm() {
     },
     value: form.motiv,
     onChange: set('motiv'),
-    placeholder: "Nu e\u0219ti obligat s\u0103 indici un motiv."
+    placeholder: "Nu sunte\u021Bi obligat s\u0103 indica\u021Bi un motiv."
   })), error && /*#__PURE__*/React.createElement("p", {
     style: {
       color: '#c53030',
@@ -755,19 +755,19 @@ function WithdrawalForm() {
       alignSelf: 'flex-start'
     },
     disabled: loading
-  }, loading ? 'Se trimite...' : 'Trimite cererea de retragere'));
+  }, loading ? 'Se trimite...' : 'Trimiteți cererea de retragere'));
 }
 function WithdrawalPage({
   onNav
 }) {
   return /*#__PURE__*/React.createElement(LegalShell, {
     title: "Dreptul de retragere",
-    subtitle: "Cum te retragi din contract, online, \xEEn 14 zile.",
+    subtitle: "Cum v\u0103 retrage\u021Bi din contract, online, \xEEn 14 zile.",
     updated: "29 septembrie 2026",
     onNav: onNav
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "\xCEn calitate de consumator ai dreptul de a te retrage dintr-un contract \xEEncheiat la distan\u021B\u0103 \xEEn termen de ", /*#__PURE__*/React.createElement("strong", null, COMMERCE.withdrawalDays, " zile calendaristice"), ", f\u0103r\u0103 a fi nevoit s\u0103 justifici decizia \u0219i f\u0103r\u0103 a suporta penalit\u0103\u021Bi, conform Ordonan\u021Bei de urgen\u021B\u0103 a Guvernului nr. 34/2014 privind drepturile consumatorilor \xEEn cadrul contractelor \xEEncheiate cu profesioni\u0219tii."), /*#__PURE__*/React.createElement("p", {
+  }, "\xCEn calitate de consumator ave\u021Bi dreptul de a v\u0103 retrage dintr-un contract \xEEncheiat la distan\u021B\u0103 \xEEn termen de ", /*#__PURE__*/React.createElement("strong", null, COMMERCE.withdrawalDays, " zile calendaristice"), ", f\u0103r\u0103 a fi nevoit s\u0103 justifica\u021Bi decizia \u0219i f\u0103r\u0103 a suporta penalit\u0103\u021Bi, conform Ordonan\u021Bei de urgen\u021B\u0103 a Guvernului nr. 34/2014 privind drepturile consumatorilor \xEEn cadrul contractelor \xEEncheiate cu profesioni\u0219tii."), /*#__PURE__*/React.createElement("p", {
     style: S.p
   }, COMPANY.name, " pune la dispozi\u021Bie, conform art. 11", /*#__PURE__*/React.createElement("sup", null, "1"), " din OUG 34/2014, o modalitate online, clar\u0103 \u0219i u\u0219or accesibil\u0103 de exercitare a acestui drept: formularul de la punctul 4 al acestei pagini."), /*#__PURE__*/React.createElement(Sec, {
     n: "1",
@@ -781,21 +781,21 @@ function WithdrawalPage({
     style: S.p
   }, "Toate produsele din magazinul ", COMPANY.brand, " sunt con\u021Binut digital care nu este livrat pe un suport material. Pentru astfel de produse, art. 16 lit. m din OUG 34/2014 prevede c\u0103 dreptul de retragere se pierde dac\u0103 executarea contractului a \xEEnceput cu ", /*#__PURE__*/React.createElement("strong", null, "acordul prealabil expres al consumatorului"), " \u0219i cu confirmarea c\u0103 acesta ia cuno\u0219tin\u021B\u0103 de pierderea dreptului."), /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "De aceea, la finalizarea comenzii \xEE\u021Bi cerem o ", /*#__PURE__*/React.createElement("strong", null, "bif\u0103 separat\u0103"), " prin care confirmi c\u0103 e\u0219ti de acord cu livrarea imediat\u0103 a documentului \u0219i c\u0103 \xEEn\u021Belegi c\u0103, odat\u0103 \xEEnceput\u0103 desc\u0103rcarea, nu te mai po\u021Bi retrage din contract."), /*#__PURE__*/React.createElement("p", {
+  }, "De aceea, la finalizarea comenzii v\u0103 cerem o ", /*#__PURE__*/React.createElement("strong", null, "bif\u0103 separat\u0103"), " prin care confirma\u021Bi c\u0103 sunte\u021Bi de acord cu livrarea imediat\u0103 a documentului \u0219i c\u0103 \xEEn\u021Belege\u021Bi c\u0103, odat\u0103 \xEEnceput\u0103 desc\u0103rcarea, nu v\u0103 mai pute\u021Bi retrage din contract."), /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "F\u0103r\u0103 acest acord comanda online nu poate fi finalizat\u0103, pentru c\u0103 documentul se livreaz\u0103 imediat dup\u0103 plat\u0103. Dac\u0103 vrei s\u0103 p\u0103strezi dreptul de retragere, scrie-ne la ", /*#__PURE__*/React.createElement("a", {
+  }, "F\u0103r\u0103 acest acord comanda online nu poate fi finalizat\u0103, pentru c\u0103 documentul se livreaz\u0103 imediat dup\u0103 plat\u0103. Dac\u0103 dori\u021Bi s\u0103 p\u0103stra\u021Bi dreptul de retragere, scrie\u021Bi-ne la ", /*#__PURE__*/React.createElement("a", {
     href: 'mailto:' + COMPANY.email,
     style: S.link
-  }, COMPANY.email), " \xEEnainte de a comanda: \xEE\u021Bi trimitem documentul dup\u0103 expirarea celor ", COMMERCE.withdrawalDays, " zile."), /*#__PURE__*/React.createElement("p", {
+  }, COMPANY.email), " \xEEnainte de a comanda: v\u0103 trimitem documentul dup\u0103 expirarea celor ", COMMERCE.withdrawalDays, " zile."), /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Chiar \u0219i cu acordul dat, dreptul de retragere se pierde abia \xEEn momentul \xEEn care ", /*#__PURE__*/React.createElement("strong", null, "\xEEncepi desc\u0103rcarea"), " documentului. P\xE2n\u0103 atunci te po\u021Bi retrage \xEEn continuare.")), /*#__PURE__*/React.createElement(Sec, {
+  }, "Chiar \u0219i cu acordul dat, dreptul de retragere se pierde abia \xEEn momentul \xEEn care ", /*#__PURE__*/React.createElement("strong", null, "\xEEncepe\u021Bi desc\u0103rcarea"), " documentului. P\xE2n\u0103 atunci v\u0103 pute\u021Bi retrage \xEEn continuare.")), /*#__PURE__*/React.createElement(Sec, {
     n: "3",
-    title: "Situa\u021Bii \xEEn care te po\u021Bi retrage oricum"
+    title: "Situa\u021Bii \xEEn care v\u0103 pute\u021Bi retrage oricum"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Excep\u021Bia de mai sus nu se aplic\u0103 \u0219i te po\u021Bi retrage dac\u0103:"), /*#__PURE__*/React.createElement("ul", {
+  }, "Excep\u021Bia de mai sus nu se aplic\u0103 \u0219i v\u0103 pute\u021Bi retrage dac\u0103:"), /*#__PURE__*/React.createElement("ul", {
     style: S.ul
-  }, /*#__PURE__*/React.createElement("li", null, "Nu ai bifat acordul pentru livrarea imediat\u0103"), /*#__PURE__*/React.createElement("li", null, "Nu ai \xEEnceput \xEEnc\u0103 desc\u0103rcarea documentului")), /*#__PURE__*/React.createElement("p", {
+  }, /*#__PURE__*/React.createElement("li", null, "Nu a\u021Bi bifat acordul pentru livrarea imediat\u0103"), /*#__PURE__*/React.createElement("li", null, "Nu a\u021Bi \xEEnceput \xEEnc\u0103 desc\u0103rcarea documentului")), /*#__PURE__*/React.createElement("p", {
     style: S.p
   }, "Problemele tehnice de livrare (alt document, fi\u0219ier care nu se deschide, link nefunc\u021Bional) nu \u021Bin de retragere: le rezolv\u0103m prin retrimiterea documentului, conform ", /*#__PURE__*/React.createElement(L, {
     to: "politica-anulare",
@@ -805,7 +805,7 @@ function WithdrawalPage({
     title: "Formular online de retragere"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Completeaz\u0103 formularul de mai jos. Prime\u0219ti confirmarea pe email, iar solu\u021Bia \xEEn cel mult ", COMMERCE.refundDays, " zile. Alternativ, po\u021Bi trimite aceea\u0219i cerere la ", /*#__PURE__*/React.createElement("a", {
+  }, "Completa\u021Bi formularul de mai jos. Primi\u021Bi confirmarea pe email, iar solu\u021Bia \xEEn cel mult ", COMMERCE.refundDays, " zile. Alternativ, pute\u021Bi trimite aceea\u0219i cerere la ", /*#__PURE__*/React.createElement("a", {
     href: 'mailto:' + COMPANY.email,
     style: S.link
   }, COMPANY.email), "."), /*#__PURE__*/React.createElement(WithdrawalForm, null)), /*#__PURE__*/React.createElement(Sec, {
@@ -813,12 +813,12 @@ function WithdrawalPage({
     title: "Efectele retragerii"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Dac\u0103 te retragi valabil, ramburs\u0103m integral suma \xEEncasat\u0103, folosind aceea\u0219i modalitate de plat\u0103, \xEEn termen de cel mult ", /*#__PURE__*/React.createElement("strong", null, COMMERCE.refundDays, " zile"), " de la data la care am fost informa\u021Bi. Nu percepem comisioane pentru rambursare.")), /*#__PURE__*/React.createElement(Sec, {
+  }, "Dac\u0103 v\u0103 retrage\u021Bi valabil, ramburs\u0103m integral suma \xEEncasat\u0103, folosind aceea\u0219i modalitate de plat\u0103, \xEEn termen de cel mult ", /*#__PURE__*/React.createElement("strong", null, COMMERCE.refundDays, " zile"), " de la data la care am fost informa\u021Bi. Nu percepem comisioane pentru rambursare.")), /*#__PURE__*/React.createElement(Sec, {
     n: "6",
     title: "Model de declara\u021Bie de retragere"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Dac\u0103 preferi s\u0103 redactezi singur cererea, po\u021Bi folosi textul urm\u0103tor:"), /*#__PURE__*/React.createElement("div", {
+  }, "Dac\u0103 prefera\u021Bi s\u0103 redacta\u021Bi singur cererea, pute\u021Bi folosi textul urm\u0103tor:"), /*#__PURE__*/React.createElement("div", {
     style: {
       background: 'var(--bg)',
       border: '1px solid var(--border)',
@@ -844,33 +844,33 @@ function CookiePage({
   };
   return /*#__PURE__*/React.createElement(LegalShell, {
     title: "Politica de cookie-uri",
-    subtitle: "Ce cookie-uri folosim \u0219i cum \xEE\u021Bi controlezi preferin\u021Bele.",
+    subtitle: "Ce cookie-uri folosim \u0219i cum v\u0103 controla\u021Bi preferin\u021Bele.",
     onNav: onNav
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Cookie-urile sunt fi\u0219iere text de mici dimensiuni pe care un website le stocheaz\u0103 \xEEn browserul t\u0103u. Ele permit site-ului s\u0103 func\u021Bioneze corect \u0219i, cu acordul t\u0103u, s\u0103 \xEEn\u021Belegem cum este folosit."), /*#__PURE__*/React.createElement(Sec, {
+  }, "Cookie-urile sunt fi\u0219iere text de mici dimensiuni pe care un website le stocheaz\u0103 \xEEn browserul dumneavoastr\u0103. Ele permit site-ului s\u0103 func\u021Bioneze corect \u0219i, cu acordul dumneavoastr\u0103, s\u0103 \xEEn\u021Belegem cum este folosit."), /*#__PURE__*/React.createElement(Sec, {
     n: "1",
     title: "Categoriile pe care le folosim"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, /*#__PURE__*/React.createElement("strong", null, "Cookie-uri strict necesare."), " Asigur\u0103 func\u021Bionarea corect\u0103 a site-ului, inclusiv memorarea alegerii tale privind cookie-urile. Nu pot fi dezactivate \u0219i nu necesit\u0103 consim\u021B\u0103m\xE2nt."), /*#__PURE__*/React.createElement("p", {
+  }, /*#__PURE__*/React.createElement("strong", null, "Cookie-uri strict necesare."), " Asigur\u0103 func\u021Bionarea corect\u0103 a site-ului, inclusiv memorarea alegerii dumneavoastr\u0103 privind cookie-urile. Nu pot fi dezactivate \u0219i nu necesit\u0103 consim\u021B\u0103m\xE2nt."), /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, /*#__PURE__*/React.createElement("strong", null, "Cookie-uri de analiz\u0103."), " Folosim Google Analytics 4 pentru a \xEEn\u021Belege ce pagini sunt vizitate, c\xE2t dureaz\u0103 o sesiune \u0219i de pe ce tip de dispozitiv se acceseaz\u0103 site-ul. Datele sunt agregate \u0219i anonimizate. Aceste cookie-uri se activeaz\u0103 ", /*#__PURE__*/React.createElement("strong", null, "doar dup\u0103 acordul t\u0103u explicit"), "."), /*#__PURE__*/React.createElement("p", {
+  }, /*#__PURE__*/React.createElement("strong", null, "Cookie-uri de analiz\u0103."), " Folosim Google Analytics 4 pentru a \xEEn\u021Belege ce pagini sunt vizitate, c\xE2t dureaz\u0103 o sesiune \u0219i de pe ce tip de dispozitiv se acceseaz\u0103 site-ul. Datele sunt agregate \u0219i anonimizate. Aceste cookie-uri se activeaz\u0103 ", /*#__PURE__*/React.createElement("strong", null, "doar dup\u0103 acordul dumneavoastr\u0103 explicit"), "."), /*#__PURE__*/React.createElement("p", {
     style: S.p
   }, "Nu folosim cookie-uri de publicitate \u0219i nu vindem date de navigare c\u0103tre ter\u021Bi.")), /*#__PURE__*/React.createElement(Sec, {
     n: "2",
-    title: "Cum \xEE\u021Bi exprimi \u0219i cum \xEE\u021Bi retragi acordul"
+    title: "Cum v\u0103 exprima\u021Bi \u0219i cum v\u0103 retrage\u021Bi acordul"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "La prima vizit\u0103 prime\u0219ti un banner cu op\u021Biunile \u201EAccept\u0103 toate\u201D, \u201EDoar necesare\u201D \u0219i \u201ESet\u0103ri\u201D. Alegerea se memoreaz\u0103, iar preferin\u021Bele pot fi schimbate oric\xE2nd."), /*#__PURE__*/React.createElement("button", {
+  }, "La prima vizit\u0103 primi\u021Bi un banner cu op\u021Biunile \u201EAccepta\u021Bi toate\u201D, \u201EDoar necesare\u201D \u0219i \u201EAlege\u021Bi\u201D. Alegerea se memoreaz\u0103, iar preferin\u021Bele pot fi schimbate oric\xE2nd."), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-outline",
     onClick: openPrefs,
     style: {
       marginBottom: '14px'
     }
-  }, "Modific\u0103 preferin\u021Bele cookie"), /*#__PURE__*/React.createElement("p", {
+  }, "Modifica\u021Bi preferin\u021Bele cookie"), /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Po\u021Bi de asemenea \u0219terge sau bloca cookie-urile din set\u0103rile browserului. Blocarea celor strict necesare poate afecta func\u021Bionarea site-ului.")), /*#__PURE__*/React.createElement(Sec, {
+  }, "Pute\u021Bi de asemenea \u0219terge sau bloca cookie-urile din set\u0103rile browserului. Blocarea celor strict necesare poate afecta func\u021Bionarea site-ului.")), /*#__PURE__*/React.createElement(Sec, {
     n: "3",
     title: "Durata de via\u021B\u0103"
   }, /*#__PURE__*/React.createElement("p", {
@@ -880,7 +880,7 @@ function CookiePage({
     title: "Cookie-uri ale ter\u021Bilor"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "Google Analytics este furnizat de Google Ireland Limited. Serviciul plaseaz\u0103 cookie-uri proprii, guvernate de politica de confiden\u021Bialitate a furnizorului. \xCEn timpul procesului de plat\u0103 e\u0219ti redirec\u021Bionat c\u0103tre pagina securizat\u0103 a procesatorului de pl\u0103\u021Bi, care folose\u0219te propriile cookie-uri, necesare tranzac\u021Biei.")), /*#__PURE__*/React.createElement(Sec, {
+  }, "Google Analytics este furnizat de Google Ireland Limited. Serviciul plaseaz\u0103 cookie-uri proprii, guvernate de politica de confiden\u021Bialitate a furnizorului. \xCEn timpul procesului de plat\u0103 sunte\u021Bi redirec\u021Bionat c\u0103tre pagina securizat\u0103 a procesatorului de pl\u0103\u021Bi, care folose\u0219te propriile cookie-uri, necesare tranzac\u021Biei.")), /*#__PURE__*/React.createElement(Sec, {
     n: "5",
     title: "Leg\u0103tura cu prelucrarea datelor"
   }, /*#__PURE__*/React.createElement("p", {

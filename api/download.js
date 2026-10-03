@@ -36,7 +36,7 @@ export default async function handler(req, res) {
 
   const claims = verifyDownloadToken(req.query && req.query.t);
   if (!claims) {
-    return res.status(403).send('Link invalid sau expirat. Scrie-ne la office@informs.ro și îți trimitem unul nou.');
+    return res.status(403).send('Link invalid sau expirat. Scrieți-ne la office@informs.ro și vă trimitem unul nou.');
   }
 
   const product = getProduct(claims.sku);
@@ -61,6 +61,6 @@ export default async function handler(req, res) {
     return res.status(200).send(buffer);
   } catch (err) {
     console.error('download error', { sku: claims.sku, orderID: claims.orderID, message: err.message });
-    return res.status(500).send('Documentul nu a putut fi livrat. Scrie-ne la office@informs.ro cu numărul comenzii.');
+    return res.status(500).send('Documentul nu a putut fi livrat. Scrieți-ne la office@informs.ro cu numărul comenzii.');
   }
 }

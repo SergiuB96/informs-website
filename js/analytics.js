@@ -88,29 +88,29 @@
           consentModal: {
             title: 'Folosim cookie-uri',
             description:
-              'Cookie-urile strict necesare țin site-ul funcțional. Cu acordul tău, folosim și ' +
+              'Cookie-urile strict necesare țin site-ul funcțional. Cu acordul dumneavoastră, folosim și ' +
               'Google Analytics, ca să vedem ce pagini sunt utile. Nu folosim cookie-uri de publicitate.',
-            acceptAllBtn: 'Accept toate',
+            acceptAllBtn: 'Acceptați toate',
             acceptNecessaryBtn: 'Doar necesare',
-            showPreferencesBtn: 'Alege',
+            showPreferencesBtn: 'Alegeți',
             footer: '<a href="/politica-cookies">Politica de cookie-uri</a>',
           },
           preferencesModal: {
             title: 'Preferințe cookie',
-            acceptAllBtn: 'Accept toate',
+            acceptAllBtn: 'Acceptați toate',
             acceptNecessaryBtn: 'Doar necesare',
-            savePreferencesBtn: 'Salvează alegerea',
-            closeIconLabel: 'Închide',
+            savePreferencesBtn: 'Salvați alegerea',
+            closeIconLabel: 'Închideți',
             sections: [
               {
                 description:
-                  'Alegi ce categorii de cookie-uri permiți. Poți schimba alegerea oricând, din ' +
+                  'Alegeți ce categorii de cookie-uri permiteți. Puteți schimba alegerea oricând, din ' +
                   'linkul „Setări cookie” din subsolul paginii.',
               },
               {
                 title: 'Strict necesare',
                 description:
-                  'Asigură funcționarea site-ului și memorează alegerea ta privind cookie-urile. ' +
+                  'Asigură funcționarea site-ului și memorează alegerea dumneavoastră privind cookie-urile. ' +
                   'Nu pot fi dezactivate.',
                 linkedCategory: 'necessary',
               },

@@ -14,7 +14,7 @@ const ERROR_MESSAGES = {
   '21': 'Codul CVV este incorect.',
   '22': 'Codul CVV este incorect.',
   '34': 'Tranzacția nu este permisă de banca emitentă.',
-  '56': 'Comanda există deja. Reia comanda din magazin.',
+  '56': 'Comanda există deja. Reluați comanda din magazin.',
   '99': 'Există deja o comandă cu alt preț pentru acest identificator.',
 };
 
@@ -53,7 +53,7 @@ export default async function handler(req, res) {
      persoană fizică. */
   const isCompany = Boolean(clean(body.cui, 20));
   if (!body.acceptTerms || (!isCompany && !body.acceptWaiver)) {
-    return res.status(400).json({ error: 'Trebuie să accepți termenii și livrarea imediată a documentului.' });
+    return res.status(400).json({ error: 'Trebuie să acceptați termenii și livrarea imediată a documentului.' });
   }
 
   /* Cât timp nu avem cheile NETOPIA, prețurile trebuie să rămână vizibile
@@ -61,8 +61,8 @@ export default async function handler(req, res) {
      la un mesaj onest, nu la o eroare de server. */
   if (!process.env.NETOPIA_API_KEY || !process.env.NETOPIA_POS_SIGNATURE) {
     return res.status(503).json({
-      error: 'Plata online cu cardul se activează în curând. Scrie-ne la ' +
-             'office@informs.ro și îți trimitem factura proforma pentru plata prin transfer bancar.',
+      error: 'Plata online cu cardul se activează în curând. Scrieți-ne la ' +
+             'office@informs.ro și vă trimitem factura proforma pentru plata prin transfer bancar.',
     });
   }
 
@@ -76,7 +76,7 @@ export default async function handler(req, res) {
   for (const k of REQUIRED.concat(REQUIRED_COMPANY)) {
     billing[k] = clean(body[k]);
     if (!billing[k] && required.includes(k)) {
-      return res.status(400).json({ error: 'Completează toate câmpurile obligatorii.' });
+      return res.status(400).json({ error: 'Completați toate câmpurile obligatorii.' });
     }
   }
   if (!EMAIL_RE.test(billing.email)) {
@@ -119,10 +119,10 @@ export default async function handler(req, res) {
     });
 
     return res.status(502).json({
-      error: ERROR_MESSAGES[code] || 'Plata nu a putut fi inițiată. Încearcă din nou sau contactează-ne.',
+      error: ERROR_MESSAGES[code] || 'Plata nu a putut fi inițiată. Încercați din nou sau contactați-ne.',
     });
   } catch (err) {
     console.error('netopia-start error', err);
-    return res.status(500).json({ error: 'Eroare de server. Încearcă din nou în câteva minute.' });
+    return res.status(500).json({ error: 'Eroare de server. Încercați din nou în câteva minute.' });
   }
 }

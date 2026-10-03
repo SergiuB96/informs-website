@@ -202,10 +202,10 @@ function Nav({
     className: "mega__promo-kicker"
   }, "Primul pas"), /*#__PURE__*/React.createElement("p", {
     className: "mega__promo-title"
-  }, "Descrie procedura \u0219i \xEE\u021Bi spunem ce documente \xEE\u021Bi trebuie"), /*#__PURE__*/React.createElement("a", {
+  }, "Descrie\u021Bi procedura \u0219i v\u0103 spunem ce documente v\u0103 trebuie"), /*#__PURE__*/React.createElement("a", {
     className: "lnk",
     href: "/contact"
-  }, "Scrie-ne ", /*#__PURE__*/React.createElement(Arrow, null)))))), /*#__PURE__*/React.createElement("li", {
+  }, "Scrie\u021Bi-ne ", /*#__PURE__*/React.createElement(Arrow, null)))))), /*#__PURE__*/React.createElement("li", {
     className: item('produse', ' has-menu'),
     onMouseEnter: () => enter('produse'),
     onMouseLeave: leave
@@ -245,7 +245,7 @@ function Nav({
     className: "lnk",
     href: "/magazin",
     onClick: e => goShop('gratuite', e)
-  }, "Vezi modelele ", /*#__PURE__*/React.createElement(Arrow, null)))))), /*#__PURE__*/React.createElement("li", {
+  }, "Vede\u021Bi modelele ", /*#__PURE__*/React.createElement(Arrow, null)))))), /*#__PURE__*/React.createElement("li", {
     className: "nav__item"
   }, /*#__PURE__*/React.createElement("a", {
     className: "nav__link",
@@ -254,7 +254,7 @@ function Nav({
     className: "burger",
     type: "button",
     "aria-expanded": open,
-    "aria-label": open ? 'Închide meniul' : 'Deschide meniul',
+    "aria-label": open ? 'Închideți meniul' : 'Deschideți meniul',
     onClick: () => setOpen(!open)
   }, /*#__PURE__*/React.createElement("span", null), /*#__PURE__*/React.createElement("span", null), /*#__PURE__*/React.createElement("span", null)))), open && /*#__PURE__*/React.createElement("div", {
     className: "drawer"
@@ -318,7 +318,7 @@ function Footer() {
     href: "https://www.agathaplus.ro/",
     target: "_blank",
     rel: "noopener noreferrer"
-  }, /*#__PURE__*/React.createElement("span", null, "Planifici achizi\u021Biile \u0219i urm\u0103re\u0219ti contractele? Vezi platforma ", /*#__PURE__*/React.createElement("strong", null, "Agatha Plus")), /*#__PURE__*/React.createElement(Arrow, null))), /*#__PURE__*/React.createElement("nav", {
+  }, /*#__PURE__*/React.createElement("span", null, "Planifica\u021Bi achizi\u021Biile \u0219i urm\u0103ri\u021Bi contractele? Vede\u021Bi platforma ", /*#__PURE__*/React.createElement("strong", null, "Agatha Plus")), /*#__PURE__*/React.createElement(Arrow, null))), /*#__PURE__*/React.createElement("nav", {
     className: "ftr__cols",
     "aria-label": "Navigare subsol"
   }, /*#__PURE__*/React.createElement("div", {

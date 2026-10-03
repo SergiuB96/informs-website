@@ -37,7 +37,7 @@ function LegalShell({ title, subtitle, onNav, children, updated = UPDATED }) {
             <p style={S.meta}>Ultima actualizare: {updated}</p>
             {children}
             <div style={S.divider} />
-            <button className="btn btn-outline" onClick={() => go('contact')}>Întrebări? Contactează-ne</button>
+            <button className="btn btn-outline" onClick={() => go('contact')}>Întrebări? Contactați-ne</button>
           </div>
         </div>
       </section>
@@ -507,7 +507,7 @@ function DeliveryPage({ onNav }) {
   return (
     <LegalShell
       title="Politica de livrare"
-      subtitle="Cum și când primești documentele comandate."
+      subtitle="Cum și când primiți documentele comandate."
       onNav={onNav}
     >
       <p style={S.p}>
@@ -547,12 +547,12 @@ function DeliveryPage({ onNav }) {
         </p>
       </Sec>
 
-      <Sec n="5" title="Dacă nu primești e-mailul">
-        <p style={S.p}>Dacă în 30 de minute de la confirmarea plății nu ai primit e-mailul:</p>
+      <Sec n="5" title="Dacă nu primiți e-mailul">
+        <p style={S.p}>Dacă în 30 de minute de la confirmarea plății nu ați primit e-mailul:</p>
         <ul style={S.ul}>
-          <li>Verifică folderul Spam sau Promoții din căsuța de e-mail</li>
-          <li>Verifică dacă adresa introdusă la comandă este scrisă corect</li>
-          <li>Scrie-ne la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a> cu numărul comenzii; retrimitem documentul
+          <li>Verificați folderul Spam sau Promoții din căsuța de e-mail</li>
+          <li>Verificați dacă adresa introdusă la comandă este scrisă corect</li>
+          <li>Scrieți-ne la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a> cu numărul comenzii; retrimitem documentul
             în cel mult o zi lucrătoare</li>
         </ul>
       </Sec>
@@ -606,7 +606,7 @@ function CancellationPage({ onNav }) {
           Pentru persoanele juridice dreptul de retragere nu se aplică.
         </p>
         <p style={S.p}>
-          Dacă nu dorești să finalizezi comanda, pur și simplu nu efectua plata: până la plată nu se creează nicio obligație.
+          Dacă nu doriți să finalizați comanda, pur și simplu nu efectuați plata: până la plată nu se creează nicio obligație.
         </p>
       </Sec>
 
@@ -628,9 +628,9 @@ function CancellationPage({ onNav }) {
 
       <Sec n="3" title="Probleme tehnice la livrare">
         <p style={S.p}>
-          Singura situație în care intervenim după plată este una tehnică: ai primit alt document decât cel comandat, fișierul nu se
-          deschide sau linkul de descărcare nu funcționează. Ne scrii
-          la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a> cu numărul comenzii, iar noi îți trimitem
+          Singura situație în care intervenim după plată este una tehnică: ați primit alt document decât cel comandat, fișierul nu se
+          deschide sau linkul de descărcare nu funcționează. Ne scrieți
+          la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a> cu numărul comenzii, iar noi vă trimitem
           documentul corect sau un link nou.
         </p>
         <p style={S.p}>
@@ -642,15 +642,15 @@ function CancellationPage({ onNav }) {
       <Sec n="4" title="Comenzi anulate de vânzător">
         <p style={S.p}>
           {COMPANY.name} poate anula o comandă în cazul unei erori evidente de preț, al suspiciunii întemeiate de fraudă sau al
-          imposibilității de a livra produsul. În aceste situații te anunțăm prin e-mail și rambursăm integral suma încasată, folosind
+          imposibilității de a livra produsul. În aceste situații vă anunțăm prin e-mail și rambursăm integral suma încasată, folosind
           aceeași modalitate de plată, în cel mult {COMMERCE.refundDays} zile.
         </p>
       </Sec>
 
       <Sec n="5" title="Reclamații">
         <p style={S.p}>
-          Ne poți scrie oricând la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a>. Dacă nu ești mulțumit
-          de răspuns, te poți adresa <Ext href={ANPC_REC}>ANPC</Ext> sau structurii
+          Ne puteți scrie oricând la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a>. Dacă nu sunteți mulțumit
+          de răspuns, vă puteți adresa <Ext href={ANPC_REC}>ANPC</Ext> sau structurii
           de <Ext href={ANPC_SAL}>Soluționare Alternativă a Litigiilor</Ext>.
         </p>
       </Sec>
@@ -672,7 +672,7 @@ function WithdrawalForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.nume.trim() || !form.email.trim() || !form.comanda.trim()) {
-      setError('Completează numele, adresa de email și numărul comenzii.');
+      setError('Completați numele, adresa de email și numărul comenzii.');
       return;
     }
     setError('');
@@ -702,9 +702,9 @@ function WithdrawalForm() {
       });
       const json = await res.json();
       if (json.ok) setSent(true);
-      else setError('Cererea nu a putut fi trimisă. Încearcă din nou sau scrie-ne direct la ' + COMPANY.email + '.');
+      else setError('Cererea nu a putut fi trimisă. Încercați din nou sau scrieți-ne direct la ' + COMPANY.email + '.');
     } catch {
-      setError('Eroare de rețea. Încearcă din nou sau scrie-ne direct la ' + COMPANY.email + '.');
+      setError('Eroare de rețea. Încercați din nou sau scrieți-ne direct la ' + COMPANY.email + '.');
     } finally {
       setLoading(false);
     }
@@ -715,7 +715,7 @@ function WithdrawalForm() {
       <div style={{ padding: '32px 28px', background: '#F0FDF4', border: '1px solid #86EFAC', borderRadius: '12px' }}>
         <div style={{ fontWeight: 700, color: '#16A34A', fontSize: '1.05rem', marginBottom: '8px' }}>Cerere înregistrată</div>
         <p style={{ ...S.p, marginBottom: 0 }}>
-          Am primit cererea ta de retragere. Îți confirmăm primirea pe email și îți comunicăm soluția în cel mult 14 zile.
+          Am primit cererea dumneavoastră de retragere. Vă confirmăm primirea pe email și vă comunicăm soluția în cel mult 14 zile.
         </p>
       </div>
     );
@@ -748,7 +748,7 @@ function WithdrawalForm() {
       </div>
       <div>
         <label style={label}>Motiv (opțional)</label>
-        <textarea style={{ ...field, minHeight: '90px', resize: 'vertical' }} value={form.motiv} onChange={set('motiv')} placeholder="Nu ești obligat să indici un motiv." />
+        <textarea style={{ ...field, minHeight: '90px', resize: 'vertical' }} value={form.motiv} onChange={set('motiv')} placeholder="Nu sunteți obligat să indicați un motiv." />
       </div>
       {error && (
         <p style={{ color: '#c53030', fontSize: '14px', background: '#fff5f5', padding: '12px 16px', borderRadius: '8px', border: '1px solid #fed7d7', margin: 0 }}>
@@ -756,7 +756,7 @@ function WithdrawalForm() {
         </p>
       )}
       <button type="submit" className="btn btn-primary" style={{ alignSelf: 'flex-start' }} disabled={loading}>
-        {loading ? 'Se trimite...' : 'Trimite cererea de retragere'}
+        {loading ? 'Se trimite...' : 'Trimiteți cererea de retragere'}
       </button>
     </form>
   );
@@ -766,13 +766,13 @@ function WithdrawalPage({ onNav }) {
   return (
     <LegalShell
       title="Dreptul de retragere"
-      subtitle="Cum te retragi din contract, online, în 14 zile."
+      subtitle="Cum vă retrageți din contract, online, în 14 zile."
       updated="29 septembrie 2026"
       onNav={onNav}
     >
       <p style={S.p}>
-        În calitate de consumator ai dreptul de a te retrage dintr-un contract încheiat la distanță în
-        termen de <strong>{COMMERCE.withdrawalDays} zile calendaristice</strong>, fără a fi nevoit să justifici decizia și fără a suporta
+        În calitate de consumator aveți dreptul de a vă retrage dintr-un contract încheiat la distanță în
+        termen de <strong>{COMMERCE.withdrawalDays} zile calendaristice</strong>, fără a fi nevoit să justificați decizia și fără a suporta
         penalități, conform Ordonanței de urgență a Guvernului nr. 34/2014 privind drepturile consumatorilor în cadrul contractelor
         încheiate cu profesioniștii.
       </p>
@@ -795,25 +795,25 @@ function WithdrawalPage({ onNav }) {
           cu <strong>acordul prealabil expres al consumatorului</strong> și cu confirmarea că acesta ia cunoștință de pierderea dreptului.
         </p>
         <p style={S.p}>
-          De aceea, la finalizarea comenzii îți cerem o <strong>bifă separată</strong> prin care confirmi că ești de acord cu livrarea
-          imediată a documentului și că înțelegi că, odată începută descărcarea, nu te mai poți retrage din contract.
+          De aceea, la finalizarea comenzii vă cerem o <strong>bifă separată</strong> prin care confirmați că sunteți de acord cu livrarea
+          imediată a documentului și că înțelegeți că, odată începută descărcarea, nu vă mai puteți retrage din contract.
         </p>
         <p style={S.p}>
-          Fără acest acord comanda online nu poate fi finalizată, pentru că documentul se livrează imediat după plată. Dacă vrei să
-          păstrezi dreptul de retragere, scrie-ne la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a> înainte de
-          a comanda: îți trimitem documentul după expirarea celor {COMMERCE.withdrawalDays} zile.
+          Fără acest acord comanda online nu poate fi finalizată, pentru că documentul se livrează imediat după plată. Dacă doriți să
+          păstrați dreptul de retragere, scrieți-ne la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a> înainte de
+          a comanda: vă trimitem documentul după expirarea celor {COMMERCE.withdrawalDays} zile.
         </p>
         <p style={S.p}>
-          Chiar și cu acordul dat, dreptul de retragere se pierde abia în momentul în care <strong>începi descărcarea</strong> documentului.
-          Până atunci te poți retrage în continuare.
+          Chiar și cu acordul dat, dreptul de retragere se pierde abia în momentul în care <strong>începeți descărcarea</strong> documentului.
+          Până atunci vă puteți retrage în continuare.
         </p>
       </Sec>
 
-      <Sec n="3" title="Situații în care te poți retrage oricum">
-        <p style={S.p}>Excepția de mai sus nu se aplică și te poți retrage dacă:</p>
+      <Sec n="3" title="Situații în care vă puteți retrage oricum">
+        <p style={S.p}>Excepția de mai sus nu se aplică și vă puteți retrage dacă:</p>
         <ul style={S.ul}>
-          <li>Nu ai bifat acordul pentru livrarea imediată</li>
-          <li>Nu ai început încă descărcarea documentului</li>
+          <li>Nu ați bifat acordul pentru livrarea imediată</li>
+          <li>Nu ați început încă descărcarea documentului</li>
         </ul>
         <p style={S.p}>
           Problemele tehnice de livrare (alt document, fișier care nu se deschide, link nefuncțional) nu țin de retragere: le rezolvăm
@@ -823,22 +823,22 @@ function WithdrawalPage({ onNav }) {
 
       <Sec n="4" title="Formular online de retragere">
         <p style={S.p}>
-          Completează formularul de mai jos. Primești confirmarea pe email, iar soluția în cel mult {COMMERCE.refundDays} zile.
-          Alternativ, poți trimite aceeași cerere la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a>.
+          Completați formularul de mai jos. Primiți confirmarea pe email, iar soluția în cel mult {COMMERCE.refundDays} zile.
+          Alternativ, puteți trimite aceeași cerere la <a href={'mailto:' + COMPANY.email} style={S.link}>{COMPANY.email}</a>.
         </p>
         <WithdrawalForm />
       </Sec>
 
       <Sec n="5" title="Efectele retragerii">
         <p style={S.p}>
-          Dacă te retragi valabil, rambursăm integral suma încasată, folosind aceeași modalitate de plată, în termen de cel
+          Dacă vă retrageți valabil, rambursăm integral suma încasată, folosind aceeași modalitate de plată, în termen de cel
           mult <strong>{COMMERCE.refundDays} zile</strong> de la data la care am fost informați. Nu percepem comisioane pentru rambursare.
         </p>
       </Sec>
 
       <Sec n="6" title="Model de declarație de retragere">
         <p style={S.p}>
-          Dacă preferi să redactezi singur cererea, poți folosi textul următor:
+          Dacă preferați să redactați singur cererea, puteți folosi textul următor:
         </p>
         <div style={{ background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '10px', padding: '20px 24px', fontSize: '0.95rem', lineHeight: 1.85, color: 'var(--text-2)' }}>
           Către {COMPANY.name}, {COMPANY.email}<br /><br />
@@ -865,35 +865,35 @@ function CookiePage({ onNav }) {
   return (
     <LegalShell
       title="Politica de cookie-uri"
-      subtitle="Ce cookie-uri folosim și cum îți controlezi preferințele."
+      subtitle="Ce cookie-uri folosim și cum vă controlați preferințele."
       onNav={onNav}
     >
       <p style={S.p}>
-        Cookie-urile sunt fișiere text de mici dimensiuni pe care un website le stochează în browserul tău. Ele permit site-ului să
-        funcționeze corect și, cu acordul tău, să înțelegem cum este folosit.
+        Cookie-urile sunt fișiere text de mici dimensiuni pe care un website le stochează în browserul dumneavoastră. Ele permit site-ului să
+        funcționeze corect și, cu acordul dumneavoastră, să înțelegem cum este folosit.
       </p>
 
       <Sec n="1" title="Categoriile pe care le folosim">
         <p style={S.p}><strong>Cookie-uri strict necesare.</strong> Asigură funcționarea corectă a site-ului, inclusiv memorarea alegerii
-          tale privind cookie-urile. Nu pot fi dezactivate și nu necesită consimțământ.</p>
+          dumneavoastră privind cookie-urile. Nu pot fi dezactivate și nu necesită consimțământ.</p>
         <p style={S.p}><strong>Cookie-uri de analiză.</strong> Folosim Google Analytics 4 pentru a înțelege ce pagini sunt vizitate, cât
           durează o sesiune și de pe ce tip de dispozitiv se accesează site-ul. Datele sunt agregate și anonimizate. Aceste cookie-uri se
-          activează <strong>doar după acordul tău explicit</strong>.</p>
+          activează <strong>doar după acordul dumneavoastră explicit</strong>.</p>
         <p style={S.p}>
           Nu folosim cookie-uri de publicitate și nu vindem date de navigare către terți.
         </p>
       </Sec>
 
-      <Sec n="2" title="Cum îți exprimi și cum îți retragi acordul">
+      <Sec n="2" title="Cum vă exprimați și cum vă retrageți acordul">
         <p style={S.p}>
-          La prima vizită primești un banner cu opțiunile „Acceptă toate”, „Doar necesare” și „Setări”. Alegerea se memorează, iar preferințele
+          La prima vizită primiți un banner cu opțiunile „Acceptați toate”, „Doar necesare” și „Alegeți”. Alegerea se memorează, iar preferințele
           pot fi schimbate oricând.
         </p>
         <button className="btn btn-outline" onClick={openPrefs} style={{ marginBottom: '14px' }}>
-          Modifică preferințele cookie
+          Modificați preferințele cookie
         </button>
         <p style={S.p}>
-          Poți de asemenea șterge sau bloca cookie-urile din setările browserului. Blocarea celor strict necesare poate afecta funcționarea
+          Puteți de asemenea șterge sau bloca cookie-urile din setările browserului. Blocarea celor strict necesare poate afecta funcționarea
           site-ului.
         </p>
       </Sec>
@@ -908,7 +908,7 @@ function CookiePage({ onNav }) {
       <Sec n="4" title="Cookie-uri ale terților">
         <p style={S.p}>
           Google Analytics este furnizat de Google Ireland Limited. Serviciul plasează cookie-uri proprii, guvernate de politica de
-          confidențialitate a furnizorului. În timpul procesului de plată ești redirecționat către pagina securizată a procesatorului de
+          confidențialitate a furnizorului. În timpul procesului de plată sunteți redirecționat către pagina securizată a procesatorului de
           plăți, care folosește propriile cookie-uri, necesare tranzacției.
         </p>
       </Sec>

@@ -45,7 +45,7 @@ const SHOP_PRODUCTS = [{
   id: 'contract-instrainare-mijloc-transport',
   title: 'Contract de înstrăinare-dobândire mijloc de transport',
   shortDesc: 'Model de contract pentru transferul dreptului de proprietate asupra unui mijloc de transport.',
-  longDesc: 'Modelul oficial de contract pentru înstrăinarea și dobândirea unui mijloc de transport, preluat din sursa publică și transformat de INFORMS în formular PDF completabil. Înainte de folosire, verifică dacă autoritatea la care depui actele cere versiunea actuală a modelului.',
+  longDesc: 'Modelul oficial de contract pentru înstrăinarea și dobândirea unui mijloc de transport, preluat din sursa publică și transformat de INFORMS în formular PDF completabil. Înainte de folosire, verificați dacă autoritatea la care depuneți actele cere versiunea actuală a modelului.',
   shelf: 'uzuale',
   forWhom: 'Persoanele și firmele care vând sau cumpără un vehicul.',
   version: '1.0',
@@ -682,7 +682,7 @@ function PreviewViewer({
     type: "button",
     className: "pv__close",
     onClick: onClose,
-    "aria-label": "\xCEnchide"
+    "aria-label": "\xCEnchide\u021Bi"
   }, "\xD7")), /*#__PURE__*/React.createElement("div", {
     className: "pv__stage",
     "data-lenis-prevent": true
@@ -716,7 +716,7 @@ function PreviewViewer({
     type: "button",
     className: "shop-card-cta pv__cta",
     onClick: onOrder
-  }, isFree ? 'Descarcă gratuit' : 'Comandă documentul complet', /*#__PURE__*/React.createElement("span", {
+  }, isFree ? 'Descărcați gratuit' : 'Comandați documentul complet', /*#__PURE__*/React.createElement("span", {
     className: "shop-card-cta__arr",
     "aria-hidden": "true"
   }, "\u2192")))));
@@ -741,7 +741,7 @@ function PreviewStrip({
     type: "button",
     className: "pv-strip__item",
     onClick: () => onOpen(k),
-    "aria-label": 'Deschide pagina ' + pg.page + ' din ' + pv.total
+    "aria-label": 'Deschideți pagina ' + pg.page + ' din ' + pv.total
   }, /*#__PURE__*/React.createElement("img", {
     src: pg.src,
     width: pg.w,
@@ -828,7 +828,7 @@ function ProductCard({
     className: "shop-card-cta",
     href: href,
     onClick: open
-  }, product.price === 0 ? 'Descarcă gratuit' : 'Comandă', /*#__PURE__*/React.createElement("span", {
+  }, product.price === 0 ? 'Descărcați gratuit' : 'Comandați', /*#__PURE__*/React.createElement("span", {
     className: "shop-card-cta__arr",
     "aria-hidden": "true"
   }, "\u2192"))))));
@@ -1157,7 +1157,7 @@ function CheckoutForm({
   const handleSubmit = async e => {
     e.preventDefault();
     if (!ready) {
-      setError('Completează toate câmpurile marcate cu * și bifează acordurile.');
+      setError('Completați toate câmpurile marcate cu * și bifați acordurile.');
       return;
     }
     setError('');
@@ -1181,9 +1181,9 @@ function CheckoutForm({
         window.location.assign(json.paymentURL);
         return;
       }
-      setError(json.error || 'Plata nu a putut fi inițiată. Încearcă din nou sau scrie-ne la ' + COMPANY.email + '.');
+      setError(json.error || 'Plata nu a putut fi inițiată. Încercați din nou sau scrieți-ne la ' + COMPANY.email + '.');
     } catch {
-      setError('Conexiunea s-a întrerupt. Verifică internetul și încearcă din nou sau scrie-ne la ' + COMPANY.email + '.');
+      setError('Conexiunea s-a întrerupt. Verificați conexiunea la internet și încercați din nou sau scrieți-ne la ' + COMPANY.email + '.');
     } finally {
       setLoading(false);
     }
@@ -1221,7 +1221,7 @@ function CheckoutForm({
     onChange: setJudet
   }, /*#__PURE__*/React.createElement("option", {
     value: ""
-  }, "Alege jude\u021Bul"), JUDETE.map(j => /*#__PURE__*/React.createElement("option", {
+  }, "Alege\u021Bi jude\u021Bul"), JUDETE.map(j => /*#__PURE__*/React.createElement("option", {
     key: j.c,
     value: j.n
   }, j.n))) : f.kind === 'localitate' ? /*#__PURE__*/React.createElement("select", {
@@ -1231,7 +1231,7 @@ function CheckoutForm({
     disabled: !form.state || !localitati
   }, /*#__PURE__*/React.createElement("option", {
     value: ""
-  }, !form.state ? 'Alege întâi județul' : locEroare ? 'Lista nu s-a încărcat' : !localitati ? 'Se încarcă...' : 'Alege localitatea'), locJudet.map(l => /*#__PURE__*/React.createElement("option", {
+  }, !form.state ? 'Alegeți întâi județul' : locEroare ? 'Lista nu s-a încărcat' : !localitati ? 'Se încarcă...' : 'Alegeți localitatea'), locJudet.map(l => /*#__PURE__*/React.createElement("option", {
     key: l,
     value: l
   }, l))) : /*#__PURE__*/React.createElement("input", {
@@ -1242,7 +1242,7 @@ function CheckoutForm({
     placeholder: f.ph
   })))), locEroare && /*#__PURE__*/React.createElement("p", {
     className: "sp-err-inline"
-  }, "Lista localit\u0103\u021Bilor nu s-a putut \xEEnc\u0103rca. Re\xEEncarc\u0103 pagina sau scrie-ne la ", COMPANY.email, "."), /*#__PURE__*/React.createElement("label", {
+  }, "Lista localit\u0103\u021Bilor nu s-a putut \xEEnc\u0103rca. Re\xEEnc\u0103rca\u021Bi pagina sau scrie\u021Bi-ne la ", COMPANY.email, "."), /*#__PURE__*/React.createElement("label", {
     className: "sp-check"
   }, /*#__PURE__*/React.createElement("input", {
     type: "checkbox",
@@ -1278,9 +1278,39 @@ function CheckoutForm({
     type: "submit",
     className: "btn btn-primary sp-btn-block",
     disabled: !ready || loading
-  }, loading ? 'Se deschide pagina de plată...' : 'Plătește ' + fmtPrice(product.price)), /*#__PURE__*/React.createElement("div", {
+  }, loading ? 'Se deschide pagina de plată...' : 'Plătiți ' + fmtPrice(product.price)), /*#__PURE__*/React.createElement("div", {
     className: "sp-pay-logo"
-  }, /*#__PURE__*/React.createElement("img", {
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "sp-secure"
+  }, /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 24 24",
+    width: "16",
+    height: "16",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M7 10V7a5 5 0 0 1 10 0v3",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2.2",
+    strokeLinecap: "round"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "4",
+    y: "10",
+    width: "16",
+    height: "11",
+    rx: "2.5",
+    fill: "currentColor"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "12",
+    cy: "15",
+    r: "1.6",
+    fill: "#fff"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M12 15.5v2.2",
+    stroke: "#fff",
+    strokeWidth: "1.6",
+    strokeLinecap: "round"
+  })), "Plat\u0103 securizat\u0103"), /*#__PURE__*/React.createElement("img", {
     src: "uploads/netopia-payments.webp",
     alt: "NETOPIA Payments, Visa, Mastercard"
   })), /*#__PURE__*/React.createElement("p", {
@@ -1318,7 +1348,7 @@ function ProductDetails({
   const handleDownload = async e => {
     e.preventDefault();
     if (newsletter && !validEmail(email)) {
-      setEmailErr('Introdu o adresă de email validă.');
+      setEmailErr('Introduceți o adresă de email validă.');
       return;
     }
     setEmailErr('');
@@ -1418,13 +1448,13 @@ function ProductDetails({
     className: "sp-done__title"
   }, "Desc\u0103rcarea a pornit"), /*#__PURE__*/React.createElement("div", {
     className: "sp-done__text"
-  }, "Verific\u0103 folderul de desc\u0103rc\u0103ri din browser.")) : /*#__PURE__*/React.createElement("form", {
+  }, "Verifica\u021Bi folderul de desc\u0103rc\u0103ri din browser.")) : /*#__PURE__*/React.createElement("form", {
     onSubmit: handleDownload,
     noValidate: true,
     className: "sp-form"
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-lbl"
-  }, "Descarc\u0103 gratuit"), /*#__PURE__*/React.createElement("label", {
+  }, "Desc\u0103rca\u021Bi gratuit"), /*#__PURE__*/React.createElement("label", {
     className: "sp-check"
   }, /*#__PURE__*/React.createElement("input", {
     type: "checkbox",
@@ -1458,11 +1488,11 @@ function ProductDetails({
     type: "submit",
     className: "btn btn-primary sp-btn-block",
     disabled: !canDownload || downloading
-  }, downloading ? 'Se pregătește...' : 'Descarcă gratuit')) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+  }, downloading ? 'Se pregătește...' : 'Descărcați gratuit')) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-price-box"
   }, /*#__PURE__*/React.createElement("div", null, isFree ? /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-price-note"
-  }, "Documentul este gratuit. Trimite-ne o cerere pe email \u0219i \xEEl prime\u0219ti \xEEn cel mult o zi lucr\u0103toare.") : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+  }, "Documentul este gratuit. Trimite\u021Bi-ne o cerere pe email \u0219i \xEEl primi\u021Bi \xEEn cel mult o zi lucr\u0103toare.") : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-price"
   }, product.price, " ", /*#__PURE__*/React.createElement("span", null, COMMERCE.currency)), /*#__PURE__*/React.createElement("div", {
     className: "shop-modal-price-note"
@@ -1471,7 +1501,7 @@ function ProductDetails({
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
     onClick: handleRequestFree
-  }, "Cere documentul pe email"))) : /*#__PURE__*/React.createElement(React.Fragment, null, checkout ? /*#__PURE__*/React.createElement(CheckoutForm, {
+  }, "Cere\u021Bi documentul pe email"))) : /*#__PURE__*/React.createElement(React.Fragment, null, checkout ? /*#__PURE__*/React.createElement(CheckoutForm, {
     product: product,
     onNav: onNav
   }) : /*#__PURE__*/React.createElement("div", {
@@ -1479,15 +1509,15 @@ function ProductDetails({
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
     onClick: () => setCheckout(true)
-  }, "Cump\u0103r\u0103 cu cardul")), /*#__PURE__*/React.createElement("div", {
+  }, "Cump\u0103ra\u021Bi cu cardul")), /*#__PURE__*/React.createElement("div", {
     className: "sp-inst"
   }, /*#__PURE__*/React.createElement("div", {
     className: "sp-inst__title"
-  }, "Cumperi pentru o institu\u021Bie?"), /*#__PURE__*/React.createElement("p", {
+  }, "Cump\u0103ra\u021Bi pentru o institu\u021Bie?"), /*#__PURE__*/React.createElement("p", {
     className: "sp-inst__text"
-  }, "Trimite-ne la ", /*#__PURE__*/React.createElement("a", {
+  }, "Trimite\u021Bi-ne la ", /*#__PURE__*/React.createElement("a", {
     href: 'mailto:' + COMPANY.email + '?subject=' + encodeURIComponent('Cerere de ofertă: ' + product.title)
-  }, COMPANY.email), " o cerere de ofert\u0103 sau o comand\u0103 ferm\u0103. Emitem factura prin e-Factura, pl\u0103te\u0219ti prin ordin de plat\u0103, iar documentul \xEEl prime\u0219ti pe email."), /*#__PURE__*/React.createElement("div", {
+  }, COMPANY.email), " o cerere de ofert\u0103 sau o comand\u0103 ferm\u0103. Emitem factura prin e-Factura, pl\u0103ti\u021Bi prin ordin de plat\u0103, iar documentul \xEEl primi\u021Bi pe email."), /*#__PURE__*/React.createElement("div", {
     className: "sp-inst__seap"
   }, /*#__PURE__*/React.createElement("a", {
     href: "https://www.e-licitatie.ro/pub",
@@ -1522,9 +1552,9 @@ function ProductDetails({
     }
   }, o.title))))), !inModal && /*#__PURE__*/React.createElement("p", {
     className: "sp-modal-text--note"
-  }, "Ai nevoie de documentul adaptat pe firma ta? ", /*#__PURE__*/React.createElement("a", {
+  }, "Ave\u021Bi nevoie de documentul adaptat pe firma dumneavoastr\u0103? ", /*#__PURE__*/React.createElement("a", {
     href: "/contact"
-  }, "Scrie-ne.")));
+  }, "Scrie\u021Bi-ne.")));
 }
 
 /* Fereastra de produs din magazin. Același conținut ca pagina
@@ -1568,7 +1598,7 @@ function ProductModal({
     ref: closeRef,
     className: "shop-modal-close",
     onClick: onClose,
-    "aria-label": "\xCEnchide"
+    "aria-label": "\xCEnchide\u021Bi"
   }, "\xD7"), /*#__PURE__*/React.createElement("div", {
     className: "sp-modal-fmt"
   }, fmt.label, product.price === 0 ? ' · Gratuit' : '', views != null && /*#__PURE__*/React.createElement("span", {
@@ -1765,8 +1795,8 @@ function ShopPage({
   })), /*#__PURE__*/React.createElement("input", {
     className: "shop-search",
     type: "text",
-    placeholder: "Caut\u0103 dup\u0103 denumire (ex: recep\u021Bie, F.14, contract)",
-    "aria-label": "Caut\u0103 \xEEn magazin",
+    placeholder: "C\u0103uta\u021Bi dup\u0103 denumire (ex: recep\u021Bie, F.14, contract)",
+    "aria-label": "C\u0103uta\u021Bi \xEEn magazin",
     value: query,
     onChange: e => setQuery(e.target.value)
   })))), /*#__PURE__*/React.createElement("div", {
@@ -1820,7 +1850,7 @@ function ShopPage({
     type: "button",
     className: "shop-side__reset",
     onClick: resetFilters
-  }, "Reseteaz\u0103 filtrele")), /*#__PURE__*/React.createElement("div", {
+  }, "Reseta\u021Bi filtrele")), /*#__PURE__*/React.createElement("div", {
     className: "shop-main"
   }, /*#__PURE__*/React.createElement("div", {
     className: "shop-result-bar"
@@ -1828,10 +1858,10 @@ function ShopPage({
     className: "shop-result-count"
   }, /*#__PURE__*/React.createElement("strong", null, total), "\xA0", total === 1 ? 'produs găsit' : 'produse găsite')), catalog.length > 0 && grid(catalog), total === 0 && /*#__PURE__*/React.createElement("div", {
     className: "shop-empty"
-  }, /*#__PURE__*/React.createElement("h3", null, "Niciun produs pentru filtrele alese"), /*#__PURE__*/React.createElement("p", null, "Unele categorii sunt \xEEnc\u0103 \xEEn lucru. Reseteaz\u0103 filtrele sau scrie-ne ce document cau\u021Bi."), /*#__PURE__*/React.createElement("button", {
+  }, /*#__PURE__*/React.createElement("h3", null, "Niciun produs pentru filtrele alese"), /*#__PURE__*/React.createElement("p", null, "Unele categorii sunt \xEEnc\u0103 \xEEn lucru. Reseta\u021Bi filtrele sau scrie\u021Bi-ne ce document c\u0103uta\u021Bi."), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-outline",
     onClick: resetFilters
-  }, "Reseteaz\u0103 filtrele")), shelf.length > 0 && /*#__PURE__*/React.createElement("div", {
+  }, "Reseta\u021Bi filtrele")), shelf.length > 0 && /*#__PURE__*/React.createElement("div", {
     className: "sp-shelf"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "sp-shelf__title"
@@ -1843,9 +1873,9 @@ function ShopPage({
     className: "sp-cta__k"
   }, "Servicii"), /*#__PURE__*/React.createElement("h2", {
     className: "sp-cta__title"
-  }, "Documenta\u021Bie la comand\u0103"), /*#__PURE__*/React.createElement("p", {
+  }, "Documenta\u021Bie \u0219i livrabile la comand\u0103"), /*#__PURE__*/React.createElement("p", {
     className: "sp-cta__lead"
-  }, "Nu ai g\u0103sit instrumentul potrivit? \xCEl putem elabora sau adapta pe procedura, proiectul sau fluxul t\u0103u de lucru."), /*#__PURE__*/React.createElement("button", {
+  }, "Nu reg\u0103si\u021Bi \xEEn catalog livrabilul de care ave\u021Bi nevoie? \xCEl elabor\u0103m pe m\u0103sur\u0103 sau adapt\u0103m un model existent la procedura, proiectul \u0219i fluxul dumneavoastr\u0103 de lucru."), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
     onClick: () => {
       onNav('contact');
@@ -1854,7 +1884,7 @@ function ShopPage({
         behavior: 'instant'
       });
     }
-  }, "Descrie ce \xEE\u021Bi trebuie")))), openedProduct && /*#__PURE__*/React.createElement(ProductModal, {
+  }, "Solicita\u021Bi o ofert\u0103")))), openedProduct && /*#__PURE__*/React.createElement(ProductModal, {
     product: openedProduct,
     onClose: closeProduct,
     onNav: onNav,
@@ -1884,29 +1914,29 @@ const ORDER_STATES = {
     tone: 'wait',
     tag: 'Se verifică',
     title: 'Verificăm plata',
-    lead: 'Durează doar câteva secunde. Nu închide pagina și nu relua plata.',
+    lead: 'Durează doar câteva secunde. Nu închideți pagina și nu reluați plata.',
     steps: []
   },
   ok: {
     tone: 'ok',
     tag: 'Plătită',
     title: 'Plata a fost confirmată',
-    lead: 'Îți mulțumim. Îți trimitem documentul pe adresa de email din comandă.',
-    steps: ['Deschide emailul de la INFORMS și descarcă documentul. Linkul e valabil 72 de ore.', 'Nu îl găsești în 10 minute? Verifică folderele Spam și Promoții.', 'Tot nimic? Scrie-ne la ' + COMPANY.email + ' cu numărul comenzii de mai sus.']
+    lead: 'Vă mulțumim. Vă trimitem documentul pe adresa de email din comandă.',
+    steps: ['Deschideți emailul de la INFORMS și descărcați documentul. Linkul e valabil 72 de ore.', 'Nu îl găsiți în 10 minute? Verificați folderele Spam și Promoții.', 'Tot nimic? Scrieți-ne la ' + COMPANY.email + ' cu numărul comenzii de mai sus.']
   },
   pending: {
     tone: 'wait',
     tag: 'În procesare',
     title: 'Plata este în curs de procesare',
-    lead: 'Banca verifică tranzacția. Imediat ce plata e confirmată, primești documentul pe email, automat.',
-    steps: ['Nu relua plata până nu primești un răspuns.', 'Pagina se actualizează singură cât timp o ții deschisă.', 'Dacă nu primești nimic într-o oră, scrie-ne la ' + COMPANY.email + '.']
+    lead: 'Banca verifică tranzacția. Imediat ce plata e confirmată, primiți documentul pe email, automat.',
+    steps: ['Nu reluați plata până nu primiți un răspuns.', 'Pagina se actualizează singură cât timp o țineți deschisă.', 'Dacă nu primiți nimic într-o oră, scrieți-ne la ' + COMPANY.email + '.']
   },
   fail: {
     tone: 'fail',
     tag: 'Nefinalizată',
     title: 'Plata nu a fost finalizată',
     lead: 'Tranzacția a fost respinsă sau anulată de bancă ori întreruptă înainte de final.',
-    steps: ['O sumă blocată pe card o eliberează banca automat, de regulă în câteva zile lucrătoare.', 'Poți relua comanda din magazin, cu același card sau cu altul.', 'Preferi transferul bancar? Scrie-ne și îți trimitem factura proforma.']
+    steps: ['O sumă blocată pe card o eliberează banca automat, de regulă în câteva zile lucrătoare.', 'Puteți relua comanda din magazin, cu același card sau cu altul.', 'Preferați transferul bancar? Scrieți-ne și vă trimitem factura proforma.']
   }
 };
 function OrderStatusPage({
@@ -2008,10 +2038,10 @@ function OrderStatusPage({
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-primary",
     onClick: () => go('magazin')
-  }, key === 'fail' ? 'Reia comanda' : 'Înapoi în magazin'), /*#__PURE__*/React.createElement("button", {
+  }, key === 'fail' ? 'Reluați comanda' : 'Înapoi în magazin'), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-outline",
     onClick: () => go('contact')
-  }, "Contacteaz\u0103-ne"))))));
+  }, "Contacta\u021Bi-ne"))))));
 }
 Object.assign(window, {
   ShopPage,

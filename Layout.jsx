@@ -136,8 +136,8 @@ function Nav({ onNav, page }) {
                     <div className="mega__promo">
                       <div className="mega__promo-art mega__promo-art--servicii" aria-hidden="true" />
                       <p className="mega__promo-kicker">Primul pas</p>
-                      <p className="mega__promo-title">Descrie procedura și îți spunem ce documente îți trebuie</p>
-                      <a className="lnk" href="/contact">Scrie-ne <Arrow /></a>
+                      <p className="mega__promo-title">Descrieți procedura și vă spunem ce documente vă trebuie</p>
+                      <a className="lnk" href="/contact">Scrieți-ne <Arrow /></a>
                     </div>
                   </div>
                 </div>
@@ -166,7 +166,7 @@ function Nav({ onNav, page }) {
                       <div className="mega__promo-art mega__promo-art--produse" aria-hidden="true" />
                       <p className="mega__promo-kicker">Fără cost</p>
                       <p className="mega__promo-title">Modele gratuite, descărcabile imediat</p>
-                      <a className="lnk" href="/magazin" onClick={(e) => goShop('gratuite', e)}>Vezi modelele <Arrow /></a>
+                      <a className="lnk" href="/magazin" onClick={(e) => goShop('gratuite', e)}>Vedeți modelele <Arrow /></a>
                     </div>
                   </div>
                 </div>
@@ -177,7 +177,7 @@ function Nav({ onNav, page }) {
           </nav>
 
           <button className="burger" type="button" aria-expanded={open}
-                  aria-label={open ? 'Închide meniul' : 'Deschide meniul'}
+                  aria-label={open ? 'Închideți meniul' : 'Deschideți meniul'}
                   onClick={() => setOpen(!open)}>
             <span></span><span></span><span></span>
           </button>
@@ -230,7 +230,7 @@ function Footer() {
               Documentații de atribuire, instrumente Excel, Word și PDF și digitalizare la comandă, pentru contractele publice, de la planificare la recepție.
             </p>
             <a className="ftr__cross" href="https://www.agathaplus.ro/" target="_blank" rel="noopener noreferrer">
-              <span>Planifici achizițiile și urmărești contractele? Vezi platforma <strong>Agatha Plus</strong></span>
+              <span>Planificați achizițiile și urmăriți contractele? Vedeți platforma <strong>Agatha Plus</strong></span>
               <Arrow />
             </a>
           </div>

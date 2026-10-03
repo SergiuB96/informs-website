@@ -703,7 +703,7 @@ function productBody(p) {
     (related ? sec(esc(related.title), '<ul class="shop-modal-includes">' +
       related.items.map((o) => `<li><a href="/magazin/${o.id}" style="color:var(--blue)">${esc(o.title)}</a></li>`).join('') +
       '</ul>', ' style="margin-top:28px;margin-bottom:0"') : '') +
-    '<p class="sp-modal-text--note">Ai nevoie de documentul adaptat pe firma ta? <a href="/contact">Scrie-ne.</a></p>' +
+    '<p class="sp-modal-text--note">Aveți nevoie de documentul adaptat pe firma dumneavoastră? <a href="/contact">Scrieți-ne.</a></p>' +
     '</div></div></section>';
 }
 

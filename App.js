@@ -18,7 +18,7 @@ const PAGE_META = {
   },
   'contact': {
     title: 'Contact | INFORMS',
-    desc: 'Contactează echipa INFORMS pentru consultanță în achiziții publice, documentații și instrumente de lucru specializate.'
+    desc: 'Contactați echipa INFORMS pentru consultanță în achiziții publice, documentații și instrumente de lucru specializate.'
   },
   'servicii': {
     title: 'Servicii | INFORMS',
@@ -54,7 +54,7 @@ const PAGE_META = {
   },
   'comanda-finalizata': {
     title: 'Stare comandă | INFORMS',
-    desc: 'Rezultatul plății și pașii următori pentru comanda ta INFORMS.'
+    desc: 'Rezultatul plății și pașii următori pentru comanda plasată pe INFORMS.'
   },
   'politica-confidentialitate': {
     title: 'Politica de confidențialitate | INFORMS',
@@ -70,7 +70,7 @@ const PAGE_META = {
   },
   'politica-cookies': {
     title: 'Politica de cookie-uri | INFORMS',
-    desc: 'Ce cookie-uri folosește INFORMS și cum îți poți controla preferințele.'
+    desc: 'Ce cookie-uri folosește INFORMS și cum vă puteți controla preferințele.'
   },
   'politica-livrare': {
     title: 'Politica de livrare | INFORMS',

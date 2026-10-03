@@ -8,7 +8,7 @@ function ServiceDetailPage({ onNav, service }) {
     'analiza-si-solutii': {
       title: 'Analiză și soluții personalizate',
       sub: 'Soluții concrete bazate pe date reale',
-      desc: 'Pe baza datelor de intrare solicitate, analizăm situația prezentată și îți oferim soluții concrete, aplicate, care să răspundă tuturor cerințelor și obiectivelor stabilite.',
+      desc: 'Pe baza datelor de intrare solicitate, analizăm situația prezentată și vă oferim soluții concrete, aplicate, care să răspundă tuturor cerințelor și obiectivelor stabilite.',
       items: ['Evaluare și analiză expertă', 'Soluții personalizate pentru fiecare nevoie', 'Rapoarte detaliate', 'Implementare asistată'],
       img: 'https://static.wixstatic.com/media/ab6452_9bdced09566642e99bef512302a368d7~mv2.webp/v1/fill/w_954,h_972,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Layer%203.webp',
       video: 'assets/videos_library/achizitii-publice.mp4',
@@ -44,7 +44,7 @@ function ServiceDetailPage({ onNav, service }) {
     'modele-word': {
       title: 'Modele de lucru WORD',
       sub: 'Documente tipizate și formulare personalizabile',
-      desc: 'Cererile și formularele tipizate clasice în format scanat sunt de domeniul trecutului. Digitalizează-ți activitatea și zilnic salvezi timp prețios.',
+      desc: 'Cererile și formularele tipizate clasice în format scanat sunt de domeniul trecutului. Digitalizați-vă activitatea și zilnic salvați timp prețios.',
       items: ['Formulare tipizate', 'Cereri standardizate', 'Documente administrative', 'Format editabil'],
       img: 'https://static.wixstatic.com/media/ab6452_f425c6e6bc7d4aad8604f8e2f0b758bd~mv2.webp/v1/fill/w_650,h_424,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Layer%202.webp',
       video: 'assets/videos_library/word-doc.mp4',
@@ -53,7 +53,7 @@ function ServiceDetailPage({ onNav, service }) {
     'modele-pdf': {
       title: 'Modele de lucru PDF inteligent',
       sub: 'Formulare electronice interactive',
-      desc: 'E timpul să renunți la completarea clasică. Lucrează în mod inteligent cu modele standard în format electronic, ușor de completat și de arhivat.',
+      desc: 'E timpul să renunțați la completarea clasică. Lucrați în mod inteligent cu modele standard în format electronic, ușor de completat și de arhivat.',
       items: ['Formulare interactive', 'Câmpuri de completare automată', 'Format standardizat', 'Compatibil Adobe Acrobat'],
       img: 'https://static.wixstatic.com/media/ab6452_6c32cfd5b5744ffaa00d4c5cf86916c1~mv2.webp/v1/fill/w_650,h_424,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Layer%204.webp',
       video: 'assets/videos_library/pdf-doc.mp4',
@@ -93,7 +93,7 @@ function ServiceDetailPage({ onNav, service }) {
                 ))}
               </ul>
               <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-                <button className="btn btn-primary" onClick={() => go('contact')}>Solicită ofertă</button>
+                <button className="btn btn-primary" onClick={() => go('contact')}>Solicitați ofertă</button>
                 <button className="btn btn-outline" onClick={() => go('servicii')}>Toate serviciile</button>
               </div>
             </FadeUp>

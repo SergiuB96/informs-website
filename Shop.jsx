@@ -42,7 +42,7 @@ const SHOP_PRODUCTS = [
     id: 'contract-instrainare-mijloc-transport',
     title: 'Contract de înstrăinare-dobândire mijloc de transport',
     shortDesc: 'Model de contract pentru transferul dreptului de proprietate asupra unui mijloc de transport.',
-    longDesc: 'Modelul oficial de contract pentru înstrăinarea și dobândirea unui mijloc de transport, preluat din sursa publică și transformat de INFORMS în formular PDF completabil. Înainte de folosire, verifică dacă autoritatea la care depui actele cere versiunea actuală a modelului.',
+    longDesc: 'Modelul oficial de contract pentru înstrăinarea și dobândirea unui mijloc de transport, preluat din sursa publică și transformat de INFORMS în formular PDF completabil. Înainte de folosire, verificați dacă autoritatea la care depuneți actele cere versiunea actuală a modelului.',
     shelf: 'uzuale',
     forWhom: 'Persoanele și firmele care vând sau cumpără un vehicul.',
     version: '1.0',
@@ -587,7 +587,7 @@ function PreviewViewer({ product, start = 0, onClose, onOrder }) {
             <span className="pv__k">Previzualizare</span>
             <span className="pv__name">{product.title}</span>
           </div>
-          <button ref={closeRef} type="button" className="pv__close" onClick={onClose} aria-label="Închide">×</button>
+          <button ref={closeRef} type="button" className="pv__close" onClick={onClose} aria-label="Închideți">×</button>
         </div>
 
         <div className="pv__stage" data-lenis-prevent>
@@ -610,7 +610,7 @@ function PreviewViewer({ product, start = 0, onClose, onOrder }) {
             <button type="button" className="pv__arrow" onClick={() => go(1)} disabled={i === n - 1} aria-label="Pagina următoare">→</button>
           </div>
           <button type="button" className="shop-card-cta pv__cta" onClick={onOrder}>
-            {isFree ? 'Descarcă gratuit' : 'Comandă documentul complet'}
+            {isFree ? 'Descărcați gratuit' : 'Comandați documentul complet'}
             <span className="shop-card-cta__arr" aria-hidden="true">→</span>
           </button>
         </div>
@@ -629,7 +629,7 @@ function PreviewStrip({ product, onOpen, inModal }) {
       <div className="pv-strip">
         {pv.pages.map((pg, k) => (
           <button key={pg.src} type="button" className="pv-strip__item" onClick={() => onOpen(k)}
-            aria-label={'Deschide pagina ' + pg.page + ' din ' + pv.total}>
+            aria-label={'Deschideți pagina ' + pg.page + ' din ' + pv.total}>
             <img src={pg.src} width={pg.w} height={pg.h} alt={previewAlt(product, pg, k)} loading="lazy" />
             <span>Pag. {pg.page}</span>
           </button>
@@ -707,7 +707,7 @@ function ProductCard({ product, onOpen, onPreview, views }) {
               </button>
             )}
             <a className="shop-card-cta" href={href} onClick={open}>
-              {product.price === 0 ? 'Descarcă gratuit' : 'Comandă'}
+              {product.price === 0 ? 'Descărcați gratuit' : 'Comandați'}
               <span className="shop-card-cta__arr" aria-hidden="true">→</span>
             </a>
           </div>
@@ -884,7 +884,7 @@ function CheckoutForm({ product, onNav }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!ready) {
-      setError('Completează toate câmpurile marcate cu * și bifează acordurile.');
+      setError('Completați toate câmpurile marcate cu * și bifați acordurile.');
       return;
     }
     setError('');
@@ -901,9 +901,9 @@ function CheckoutForm({ product, onNav }) {
         window.location.assign(json.paymentURL);
         return;
       }
-      setError(json.error || 'Plata nu a putut fi inițiată. Încearcă din nou sau scrie-ne la ' + COMPANY.email + '.');
+      setError(json.error || 'Plata nu a putut fi inițiată. Încercați din nou sau scrieți-ne la ' + COMPANY.email + '.');
     } catch {
-      setError('Conexiunea s-a întrerupt. Verifică internetul și încearcă din nou sau scrie-ne la ' + COMPANY.email + '.');
+      setError('Conexiunea s-a întrerupt. Verificați conexiunea la internet și încercați din nou sau scrieți-ne la ' + COMPANY.email + '.');
     } finally {
       setLoading(false);
     }
@@ -935,7 +935,7 @@ function CheckoutForm({ product, onNav }) {
 
             {f.kind === 'judet' ? (
               <select className="sp-input" value={form.state} onChange={setJudet}>
-                <option value="">Alege județul</option>
+                <option value="">Alegeți județul</option>
                 {JUDETE.map(j => <option key={j.c} value={j.n}>{j.n}</option>)}
               </select>
             ) : f.kind === 'localitate' ? (
@@ -946,10 +946,10 @@ function CheckoutForm({ product, onNav }) {
                 disabled={!form.state || !localitati}
               >
                 <option value="">
-                  {!form.state ? 'Alege întâi județul'
+                  {!form.state ? 'Alegeți întâi județul'
                     : locEroare ? 'Lista nu s-a încărcat'
                     : !localitati ? 'Se încarcă...'
-                    : 'Alege localitatea'}
+                    : 'Alegeți localitatea'}
                 </option>
                 {locJudet.map(l => <option key={l} value={l}>{l}</option>)}
               </select>
@@ -962,7 +962,7 @@ function CheckoutForm({ product, onNav }) {
 
       {locEroare && (
         <p className="sp-err-inline">
-          Lista localităților nu s-a putut încărca. Reîncarcă pagina sau scrie-ne la {COMPANY.email}.
+          Lista localităților nu s-a putut încărca. Reîncărcați pagina sau scrieți-ne la {COMPANY.email}.
         </p>
       )}
 
@@ -986,10 +986,19 @@ function CheckoutForm({ product, onNav }) {
       {error && <p className="sp-err">{error}</p>}
 
       <button type="submit" className="btn btn-primary sp-btn-block" disabled={!ready || loading}>
-        {loading ? 'Se deschide pagina de plată...' : 'Plătește ' + fmtPrice(product.price)}
+        {loading ? 'Se deschide pagina de plată...' : 'Plătiți ' + fmtPrice(product.price)}
       </button>
 
       <div className="sp-pay-logo">
+        <span className="sp-secure">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+            <path d="M7 10V7a5 5 0 0 1 10 0v3" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+            <rect x="4" y="10" width="16" height="11" rx="2.5" fill="currentColor" />
+            <circle cx="12" cy="15" r="1.6" fill="#fff" />
+            <path d="M12 15.5v2.2" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
+          Plată securizată
+        </span>
         <img src="uploads/netopia-payments.webp" alt="NETOPIA Payments, Visa, Mastercard" />
       </div>
       <p className="sp-fine">
@@ -1022,7 +1031,7 @@ function ProductDetails({ product, onNav, inModal }) {
 
   const handleDownload = async e => {
     e.preventDefault();
-    if (newsletter && !validEmail(email)) { setEmailErr('Introdu o adresă de email validă.'); return; }
+    if (newsletter && !validEmail(email)) { setEmailErr('Introduceți o adresă de email validă.'); return; }
     setEmailErr('');
     setDownloading(true);
     /* Documentul gratuit nu cere date personale. Emailul ajunge în lista
@@ -1130,11 +1139,11 @@ function ProductDetails({ product, onNav, inModal }) {
               <div className="sp-done">
                 <div className="sp-done__ico">✓</div>
                 <div className="sp-done__title">Descărcarea a pornit</div>
-                <div className="sp-done__text">Verifică folderul de descărcări din browser.</div>
+                <div className="sp-done__text">Verificați folderul de descărcări din browser.</div>
               </div>
             ) : (
               <form onSubmit={handleDownload} noValidate className="sp-form">
-                <div className="shop-modal-lbl">Descarcă gratuit</div>
+                <div className="shop-modal-lbl">Descărcați gratuit</div>
                 <label className="sp-check">
                   <input
                     type="checkbox"
@@ -1164,7 +1173,7 @@ function ProductDetails({ product, onNav, inModal }) {
                   className="btn btn-primary sp-btn-block"
                   disabled={!canDownload || downloading}
                 >
-                  {downloading ? 'Se pregătește...' : 'Descarcă gratuit'}
+                  {downloading ? 'Se pregătește...' : 'Descărcați gratuit'}
                 </button>
               </form>
             )
@@ -1174,7 +1183,7 @@ function ProductDetails({ product, onNav, inModal }) {
                 <div>
                   {isFree
                     ? <div className="shop-modal-price-note">
-                        Documentul este gratuit. Trimite-ne o cerere pe email și îl primești în cel mult o zi lucrătoare.
+                        Documentul este gratuit. Trimiteți-ne o cerere pe email și îl primiți în cel mult o zi lucrătoare.
                       </div>
                     : <>
                         <div className="shop-modal-price">
@@ -1190,7 +1199,7 @@ function ProductDetails({ product, onNav, inModal }) {
                 <>
                   <div className="shop-modal-actions">
                     <button className="btn btn-primary" onClick={handleRequestFree}>
-                      Cere documentul pe email
+                      Cereți documentul pe email
                     </button>
                   </div>
                 </>
@@ -1200,16 +1209,16 @@ function ProductDetails({ product, onNav, inModal }) {
                     ? <CheckoutForm product={product} onNav={onNav} />
                     : <div className="shop-modal-actions">
                         <button className="btn btn-primary" onClick={() => setCheckout(true)}>
-                          Cumpără cu cardul
+                          Cumpărați cu cardul
                         </button>
                       </div>}
                   {/* Traseul pentru instituții (D4): ofertă sau comandă fermă, e-Factura, OP. */}
                   <div className="sp-inst">
-                    <div className="sp-inst__title">Cumperi pentru o instituție?</div>
+                    <div className="sp-inst__title">Cumpărați pentru o instituție?</div>
                     <p className="sp-inst__text">
-                      Trimite-ne la <a href={'mailto:' + COMPANY.email + '?subject=' + encodeURIComponent('Cerere de ofertă: ' + product.title)}>{COMPANY.email}</a> o
-                      cerere de ofertă sau o comandă fermă. Emitem factura prin e-Factura, plătești prin ordin de plată,
-                      iar documentul îl primești pe email.
+                      Trimiteți-ne la <a href={'mailto:' + COMPANY.email + '?subject=' + encodeURIComponent('Cerere de ofertă: ' + product.title)}>{COMPANY.email}</a> o
+                      cerere de ofertă sau o comandă fermă. Emitem factura prin e-Factura, plătiți prin ordin de plată,
+                      iar documentul îl primiți pe email.
                     </p>
                     <div className="sp-inst__seap">
                       <a href="https://www.e-licitatie.ro/pub" target="_blank" rel="noopener noreferrer" aria-label="SEAP / SICAP, e-licitatie.ro">
@@ -1246,7 +1255,7 @@ function ProductDetails({ product, onNav, inModal }) {
           )}
           {!inModal && (
             <p className="sp-modal-text--note">
-              Ai nevoie de documentul adaptat pe firma ta? <a href="/contact">Scrie-ne.</a>
+              Aveți nevoie de documentul adaptat pe firma dumneavoastră? <a href="/contact">Scrieți-ne.</a>
             </p>
           )}
     </div>
@@ -1276,7 +1285,7 @@ function ProductModal({ product, onClose, onNav, views }) {
     <div className="shop-modal-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
       <div className="shop-modal" role="dialog" aria-modal="true" aria-labelledby="sp-modal-title">
         <div className="shop-modal-hd">
-          <button ref={closeRef} className="shop-modal-close" onClick={onClose} aria-label="Închide">×</button>
+          <button ref={closeRef} className="shop-modal-close" onClick={onClose} aria-label="Închideți">×</button>
           <div className="sp-modal-fmt">
             {fmt.label}{product.price === 0 ? ' · Gratuit' : ''}
             {views != null && <span className="sp-modal-views"> · <IcoEye size={12} /> {fmtViews(views)} vizualizări unice</span>}
@@ -1453,8 +1462,8 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
             <input
               className="shop-search"
               type="text"
-              placeholder="Caută după denumire (ex: recepție, F.14, contract)"
-              aria-label="Caută în magazin"
+              placeholder="Căutați după denumire (ex: recepție, F.14, contract)"
+              aria-label="Căutați în magazin"
               value={query}
               onChange={e => setQuery(e.target.value)}
             />
@@ -1512,7 +1521,7 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
 
             {hasFilters && (
               <button type="button" className="shop-side__reset" onClick={resetFilters}>
-                Resetează filtrele
+                Resetați filtrele
               </button>
             )}
           </aside>
@@ -1532,8 +1541,8 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
           {total === 0 && (
             <div className="shop-empty">
               <h3>Niciun produs pentru filtrele alese</h3>
-              <p>Unele categorii sunt încă în lucru. Resetează filtrele sau scrie-ne ce document cauți.</p>
-              <button className="btn btn-outline" onClick={resetFilters}>Resetează filtrele</button>
+              <p>Unele categorii sunt încă în lucru. Resetați filtrele sau scrieți-ne ce document căutați.</p>
+              <button className="btn btn-outline" onClick={resetFilters}>Resetați filtrele</button>
             </div>
           )}
 
@@ -1552,15 +1561,15 @@ function ShopPage({ onNav, initialCategory = 'all' }) {
           {/* CTA banner */}
           <div className="shop-cta-banner">
             <div className="sp-cta__k">Servicii</div>
-            <h2 className="sp-cta__title">Documentație la comandă</h2>
+            <h2 className="sp-cta__title">Documentație și livrabile la comandă</h2>
             <p className="sp-cta__lead">
-              Nu ai găsit instrumentul potrivit? Îl putem elabora sau adapta pe procedura, proiectul sau fluxul tău de lucru.
+              Nu regăsiți în catalog livrabilul de care aveți nevoie? Îl elaborăm pe măsură sau adaptăm un model existent la procedura, proiectul și fluxul dumneavoastră de lucru.
             </p>
             <button
               className="btn btn-primary"
               onClick={() => { onNav('contact'); window.scrollTo({ top: 0, behavior: 'instant' }); }}
             >
-              Descrie ce îți trebuie
+              Solicitați o ofertă
             </button>
           </div>
 
@@ -1596,29 +1605,29 @@ const ORDER_STATES = {
     tone: 'wait',
     tag: 'Se verifică',
     title: 'Verificăm plata',
-    lead: 'Durează doar câteva secunde. Nu închide pagina și nu relua plata.',
+    lead: 'Durează doar câteva secunde. Nu închideți pagina și nu reluați plata.',
     steps: [],
   },
   ok: {
     tone: 'ok',
     tag: 'Plătită',
     title: 'Plata a fost confirmată',
-    lead: 'Îți mulțumim. Îți trimitem documentul pe adresa de email din comandă.',
+    lead: 'Vă mulțumim. Vă trimitem documentul pe adresa de email din comandă.',
     steps: [
-      'Deschide emailul de la INFORMS și descarcă documentul. Linkul e valabil 72 de ore.',
-      'Nu îl găsești în 10 minute? Verifică folderele Spam și Promoții.',
-      'Tot nimic? Scrie-ne la ' + COMPANY.email + ' cu numărul comenzii de mai sus.',
+      'Deschideți emailul de la INFORMS și descărcați documentul. Linkul e valabil 72 de ore.',
+      'Nu îl găsiți în 10 minute? Verificați folderele Spam și Promoții.',
+      'Tot nimic? Scrieți-ne la ' + COMPANY.email + ' cu numărul comenzii de mai sus.',
     ],
   },
   pending: {
     tone: 'wait',
     tag: 'În procesare',
     title: 'Plata este în curs de procesare',
-    lead: 'Banca verifică tranzacția. Imediat ce plata e confirmată, primești documentul pe email, automat.',
+    lead: 'Banca verifică tranzacția. Imediat ce plata e confirmată, primiți documentul pe email, automat.',
     steps: [
-      'Nu relua plata până nu primești un răspuns.',
-      'Pagina se actualizează singură cât timp o ții deschisă.',
-      'Dacă nu primești nimic într-o oră, scrie-ne la ' + COMPANY.email + '.',
+      'Nu reluați plata până nu primiți un răspuns.',
+      'Pagina se actualizează singură cât timp o țineți deschisă.',
+      'Dacă nu primiți nimic într-o oră, scrieți-ne la ' + COMPANY.email + '.',
     ],
   },
   fail: {
@@ -1628,8 +1637,8 @@ const ORDER_STATES = {
     lead: 'Tranzacția a fost respinsă sau anulată de bancă ori întreruptă înainte de final.',
     steps: [
       'O sumă blocată pe card o eliberează banca automat, de regulă în câteva zile lucrătoare.',
-      'Poți relua comanda din magazin, cu același card sau cu altul.',
-      'Preferi transferul bancar? Scrie-ne și îți trimitem factura proforma.',
+      'Puteți relua comanda din magazin, cu același card sau cu altul.',
+      'Preferați transferul bancar? Scrieți-ne și vă trimitem factura proforma.',
     ],
   },
 };
@@ -1712,9 +1721,9 @@ function OrderStatusPage({ onNav }) {
 
             <footer className="os-actions">
               <button className="btn btn-primary" onClick={() => go('magazin')}>
-                {key === 'fail' ? 'Reia comanda' : 'Înapoi în magazin'}
+                {key === 'fail' ? 'Reluați comanda' : 'Înapoi în magazin'}
               </button>
-              <button className="btn btn-outline" onClick={() => go('contact')}>Contactează-ne</button>
+              <button className="btn btn-outline" onClick={() => go('contact')}>Contactați-ne</button>
             </footer>
           </article>
         </div>
