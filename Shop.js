@@ -1028,11 +1028,10 @@ const CHECKOUT_FIELDS = [{
   type: 'email'
 }, {
   k: 'phone',
-  label: 'Telefon',
+  label: 'Telefon (opțional)',
   ph: '+40 7xx xxx xxx',
   w: 2,
-  type: 'tel',
-  pfOptional: true
+  type: 'tel'
 }, {
   k: 'address',
   label: 'Adresă *',
@@ -1056,8 +1055,9 @@ const CHECKOUT_FIELDS = [{
   pfOptional: true
 }];
 
-/* Telefonul și codul poștal sunt opționale doar la persoana fizică;
-   pentru factura pe firmă rămân obligatorii (vezi și api/netopia-start.js). */
+/* Telefonul e opțional pentru toți. Codul poștal e opțional doar la
+   persoana fizică; pe factura pe firmă rămâne obligatoriu (vezi și
+   api/netopia-start.js). */
 const fieldLabel = (f, entity) => f.pfOptional ? f.label + (entity === 'pj' ? ' *' : ' (opțional)') : f.label;
 
 /* Doar pentru persoana juridica. Oblio decide dupa CUI daca factura
@@ -1075,7 +1075,7 @@ const COMPANY_FIELDS = [{
   w: 1
 }];
 const REQUIRED_FIELDS = ['lastName', 'firstName', 'email', 'address', 'city', 'state'];
-const REQUIRED_FIELDS_PJ = REQUIRED_FIELDS.concat(['phone', 'postalCode', 'company', 'cui']);
+const REQUIRED_FIELDS_PJ = REQUIRED_FIELDS.concat(['postalCode', 'company', 'cui']);
 function CheckoutForm({
   product,
   onNav

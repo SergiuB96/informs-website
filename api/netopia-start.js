@@ -1,10 +1,10 @@
 import { getProduct } from './_lib/products.js';
 import { mintOrderID, buildStartPayload, startPayment, siteUrl, baseUrl } from './_lib/netopia.js';
 
-/* Telefonul și codul poștal sunt cerute doar pentru factura pe firmă
-   (cu CUI); o persoană fizică le poate lăsa goale. */
+/* Telefonul e opțional pentru toți. Codul poștal e cerut doar pentru
+   factura pe firmă (cu CUI); o persoană fizică îl poate lăsa gol. */
 const REQUIRED = ['firstName', 'lastName', 'email', 'address', 'city', 'state'];
-const REQUIRED_COMPANY = ['phone', 'postalCode'];
+const REQUIRED_COMPANY = ['postalCode'];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /* Mesaje pentru codurile de eroare documentate de NETOPIA. */
@@ -79,6 +79,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Completați toate câmpurile obligatorii.' });
     }
   }
+  billing.phone = clean(body.phone);
   if (!EMAIL_RE.test(billing.email)) {
     return res.status(400).json({ error: 'Adresa de email nu este validă.' });
   }
