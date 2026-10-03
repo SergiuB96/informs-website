@@ -373,9 +373,7 @@ function Footer() {
     href: "/politica-livrare"
   }, "Politica de livrare")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
     href: "/politica-anulare"
-  }, "Anulare \u0219i retur")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("a", {
-    href: "/dreptul-de-retragere"
-  }, "Dreptul de retragere")))))), /*#__PURE__*/React.createElement("div", {
+  }, "Anulare \u0219i retur")))))), /*#__PURE__*/React.createElement("div", {
     className: "ftr__badges"
   }, /*#__PURE__*/React.createElement("div", {
     className: "ftr__badge-row"

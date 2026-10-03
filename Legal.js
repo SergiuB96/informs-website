@@ -219,7 +219,7 @@ function TermsPage({
     title: "Dreptul de retragere, anulare \u0219i rambursare"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "\xCEn calitate de consumator beneficia\u021Bi, ca regul\u0103, de un drept de retragere de ", COMMERCE.withdrawalDays, " zile, exercitabil online, f\u0103r\u0103 justificare \u0219i f\u0103r\u0103 penalit\u0103\u021Bi. Pentru con\u021Binutul digital livrat imediat exist\u0103 \xEEns\u0103 o excep\u021Bie legal\u0103, pe care o accepta\u021Bi expres la momentul comenzii, printr-o bif\u0103 separat\u0103."), /*#__PURE__*/React.createElement("p", {
+  }, "\xCEn calitate de consumator beneficia\u021Bi, ca regul\u0103, de un drept de retragere de ", COMMERCE.withdrawalDays, " zile, exercitabil online, f\u0103r\u0103 justificare \u0219i f\u0103r\u0103 penalit\u0103\u021Bi. Pentru con\u021Binutul digital livrat imediat exist\u0103 \xEEns\u0103 o excep\u021Bie legal\u0103, pe care o accepta\u021Bi expres la momentul comenzii, prin bifa de acord din formularul de comand\u0103."), /*#__PURE__*/React.createElement("p", {
     style: S.p
   }, "Detaliile, excep\u021Bia aplicabil\u0103 \u0219i formularul online se afl\u0103 \xEEn ", /*#__PURE__*/React.createElement(L, {
     to: "dreptul-de-retragere",
@@ -781,7 +781,7 @@ function WithdrawalPage({
     style: S.p
   }, "Toate produsele din magazinul ", COMPANY.brand, " sunt con\u021Binut digital care nu este livrat pe un suport material. Pentru astfel de produse, art. 16 lit. m din OUG 34/2014 prevede c\u0103 dreptul de retragere se pierde dac\u0103 executarea contractului a \xEEnceput cu ", /*#__PURE__*/React.createElement("strong", null, "acordul prealabil expres al consumatorului"), " \u0219i cu confirmarea c\u0103 acesta ia cuno\u0219tin\u021B\u0103 de pierderea dreptului."), /*#__PURE__*/React.createElement("p", {
     style: S.p
-  }, "De aceea, la finalizarea comenzii v\u0103 cerem o ", /*#__PURE__*/React.createElement("strong", null, "bif\u0103 separat\u0103"), " prin care confirma\u021Bi c\u0103 sunte\u021Bi de acord cu livrarea imediat\u0103 a documentului \u0219i c\u0103 \xEEn\u021Belege\u021Bi c\u0103, odat\u0103 \xEEnceput\u0103 desc\u0103rcarea, nu v\u0103 mai pute\u021Bi retrage din contract."), /*#__PURE__*/React.createElement("p", {
+  }, "De aceea, la finalizarea comenzii, bifa de acord din formular con\u021Bine \u0219i ", /*#__PURE__*/React.createElement("strong", null, "solicitarea expres\u0103"), " de livrare imediat\u0103 a documentului."), /*#__PURE__*/React.createElement("p", {
     style: S.p
   }, "F\u0103r\u0103 acest acord comanda online nu poate fi finalizat\u0103, pentru c\u0103 documentul se livreaz\u0103 imediat dup\u0103 plat\u0103. Dac\u0103 dori\u021Bi s\u0103 p\u0103stra\u021Bi dreptul de retragere, scrie\u021Bi-ne la ", /*#__PURE__*/React.createElement("a", {
     href: 'mailto:' + COMPANY.email,
@@ -810,11 +810,6 @@ function WithdrawalPage({
     style: S.link
   }, COMPANY.email), "."), /*#__PURE__*/React.createElement(WithdrawalForm, null)), /*#__PURE__*/React.createElement(Sec, {
     n: "5",
-    title: "Efectele retragerii"
-  }, /*#__PURE__*/React.createElement("p", {
-    style: S.p
-  }, "Dac\u0103 v\u0103 retrage\u021Bi valabil, ramburs\u0103m integral suma \xEEncasat\u0103, folosind aceea\u0219i modalitate de plat\u0103, \xEEn termen de cel mult ", /*#__PURE__*/React.createElement("strong", null, COMMERCE.refundDays, " zile"), " de la data la care am fost informa\u021Bi. Nu percepem comisioane pentru rambursare.")), /*#__PURE__*/React.createElement(Sec, {
-    n: "6",
     title: "Model de declara\u021Bie de retragere"
   }, /*#__PURE__*/React.createElement("p", {
     style: S.p

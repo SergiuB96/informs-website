@@ -714,6 +714,10 @@
         if (out && out.ok === false) throw new Error(out.error || 'respins de server');
         say('ok', 'Mesajul a fost trimis. Vă răspundem în cel mult o zi lucrătoare, la ' + data.email + '.');
         form.reset();
+        // GA există doar cu acordul pentru analiză; trimitem doar subiectul, fără date personale
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'generate_lead', { form_name: 'contact', lead_subject: data.subiect });
+        }
       }).catch(function (err) {
         say('err', 'Mesajul nu a putut fi trimis (' + err.message + '). Scrieți-ne direct la office@informs.ro și vă răspundem la fel de repede.');
       }).then(function () {

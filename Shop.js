@@ -1093,7 +1093,6 @@ function CheckoutForm({
     cui: ''
   });
   const [terms, setTerms] = useState(false);
-  const [waiver, setWaiver] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [entity, setEntity] = useState('pf');
@@ -1146,8 +1145,7 @@ function CheckoutForm({
   const cuiValid = v => /^(RO)?\s?\d{2,10}$/i.test(v.trim());
   const obligatorii = entity === 'pj' ? REQUIRED_FIELDS_PJ : REQUIRED_FIELDS;
   const complete = obligatorii.every(k => (form[k] || '').trim()) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()) && (entity !== 'pj' || cuiValid(form.cui));
-  /* Renunțarea la dreptul de retragere privește doar consumatorul. */
-  const ready = complete && terms && (entity === 'pj' || waiver);
+  const ready = complete && terms;
 
   /* In form.state tinem NUMELE judetului, nu codul: campul pleaca asa
      cum e catre Oblio si ajunge pe factura, unde „AB” ar fi gresit.
@@ -1172,12 +1170,16 @@ function CheckoutForm({
           sku: product.sku,
           ...form,
           acceptTerms: terms,
-          acceptWaiver: entity === 'pf' && waiver
+          acceptWaiver: entity === 'pf' && terms
         })
       });
       const json = await res.json();
       if (res.ok && json.paymentURL) {
-        if (json.orderID) rememberOrder(json.orderID);
+        if (json.orderID) rememberOrder(json.orderID, {
+          item_id: product.sku,
+          item_name: product.title,
+          price: product.price
+        });
         window.location.assign(json.paymentURL);
         return;
       }
@@ -1260,19 +1262,7 @@ function CheckoutForm({
       e.preventDefault();
       go('politica-confidentialitate');
     }
-  }, "Politica de confiden\u021Bialitate"), ". *")), entity === 'pf' && /*#__PURE__*/React.createElement("label", {
-    className: "sp-check"
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    checked: waiver,
-    onChange: e => setWaiver(e.target.checked)
-  }), /*#__PURE__*/React.createElement("span", null, "Solicit livrarea imediat\u0103 a documentului digital \u0219i confirm c\u0103, odat\u0103 \xEEnceput\u0103 livrarea, \xEEmi pierd ", /*#__PURE__*/React.createElement("a", {
-    href: "/dreptul-de-retragere",
-    onClick: e => {
-      e.preventDefault();
-      go('dreptul-de-retragere');
-    }
-  }, "dreptul de retragere"), " de ", COMMERCE.withdrawalDays, " zile. *")), error && /*#__PURE__*/React.createElement("p", {
+  }, "Politica de confiden\u021Bialitate"), ".", entity === 'pf' ? /*#__PURE__*/React.createElement(React.Fragment, null, " Solicit livrarea imediat\u0103 a documentului digital la adresa de email din formular. *") : /*#__PURE__*/React.createElement(React.Fragment, null, " Documentul digital se livreaz\u0103 imediat dup\u0103 confirmarea pl\u0103\u021Bii, la adresa de email din formular. *"))), error && /*#__PURE__*/React.createElement("p", {
     className: "sp-err"
   }, error), /*#__PURE__*/React.createElement("button", {
     type: "submit",
@@ -1692,13 +1682,24 @@ function ProductPage({
    NETOPIA, trimitem clientul la „Stare comandă”. */
 const PENDING_ORDER_KEY = 'informs_order';
 const PENDING_ORDER_TTL = 60 * 60 * 1000;
-function rememberOrder(orderID) {
+function rememberOrder(orderID, item) {
   try {
     sessionStorage.setItem(PENDING_ORDER_KEY, JSON.stringify({
       orderID,
+      item,
       at: Date.now()
     }));
   } catch {/* stocare blocată */}
+}
+
+/* Produsul comenzii păstrate, pentru evenimentul purchase din GA. */
+function pendingItem(orderID) {
+  try {
+    const v = JSON.parse(sessionStorage.getItem(PENDING_ORDER_KEY) || 'null');
+    return v && v.orderID === orderID && v.item ? v.item : null;
+  } catch {
+    return null;
+  }
 }
 function pendingOrder() {
   try {
@@ -1712,6 +1713,54 @@ function forgetOrder() {
   try {
     sessionStorage.removeItem(PENDING_ORDER_KEY);
   } catch {/* stocare blocată */}
+}
+
+/* ─── Google Analytics: evenimentul purchase ─────
+   gtag există doar după acordul pentru cookie-uri de analiză, iar
+   js/analytics.js se încarcă după App.js, deci îl așteptăm câteva
+   secunde. Fără acord, evenimentul nu pleacă deloc. */
+const GA_WAIT_MS = 500;
+const GA_WAIT_TRIES = 10;
+const GA_SENT_PREFIX = 'informs_ga_purchase_';
+function whenGtag(fn, tries = GA_WAIT_TRIES) {
+  if (typeof window.gtag === 'function') {
+    fn(window.gtag);
+    return;
+  }
+  if (tries > 0) setTimeout(() => whenGtag(fn, tries - 1), GA_WAIT_MS);
+}
+
+/* Prețul e și în numărul comenzii (vezi mintOrderID din
+   api/_lib/netopia.js), pentru cazul în care sessionStorage s-a pierdut. */
+function priceFromOrderID(orderID) {
+  const n = Number(String(orderID || '').split('-')[4]);
+  return Number.isFinite(n) && n > 0 ? n : 0;
+}
+
+/* O singură dată pe comandă: o reîncărcare a paginii nu dublează vânzarea. */
+function trackPurchase(orderID, item) {
+  if (!orderID) return;
+  const sentKey = GA_SENT_PREFIX + orderID;
+  try {
+    if (localStorage.getItem(sentKey)) return;
+  } catch {/* stocare blocată */}
+  const value = item ? item.price : priceFromOrderID(orderID);
+  whenGtag(gtag => {
+    gtag('event', 'purchase', {
+      transaction_id: orderID,
+      currency: COMMERCE.currency,
+      value,
+      items: item ? [{
+        item_id: item.item_id,
+        item_name: item.item_name,
+        price: item.price,
+        quantity: 1
+      }] : []
+    });
+    try {
+      localStorage.setItem(sentKey, '1');
+    } catch {/* stocare blocată */}
+  });
 }
 function cameFromNetopia() {
   try {
@@ -1946,6 +1995,7 @@ function OrderStatusPage({
   /* Fixat la prima randare: forgetOrder() golește sessionStorage, iar
      numărul comenzii trebuie să rămână afișat. */
   const [orderID] = useState(() => params.get('o') || pendingOrder());
+  const [item] = useState(() => pendingItem(orderID));
   /* v=1: am venit pe cancelUrl, care la NETOPIA înseamnă și „Înapoi la
      magazin” după o plată reușită. Verificăm scurt comanda păstrată;
      dacă nu e plătită, rămâne „nefinalizată”. */
@@ -1998,6 +2048,9 @@ function OrderStatusPage({
     // făcute de ea nu trebuie să o repornească
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderID]);
+  useEffect(() => {
+    if (key === 'ok') trackPurchase(orderID, item);
+  }, [key]);
   const st = ORDER_STATES[key] || ORDER_STATES.pending;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "pg-hero"

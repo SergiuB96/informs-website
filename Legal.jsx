@@ -187,7 +187,7 @@ function TermsPage({ onNav }) {
         <p style={S.p}>
           În calitate de consumator beneficiați, ca regulă, de un drept de retragere de {COMMERCE.withdrawalDays} zile, exercitabil online,
           fără justificare și fără penalități. Pentru conținutul digital livrat imediat există însă o excepție legală, pe care o acceptați
-          expres la momentul comenzii, printr-o bifă separată.
+          expres la momentul comenzii, prin bifa de acord din formularul de comandă.
         </p>
         <p style={S.p}>
           Detaliile, excepția aplicabilă și formularul online se află în <L to="dreptul-de-retragere" onNav={onNav}>Dreptul de retragere</L>,
@@ -795,8 +795,8 @@ function WithdrawalPage({ onNav }) {
           cu <strong>acordul prealabil expres al consumatorului</strong> și cu confirmarea că acesta ia cunoștință de pierderea dreptului.
         </p>
         <p style={S.p}>
-          De aceea, la finalizarea comenzii vă cerem o <strong>bifă separată</strong> prin care confirmați că sunteți de acord cu livrarea
-          imediată a documentului și că înțelegeți că, odată începută descărcarea, nu vă mai puteți retrage din contract.
+          De aceea, la finalizarea comenzii, bifa de acord din formular conține și <strong>solicitarea expresă</strong> de livrare
+          imediată a documentului.
         </p>
         <p style={S.p}>
           Fără acest acord comanda online nu poate fi finalizată, pentru că documentul se livrează imediat după plată. Dacă doriți să
@@ -829,14 +829,8 @@ function WithdrawalPage({ onNav }) {
         <WithdrawalForm />
       </Sec>
 
-      <Sec n="5" title="Efectele retragerii">
-        <p style={S.p}>
-          Dacă vă retrageți valabil, rambursăm integral suma încasată, folosind aceeași modalitate de plată, în termen de cel
-          mult <strong>{COMMERCE.refundDays} zile</strong> de la data la care am fost informați. Nu percepem comisioane pentru rambursare.
-        </p>
-      </Sec>
 
-      <Sec n="6" title="Model de declarație de retragere">
+      <Sec n="5" title="Model de declarație de retragere">
         <p style={S.p}>
           Dacă preferați să redactați singur cererea, puteți folosi textul următor:
         </p>
