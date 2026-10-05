@@ -238,5 +238,28 @@ window.SHOP_PREVIEWS = {
     "h": 1415
    }
   ]
+ },
+ "pte-lucrari-zidarie": {
+  "total": 13,
+  "pages": [
+   {
+    "src": "assets/previzualizari/pte-lucrari-zidarie/p2-e0631103.webp",
+    "page": 2,
+    "w": 1000,
+    "h": 1415
+   },
+   {
+    "src": "assets/previzualizari/pte-lucrari-zidarie/p5-9261dbc8.webp",
+    "page": 5,
+    "w": 1000,
+    "h": 1415
+   },
+   {
+    "src": "assets/previzualizari/pte-lucrari-zidarie/p7-0e474485.webp",
+    "page": 7,
+    "w": 1000,
+    "h": 1415
+   }
+  ]
  }
 };
